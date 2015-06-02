@@ -13,3 +13,7 @@ app/static/.sass-cache/*
 *.zip
 Archive/
 local_static/
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
