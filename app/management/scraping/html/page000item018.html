@@ -1,0 +1,162 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTEzNDc1IExlb25hcmR0b3duIFJvYWQsIFN1aXRlIDEwMiBXYWxkb3JmIE1EIDIwNjAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjM0NzUgTGVvbmFyZHRvd24gUm9hZCwgU3VpdGUgMTAyIFdhbGRvcmYsIE1EIDIwNjAyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDM5Ni01MjMzPGJyIC8+PGI+RmF4IE5vOjwvYj4oMzAxKSA5MzItOTM0MzxiciAvPmRkAgUPDxYCHwJlZGQCBw8PFgIfAgX/AzxiPkNhdGVnb3J5IDogPC9iPiBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gSW50ZW5zaXZlIG91dHBhdGllbnQsIE91dHBhdGllbnQ8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgRFVJL0RXSSBlZHVjYXRpb24gcHJvZ3JhbTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFNlbGYtcGF5bWVudDxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gU2xpZGluZyBmZWUgc2NhbGUgKEZlZSBpcyBiYXNlZCBvbiBpbmNvbWUgJmFtcDsgb3RoZXIgZmFjdG9ycyk8YnIgXD5kZAIJDw8WAh8CBS48Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5TcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFggE8Yj5EZXNjcmlwdGlvbjogPC9iPkFjY2VwdHMgQ2xpZW50cyBvbiBtZXRoYWRvbmUgZm9yIGl0cyBvdXRwYXRpZW50IHByb2dyYW0uDQoNClNsaWRpbmcgRmVlIGlzIGxpbWl0ZWQgdG8gJDQ1LSQ2NSBwZXIgZ3JvdXAuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQ2NB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZBvWK/Ggk+XH/RcyPBfC2Qrmjqdu" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL4sptRApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBvM5FBFmX7Q0xxTSmCMIDAYJ1xN0=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3475 Leonardtown Road, Suite 102 Waldorf MD 20602" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Alcohol and Drug Recovery (ADR)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3475 Leonardtown Road, Suite 102 Waldorf, MD 20602</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 396-5233<br /><b>Fax No:</b>(301) 932-9343<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, DUI/DWI education program<br \><b>Population : </b> Criminal justice involved, Men, Women<br \><b>Forms Of Payment : </b> Private health insurance, Self-payment<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Accepts Clients on methadone for its outpatient program.
+
+Sliding Fee is limited to $45-$65 per group.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

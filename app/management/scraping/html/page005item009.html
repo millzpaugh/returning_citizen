@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSMxOSBJIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQxOSBJIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODQyLTExMTI8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDg5OC0xNDQ5PGJyIC8+ZGQCBQ8PFgIfAgUyPGI+V2Vic2l0ZTogPC9iPnd3dy5mYXRoZXJtY2tlbm5hY2VudGVyLm9yZy88YnIgLz5kZAIHDw8WAh8CBYQDPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBIb3VzaW5nLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRGF5IHByb2dyYW1zL0Ryb3AtaW4gY2VudGVycywgTWF0ZXJpYWwgbmVlZHMsIE1vbmV0YXJ5IGFzc2lzdGFuY2UsIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTaGVsdGVycywgU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ2xvdGhpbmcsIEVtZXJnZW5jeSBmb29kL2dyb2NlcmllcywgRnJlZSBtZWFscy9Tb3VwIGtpdGNoZW5zLCBNYWlsICZhbXA7IHBob25lIHNlcnZpY2VzLCBNb3J0Z2FnZS9SZW50IChFUkFQKSwgVXRpbGl0aWVzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gSG9tZWxlc3MsIE1lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFZTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjI0IGhvdXIgc2hlbHRlcjsgc2VlIGRldGFpbHMgYmVsb3cgZm9yIGhvdXJzIG9mIGFkZGl0aW9uYWwgc2VydmljZXMuPGJyIC8+ZGQCDw8PFgIfAgUxPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gKHNoZWx0ZXIpLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXQDDxiPkRlc2NyaXB0aW9uOiA8L2I+RmF0aGVyIE1jS2VubmEgQ2VudGVyIEluYy4gd2FzIGVzdGFibGlzaGVkIGluIDE5ODMgdG8gY2Fycnkgb24gdGhlIGxlZ2FjeSBvZiBGYXRoZXIgSG9yYWNlIE1jS2VubmEsIGEgSmVzdWl0IHByaWVzdCB3aG8gZGV2b3RlZCBoaXMgbGlmZSB0byB0aGUgc2VydmljZSBvZiB0aGUgcG9vciBhbmQgaG9tZWxlc3MuIFRoZSBGYXRoZXIgTWNLZW5uYSBDZW50ZXIgY2FuIGVpdGhlciBwcm92aWRlIG9yIGVmZmljaWVudGx5IHJlZmVyIGd1ZXN0cyB0byBhbnkgc2VydmljZSBhIGhvbWVsZXNzIG1hbiBuZWVkcy4gVGhlIEZhdGhlciBNY0tlbm5hIENlbnRlciBpcyB0aGUgbGFzdCBkYXktdGltZSBkcm9wLWluIGNlbnRlciBmb3IgaG9tZWxlc3MgbWVuIGluIHRoZSBkb3dudG93biBXYXNoaW5ndG9uLCBEQyBhcmVhLiBUaGUgRmF0aGVyIE1jS2VubmEgQ2VudGVyIGFsc28gc2VydmVzIG1lbiwgd29tZW4gYW5kIGZhbWlsaWVzIHRocm91Z2ggaXRzIHByb2dyYW1zIHRoYXQgaW5jbHVkZToNCjxiciAvPg0KPGJyIC8+DQpUaGUgTWVuJ3MgZGF5LXRpbWUgZHJvcC1pbiBjZW50ZXI7IEZvb2QgcGFudHJ5IHNlcnZpbmcgZmFtaWxpZXMgYW5kIHNlbmlvciBjaXRpemVuczsgUmVudCBhbmQgdXRpbGl0eSBhc3Npc3RhbmNlIHRvIHByZXZlbnQgaG9tZWxlc3NuZXNzOyBDb2xkIHdlYXRoZXIgaHlwb3RoZXJtaWEgc2hlbHRlciB0byBwcmV2ZW50IGhvbWVsZXNzIG1lbiBmcm9tIGZyZWV6aW5nIHRvIGRlYXRoIG9uIG91ciBzdHJlZXRzOyBhbmQgQSBzbWFsbCB0cmFuc2l0aW9uYWwgbGl2aW5nIHByb2dyYW0uDQo8YnIgLz4NCjxiciAvPg0KSE9VU0lORw0KRmF0aGVyIE1jS2VubmEgQ2VudGVyIHByb3ZpZGVzIG92ZXJuaWdodCBzaGVsdGVyIGZvciBob21lbGVzcyBtZW4gZHVyaW5nIGh5cG90aGVybWlhIHNlYXNvbiAoTm92ZW1iZXIgdGhyb3VnaCBBcHJpbCkuICBNZW4gY29udHJpYnV0ZSB0byB0aGUgdXBrZWVwIG9mIHRoZSBmYWNpbGl0eS4NCjxiciAvPg0KPGJyIC8+DQpTT0NJQUwgU0VSVklDRVMNCjxiciAvPg0KVGhlIHNoZWx0ZXIgb2ZmZXJzIGNhc2UgbWFuYWdlbWVudCBhbmQgY291bnNlbGluZy4gTWVuIGF0dGVuZCBhIGRheSBwcm9ncmFtIGRhaWx5IChOQS9BQSBtZWV0aW5ncykuTHVuY2ggaXMgcHJvdmlkZWQgZm9yIHRob3NlIGF0dGVuZGluZy4gDQo8YnIgLz4NCjxiciAvPg0KQ2xvdGhpbmcgZGlzdHJpYnV0aW9uIG9jY3VycyBvbiBUdWVzZGF5cyBmcm9tIDg6MDAgYW0gLSAxMDowMCBhbS4gU2hvd2VycyBhcmUgb2ZmZXJlZCA4OjMwIGFtIC0gMTA6NDUgYW0uIExhdW5kcnkgc2VydmljZXMgYXJlIG9mZmVyZWQgTW9uZGF5IC0gRnJpZGF5LiBSZW50IGFuZCB1dGlsaXR5IHNlcnZpY2VzIGFyZSBvZmZlcmVkIGZvciBXYXJkIDYgcmVzaWRlbnRzIG9ubHkuIA0KPGJyIC8+DQo8YnIgLz4NCkVNRVJHRU5DWSBGT09EDQo8YnIgLz4NCkVtZXJnZW5jeSBmb29kIGlzIG9mZmVyZWQgZm9yIFdhcmQgNiByZXNpZGVudHMgb25seS4gDQo8YnIgLz4NCjxiciAvPg0KTmVhcmVzdCBNZXRybyBzdGF0aW9uOiBVbmlvbiBTdGF0aW9uIGFuZCBuZWFyZXN0IE1ldHJvIGJ1cyBsaW5lczogODAsIDk2ICYgWDIuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzMxNR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZJsKIPGv/fJCBzdQzH43H86S9qRi" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK/xf/VCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAfnUvduWSxZxCbl6u4NqY0kxqRGh" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="19 I Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Father McKenna Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">19 I Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 842-1112<br /><b>Fax No:</b>(202) 898-1449<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.fathermckennacenter.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing, Social Services<br \><b>Services : </b> Day programs/Drop-in centers, Material needs, Monetary assistance, Nutritional services, Shelters, Social services<br \><b>Program : </b> Clothing, Emergency food/groceries, Free meals/Soup kitchens, Mail &amp; phone services, Mortgage/Rent (ERAP), Utilities<br \><b>Population : </b> Homeless, Men<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24 hour shelter; see details below for hours of additional services.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men (shelter).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Father McKenna Center Inc. was established in 1983 to carry on the legacy of Father Horace McKenna, a Jesuit priest who devoted his life to the service of the poor and homeless. The Father McKenna Center can either provide or efficiently refer guests to any service a homeless man needs. The Father McKenna Center is the last day-time drop-in center for homeless men in the downtown Washington, DC area. The Father McKenna Center also serves men, women and families through its programs that include:
+<br />
+<br />
+The Men's day-time drop-in center; Food pantry serving families and senior citizens; Rent and utility assistance to prevent homelessness; Cold weather hypothermia shelter to prevent homeless men from freezing to death on our streets; and A small transitional living program.
+<br />
+<br />
+HOUSING
+Father McKenna Center provides overnight shelter for homeless men during hypothermia season (November through April).  Men contribute to the upkeep of the facility.
+<br />
+<br />
+SOCIAL SERVICES
+<br />
+The shelter offers case management and counseling. Men attend a day program daily (NA/AA meetings).Lunch is provided for those attending. 
+<br />
+<br />
+Clothing distribution occurs on Tuesdays from 8:00 am - 10:00 am. Showers are offered 8:30 am - 10:45 am. Laundry services are offered Monday - Friday. Rent and utility services are offered for Ward 6 residents only. 
+<br />
+<br />
+EMERGENCY FOOD
+<br />
+Emergency food is offered for Ward 6 residents only. 
+<br />
+<br />
+Nearest Metro station: Union Station and nearest Metro bus lines: 80, 96 & X2.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

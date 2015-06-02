@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTU2MzMgSW5kaWFuYSBBdmVudWUsIE5XICAybmQgRmxvb3IgV2FzaGluZ3RvbiBEQyAyMDAwNGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTY2MzMgSW5kaWFuYSBBdmVudWUsIE5XICAybmQgRmxvb3IgV2FzaGluZ3RvbiwgREMgMjAwMDRkZAIDDw8WAh8CBVo8Yj5Db250YWN0IFBlcnNvbjo8L2I+QXZpcyBFLiBCdWNoYW5uYW4tRGlyZWN0b3I8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjI4LTEyMDA8YnIgLz5kZAIFDw8WAh8CBSM8Yj5XZWJzaXRlOiA8L2I+d3d3LnBkc2RjLm9yZzxiciAvPmRkAgcPDxYCHwIFvQM8Yj5DYXRlZ29yeSA6IDwvYj4gTGVnYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTGVnYWw8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbHRlcm5hdGl2ZSBEaXNwdXRlIFJlc29sdXRpb24sIENyaW1pbmFsIGxhdy0tYWR1bHRzICZhbXA7IGp1dmVuaWxlLCBEb21lc3RpYyBWaW9sZW5jZSwgRW1wbG95bWVudCBMYXctLWRpc3B1dGVzICZhbXA7IHdvcmtlcidzIHJpZ2h0cywgRmFtaWx5IGxhdy0tY2hpbGQgY3VzdG9keSwgc3VwcG9ydCwgdmlzaXRhdGlvbiwgZ3VhcmRpYW5zaGlwLCBIdW1hbiB0cmFmZmlja2luZywgTGFuZGxvcmQvVGVuYW50L0ZhaXIgaG91c2luZywgUHVibGljIGJlbmVmaXRzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZDxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgWtBjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIFB1YmxpYyBEZWZlbmRlciBTZXJ2aWNlIChQRFMpIHByb3ZpZGVzIGFuZCBwcm9tb3RlcyBxdWFsaXR5IGxlZ2FsIHJlcHJlc2VudGF0aW9uIHRvIGluZGlnZW50IGFkdWx0cyBhbmQgY2hpbGRyZW4gZmFjaW5nIGEgbG9zcyBvZiBsaWJlcnR5IGluIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSBhbmQgdGhlcmVieSBwcm90ZWN0cyBzb2NpZXR5J3MgaW50ZXJlc3QgaW4gdGhlIGZhaXIgYWRtaW5pc3RyYXRpb24gb2YganVzdGljZS4gUERTIGhhbmRsZXMgYSB3aWRlIHJhbmdlIG9mIGNhc2VzIGludm9sdmluZyB0aGUgY29sbGF0ZXJhbCBjb25zZXF1ZW5jZXMgb2YgYSBjcmltaW5hbCBhcnJlc3QsIGNvbnZpY3Rpb24gb3IgYW4gZXh0ZW5kZWQgcGVyaW9kIG9mIGluY2FyY2VyYXRpb24gZm9yIFBEUyBjbGllbnRzOyBjaXZpbCBmb3JmZWl0dXJlOyBldmljdGlvbjsgZGVuaWFsIG9mIHB1YmxpYyBiZW5lZml0czsgZW1wbG95bWVudCB0ZXJtaW5hdGlvbjsgdGVybWluYXRpb24gb2YgcGFyZW50YWwgcmlnaHRzIGFuZCBvdGhlciBmYW1pbHkgY291cnQgcHJvY2VlZGluZ3MsIGltbWlncmF0aW9uIGFuZCBhY2FkZW1pYyBleHB1bHNpb24uIFNwZWNpYWwgRWR1Y2F0aW9uIEFkdm9jYXRlcyBlbnN1cmUgdGhhdCB5b3V0aCByZWNlaXZlIGFwcHJvcHJpYXRlIGRpYWdub3N0aWMgYXNzZXNzbWVudCBhbmQgSW5kaXZpZHVhbGl6ZWQgRWR1Y2F0aW9uIFByb2dyYW0gKElFUCksIGFuZCB3aGVyZSBhcHByb3ByaWF0ZSwgc2VjdXJlIGFsdGVybmF0aXZlIGVkdWNhdGlvbmFsIHByb2dyYW1zLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMyMDceDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQWahxUw+5gZeH7tNK0RYm66l2gUw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKG5rKiAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAbz+XPCIpDlVV6Cu0O7rD/WMson+" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="633 Indiana Avenue, NW  2nd Floor Washington DC 20004" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Public Defender Service" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">633 Indiana Avenue, NW  2nd Floor Washington, DC 20004</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Avis E. Buchannan-Director<br /><b>Phone No:</b>(202) 628-1200<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.pdsdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Alternative Dispute Resolution, Criminal law--adults &amp; juvenile, Domestic Violence, Employment Law--disputes &amp; worker's rights, Family law--child custody, support, visitation, guardianship, Human trafficking, Landlord/Tenant/Fair housing, Public benefits<br \><b>Population : </b> Criminal justice involved<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Public Defender Service (PDS) provides and promotes quality legal representation to indigent adults and children facing a loss of liberty in the District of Columbia and thereby protects society's interest in the fair administration of justice. PDS handles a wide range of cases involving the collateral consequences of a criminal arrest, conviction or an extended period of incarceration for PDS clients; civil forfeiture; eviction; denial of public benefits; employment termination; termination of parental rights and other family court proceedings, immigration and academic expulsion. Special Education Advocates ensure that youth receive appropriate diagnostic assessment and Individualized Education Program (IEP), and where appropriate, secure alternative educational programs.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

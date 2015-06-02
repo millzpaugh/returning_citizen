@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8yMTIgRWFzdCBDYXBpdG9sIFN0cmVldCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAwM2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAyMTIgRWFzdCBDYXBpdG9sIFN0cmVldCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMDNkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTQzLTQyMDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDU0My00MjAxPGJyIC8+ZGQCBQ8PFgIfAgUrPGI+V2Vic2l0ZTogPC9iPnd3dy5yZWZvcm1hdGlvbmRjLm9yZzxiciAvPmRkAgcPDxYCHwIFhAE8Yj5DYXRlZ29yeSA6IDwvYj4gRW1lcmdlbmN5IEZvb2Q8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTnV0cml0aW9uYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBFbWVyZ2VuY3kgZm9vZC9ncm9jZXJpZXM8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUU8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgIDk6MDAgYW0gdG8gNDowMCBwbS48YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgX3BzxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIEx1dGhlcmFuIENodXJjaCBvZiB0aGUgUmVmb3JtYXRpb24gKExDUikgY29tbXVuaXR5IHNlcnZpY2UgbWluaXN0cnkgc3RyaXZlcyB0aHJvdWdoIHJlYWNoaW5nIG91dCBpbiBmZWxsb3dzaGlwIGFuZCBoZWxwaW5nIG91ciBuZWlnaGJvcnMgaXMgYXQgdGhlIHZlcnkgcm9vdCBvZiBvdXIgQ2hyaXN0aWFuIGZhaXRoLiAgQXMgYSBjb25ncmVnYXRpb24sIExDUiBoYXZlIGJlZW4gaGVscGluZyBuZWlnaGJvcnMgaW4gbmVlZCB0aHJvdWdoIHRoZSBTb3V0aGVhc3QgTWluaXN0cnksIHRoZSBmb29kIHBhbnRyeSwgYW5kIEdsb2JhbCBNaXNzaW9ucy4gIEl0IHJlYWZmaXJtcyBvdXIgYm9uZHMgd2l0aCBlYWNoIG90aGVyIGFuZCB3aXRoIG91ciBMb3JkIGFuZCBTYXZpb3IgSmVzdXMgQ2hyaXN0LCB3aG8gZmlyc3QgYW5kIGJlc3Qgc2hvd2VkIHRoZSBwb3dlciBvZiBzaW1wbGUga2luZG5lc3MgYW5kIHNlbGZsZXNzIGdpdmluZy4NCjxiciAvPg0KPGJyIC8+DQpFTUVSR0VOQ1kgRk9PRA0KPGJyIC8+DQpUaGUgTHV0aGVyYW4gQ2h1cmNoIG9mIHRoZSBSZWZvcm1hdGlvbiBkaXN0cmlidXRlcyBmb29kIGJhZ3MgKG5vbi1wZXJpc2hhYmxlcyBhbmQgcGFja2FnZWQgZ29vZHMpIGV2ZXJ5IG90aGVyIG1vbnRoLiBSZWNpcGllbnRzIG11c3QgaGF2ZSBhIGN1cnJlbnQgcmVmZXJyYWwuIEZvb2QgYmFncyBhcmUgZ2l2ZW4gdG8gYW55b25lIGluIG5lZWQuIA0KPGJyIC8+DQo8YnIgLz4NClNPQ0lBTCBTRVJWSUNFUw0KPGJyIC8+DQpBbGNvaG9sIEFub255bW91cyAoQUEpIG1lZXRpbmdzIGFyZSBvZmZlcmVkIG9uIE1vbmRheXMgYW5kIFRodXJzZGF5cyBmcm9tIDg6MzAgcG0gdG8gOTozMCBwbSBhbmQgT0EgKCJPdmVyZWF0ZXJzIEFub255bW91cyIpIG1lZXRpbmdzIGFyZSBvZmZlcmVkIG9uIE1vbmRheXMgYXQgbm9vbiBhbmQgVGh1cnNkYXlzIGF0IDY6MDAgcG0uIA0KPGJyIC8+DQo8YnIgLz4NCk1ldHJvIGJ1czogMzIsIDM0IGFuZCBQNi48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNTk5Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkLVDoHLjyBJ0Mus6GT1kvuq+TiDo=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKX3oe+BgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZXZeV16pPgpJKp7/rciX+M17q2o" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="212 East Capitol Street, NE Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Lutheran Church of the Reformation" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">212 East Capitol Street, NE Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 543-4200<br /><b>Fax No:</b>(202) 543-4201<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.reformationdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food<br \><b>Services : </b> Nutritional services<br \><b>Program : </b> Emergency food/groceries<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday  9:00 am to 4:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Lutheran Church of the Reformation (LCR) community service ministry strives through reaching out in fellowship and helping our neighbors is at the very root of our Christian faith.  As a congregation, LCR have been helping neighbors in need through the Southeast Ministry, the food pantry, and Global Missions.  It reaffirms our bonds with each other and with our Lord and Savior Jesus Christ, who first and best showed the power of simple kindness and selfless giving.
+<br />
+<br />
+EMERGENCY FOOD
+<br />
+The Lutheran Church of the Reformation distributes food bags (non-perishables and packaged goods) every other month. Recipients must have a current referral. Food bags are given to anyone in need. 
+<br />
+<br />
+SOCIAL SERVICES
+<br />
+Alcohol Anonymous (AA) meetings are offered on Mondays and Thursdays from 8:30 pm to 9:30 pm and OA ("Overeaters Anonymous") meetings are offered on Mondays at noon and Thursdays at 6:00 pm. 
+<br />
+<br />
+Metro bus: 32, 34 and P6.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTE0MDAxIFNvdXRoIENhcGl0b2wgU3RyZWV0LCBTVyBXYXNoaW5ndG9uIERDIDIwMDMyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjQwMDEgU291dGggQ2FwaXRvbCBTdHJlZXQsIFNXIFdhc2hpbmd0b24sIERDIDIwMDMyZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY0NS00NTQ2PGJyIC8+ZGQCBQ8PFgIfAgUkPGI+V2Vic2l0ZTogPC9iPnd3dy5kaHMuZGMuZ292PGJyIC8+ZGQCBw8PFgIfAgX2ATxiPkNhdGVnb3J5IDogPC9iPiBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQXBwbHkgZm9yIGJlbmVmaXRzL1N1YnNpZGllczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IE1lZGljYWwgYXNzaXN0YW5jZSwgU3VwcGxlbWVudGFsIE51dHJpdGlvbmFsIEFzc2lzdGFuY2UgUHJvZ3JhbSAoU05BUC9Gb29kIHN0YW1wcyksIFRBTkYgKFRlbXBvcmFyeSBBc3Npc3RhbmNlIHRvIE5lZWR5IEZhbWlsaWVzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVSPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5DYWxsIGN1c3RvbWVyIHNlcnZpY2UgdG8gZGV0ZXJtaW5lIGVsaWdpYmlsaXR5LjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgX+BDxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIEluY29tZSBNYWludGVuYW5jZSBBZG1pbmlzdHJhdGlvbiAoSU1BKSwgaXMgYSBEZWNlbnRyYWxpemVkIFNlcnZpY2UgQ2VudGVyLCBmb3IgcGVyc29ucyB0byBzZWVrIGVucm9sbG1lbnQgaW4gc2VydmljZXMgcHJvdmlkZWQgdGhyb3VnaCBUZW1wb3JhcnkgQXNzaXN0YW5jZSB0byBOZWVkeSBGYW1pbGllcyAoVEFORiksIFN1cHBsZW1lbnRhbCBOdXRyaXRpb25hbCBBc3Npc3RhbmNlIFByb2dyYW0gKFNOQVAvZm9vZCBzdGFtcHMpLCBJbnRlcmltIERpc2FiaWxpdHkgQXNzaXN0YW5jZSAoSURBKSBhbmQgTWVkaWNhbCBBc3Npc3RhbmNlLiBEQyByZXNpZGVudHMgc2hvdWxkIGZpcnN0IGNhbGwgdGhlIEluY29tZSBNYWludGVuYW5jZSBDdXN0b21lciBTZXJ2aWNlIENlbnRlciBhdCAoMjAyKSA3MjQtNTUwNiB0byBkZXRlcm1pbmUgZWxpZ2liaWxpdHkgYW5kIGxvY2F0aW9uIG9mIHRoZSBTZXJ2aWNlIENlbnRlciB0aGF0IHdpbGwgc2VydmljZSB0aGVpciBjbGFpbS4NCjxiciAvPg0KPGJyIC8+DQpDdXN0b21lciBTZXJ2aWNlIENlbnRlcjogMzMgTiBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDAyDQooMjAyKSA3MjctNTM1NSwgRmF4ICgyMDIpIDUzNS0xNjY0PGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzYzMx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZE+vkzYtdJuochrPkUYVylZjizPj" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL2zoC8BQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAS7l2nID0dVUbj5/Dm0K63V/AAOf" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4001 South Capitol Street, SW Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Department of Human Services/Economic Security Administration - Congress Heights" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4001 South Capitol Street, SW Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 645-4546<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dhs.dc.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Apply for benefits/Subsidies<br \><b>Program : </b> Medical assistance, Supplemental Nutritional Assistance Program (SNAP/Food stamps), TANF (Temporary Assistance to Needy Families)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Call customer service to determine eligibility.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Income Maintenance Administration (IMA), is a Decentralized Service Center, for persons to seek enrollment in services provided through Temporary Assistance to Needy Families (TANF), Supplemental Nutritional Assistance Program (SNAP/food stamps), Interim Disability Assistance (IDA) and Medical Assistance. DC residents should first call the Income Maintenance Customer Service Center at (202) 724-5506 to determine eligibility and location of the Service Center that will service their claim.
+<br />
+<br />
+Customer Service Center: 33 N Street, NE Washington, DC 20002
+(202) 727-5355, Fax (202) 535-1664<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

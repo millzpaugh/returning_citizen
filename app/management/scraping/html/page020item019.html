@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTExMjIwIDEydGggU3RyZWV0LCBTRSBTVEUuIDEyMCBXYXNoaW5ndG9uIERDIDIwMDAzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjEyMjAgMTJ0aCBTdHJlZXQsIFNFIFNURS4gMTIwIFdhc2hpbmd0b24sIERDIDIwMDAzZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDI3Ni0zMzgxPGJyIC8+ZGQCBQ8PFgIfAgU8PGI+V2Vic2l0ZTogPC9iPnd3dy51bml0eWhlYWx0aGNhcmUub3JnL0hlYWx0aFZhbi5odG1sPGJyIC8+ZGQCBw8PFgIfAgWKAzxiPkNhdGVnb3J5IDogPC9iPiBNZWRpY2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGg8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFByaW1hcnkgKEFkdWx0LCBGYW1pbHkgJmFtcDsgUGVkaWF0cmljcyk8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBNZWRpY2FpZCwgTWVkaWNhcmUsIFByaXZhdGUgaGVhbHRoIGluc3VyYW5jZSwgUHVibGljIGZ1bmRpbmcsIFNlbGYtcGF5bWVudCwgU3RhdGUgZmluYW5jZWQgaW5zdXJhbmNlIChvdGhlciB0aGFuIE1lZGljYWlkKTxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gU2xpZGluZyBmZWUgc2NhbGUgKEZlZSBpcyBiYXNlZCBvbiBpbmNvbWUgJmFtcDsgb3RoZXIgZmFjdG9ycyk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBWU8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXktVGh1cnNkYXkgNTowMCBwbSDigJMgOTowMCBwbTsgYW5kIEZyaWRheSA3OjMwYW0g4oCTIDEyOjAwIHBtLjxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBbsKPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgTWVkaWNhbCBPdXRyZWFjaCBWYW4gcHJvdmlkZXMgbWVkaWNhbCBhbmQgc29jaWFsIHNlcnZpY2VzIHRvIGhvbWVsZXNzIG1lbiBhbmQgd29tZW4gaW4gdGhlIGFyZWFzIHdoZXJlIHRoZXkgY29uZ3JlZ2F0ZS4NCjxiciAvPg0KPGJyIC8+DQpCeSBwcm92aWRpbmcgc2VydmljZSBvbiBhIGNvbnNpc3RlbnQgc2NoZWR1bGUsIFVuaXR5IGhhcyBnYWluZWQgdGhlIGNvbmZpZGVuY2Ugb2YgdGhpcyBwb3B1bGF0aW9uLiBUaGUgdmFuIGdvZXMgb3V0IGV2ZXJ5IG5pZ2h0IGZyb20gTW9uZGF5IHRocm91Z2ggRnJpZGF5IGFuZCBvbiBGcmlkYXkgbW9ybmluZ3MuDQo8YnIgLz4NCjxiciAvPg0KQSBkb2N0b3Igb3IgcGh5c2ljaWFuIGFzc2lzdGFudCwgYSBtZWRpY2FsIGFzc2lzdGFudCBhbmQgYSBzb2NpYWwgd29ya2VyIHByb3ZpZGUgdGhlIHNlcnZpY2UgcmlnaHQgb24gdGhlIHNwb3Qgb3IgcmVmZXJzIHRoZSBwYXRpZW50cyB0byBhIFVuaXR5IEhlYWx0aCBDZW50ZXIgaW4gdGhlIGNpdHkgd2hlbiB0aGUgbWVkaWNhbCBuZWVkcyBleGNlZWQgdGhlIHBvdGVudGlhbCBmb3Igc2VydmljZSBpbiB0aGUgdmFuLg0KPGJyIC8+DQo8YnIgLz4NClRoZSB2YW4gaGFzIDEyIHJlZ3VsYXIgc3RvcHMgdGhyb3VnaG91dCB0aGUgd2VlayBpbmNsdWRpbmcgMTN0aCAmIE5ZIEF2ZSwgTlc7IFN0LiBFbGl6YWJldGjigJlzIFNoZWx0ZXI7IEZyYW5rbGluIFNjaG9vbCBTaGVsdGVyOyAxNXRoICYgSSBTdHJlZXRzLCBOVzsgQ3J1bW1lbCBTaGVsdGVyLCBOWSBBdmUsIFNoZWx0ZXIsIE1pcmlhbeKAmXMgS2l0Y2hlbiwgR3JhY2UgQ2h1cmNoOyBhbmQgRmFycmFndXQsIEZyYW5rbGluIGFuZCBMYWZheWV0dGUgUGFya3MuDQo8YnIgLz4NCjxiciAvPg0KVGhlIHByb2dyYW0gaXMgZnVuZGVkIHRob3VnaCBGZWRlcmFsIGZ1bmRzIHByb3ZpZGVkIHVuZGVyIHRoZSAzMzAgSCBncmFudCBwcm9ncmFtIGFuZCBvdGhlciBwcml2YXRlIGZ1bmRpbmcgYXZhaWxhYmxlIHRvIFVuaXR5IEhlYWx0aCBDYXJlLg0KPGJyIC8+DQo8YnIgLz4NCkFsbCBwb3RlbnRpYWwgcGF0aWVudHMgc2hvdWxkIGNhbGwgaW50byB0aGUgUGF0aWVudCBTY2hlZHVsaW5nIENlbnRlciB0byBzY2hlZHVsZSBtb3N0IGFwcG9pbnRtZW50cy4NCjxiciAvPg0KUGF0aWVudCBTY2hlZHVsaW5nIENlbnRlcjogMjAyLjQ2OS40Njk5DQo8YnIgLz4NCjxiciAvPg0KTW9uZGF5IHRvIFRodXJzZGF5IDU6MDAgcG0g4oCTIDk6MDAgcG0NCkZyaWRheSA3OjMwIGFtIOKAkyAxMjowMCBwbQ0KPGJyIC8+DQo8YnIgLz4NCkNvbnRhY3QgbnVtYmVyOiAoMjAyKSAyNzYtMzM4MTxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMzODUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSG9PCC7YOZJ/rp+kS7xqkms/vynw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLX9JuSBQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAbPxw8DmbhLDY748xo9XJaZhwLFU" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1220 12th Street, SE STE. 120 Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care (Mobile Medical Unit(s))" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1220 12th Street, SE STE. 120 Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 276-3381<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthVan.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Primary (Adult, Family &amp; Pediatrics)<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday-Thursday 5:00 pm – 9:00 pm; and Friday 7:30am – 12:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Medical Outreach Van provides medical and social services to homeless men and women in the areas where they congregate.
+<br />
+<br />
+By providing service on a consistent schedule, Unity has gained the confidence of this population. The van goes out every night from Monday through Friday and on Friday mornings.
+<br />
+<br />
+A doctor or physician assistant, a medical assistant and a social worker provide the service right on the spot or refers the patients to a Unity Health Center in the city when the medical needs exceed the potential for service in the van.
+<br />
+<br />
+The van has 12 regular stops throughout the week including 13th & NY Ave, NW; St. Elizabeth’s Shelter; Franklin School Shelter; 15th & I Streets, NW; Crummel Shelter, NY Ave, Shelter, Miriam’s Kitchen, Grace Church; and Farragut, Franklin and Lafayette Parks.
+<br />
+<br />
+The program is funded though Federal funds provided under the 330 H grant program and other private funding available to Unity Health Care.
+<br />
+<br />
+All potential patients should call into the Patient Scheduling Center to schedule most appointments.
+<br />
+Patient Scheduling Center: 202.469.4699
+<br />
+<br />
+Monday to Thursday 5:00 pm – 9:00 pm
+Friday 7:30 am – 12:00 pm
+<br />
+<br />
+Contact number: (202) 276-3381<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

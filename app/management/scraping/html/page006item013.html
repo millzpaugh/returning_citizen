@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS44MTYgQ29ubmVjdGljdXQgQXZlbnVlLCBOVyBXYXNoaW5ndG9uIERDIDIwMDA2ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLzgxNiBDb25uZWN0aWN1dCBBdmVudWUsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA2ZGQCAw8PFgIfAgVxPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDI5My05NTgwPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA0MzgtNTgzMjxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNzQxLTI4OTE8YnIgLz5kZAIFDw8WAh8CBWA8Yj5XZWJzaXRlOiA8L2I+d3d3LmdvbGRlbnRyaWFuZ2xlZGMuY29tL3Byb2dyYW1zL2hvc3BpdGFsaXR5LWFuZC1zYWZldHkvaG9tZWxlc3Mtb3V0cmVhY2g8YnIgLz5kZAIHDw8WAh8CBeMBPGI+Q2F0ZWdvcnkgOiA8L2I+IFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gSG9tZWxlc3M8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFNDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+SG9tZWxlc3MgcGVyc29ucy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFwAg8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBHb2xkZW4gVHJpYW5nbGUgQnVzaW5lc3MgSW1wcm92ZW1lbnQgRGlzdHJpY3QgKEJJRCkgaXMgYSBwcml2YXRlIG5vbi1wcm9maXQgNTAxKGMpKDYpIGNvcnBvcmF0aW9uIHRoYXQgd29ya3MgdG8gZW5oYW5jZSB0aGUgR29sZGVuIFRyaWFuZ2xlIG5laWdoYm9yaG9vZOKAlGEgNDMtYmxvY2sgYXJlYSBvZiBEQ+KAmXMgY2VudHJhbCBidXNpbmVzcyBkaXN0cmljdCB0aGF0IGlzIGhvbWUgdG8gZ2xvYmFsIGNvcnBvcmF0aW9ucywgbGF3IGZpcm1zLCBub24tcHJvZml0cywgYXNzb2NpYXRpb25zIGFuZCBhbHNvIGJ1c3RsaW5nIHJlc3RhdXJhbnRzLCBob3RlbHMsIGFuZCAgYm91dGlxdWVzLiAgVGhlIEJJRCdzIHByaW1hcnkgZm9jdXMgaXMgdG8gcHJvdmlkZSBhIGNsZWFuLCBzYWZlIGFuZCB2aWJyYW50IGVudmlyb25tZW50IHdpdGhpbiB0aGlzIHJlbWFya2FibGUgbmVpZ2hib3Job29kIGZvciBhcmVhIHdvcmtlcnMgYW5kIHZpc2l0b3JzLiAgT25lIG9mIHRoZSB3YXlzIHRoaXMgaXMgYWNjb21wbGlzaGVkIGlzIHRocm91Z2ggaXRzIEhvbWVsZXNzIE91dHJlYWNoIHByb2dyYW0uICANCjxiciAvPg0KPGJyIC8+DQpUaGUgSG9tZWxlc3MgT3V0cmVhY2ggUHJvZ3JhbSBoZWxwcyBob21lbGVzcyBwZXJzb25zIG1vdmUgZnJvbSBsaWZlIG9uIHRoZSBzdHJlZXRzIHRvIGEgbGlmZSBvZiBpbmRlcGVuZGVuY2UsIGdvb2QgaGVhbHRoIGFuZCBzdGFiaWxpdHkuICBUaGUgQklEIGNvbnRyYWN0cyBvdXRyZWFjaCB3b3JrZXJzIHRvIGRldmVsb3AgcmVsYXRpb25zaGlwcyB3aXRoIGhvbWVsZXNzIHBlb3BsZSB0byBwcm92aWRlIGZvciB0aGVpciBiYXNpYyBuZWVkcyBhbmQgdG8gbGluayB0aGVtIHdpdGggc2VydmljZXMgdGhhdCBoZWxwIGdldCB0aGVtIG9mZiB0aGUgc3RyZWV0LiAgU2VydmljZXMgcmFuZ2UgZnJvbSBwcm92aWRpbmcgYnVzIHRva2VucyBmb3Igam9iIGh1bnRpbmcgdG8gYXNzaXN0aW5nIGhvbWVsZXNzIHBlcnNvbnMgd2l0aCBlbnJvbGxpbmcgaW4gbWVudGFsIGhlYWx0aCBhbmQgc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCBwcm9ncmFtcy4gIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0ODEeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTqJ5UwQbZyVo6IazrlCayHUIdnzQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKBwqv8BQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAWO37+9swoDeBq9VIqD0hJ6lFNAk" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="816 Connecticut Avenue, NW Washington DC 20006" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Golden Triangle Homeless Outreach Program" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">816 Connecticut Avenue, NW Washington, DC 20006</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 293-9580<br /><b>Phone No2:</b>(202) 438-5832<br /><b>Fax No:</b>(202) 741-2891<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.goldentriangledc.com/programs/hospitality-and-safety/homeless-outreach<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Referrals for social services<br \><b>Population : </b> Homeless<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless persons.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Golden Triangle Business Improvement District (BID) is a private non-profit 501(c)(6) corporation that works to enhance the Golden Triangle neighborhood—a 43-block area of DC’s central business district that is home to global corporations, law firms, non-profits, associations and also bustling restaurants, hotels, and  boutiques.  The BID's primary focus is to provide a clean, safe and vibrant environment within this remarkable neighborhood for area workers and visitors.  One of the ways this is accomplished is through its Homeless Outreach program.  
+<br />
+<br />
+The Homeless Outreach Program helps homeless persons move from life on the streets to a life of independence, good health and stability.  The BID contracts outreach workers to develop relationships with homeless people to provide for their basic needs and to link them with services that help get them off the street.  Services range from providing bus tokens for job hunting to assisting homeless persons with enrolling in mental health and substance abuse treatment programs.  <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTI2MDY2IExlZXNidXJnIFBpa2UsIFNURS4gMTAwIEZhbGxzIENodXJjaCBWQSAyMjA0MWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTM2MDY2IExlZXNidXJnIFBpa2UsIFNURS4gMTAwIEZhbGxzIENodXJjaCwgVkEgMjIwNDFkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDcwMykgNTM4LTIxOTA8YnIgLz48Yj5GYXggTm86PC9iPig3MDMpIDUzOC0yMTkxPGJyIC8+ZGQCBQ8PFgIfAgUjPGI+V2Vic2l0ZTogPC9iPnd3dy5icHNvcy5vcmc8YnIgLz5kZAIHDw8WAh8CBcACPGI+Q2F0ZWdvcnkgOiA8L2I+IExlZ2FsLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQWJ1c2UgJmFtcDsgbmVnbGVjdCBzZXJ2aWNlcywgTGVnYWwsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgRG9tZXN0aWMgVmlvbGVuY2UsIEh1bWFuIHRyYWZmaWNraW5nLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEltbWlncmFudHMvUmVmdWdlZXM8YnIgXD5kZAIJDw8WAh8CBWg8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaCwgVmlldG5hbWVzZTxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBVc8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb24tRnJpOiA5OjAwIGFtIC0gNTozMCBwbSBhbmQgU2F0OiAxMDowMCBhbSAtIDQ6MDAgcG08YnIgLz5kZAIPDw8WAh8CBUY8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlZpZXRuYW1lc2UgaW1taWdyYW50cyBhbmQgcmVmdWdlZXMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBcoHPGI+RGVzY3JpcHRpb246IDwvYj5Cb2F0IFBlb3BsZSBTLk8uUy4oQlBTT1MpIGFzc2lzdHMgYm9hdCBwZW9wbGUgYW5kIG90aGVyIHJlZnVnZWVzIGZyb20gVmlldG5hbSB0byByZXNldHRsZSBpbiB0aGlzIGNvdW50cnkuIEJQU09TIGFsc28gYXNzaXN0cyB2aWN0aW1zIG9mIHBlcnNlY3V0aW9uLCB2aW9sZW5jZSBhbmQgZXhwbG9pdGF0aW9uIGluIGJ1aWxkaW5nIHRoZWlyIG5ldyBsaWZlIGluIEFtZXJpY2EuIEJQU09TIG9mZmVycyBzZXJ2aWNlcyB0aGF0IGFyZSBjcnVjaWFsIHRvIHRoZSBWaWV0bmFtZXNlIEFtZXJpY2FuIGNvbW11bml0eSAtLSByYW5naW5nIGZyb20gZG9tZXN0aWMgdmlvbGVuY2UgcHJldmVudGlvbiB0byBjaXRpemVuc2hpcCBlZHVjYXRpb24gdG8gc21hbGwgYnVzaW5lc3MgZGV2ZWxvcG1lbnQgYW1vbmcgb3RoZXJzLiBBZGRpdGlvbmFsbHksIEJQU09TIGhhcyBmb3JtZWQgbmV3IGNpdmljIGluc3RpdHV0aW9ucyBhbmQgYnVpbHQgc3Ryb25nIGNvbW11bml0aWVzIGFjcm9zcyBBbWVyaWNhLg0KPGJyIC8+DQo8YnIgLz4NClNlcnZpY2VzIGFyZSBhdmFpbGFibGUgaW4gY2FzZSBtYW5hZ2VtZW50LCBsZWdhbCBhbmQgc29jaWFsIHNlcnZpY2VzLCBob3VzaW5nIHBsYWNlbWVudCwgYW5kIG1lbnRvcnNoaXAgcHJvZ3JhbXMuIEhvdXJzIG9mIG9wZXJhdGlvbiBhcmUgZnJvbSBNb25kYXkgdGhyb3VnaCBGcmlkYXkgYXQgOTowMCBhbSB0byA1OjMwIHBtIGFuZCBTYXR1cmRheSBmcm9tIDEwOjAwIGFtIHRvIDQ6MDAgcG0uDQo8YnIgLz4NCjxiciAvPg0KRU1FUkdFTkNZIFNFUlZJQ0VTOg0KPGJyIC8+DQpCUFNPUyBhbHNvIG9mZmVycyBlbWVyZ2VuY3kgc2VydmljZXMgaW4gZG9tZXN0aWMgdmlvbGVuY2UsIGh1bWFuIHRyYWZmaWNraW5nIGFuZCBsYWJvciBleHBsb2l0YXRpb24sIGVtZXJnZW5jeSByZWxpZWYgYW5kIHJlY292ZXJ5LCBhbmQgZmFtaWx5IHdlbGxuZXNzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2NzUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQkfD6uEKVAQE9m9sVoaRJpJjzo5w==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKngI62DQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATHCHODvv4SLu6Thdb/+mKxkSkAO" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="6066 Leesburg Pike, STE. 100 Falls Church VA 22041" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Boat People S.O.S." id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">6066 Leesburg Pike, STE. 100 Falls Church, VA 22041</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(703) 538-2190<br /><b>Fax No:</b>(703) 538-2191<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.bpsos.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal, Social Services<br \><b>Services : </b> Abuse &amp; neglect services, Legal, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Domestic Violence, Human trafficking, Referrals for social services<br \><b>Population : </b> Immigrants/Refugees<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Vietnamese<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Mon-Fri: 9:00 am - 5:30 pm and Sat: 10:00 am - 4:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Vietnamese immigrants and refugees.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Boat People S.O.S.(BPSOS) assists boat people and other refugees from Vietnam to resettle in this country. BPSOS also assists victims of persecution, violence and exploitation in building their new life in America. BPSOS offers services that are crucial to the Vietnamese American community -- ranging from domestic violence prevention to citizenship education to small business development among others. Additionally, BPSOS has formed new civic institutions and built strong communities across America.
+<br />
+<br />
+Services are available in case management, legal and social services, housing placement, and mentorship programs. Hours of operation are from Monday through Friday at 9:00 am to 5:30 pm and Saturday from 10:00 am to 4:00 pm.
+<br />
+<br />
+EMERGENCY SERVICES:
+<br />
+BPSOS also offers emergency services in domestic violence, human trafficking and labor exploitation, emergency relief and recovery, and family wellness.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

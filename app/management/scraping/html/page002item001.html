@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSMzMyBLIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQzMyBLIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjE2LTAzOTA8YnIgLz5kZAIFDw8WAh8CBTg8Yj5XZWJzaXRlOiA8L2I+d3d3LmNwaGlsbGlwam9obnNvbm1pbmlzdHJpZXMuY29tLzxiciAvPmRkAgcPDxYCHwIFogE8Yj5DYXRlZ29yeSA6IDwvYj4gRWR1Y2F0aW9uPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVkdWNhdGlvbmFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gR0VEIHByb2dyYW1zPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBVo8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5DbGFzc2VzOiBNb25kYXksIFR1ZXNkYXksICBhbmQgVGh1cnNkYXkgNjozMCBwbSAtIDg6MzAgcG08YnIgLz5kZAIPDw8WAh8CBT08Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPjE2IHllYXJzIG9mIGFnZSBhbmQgb2xkZXIuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBfMHPGI+RGVzY3JpcHRpb246IDwvYj5DLiBQaGlsbGlwIEpvaG5zb24gTWluaXN0cmllcywgSW5jLiBpcyBhIGZhaXRoLWJhc2VkLCBjb21tdW5pdHkgc2VydmljZSBvcmdhbml6YXRpb24gdGhhdCBpcyBob2xpc3RpYyBpbiBpdHMgYXBwcm9hY2gsIGFuZCB0aGVyZWZvcmUsIGVuY29tcGFzc2VzIGEgdGVhY2hpbmcgc3R5bGUgcmVsYXRpdmUgdG8gdGhlIHdob2xlIG1hbi4gVGhlIE1pbmlzdHJ54oCZcyBtb2RlbCBlZHVjYXRpb25hbCBwcm9ncmFtIGFjdGl2aXRpZXMgaW5jbHVkZSBHZW5lcmFsIFR5cGluZyBhbmQgV29yZC1Qcm9jZXNzaW5nLCBCZWdpbm5lcnMgYW5kIEFkdmFuY2VkIENvbXB1dGVyIFNraWxscyBUcmFpbmluZywgQWR1bHQgQmFzaWMgRWR1Y2F0aW9uIChBQkUpLCBQcmUtR0VEIGFuZCBHRUQgUHJlcCBzdHVkaWVzLCBFbXBsb3ktYWJpbGl0eSBTa2lsbHMgVHJhaW5pbmcsIGFuZCBEcnVnIGFuZCBBbGNvaG9sIEFidXNlIENvdW5zZWxpbmcsIEFmdGVyLVNjaG9vbCBUdXRvcmluZyBhbmQgWW91dGggRW5yaWNobWVudCBwcm9ncmFtcywgYW5kIGdlbmVyYWwgUGFzdG9yYWwgQ291bnNlbGluZy4gQWxsIGFkdWx0IGV2ZW5pbmcgY2xhc3NlcyBhcmUgc3VwcG9ydGVkIHdpdGggY2hpbGRjYXJlIHNlcnZpY2VzIGZvciBpbi1jbGFzcyBzdHVkZW50cy4gVGhlIENlbnRlcuKAmXMgZ2VuZXJhbCBhZHVsdCBsaXRlcmFjeSBlZHVjYXRpb24gcHJvZ3JhbXMgYXJlIGRlc2lnbmVkIHRvIG1lZXQgdGhlIG5lZWRzIGFuZCBpbnRlcmVzdHMgb2YgdGhlIERpc3RyaWN0J3MgYWR1bHQgY29tbXVuaXR5IGFuZCBhcmUgcmVzdHJpY3RlZCB0byB0aG9zZSAxNiB5ZWFycyBvZiBhZ2UgYW5kIG9sZGVyLiBDb3Vyc2VzIGFyZSBvZmZlcmVkIHllYXItcm91bmQgYW5kIGFyZSBvbiBhbiBBY2FkZW1pYyBTY2hlZHVsZS4gQy4gUGhpbGxpcCBKb2huc29uIE1pbmlzdHJpZXMgb2ZmZXJzIGEgR0VEIHByb2dyYW0uIFN0dWRlbnRzIG11c3QgcGF5IGZvciB0aGVpciBvd24gYm9va3MuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAjk3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkLesTDGE0gUdcaYLD80v99HIZI6w=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKV3NL3CAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATKvH/dNwsggLoWOitwELC+tFHTw" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="33 K Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="C. Phillip Johnson Ministries" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">33 K Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 216-0390<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.cphillipjohnsonministries.com/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education<br \><b>Services : </b> Educational services<br \><b>Program : </b> GED programs<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Classes: Monday, Tuesday,  and Thursday 6:30 pm - 8:30 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>16 years of age and older.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>C. Phillip Johnson Ministries, Inc. is a faith-based, community service organization that is holistic in its approach, and therefore, encompasses a teaching style relative to the whole man. The Ministry’s model educational program activities include General Typing and Word-Processing, Beginners and Advanced Computer Skills Training, Adult Basic Education (ABE), Pre-GED and GED Prep studies, Employ-ability Skills Training, and Drug and Alcohol Abuse Counseling, After-School Tutoring and Youth Enrichment programs, and general Pastoral Counseling. All adult evening classes are supported with childcare services for in-class students. The Center’s general adult literacy education programs are designed to meet the needs and interests of the District's adult community and are restricted to those 16 years of age and older. Courses are offered year-round and are on an Academic Schedule. C. Phillip Johnson Ministries offers a GED program. Students must pay for their own books.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

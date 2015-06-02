@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSg1MjEgTi4gUXVpbmN5LCBTdHJlZXQgQXJsaW5ndG9uIFZBIDIyMjAzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTUyMSBOLiBRdWluY3ksIFN0cmVldCBBcmxpbmd0b24sIFZBIDIyMjAzZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPig3MDMpIDU1My05MzY1PGJyIC8+PGI+RmF4IE5vOjwvYj4oNzAzKSA4OTItNDU3NjxiciAvPmRkAgUPDxYCHwIFTDxiPldlYnNpdGU6IDwvYj53d3cucGhvZW5peGhvdXNlLm9yZy9sb2NhdGlvbnMvdmlyZ2luaWEvZGVtZXRlci1ob3VzZS88YnIgLz5kZAIHDw8WAh8CBdAEPGI+Q2F0ZWdvcnkgOiA8L2I+IFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBSZXNpZGVudGlhbCBsb25nLXRlcm0gdHJlYXRtZW50IChtb3JlIHRoYW4gMzAgZGF5cyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgUmVzaWRlbnRpYWwgYmVkcyBmb3IgY2xpZW50J3MgY2hpbGRyZW4sIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IFByZWduYW50L3Bvc3RwYXJ0dW0gd29tZW4sIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIFByaXZhdGUgaGVhbHRoIGluc3VyYW5jZSwgU2VsZi1wYXltZW50PGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBTbGlkaW5nIGZlZSBzY2FsZSAoRmVlIGlzIGJhc2VkIG9uIGluY29tZSAmYW1wOyBvdGhlciBmYWN0b3JzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVsPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbiBpbiByZWNvdmVyeSB3aXRoIGNoaWxkcmVuIHVuZGVyIDEyIHllYXJzIChubyBtb3JlIHRoYW4gMiBjaGlsZHJlbikuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBacGPGI+RGVzY3JpcHRpb246IDwvYj5EZW1ldGVyIEhvdXNlLCBhbiBpbm5vdmF0aXZlLCBuYXRpb25hbGx5LWFjY3JlZGl0ZWQsIHJlc2lkZW50aWFsIHN1YnN0YW5jZSBhYnVzZSBjZW50ZXIsIHNlcnZlcyB3b21lbiBpbiBhIGdlbmRlci1zcGVjaWZpYyBzZXR0aW5nIHRoYXQgaXMgY29tZm9ydGFibGUgYW5kIGZlZWxzIGxpa2UgaG9tZS4gVGhlIHByb2dyYW0gaXMgZGVzaWduZWQgbm90IG9ubHkgdG8gYnJlYWsgdGhlIGN5Y2xlIG9mIGFkZGljdGlvbiwgYnV0IGFsc28gdG8gZW1wb3dlciB3b21lbiB0byByZS1lbnRlciB0aGUgY29tbXVuaXR5IGFzIHJlc3BvbnNpYmxlIGNpdGl6ZW5zLiAgT3VyIGFkZGljdGlvbiBjb3Vuc2Vsb3JzLCBhcyB3ZWxsIGFzIG91ciBtZWRpY2FsIGFuZCBwc3ljaGlhdHJpYyBzdGFmZiwgdXNlIGEgY29nbml0aXZlLWJlaGF2aW9yYWwsIDEyLXN0ZXAgYXBwcm9hY2gsIGluY2x1ZGluZyBtZWRpY2F0aW9uIG1hbmFnZW1lbnQgYW5kIG1lZGljYXRpb24tYXNzaXN0ZWQgdHJlYXRtZW50LCB0byBhZGRyZXNzIGEgd2lkZSByYW5nZSBvZiBzdWJzdGFuY2UgYWJ1c2UgYW5kIG1lbnRhbCBoZWFsdGggcHJvYmxlbXMuIFByZWduYW50IHdvbWVuIGFyZSBlbGlnaWJsZSBmb3IgYWRtaXNzaW9uLCBhbmQgbW90aGVycyBlbnRlcmluZyB0cmVhdG1lbnQgbWF5IGJyaW5nIG9uZSBjaGlsZCB3aXRoIHRoZW0uDQo8YnIgLz4NCjxiciAvPg0KUHJvZ3JhbSBhY2NlcHRzOiBNZWRpY2FpZCwgcHJpdmF0ZSBpbnN1cmFuY2UsIHNlbGYtcGF5bWVudCwgc2xpZGluZyBzY2FsZSBmZWUgYWNjZXB0ZWQuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQzMx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZEwUoCzzaCczPbVRDCmEYETrtpHE" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLiy6CTBwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQn9Cf0yOveOZ+3PcRhJ5H19Ee5S" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="521 N. Quincy, Street Arlington VA 22203" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Demeter House (Safe House) (Phoenix Houses of the Mid-Atlantic)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">521 N. Quincy, Street Arlington, VA 22203</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(703) 553-9365<br /><b>Fax No:</b>(703) 892-4576<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.phoenixhouse.org/locations/virginia/demeter-house/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days)<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Residential beds for client's children, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Pregnant/postpartum women, Women<br \><b>Forms Of Payment : </b> Medicaid, Private health insurance, Self-payment<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women in recovery with children under 12 years (no more than 2 children).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Demeter House, an innovative, nationally-accredited, residential substance abuse center, serves women in a gender-specific setting that is comfortable and feels like home. The program is designed not only to break the cycle of addiction, but also to empower women to re-enter the community as responsible citizens.  Our addiction counselors, as well as our medical and psychiatric staff, use a cognitive-behavioral, 12-step approach, including medication management and medication-assisted treatment, to address a wide range of substance abuse and mental health problems. Pregnant women are eligible for admission, and mothers entering treatment may bring one child with them.
+<br />
+<br />
+Program accepts: Medicaid, private insurance, self-payment, sliding scale fee accepted.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

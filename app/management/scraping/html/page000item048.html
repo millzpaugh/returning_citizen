@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSM3MCBOIFN0cmVldCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQ3MCBOIFN0cmVldCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMDJkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzI3LTg0NzM8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDcyNy04NDExPGJyIC8+ZGQCBQ8PFgIfAgUpPGI+V2Vic2l0ZTogPC9iPnd3dy5kb2guZGMuZ292L2FwcmE8YnIgLz5kZAIHDw8WAh8CBXY8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEFzc2Vzc21lbnQgJmFtcDsgcmVmZXJyYWwgdG8gc3Vic3RhbmNlIGFidXNlIHNlcnZpY2VzPGJyIFw+ZGQCCQ8PFgIfAmVkZAILDw8WAh8CZWRkAg0PDxYCHwIFKDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjdhbS02cG08YnIgLz5kZAIPDw8WAh8CBaMBPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EaXN0cmljdCByZXNpZGVudCB3aXRob3V0IHByaXZhdGUgbWVkaWNhbCBpbnN1cmFuY2Ugb3Igd2hvc2UgbWVkaWNhbCBpbnN1cmFuY2UgZG9lcyBub3QgY292ZXIgc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCBzZXJ2aWNlczxiciAvPmRkAhEPDxYCHwIFNTxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UHJvb2Ygb2YgcmVzaWRlbmN5PGJyIC8+ZGQCEw8PFgIfAgWxCTxiPkRlc2NyaXB0aW9uOiA8L2I+QVBSQSBpcyB0aGUgc2luZ2xlIHN0YXRlIGF1dGhvcml0eSBmb3Igc3Vic3RhbmNlIGFidXNlIHNlcnZpY2VzIGZvciB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEgZm9yIHJlc2lkZW50cyB3aG8gZG8gbm90IGhhdmUgaW5zdXJhbmNlLCBoYXZlIERDIE1lZGljYWlkLCBvciB3aG9zZSBpbnN1cmFuY2UgZG9lcyBub3QgY292ZXIgc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCBzZXJ2aWNlcy4gQVBSQSBhZG1pbmlzdGVycyB0aGUgRHJ1ZyBUcmVhdG1lbnQgQ2hvaWNlIFByb2dyYW0gd2hpY2ggY29udHJhY3RzIHdpdGggYXBwcm94aW1hdGVseSAzMCB0cmVhdG1lbnQgcHJvZ3JhbXMgdGhhdCBwcm92aWRlIHNlcnZpY2VzIHN1Y2ggYXMgZGV0b3hpZmljYXRpb24sIG91dHBhdGllbnQsIGludGVuc2l2ZSBvdXRwYXRpZW50LCBhbmQgcmVzaWRlbnRpYWwgZHJ1ZyB0cmVhdG1lbnQuICAgIEFkdWx0cyAoMjErKSBhY2Nlc3MgdHJlYXRtZW50IHRocm91Z2ggdGhlIEFzc2Vzc21lbnQgYW5kIFJlZmVycmFsIENlbnRlciAoVGhlIEFSQykgYXQgNzAgTiBTdHJlZXQsIE5FIG9yIHRoZSBzYXRlbGxpdGUgb2ZmaWNlIGF0IDUwMCBJbmRpYW5hIEF2ZS4sIE5XLiAgWW91dGggYWNjZXNzIHRyZWF0bWVudCBmcm9tIDQgZGlmZmVyZW50IGxvY2F0aW9uczogRmVkZXJhbCBDaXR5IFJlY292ZXJ5IFNlcnZpY2VzLCBIaWxsY3Jlc3QgQ2hpbGRyZW7igJlzIENlbnRlciwgTGF0aW4gQW1lcmljYW4gWW91dGggQ2VudGVyLCBvciBSaXZlcnNpZGUgVHJlYXRtZW50IENlbnRlci4gIFlvdXRoIGNhbiBjb250YWN0IHRoZXNlIGNlbnRlcnMgZGlyZWN0bHkgZm9yIHNlcnZpY2VzLiAgQVBSQSBhbHNvIHJlY2VpdmVzIHNwZWNpYWwgZnVuZGluZyAoQWNjZXNzIHRvIFJlY292ZXJ5IC8gQVRSKSB0byBwcm92aWRlIGFuIGV4dGVuZGVkIGNvbnRpbnV1bSBvZiBSZWNvdmVyeSBTdXBwb3J0IFNlcnZpY2VzLiAgIFRoZXNlIHNlcnZpY2VzIGluY2x1ZGU6IFJlY292ZXJ5IHN1cHBvcnQgZXZhbHVhdGlvbiwgQ2FyZSBjb29yZGluYXRpb24gc2VydmljZXMsIFJlY292ZXJ5IGNvYWNoaW5nICYgbWVudG9yaW5nLCBFZHVjYXRpb24gc3VwcG9ydCBzZXJ2aWNlcyAoaW5kaXZpZHVhbCAmIGdyb3VwKSwgVHJhbnNwb3J0YXRpb24gKHB1YmxpYyBvbmx5KSwgYW5kIEVudmlyb25tZW50YWwgc3RhYmlsaXR5LiA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjQxHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkX/pNZp9LXcufU5iy/RLbd9uEjtg=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLwofGRCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAeu1GGHRfR0LeuAfVnjlvWUEi4vl" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="70 N Street, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Assessment and Referral Center (ARC)/Addiction Prevention Recovery Administration (APRA)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">70 N Street, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 727-8473<br /><b>Fax No:</b>(202) 727-8411<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.doh.dc.gov/apra<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Assessment &amp; referral to substance abuse services<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>7am-6pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>District resident without private medical insurance or whose medical insurance does not cover substance abuse treatment services<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Proof of residency<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>APRA is the single state authority for substance abuse services for the District of Columbia for residents who do not have insurance, have DC Medicaid, or whose insurance does not cover substance abuse treatment services. APRA administers the Drug Treatment Choice Program which contracts with approximately 30 treatment programs that provide services such as detoxification, outpatient, intensive outpatient, and residential drug treatment.    Adults (21+) access treatment through the Assessment and Referral Center (The ARC) at 70 N Street, NE or the satellite office at 500 Indiana Ave., NW.  Youth access treatment from 4 different locations: Federal City Recovery Services, Hillcrest Children’s Center, Latin American Youth Center, or Riverside Treatment Center.  Youth can contact these centers directly for services.  APRA also receives special funding (Access to Recovery / ATR) to provide an extended continuum of Recovery Support Services.   These services include: Recovery support evaluation, Care coordination services, Recovery coaching & mentoring, Education support services (individual & group), Transportation (public only), and Environmental stability. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

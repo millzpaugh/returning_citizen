@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxNTAxIFBhcmsgUm9hZCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxNTAxIFBhcmsgUm9hZCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzMyLTczMzM8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDY2Ny02MDI0PGJyIC8+ZGQCBQ8PFgIfAgUxPGI+V2Vic2l0ZTogPC9iPnd3dy5jYXRob2xpY2NoYXJpdGllc2RjLm9yZzxiciAvPmRkAgcPDxYCHwIFgQE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBTU8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Db250YWN0IGZvciBkZXRhaWxzLjxiciAvPmRkAg8PDxYCHwIFMzxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWVuIHdpdGggaW5jb21lLjxiciAvPmRkAhEPDxYCHwIFRzxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UmVmZXJyYWwgdGhyb3VnaCBDYXRob2xpYyBDaGFyaXRpZXMuPGJyIC8+ZGQCEw8PFgIfAgXXBTxiPkRlc2NyaXB0aW9uOiA8L2I+Q2F0aG9saWMgQ2hhcml0aWVzIGlzIHRoZSBzb2NpYWwgbWluaXN0cnkgb3V0cmVhY2ggb2YgdGhlIEFyY2hkaW9jZXNlIG9mIFdhc2hpbmd0b24uIE1vdGl2YXRlZCBieSB0aGUgR29zcGVsIG1lc3NhZ2Ugb2YgSmVzdXMgQ2hyaXN0LCBhbmQgZ3VpZGVkIGJ5IENhdGhvbGljIHNvY2lhbCBhbmQgbW9yYWwgdGVhY2hpbmcsIENhdGhvbGljIENoYXJpdGllcyBzdHJlbmd0aGVucyB0aGUgbGl2ZXMgb2YgYWxsIGluIG5lZWQgYnkgZ2l2aW5nIGhlbHAgdGhhdCBlbXBvd2VycyBhbmQgaG9wZSB0aGF0IGxhc3RzLiBUbyB0aGlzIGVuZCB3ZSBhZmZpcm0gYW5kIHN1cHBvcnQgdGhlIGRpZ25pdHkgb2YgYWxsIGh1bWFuIGxpZmUsIHN0cmVuZ3RoZW4gZmFtaWxpZXMgYW5kIHNlcnZlIHRoZSBwb29yIGFuZCBtb3N0IHZ1bG5lcmFibGUuDQo8YnIgLz4NCjxiciAvPg0KVGhlIE1jS2VubmEgSG91c2UgcHJvdmlkZXMgc2luZ2xlLXJvb20gb2NjdXBhbmN5ICgiU1JPIikgd2l0aCBjYXNlIG1hbmFnZW1lbnQgYW5kIGluZGl2aWR1YWwgYW5kIGdyb3VwIGNvdW5zZWxpbmcuIFJlc2lkZW50cyBtdXN0IGhhdmUgaW5jb21lIGFuZCBhZ3JlZSB0byBjb250cmlidXRlIHRvIGEgcGVyc29uYWwgZXNjcm93IGFjY291bnQuIE5vIHdhbGstaW5zIGFjY2VwdGVkLiBSZWZlcnJhbHMgYXJlIHJlY2VpdmVkIHRocm91Z2ggQ2F0aG9saWMgQ2hhcml0aWVzLiA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMjI4Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkbRFmbvW/8Gx7qxY3CpFi6I5YCL8=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLThqHFCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQcLl3G+tuzTsoWlODeP7BToBCbZ" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1501 Park Road, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="McKenna House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1501 Park Road, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 332-7333<br /><b>Fax No:</b>(202) 667-6024<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.catholiccharitiesdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Contact for details.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men with income.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Referral through Catholic Charities.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Catholic Charities is the social ministry outreach of the Archdiocese of Washington. Motivated by the Gospel message of Jesus Christ, and guided by Catholic social and moral teaching, Catholic Charities strengthens the lives of all in need by giving help that empowers and hope that lasts. To this end we affirm and support the dignity of all human life, strengthen families and serve the poor and most vulnerable.
+<br />
+<br />
+The McKenna House provides single-room occupancy ("SRO") with case management and individual and group counseling. Residents must have income and agree to contribute to a personal escrow account. No walk-ins accepted. Referrals are received through Catholic Charities. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

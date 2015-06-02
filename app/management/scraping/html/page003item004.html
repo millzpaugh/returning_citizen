@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8xMTAxIEsgU3RyZWV0LCBOVyAgU1RFLiAyMDAgV2FzaGluZ3RvbiBEQyAyMDAwNWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAxMTAxIEsgU3RyZWV0LCBOVyAgU1RFLiAyMDAgV2FzaGluZ3RvbiwgREMgMjAwMDVkZAIDDw8WAh8CBWs8Yj5Db250YWN0IFBlcnNvbjo8L2I+TGVhaCBNeWVyczxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA3MzctNDcwMCA8Yj5FeHQ6PC9iPjM5MjcgPGI+RXh0Mjo8L2I+MzI5MjxiciAvPmRkAgUPDxYCHwIFIzxiPldlYnNpdGU6IDwvYj53d3cuZGNiYXIub3JnPGJyIC8+ZGQCBw8PFgIfAgWeAjxiPkNhdGVnb3J5IDogPC9iPiBMZWdhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBMZWdhbDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEVtcGxveW1lbnQgTGF3LS1kaXNwdXRlcyAmYW1wOyB3b3JrZXIncyByaWdodHMsIEZhbWlseSBsYXctLWNoaWxkIGN1c3RvZHksIHN1cHBvcnQsIHZpc2l0YXRpb24sIGd1YXJkaWFuc2hpcCwgTGFuZGxvcmQvVGVuYW50L0ZhaXIgaG91c2luZywgUHVibGljIGJlbmVmaXRzPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUw8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5DbGluaWMgaG91cnM6IFNhdHVyZGF5cyAxMDowMCBhbSAtIDEyOjAwIHBtPGJyIC8+ZGQCDw8PFgIfAgU5PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EQyBsb3ctaW5jb21lIHBlcnNvbnMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBZwEPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgREMgQmFyIExhdyBGaXJtIFBybyBCb25vIENsaW5pYyBvZmZlcnMgZnJlZSBsZWdhbCBhc3Npc3RhbmNlIGZvciBEQyBsb3ctaW5jb21lIHBlcnNvbnMgaW4gYXJlYXMgb2YgZ292ZXJubWVudCBiZW5lZml0cy4gU3VjaCBzZXJ2aWNlcyBpbmNsdWRlIGFzc2lzdGFuY2UgaW4gdGhlIGZvbGxvd2luZyBhcmVhczogZmFtaWx5IGxhdyAoY3VzdG9keSBvciBzdXBwb3J0IGNhc2VzKTsgY29uc3VtZXIgZGlzcHV0ZXM7IHdhZ2UgY2xhaW1zIChlbXBsb3llciBvd2VzIHlvdSB3YWdlcyk7IGxhbmRsb3JkICYgdGVuYW50IChldmljdGlvbiBvciByZWZ1c2FsIHRvIG1ha2UgcmVwYWlycykuIEJhbmtydXB0Y3kgY2xpbmljIHNlbWluYXJzIGFuZCBwb3NzaWJsZSByZXByZXNlbnRhdGlvbi4gUmVmZXJyYWxzIHRocm91Z2ggbGVnYWwgc2VydmljZXMgb3Igc29jaWFsIHNlcnZpY2VzIHByb3ZpZGVycyBhcmUgYWNjZXB0ZWQgYW5kIGluY2FyY2VyYXRlZCBwZXJzb25zIGNhbm5vdCBiZSByZXByZXNlbnRlZC4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzIxNR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZDlVKkLbuztwPvNAP8leQUGc+mDd" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKu+Kn+DwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAclhosOZk1us8OuyrCwvTqXz5WjW" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1101 K Street, NW  STE. 200 Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="DC Bar Law Firm Pro Bono Clinic" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1101 K Street, NW  STE. 200 Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Leah Myers<br /><b>Phone No:</b>(202) 737-4700 <b>Ext:</b>3927 <b>Ext2:</b>3292<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dcbar.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Employment Law--disputes &amp; worker's rights, Family law--child custody, support, visitation, guardianship, Landlord/Tenant/Fair housing, Public benefits<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Clinic hours: Saturdays 10:00 am - 12:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC low-income persons.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The DC Bar Law Firm Pro Bono Clinic offers free legal assistance for DC low-income persons in areas of government benefits. Such services include assistance in the following areas: family law (custody or support cases); consumer disputes; wage claims (employer owes you wages); landlord & tenant (eviction or refusal to make repairs). Bankruptcy clinic seminars and possible representation. Referrals through legal services or social services providers are accepted and incarcerated persons cannot be represented. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

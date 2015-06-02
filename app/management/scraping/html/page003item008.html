@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkxMjAwIEZpcnN0IFN0cmVldCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoxMjAwIEZpcnN0IFN0cmVldCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMDJkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTM1LTI2MDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDUzNS0yODgxPGJyIC8+ZGQCBQ8PFgIfAgUlPGI+V2Vic2l0ZTogPC9iPnd3dy5kZG9lLmRjLmdvdjxiciAvPmRkAgcPDxYCHwIFdTxiPkNhdGVnb3J5IDogPC9iPiBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTW9uZXRhcnkgYXNzaXN0YW5jZTxiciBcPjxiPlByb2dyYW0gOiA8L2I+IFV0aWxpdGllczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFUDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbiDigJMgRnJpIDg6MzBhbSB0byA0OjMwcG0gKERDIEVuZXJneSBPZmZpY2UpPGJyIC8+ZGQCDw8PFgIfAgVpPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5JbmRpdmlkdWFscyBhbmQvb3IgZmFtaWxpZXMgbXVzdCBtZWV0IHJlc2lkZW5jeSBhbmQgaW5jb21lIGd1aWRlbGluZXMuPGJyIC8+ZGQCEQ8PFgIfAgXtATxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+RW1lcmdlbmN5IEhvbWUgRW5lcmd5IEFzc2lzdGFuY2U6IGNvcGllcyBvZiByZWNlbnQgdXRpbGl0eSBiaWxsczsgZGlzY29ubmVjdGlvbiBub3RpY2UsIHByb29mIG9mIGluY29tZSwgcGhvdG8gSUQsIHByb29mIG9mIHJlc2lkZW5jeSAobGVhc2UsIGRlZWQsIG1vcnRnYWdlKS4gSUQgZm9yIGFsbCBwZXJzb25zIGxpdmluZyBpbiB0aGUgaG91c2Vob2xkLjxiciAvPmRkAhMPDxYCHwIF1wo8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSBEZXBhcnRtZW50IG9mIEVudmlyb25tZW50IChhbmQgRW5lcmd5KSAoRERPRSkgb2ZmZXJzIGEgbnVtYmVyIG9mIHByb2dyYW1zIHRvIGFzc2lzdCBlbGlnaWJsZSwgbG93LWluY29tZSByZXNpZGVudHMgd2l0aCB0aGUgY29zdCBvZiBob21lIGVuZXJneSAoZWxlY3RyaWNpdHksIG5hdHVyYWwgZ2FzLCBob21lIGhlYXRpbmcgb2lsKS4NCjxiciAvPg0KPGJyIC8+DQpFTUVSR0VOQ1kgSE9NRSBFTkVSR1kgQVNTSVNUQU5DRTogDQo8YnIgLz4NCkVsaWdpYmxlIHJlc2lkZW50cyBtYXkgcmVjZWl2ZSBhIOKAnG9uZSB0aW1lIGJlbmVmaXTigJ0gdXAgdG8gJDEsMzAwIHRvd2FyZCB0aGUgY29zdCBvZiB0aGVpciBob21lIGVuZXJneSBiaWxsLiBJZiB0aGUgcmVzaWRlbnTigJlzIGVuZXJneSBzdXBwbHkgaGFzIGJlZW4gZGlzY29ubmVjdGVkIG9yIGlzIHBlbmRpbmcgZGlzY29ubmVjdGlvbiB0aGUgcmVzaWRlbnQgc2hvdWxkIGdvIGltbWVkaWF0ZWx5IChNb24g4oCTIEZyaSA4OjMwYW0gdG8gNDozMHBtKSB0byB0aGUgREMgRW5lcmd5IE9mZmljZSB0byBhcHBseSBmb3IgYXNzaXN0YW5jZS4gVG8gYXBwbHkgYnJpbmc6IGNvcGllcyBvZiByZWNlbnQgdXRpbGl0eSBiaWxsczsgZGlzY29ubmVjdGlvbiBub3RpY2UsIHByb29mIG9mIGluY29tZSwgcGhvdG8gSUQsIHByb29mIG9mIHJlc2lkZW5jeSAobGVhc2UsIGRlZWQsIG1vcnRnYWdlKS4gSUQgZm9yIGFsbCBwZXJzb25zIGxpdmluZyBpbiB0aGUgaG91c2Vob2xkLg0KPGJyIC8+DQo8YnIgLz4NClJlc2lkZW50aWFsIEFzc2lzdGFuY2UgRGlzY291bnQgKFJBRCk6IFJlZHVjZXMgZWxpZ2libGUgcmVzaWRlbnTigJlzIGFycmVhcmFnZXMgZm9yIGVsZWN0cmljaXR5IGJpbGxzICh1cCB0byAkMjUwKSB0byBoZWxwIHRoZW0gbWFpbnRhaW4gbWFuYWdlYWJsZSBlbGVjdHJpY2l0eSBiaWxscyBpbiB0aGUgZnV0dXJlLiBBd2FyZGVlcyBtdXN0IGFncmVlIHRvIHBhcnRpY2lwYW50IGluIGEgUkFEIGJ1ZGdldCBtYW5hZ2VtZW50IHByb2dyYW0uDQo8YnIgLz4NCjxiciAvPg0KV2FzaGluZ3RvbiBBcmVhIFNld2VyIEF1dGhvcml0eSAoV0FTQSksIEN1c3RvbWVyIEFzc2lzdGFuY2UgUHJvZ3JhbSAoQ0FQKTogUHJvdmlkZXMgZWxpZ2libGUgREMgV0FTQSBjdXN0b21lcnMgd2l0aCBhbiBleGVtcHRpb24gb24gd2F0ZXIgYW5kIHNld2VyIHNlcnZpY2VzIG9mIHVwIHRvIDMsMDAwIGdhbGxvbnMgb2Ygd2F0ZXIgcGVyIG1vbnRoLiBFbGlnaWJpbGl0eTogaW5kaXZpZHVhbHMgYW5kL29yIGZhbWlsaWVzIG11c3QgbWVldCByZXNpZGVuY3kgYW5kIGluY29tZSBndWlkZWxpbmVzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1NzYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRkBiMqQQnhlvKYBOboL5nBs9FrmA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKxvpK3BgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVpdnQvjm5pqs77I/eQX/986avMw" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1200 First Street, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="DC Department of Environment(and Energy) (DDOE)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1200 First Street, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 535-2600<br /><b>Fax No:</b>(202) 535-2881<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ddoe.dc.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Monetary assistance<br \><b>Program : </b> Utilities<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Mon – Fri 8:30am to 4:30pm (DC Energy Office)<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Individuals and/or families must meet residency and income guidelines.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Emergency Home Energy Assistance: copies of recent utility bills; disconnection notice, proof of income, photo ID, proof of residency (lease, deed, mortgage). ID for all persons living in the household.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The District of Columbia Department of Environment (and Energy) (DDOE) offers a number of programs to assist eligible, low-income residents with the cost of home energy (electricity, natural gas, home heating oil).
+<br />
+<br />
+EMERGENCY HOME ENERGY ASSISTANCE: 
+<br />
+Eligible residents may receive a “one time benefit” up to $1,300 toward the cost of their home energy bill. If the resident’s energy supply has been disconnected or is pending disconnection the resident should go immediately (Mon – Fri 8:30am to 4:30pm) to the DC Energy Office to apply for assistance. To apply bring: copies of recent utility bills; disconnection notice, proof of income, photo ID, proof of residency (lease, deed, mortgage). ID for all persons living in the household.
+<br />
+<br />
+Residential Assistance Discount (RAD): Reduces eligible resident’s arrearages for electricity bills (up to $250) to help them maintain manageable electricity bills in the future. Awardees must agree to participant in a RAD budget management program.
+<br />
+<br />
+Washington Area Sewer Authority (WASA), Customer Assistance Program (CAP): Provides eligible DC WASA customers with an exemption on water and sewer services of up to 3,000 gallons of water per month. Eligibility: individuals and/or families must meet residency and income guidelines.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

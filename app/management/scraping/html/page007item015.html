@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTc4OTkgTm9ydGggQ2FwaXRvbCBTdHJlZXQsIE5FIDR0aCBGbCBXYXNoaW5ndG9uIERDIDIwMDAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFODg5OSBOb3J0aCBDYXBpdG9sIFN0cmVldCwgTkUgNHRoIEZsIFdhc2hpbmd0b24sIERDIDIwMDAyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY3MS00OTAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2NzEtNDg2MDxiciAvPmRkAgUPDxYCHwIFWDxiPldlYnNpdGU6IDwvYj5kb2guZGMuZ292L3BhZ2UvaGl2YWlkcy1oZXBhdGl0aXMtc3RkLWFuZC10Yi1hZG1pbmlzdHJhdGlvbi1oYWhzdGE8YnIgLz5kZAIHDw8WAh8CBdEBPGI+Q2F0ZWdvcnkgOiA8L2I+IFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBQZXJzb25zIHdpdGggSElWL0FJRFM8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBV08Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgODoxNSBhbSB0byA0OjQ1IHBtOyBleGNlcHQgRGlzdHJpY3QgaG9saWRheXM8YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgWoBzxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIEhJVi9BSURTLCBIZXBhdGl0aXMsIFNURCwgYW5kIFRCIEFkbWluaXN0cmF0aW9uIChIQUhTVEEpIGlzIHRoZSBjb3JlIERpc3RyaWN0IGdvdmVybm1lbnQgYWdlbmN5IHRvIHByZXZlbnQgSElWL0FJRFMsIFNURHMsIFR1YmVyY3Vsb3NpcyBhbmQgSGVwYXRpdGlzLCByZWR1Y2UgdHJhbnNtaXNzaW9uIG9mIHRoZSBkaXNlYXNlcyBhbmQgcHJvdmlkZSBjYXJlIGFuZCB0cmVhdG1lbnQgdG8gcGVyc29ucyB3aXRoIHRoZSBkaXNlYXNlcy4gDQo8YnIgLz4NCjxiciAvPg0KSEFIU1RBIHBhcnRuZXJzIHdpdGggaGVhbHRoIGFuZCBjb21tdW5pdHktYmFzZWQgb3JnYW5pemF0aW9ucyB0byBvZmZlciB0ZXN0aW5nIGFuZCBjb3Vuc2VsaW5nLCBwcmV2ZW50aW9uIGVkdWNhdGlvbiBhbmQgaW50ZXJ2ZW50aW9uLCBmcmVlIGNvbmRvbXMsIG1lZGljYWwgc3VwcG9ydCwgZnJlZSBtZWRpY2F0aW9uIGFuZCBpbnN1cmFuY2UsIGhvdXNpbmcsIG51dHJpdGlvbiwgcGVyc29uYWwgY2FyZSwgZW1lcmdlbmN5IHNlcnZpY2VzLCBhbmQgZGlyZWN0IHNlcnZpY2VzIGF0IGl0cyBTVEQgYW5kIFRCIENsaW5pY3MgYW5kIG1vcmUgZm9yIHJlc2lkZW50cyBvZiB0aGUgRGlzdHJpY3QgYW5kIHRoZSBtZXRyb3BvbGl0YW4gcmVnaW9uLiANCjxiciAvPg0KPGJyIC8+DQpIQUhTVEEgYWRtaW5pc3RlcnMgdGhlIERpc3RyaWN04oCZcyBidWRnZXQgZm9yIEhJVi9BSURTLCBTVEQsIFR1YmVyY3Vsb3NpcywgYW5kIEhlcGF0aXRpcyBwcm9ncmFtcywgcHJvdmlkZXMgZ3JhbnRzIHRvIHNlcnZpY2UgcHJvdmlkZXJzLCBtb25pdG9ycyBwcm9ncmFtcywgYW5kIHRyYWNrcyB0aGUgaW5jaWRlbmNlIG9mIEhJViwgQUlEUywgU1REcywgVHViZXJjdWxvc2lzIGFuZCBIZXBhdGl0aXMgaW4gdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2NTUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQS3S7ZVpdcChFI5PlpQi4HZ0uLeA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLQl50cApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oB9GxGWnHKCQcifYSDSoLIC5xwy2w=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="899 North Capitol Street, NE 4th Fl Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="HIV/AIDS, Hepatitis, STD, and TB Administration (HAHSTA)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">899 North Capitol Street, NE 4th Fl Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 671-4900<br /><b>Fax No:</b>(202) 671-4860<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>doh.dc.gov/page/hivaids-hepatitis-std-and-tb-administration-hahsta<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services<br \><b>Population : </b> Persons with HIV/AIDS<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:15 am to 4:45 pm; except District holidays<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The HIV/AIDS, Hepatitis, STD, and TB Administration (HAHSTA) is the core District government agency to prevent HIV/AIDS, STDs, Tuberculosis and Hepatitis, reduce transmission of the diseases and provide care and treatment to persons with the diseases. 
+<br />
+<br />
+HAHSTA partners with health and community-based organizations to offer testing and counseling, prevention education and intervention, free condoms, medical support, free medication and insurance, housing, nutrition, personal care, emergency services, and direct services at its STD and TB Clinics and more for residents of the District and the metropolitan region. 
+<br />
+<br />
+HAHSTA administers the District’s budget for HIV/AIDS, STD, Tuberculosis, and Hepatitis programs, provides grants to service providers, monitors programs, and tracks the incidence of HIV, AIDS, STDs, Tuberculosis and Hepatitis in the District of Columbia.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

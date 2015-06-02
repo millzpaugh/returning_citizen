@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgxNzE5IDEzdGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTE3MTkgMTN0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA5ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDQ2Mi0zMzc1PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA5MzktODY5NjxiciAvPmRkAgUPDxYCHwIFIDxiPldlYnNpdGU6IDwvYj5lY21wY2Mub3JnPGJyIC8+ZGQCBw8PFgIfAgXzATxiPkNhdGVnb3J5IDogPC9iPiBQYXJlbnRpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRmFtaWx5IHN1cHBvcnQgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBDYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIHBhcmVudGFsIHJldW5pZmljYXRpb24sIEhvbWUgdmlzaXRhdGlvbiwgUGFyZW50aW5nIHN1cHBvcnQsIGUuZy4gY2xhc3NlcywgZ3JvdXBzLCBQcmVuYXRhbC9Qb3N0bmF0YWwgY2xhc3NlczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPkNvbnRhY3QgZm9yIHRpbWVzIG9mIG9wZXJhdGlvbi48YnIgLz5kZAIPDw8WAh8CBYYBPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Mb3cgaW5jb21lIGZhbWlsaWVzOyBwcmVnbmFudCB0ZWVucyBhbmQgd29tZW47IGFuZCBjaGlsZHJlbiB3aXRoIHNwZWNpYWwgbmVlZHMgKFdhcmRzIDEsIDIsIDQgJiA1KS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFvwo8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBFZHdhcmQgQy4gTWF6aXF1ZSBQYXJlbnQgQ2hpbGQgQ2VudGVyIChFQ01QQ0MpIGlzIGEgbm9uLXByb2ZpdCBjb21tdW5pdHkgYmFzZWQgb3JnYW5pemF0aW9uIHRoYXQgcHJvdmlkZXMgaG9tZSBiYXNlZCBzZXJ2aWNlcyB0byBwcmVnbmFudCB3b21lbiBhbmQgdGhlaXIgY2hpbGRyZW4gZnJvbSBiaXJ0aCB0byBhZ2UgdGhyZWUuIEVDTVBDQyBvZmZlcnMgYW4gRWFybHkgSGVhZCBTdGFydCBwcm9ncmFtLCBkZXNpZ25lZCBmb3IgZmFtaWxpZXMgd2l0aCBjaGlsZHJlbiB1bmRlciAzIGFuZCBmYW1pbGllcyBoYXZlIGFuIG9wdGlvbiBmb3Igc2VydmljZSBkZWxpdmVyeSBlaXRoZXIgaW4gdGhlaXIgaG9tZXMgb3IgaW4gb25lIG9mIHRoZSBFQ01QQ0MgY2VudGVycy4gVGhlIEVDTVBDQyBhbHNvIG9mZmVycyBhIEhlYWQgU3RhcnQgcHJvZ3JhbSBmb3IgY2hpbGRyZW4gYmV0d2VlbiB0aGUgYWdlcyBvZiAzLTUgeWVhcnMuIENoaWxkcmVuIGFyZSBwcm92aWRlZCB3aXRoIG9uLXNpdGUgbWVudGFsIGhlYWx0aCBjb3Vuc2VsaW5nIHNlcnZpY2VzOyB0aGVyZSBhcmUgYWxzbyBvbi1zaXRlIHNwZWVjaCwgbGFuZ3VhZ2UsIHBoeXNpY2FsIGFuZCBvY2N1cGF0aW9uYWwgdGhlcmFwaWVzLCB3aGljaCBhcmUgcHJvdmlkZWQgYnkgcHJpdmF0ZSB2ZW5kb3JzOyBhbiBvbi1zaXRlIGhlYWx0aCBzdWl0ZSB3aXRoIGEgTnV0cml0aW9uaXN0L0RpZXRpY2lhbiBhbmQgd2l0aCBhIHBlZGlhdHJpY2lhbiB0aGF0IHZpc2l0cyBvbmNlIGEgd2Vlay4gDQo8YnIgLz4NCjxiciAvPg0KVGhlIGhvbWUtYmFzZWQgcHJvZ3JhbSBoYXMgYSBwcmVuYXRhbCBmb2N1cyB3aGljaCBwcm92aWRlcyBhIHNwZWNpYWxpemVkIGN1cnJpY3VsdW0gdG8gYWRkcmVzcyBwcmVnbmFuY3kgYW5kIHJlbGF0ZWQgaXNzdWVzOyBhbmQgdGhlIE1lbiBvZiBNYXppcXVlL01lbiBvbiBhIE1pc3Npb24gZ3JvdXAgaXMgYSBzdXBwb3J0IGZvciBtYWxlcyBhbmQgZW5jb3VyYWdlIG1hbGUgaW52b2x2ZW1lbnQgYW5kIGZhdGhlcmhvb2QgZGV2ZWxvcG1lbnQgcHJvZ3JhbS4NCjxiciAvPg0KPGJyIC8+DQpTZXJ2aWNlcyBlbGlnaWJpbGl0eSBpcyBmb3IgbG93IGluY29tZSBmYW1pbGllczsgUHJlZ25hbnQgdGVlbnMgYW5kIHdvbWVuOyBGYW1pbGllcyB3aXRoIGNoaWxkcmVuIGZyb20gaW5mYW5jeSB0byBmaXZlIHllYXJzIG9sZDsgYW5kIHRoZSB0YXJnZXRlZCBjb21tdW5pdGllcyBhcmU6IFdhcmRzIDEsIDIsIDQsIGFuZCA1IChFYXJseSBIZWFkIFN0YXJ0KTsgQ2l0eXdpZGUgKEhlYWQgU3RhcnQpOyBhbmQgQ2hpbGRyZW4gd2l0aCBzcGVjaWFsIG5lZWRzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1ODUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQezYr7yTYcqt/L09iwPuCptcIg4w==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKh5rfEAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAR3vl8ZEvNAMgkoNUIJy6yI7pgWE" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1719 13th Street, NW Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Edward C. Mazique Parent Child  Resource Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1719 13th Street, NW Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 462-3375<br /><b>Fax No:</b>(202) 939-8696<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>ecmpcc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Parenting<br \><b>Services : </b> Family support services<br \><b>Program : </b> Case management, counseling, parental reunification, Home visitation, Parenting support, e.g. classes, groups, Prenatal/Postnatal classes<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Contact for times of operation.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low income families; pregnant teens and women; and children with special needs (Wards 1, 2, 4 & 5).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Edward C. Mazique Parent Child Center (ECMPCC) is a non-profit community based organization that provides home based services to pregnant women and their children from birth to age three. ECMPCC offers an Early Head Start program, designed for families with children under 3 and families have an option for service delivery either in their homes or in one of the ECMPCC centers. The ECMPCC also offers a Head Start program for children between the ages of 3-5 years. Children are provided with on-site mental health counseling services; there are also on-site speech, language, physical and occupational therapies, which are provided by private vendors; an on-site health suite with a Nutritionist/Dietician and with a pediatrician that visits once a week. 
+<br />
+<br />
+The home-based program has a prenatal focus which provides a specialized curriculum to address pregnancy and related issues; and the Men of Mazique/Men on a Mission group is a support for males and encourage male involvement and fatherhood development program.
+<br />
+<br />
+Services eligibility is for low income families; Pregnant teens and women; Families with children from infancy to five years old; and the targeted communities are: Wards 1, 2, 4, and 5 (Early Head Start); Citywide (Head Start); and Children with special needs.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

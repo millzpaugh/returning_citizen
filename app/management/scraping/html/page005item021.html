@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYyMTkgUmlnZ3MgUm9hZCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAxN2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScyMTkgUmlnZ3MgUm9hZCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMTdkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjY5LTIyNzc8YnIgLz5kZAIFDw8WAh8CBSw8Yj5XZWJzaXRlOiA8L2I+d3d3LmZvb2RhbmRmcmllbmRzLm9yZzxiciAvPmRkAgcPDxYCHwIFlQI8Yj5DYXRlZ29yeSA6IDwvYj4gRW1lcmdlbmN5IEZvb2QsIFZvbHVudGVlciBPcHBvcnR1bml0aWVzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE51dHJpdGlvbmFsIHNlcnZpY2VzLCBWb2x1bnRlZXIgb3Bwb3J0dW5pdGllczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEZvb2QgZGVsaXZlcnkgKG1lYWxzL2dyb2Nlcmllcyk8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBQZXJzb25zIHdpdGggSElWL0FJRFMsIFBlcnNvbnMgd2l0aCBtZWRpY2FsIG5lZWRzIChob21lYm91bmQpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVFPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+U2VlIGJlbG93IGZvciB2YXJpb3VzIHByb2dyYW0gdGltZXMuPGJyIC8+ZGQCDw8PFgIfAgVZPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EZXRlcm1pbmF0aW9uIG9mIGVsaWdpYmlsaXR5IGlzIGVudGlyZWx5IGhlYWx0aC1iYXNlZC48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF8hI8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBtaXNzaW9uIG9mIEZvb2QgJiBGcmllbmRzIGlzIHRvIGZvc3RlciBhIGNvbW11bml0eSBjYXJpbmcgZm9yIG1lbiwgd29tZW4gYW5kIGNoaWxkcmVuIGxpdmluZyB3aXRoIEhJVi9BSURTLCBjYW5jZXIgYW5kIG90aGVyIGxpZmUtY2hhbGxlbmdpbmcgaWxsbmVzc2VzIGJ5IHByZXBhcmluZyBhbmQgZGVsaXZlcmluZyBzcGVjaWFsaXplZCBtZWFscyBhbmQgZ3JvY2VyaWVzIGluIGNvbmp1bmN0aW9uIHdpdGggbnV0cml0aW9uIGNvdW5zZWxpbmcuIEZvb2QgJiBGcmllbmRzIGlzIHRoZSBvbmx5IG9yZ2FuaXphdGlvbiBpbiB0aGUgV2FzaGluZ3RvbiwgREMsIGFyZWEgcHJvdmlkaW5nIHNwZWNpYWxpemVkLCBudXRyaXRpb3VzIG1lYWxzLCBncm9jZXJpZXMsIG51dHJpdGlvbiBjb3Vuc2VsaW5nIGFuZCBmcmllbmRzaGlwIHRvIHBlb3BsZSBsaXZpbmcgd2l0aCBISVYvQUlEUywgY2FuY2VyIGFuZCBvdGhlciBsaWZlLWNoYWxsZW5naW5nIGlsbG5lc3Nlcy4gRm9vZCAmIEZyaWVuZHMnIHN0YWZmIG9mIHByb2Zlc3Npb25hbCBjaGVmcyBhbmQgY29tbXVuaXR5IGRpZXRpdGlhbnMgZGVzaWduIG1lYWxzIHRoYXQgbWVldCB0aGUgc3BlY2lhbCBkaWV0YXJ5IG5lZWRzIG9mIHBlcnNvbnMgbGl2aW5nIHdpdGggYSBicm9hZCByYW5nZSBvZiBpbGxuZXNzZXMuIERldGVybWluYXRpb24gb2YgZWxpZ2liaWxpdHkgaXMgZW50aXJlbHkgaGVhbHRoLWJhc2VkOyBGb29kICYgRnJpZW5kcyBoYXMgbm8gcmVxdWlyZW1lbnRzIGZvciBpbmNvbWUgb3IgaW5zdXJhbmNlIGNvdmVyYWdlLiBUbyBiZSBlbGlnaWJsZSBmb3Igc2VydmljZXMsIG9uZSBtdXN0IGhhdmUgQUlEUywgY2FuY2VyIG9yIGJlIHJlY2VpdmluZyBob3NwaWNlIGNhcmUsIGhhdmUgYSBjb21wcm9taXNlZCBudXRyaXRpb25hbCBzdGF0dXMgYW5kIGEgbGltaXRlZCBhYmlsaXR5IHRvIHByZXBhcmUgaGlzL2hlciBvd24gbWVhbHMuDQo8YnIgLz4NCjxiciAvPg0KSE9NRS1ERUxJVkVSRUQgTUVBTFMNCjxiciAvPg0KTW9uZGF5IHRocm91Z2ggU2F0dXJkYXksIEZvb2QgJiBGcmllbmRzIGRlbGl2ZXJzIG51dHJpdGlvbmFsbHktYmFsYW5jZWQsIGRlbGljaW91cyBtZWFscyBkaXJlY3RseSB0byBvdXIgY2xpZW50cycgaG9tZXMuIEVhY2ggZGVsaXZlcnkgaW5jbHVkZXMgZm9vZCBmb3IgYnJlYWtmYXN0LCBsdW5jaCBhbmQgZGlubmVyLCBhbG9uZyB3aXRoIGxpcXVpZCBudXRyaXRpb25hbCBzdXBwbGVtZW50cywgaWYgbmVlZGVkLg0KPGJyIC8+DQo8YnIgLz4NCkdST0NFUklFUy1UTy1HTw0KPGJyIC8+DQpGb29kICYgRnJpZW5kcycgR3JvY2VyaWVzLXRvLUdvIHNlcnZpY2UgaXMgYXZhaWxhYmxlIGZvciBpbmRpdmlkdWFscyBhbmQgZmFtaWxpZXMgd2hvIGxpdmUgb3V0c2lkZSBvdXIgZnJlc2hseS1wcmVwYXJlZCBtZWFscyBkZWxpdmVyeSBhcmVhLiBJdCBpcyBhbHNvIGF2YWlsYWJsZSBmb3IgdGhvc2UgY2xpZW50cyBhbmQgZmFtaWx5IG1lbWJlcnMgd2hvIGFyZSBoZWFsdGh5IGVub3VnaCB0byBwcmVwYXJlIHRoZWlyIG93biBtZWFscy4gR3JvY2VyaWVzLXRvLUdvIGlzIGEgd2Vla2x5IG9yIGV2ZXJ5LW90aGVyLXdlZWsgc2VydmljZSB0aGF0IGluY2x1ZGVzIHR3byBiYWdzIG9mIG5vbi1wZXJpc2hhYmxlIGdyb2NlcmllcyBhbmQgZnJvemVuIHNvdXBzIGFuZCBlbnRyZWVzLCBwcmVwYXJlZCBpbiBvdXIga2l0Y2hlbi4gDQo8YnIgLz4NCjxiciAvPg0KTlVUUklUSU9OQUwgQ09VTlNFTElORyAmIEVEVUNBVElPTg0KPGJyIC8+DQpBdCBGb29kICYgRnJpZW5kcywgd2UgY29uc2lkZXIgbnV0cml0aW9uIHRvIGJlIGEgdml0YWwgcGFydCBvZiB0aGUgdHJlYXRtZW50IGZvciBvdXIgY2xpZW50cy4gT3VyIGNvbW11bml0eSBkaWV0aXRpYW5zIHByb3ZpZGUgaW5kaXZpZHVhbCBudXRyaXRpb24gY291bnNlbGluZyB0byBhbGwgb2Ygb3VyIGNsaWVudHMgYW5kIHRvIGluZGl2aWR1YWxzIGluIHRoZSBjb21tdW5pdHkgd2hvIGFyZSBsaXZpbmcgd2l0aCBsaWZlLWNoYWxsZW5naW5nIGlsbG5lc3Nlcy4gU2VydmljZXMgYXJlIGZyZWUgb2YgY2hhcmdlIGFuZCBpbmNsdWRlOiBpbmRpdmlkdWFsaXplZCBudXRyaXRpb24gY291bnNlbGluZywgYm9keSBjb21wb3NpdGlvbiB0ZXN0LCBiaS1tb250aGx5IHdvcmtzaG9wcyBvbiBudXRyaXRpb24gYW5kIG90aGVyIHdlbGxuZXNzIHJlbGF0ZWQgdG9waWNzLCBjb29raW5nIGNsYXNzZXMsIGVkdWNhdGlvbmFsIGhhbmRvdXRzIG9uIGluY3JlYXNpbmcgcHJvdGVpbiBhbmQgY2Fsb3JpZSBpbnRha2UsIGZvb2Qgc2FmZXR5IGFuZCBtb3JlLCBhcyB3ZWxsIGFzLCBvZmYtc2l0ZSBudXRyaXRpb24gcmVsYXRlZCB0byBISVYvQUlEUywgY2FuY2VyIGFuZCBvdGhlciBsaWZlLWNoYWxsZW5naW5nIGlsbG5lc3Nlcy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzYyHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFksCE+ZqwEiOzij3vW2mGa4R/S8oQ=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLahNeMCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZb9IzQDp6RKou0YvfVQuOaOUWnO" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="219 Riggs Road, NE Washington DC 20017" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Food and Friends" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">219 Riggs Road, NE Washington, DC 20017</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 269-2277<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.foodandfriends.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Volunteer Opportunities<br \><b>Services : </b> Nutritional services, Volunteer opportunities<br \><b>Program : </b> Food delivery (meals/groceries)<br \><b>Population : </b> Persons with HIV/AIDS, Persons with medical needs (homebound)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>See below for various program times.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Determination of eligibility is entirely health-based.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The mission of Food & Friends is to foster a community caring for men, women and children living with HIV/AIDS, cancer and other life-challenging illnesses by preparing and delivering specialized meals and groceries in conjunction with nutrition counseling. Food & Friends is the only organization in the Washington, DC, area providing specialized, nutritious meals, groceries, nutrition counseling and friendship to people living with HIV/AIDS, cancer and other life-challenging illnesses. Food & Friends' staff of professional chefs and community dietitians design meals that meet the special dietary needs of persons living with a broad range of illnesses. Determination of eligibility is entirely health-based; Food & Friends has no requirements for income or insurance coverage. To be eligible for services, one must have AIDS, cancer or be receiving hospice care, have a compromised nutritional status and a limited ability to prepare his/her own meals.
+<br />
+<br />
+HOME-DELIVERED MEALS
+<br />
+Monday through Saturday, Food & Friends delivers nutritionally-balanced, delicious meals directly to our clients' homes. Each delivery includes food for breakfast, lunch and dinner, along with liquid nutritional supplements, if needed.
+<br />
+<br />
+GROCERIES-TO-GO
+<br />
+Food & Friends' Groceries-to-Go service is available for individuals and families who live outside our freshly-prepared meals delivery area. It is also available for those clients and family members who are healthy enough to prepare their own meals. Groceries-to-Go is a weekly or every-other-week service that includes two bags of non-perishable groceries and frozen soups and entrees, prepared in our kitchen. 
+<br />
+<br />
+NUTRITIONAL COUNSELING & EDUCATION
+<br />
+At Food & Friends, we consider nutrition to be a vital part of the treatment for our clients. Our community dietitians provide individual nutrition counseling to all of our clients and to individuals in the community who are living with life-challenging illnesses. Services are free of charge and include: individualized nutrition counseling, body composition test, bi-monthly workshops on nutrition and other wellness related topics, cooking classes, educational handouts on increasing protein and calorie intake, food safety and more, as well as, off-site nutrition related to HIV/AIDS, cancer and other life-challenging illnesses.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

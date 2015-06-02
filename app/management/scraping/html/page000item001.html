@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxNjI5IEsgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA1ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjE2MjkgSyBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA1ZGQCAw8PFgIfAgVxPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDUwOC0zNjUyPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA1MDgtMzY1MzxiciAvPjxiPkZheCBObzo8L2I+KDMwMSkgMjc3LTU2NTY8YnIgLz5kZAIFDw8WAh8CBTQ8Yj5XZWJzaXRlOiA8L2I+YWJvdXRmYWNlZHVpLmNvbS9Ib21lX1BhZ2UucGhwPGJyIC8+ZGQCBw8PFgIfAgWEAjxiPkNhdGVnb3J5IDogPC9iPiBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IERVSS9EV0kgZWR1Y2F0aW9uIHByb2dyYW08YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gU2VsZi1wYXltZW50PGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgV9PGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+U2Vzc2lvbnMgaGVsZCBUdWVzZGF5IGFuZCBGcmlkYXkgNTozMHBtLTg6MzBwbTsgU2F0dXJkYXkgOTowMGFtLTU6MDBwbSAoQnkgQXBwb2ludG1lbnQgT25seSk8YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwIFMjxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+U3RhdGUgSXNzdWVkIElEPGJyIC8+ZGQCEw8PFgIfAgXpBjxiPkRlc2NyaXB0aW9uOiA8L2I+QWJvdXRGYWNlLCBMTEMncyBtaXNzaW9uIGlzIHRvIGFzc2lzdCB0aGUgV2FzaGluZ3RvbiwgRC5DLiBNZXRyb3BvbGl0YW4gYXJlYSBjb21tdW5pdGllcyBpbiB0aGVpciBlbmRlYXZvciB0byBtYWludGFpbiBzYWZlIHN0cmVldHMsIGZld2VyIGF1dG9tb2JpbGUgY2FzdWFsdGllcyBhbmQgZmV3ZXIgYXV0b21vYmlsZSBkZWF0aHMuIFdlIGFjY29tcGxpc2ggdGhpcyBtaXNzaW9uIGJ5IHByb3ZpZGluZyBwcm9mZXNzaW9uYWwgYW5kIGNvc3QtZWZmZWN0aXZlIHN1YnN0YW5jZSBhYnVzZSBzZXJ2aWNlcyBmb3IgZ3JvdXBzIGFuZCBpbmRpdmlkdWFscyBhbG9uZyB3aXRoIERVSSBhbmQgRFdJIGVkdWNhdGlvbiBmb3IgY2xpZW50IGdyb3VwcyBhbmQgaW5kaXZpZHVhbHMgaW4gbmVlZCBvZiBvdXIgc2VydmljZXMuDQo8YnIgLz4NCjxiciAvPg0KQWxjb2hvbCBhbmQgZHJ1ZyBlZHVjYXRpb24gcHJvZ3JhbSBmb3IgYWR1bHRzIGNoYXJnZWQgd2l0aCBEV0ksIERVSSwgb3IgcG9zc2Vzc2lvbiBvZiBkcnVncyBhbmQgb3JkZXJlZCB0byBhdHRlbmQgYW4gYWxjb2hvbCBhbmQvb3IgZHJ1ZyBlZHVjYXRpb24gcHJvZ3JhbS4xMi1ob3VyIHByb2dyYW0sIGV2ZW5pbmcgbWVldGluZyB0aW1lcy4gIE9yaWVudGF0aW9uIGFuZCBhc3Nlc3NtZW50IGZlZSAkODAsIGdyb3VwIA0Kc2Vzc2lvbnMgJDQ1IGZvciBlYWNoIDkwIG1pbnV0ZSBzZXNzaW9uLiBQcm9ncmFtIHJlY29nbml6ZWQgYnkgTUQgJiBEQyBETVYuICBBbGwgY2xhc3NlcyB0YXVnaHQgYnkgYWRkaWN0aW9uIGNvdW5zZWxvcnMuICBDZXJ0aWZpY2F0ZXMgYXZhaWxhYmxlIGltbWVkaWF0ZWx5IHVwb24gY29tcGxldGlvbiBvZiBwcm9ncmFtLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0NjAeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWST9zsdXzfpW7x+O8QRA1lkyzuQ1g==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKVvKHzAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARVltunwPWucFgk8Hbhxic4yvWfY" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1629 K Street, NW Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="About Face" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1629 K Street, NW Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 508-3652<br /><b>Phone No2:</b>(202) 508-3653<br /><b>Fax No:</b>(301) 277-5656<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>aboutfacedui.com/Home_Page.php<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> DUI/DWI education program<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Sessions held Tuesday and Friday 5:30pm-8:30pm; Saturday 9:00am-5:00pm (By Appointment Only)<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>State Issued ID<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>AboutFace, LLC's mission is to assist the Washington, D.C. Metropolitan area communities in their endeavor to maintain safe streets, fewer automobile casualties and fewer automobile deaths. We accomplish this mission by providing professional and cost-effective substance abuse services for groups and individuals along with DUI and DWI education for client groups and individuals in need of our services.
+<br />
+<br />
+Alcohol and drug education program for adults charged with DWI, DUI, or possession of drugs and ordered to attend an alcohol and/or drug education program.12-hour program, evening meeting times.  Orientation and assessment fee $80, group 
+sessions $45 for each 90 minute session. Program recognized by MD & DC DMV.  All classes taught by addiction counselors.  Certificates available immediately upon completion of program.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

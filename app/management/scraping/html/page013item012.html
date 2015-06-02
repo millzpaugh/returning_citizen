@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs2MDEwIEdlb3JnaWEgQXZlbnVlLCBOVyBXYXNoaW5ndG9uIERDIDIwMDExZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDYwMTAgR2VvcmdpYSBBdmVudWUsIE5XIFdhc2hpbmd0b24sIERDIDIwMDExZGQCAw8PFgIfAgVPPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDQ4Ny0yMDEyPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMzAxKSA3MjgtODMwNzxiciAvPmRkAgUPDxYCHwIFJDxiPldlYnNpdGU6IDwvYj53d3cuaWNoLmRjLmdvdjxiciAvPmRkAgcPDxYCHwIFrwE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBIeXBvdGhlcm1pYSAmYW1wOyBoeXBlcnRoZXJtaWEgc2VydmljZXMgKG1vYmlsZSB2YW4vdHJhbnNwb3J0YXRpb24vc2hlbHRlcnMpLCBTaGVsdGVyczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IFdvbWVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVMPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+NzowMCBwbSAtIDc6MDAgYW07IEZpcnN0IGNvbWUsIGZpcnN0IHNlcnZlLjxiciAvPmRkAg8PDxYCHwIFLjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+V29tZW4gb25seS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFrQQ8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBOYXRpdml0eSBTaGVsdGVyIGlzIGEgMzY1IGRheSAgYSB5ZWFyLCBsb3cgYmFycmllciBmYWNpbGl0eSB0aGF0IG9wZXJhdGVzIGZyb20gNzowMCBwbSB1bnRpbCA3OjAwIGFtLiAgVGhlIFVuaXRlZCBQbGFubmluZyBPcmdhbml6YXRpb24gcHJvdmlkZXMgdHJhbnNwb3J0YXRpb24gdG8gdGhlIHNoZWx0ZXIgMzY1IGRheXMgYSB5ZWFyLiBUaGUgdHJhbnNwb3J0IGxlYXZlcyB0aGUgU2FjcmVkIEhlYXJ0IENodXJjaCBvbiAxNnRoIGFuZCBQYXJrIFJvYWQsIE5XIGF0IDY6MzAgUC5NLiBldmVyeWRheS4gDQo8YnIgLz4gDQpUcmFuc3BvcnRhdGlvbiBGUk9NIHRoZSBzaGVsdGVyIGlzIHByb3ZpZGVkLCBvbmx5IGR1cmluZyB0aGUgaHlwb3RoZXJtaWEgc2Vhc29uLCB3aGljaCBiZWdpbnMgTm92ZW1iZXIgMXN0IGFuZCBlbmRzIE1hcmNoIDMxc3QuIA0KPGJyIC8+IA0KPGJyIC8+IA0KTk9URTogVGhlIE5hdGl2aXR5IFNoZWx0ZXIgZG9lcyBOT1QgcHJvdmlkZSB3YXNoaW5nIG1hY2hpbmVzIGZvciBwZXJzb25hbCBsYXVuZHJ5LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMzMTIeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRGCrPQO6g0h6fc7hJhRd6mXMHevA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKp/fR1ApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBFFGzYcGZrsz7JB3PZuslQNshfWA=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="6010 Georgia Avenue, NW Washington DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Nativity Shelter" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">6010 Georgia Avenue, NW Washington, DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 487-2012<br /><b>Phone No2:</b>(301) 728-8307<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ich.dc.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Hypothermia &amp; hyperthermia services (mobile van/transportation/shelters), Shelters<br \><b>Population : </b> Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>7:00 pm - 7:00 am; First come, first serve.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women only.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Nativity Shelter is a 365 day  a year, low barrier facility that operates from 7:00 pm until 7:00 am.  The United Planning Organization provides transportation to the shelter 365 days a year. The transport leaves the Sacred Heart Church on 16th and Park Road, NW at 6:30 P.M. everyday. 
+<br /> 
+Transportation FROM the shelter is provided, only during the hypothermia season, which begins November 1st and ends March 31st. 
+<br /> 
+<br /> 
+NOTE: The Nativity Shelter does NOT provide washing machines for personal laundry.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSMxNDI2IDl0aCBTdCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQxNDI2IDl0aCBTdCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzQ1LTEyMDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDc0NS0xMjQ2PGJyIC8+ZGQCBQ8PFgIfAgUmPGI+V2Vic2l0ZTogPC9iPnd3dy5lbW1hdXNkYy5vcmc8YnIgLz5kZAIHDw8WAh8CBfQBPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IERheSBwcm9ncmFtcy9Ecm9wLWluIGNlbnRlcnMsIE51dHJpdGlvbmFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRm9vZCBkZWxpdmVyeSAobWVhbHMvZ3JvY2VyaWVzKSwgRnJlZSBtZWFscy9Tb3VwIGtpdGNoZW5zPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gU2VuaW9ycyAoNTUrKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheS1GcmlkYXkgOTowMCBhbSB0byA1OjAwIHBtLjxiciAvPmRkAg8PDxYCHwIFNjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+UmVzaWRlbnRzIENpdHl3aWRlLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgX0BzxiPkRlc2NyaXB0aW9uOiA8L2I+RW1tYXVzIFNlcnZpY2VzIGZvciB0aGUgQWdpbmcgaXMgYSA1MDEoYykoMykgbm9uLXByb2ZpdCBvcmdhbml6YXRpb24gdGhhdCByZWFjaGVzIG91dCB0byBidWlsZCB0cnVzdCB3aXRoIHNlbmlvcnMgdG8gcHJvdmlkZSBzdXBwb3J0LCBhZHZvY2FjeSwgYW5kIHNlcnZpY2VzIHRoYXQgaGVscCB0aGVtIHJlbWFpbiBhY3RpdmUsIHJlc3BlY3RlZCwgaW5kZXBlbmRlbnQsIGFuZCB2aXRhbCBtZW1iZXJzIG9mIHRoZWlyIGNvbW11bml0eS4NCjxiciAvPg0KPGJyIC8+DQpFTUVSR0VOQ1kgRk9PRA0KPGJyIC8+DQpFbW1hdXMgU2VydmljZXMgZm9yIHRoZSBBZ2luZyBwcm92aWRlcyBhY2Nlc3MgdG8gc29tZSBiYXNpYyBmb29kIHN1cHBsaWVzIGZvciBvbGRlciBhZHVsdHMgNTUrIG9uIGEgbmVlZCBiYXNpczsgdGhpcyBuZWVkIGlzIGRldGVybWluZWQgYnkgY2FzZSBieSBjYXNlIGV2YWx1YXRpb24gZG9uZSBieSB0aGUgQWdlbmN5LiBFbW1hdXMgYWxzbyBvZmZlcnMgYSByYW5nZSBvZiBwcm9ncmFtbWF0aWMgc2VydmljZXMgd2hpY2ggaW5jbHVkZSBvcHBvcnR1bml0aWVzIGZvciBlZHVjYXRpb25hbCBhbmQgdGVjaG5vbG9neTsgYWNjZXNzIHRvIGhlYWx0aCBhbmQgd2VsbG5lc3MgcHJvZ3JhbXMgYW5kIGRpc2N1c3Npb25zIHN1Y2ggYXMgVGhyaXZlICYgSml2ZSBhbmQgUmFpc2UgdGhlIEJhciBleGVyY2lzZSBwcm9ncmFtcy4gV2UgYWxzbyBwcm92aWRlIGEgbnV0cml0aW91cyBhbmQgd2VsbCBiYWxhbmNlZCBsdW5jaCB3aGljaCBpcyBzZXJ2ZWQgdG8gYWxsIGFjdGl2ZSBwYXJ0aWNpcGFudHMuIEFkZGl0aW9uYWxseSwgRW1tYXVzIGRlbGl2ZXJzIGZvb2Qgc3VwcGxpZXMgdG8gZWxpZ2libGUgb2xkZXIgYWR1bHRzLCA2MCsgd2hvIGFyZSBlbnJvbGxlZCBpbiB0aGUgcHJvZ3JhbS4gIFRoaXMgaXMgdXN1YWxseSBkb25lIG9uIHRoZSAzcmQgU2F0dXJkYXkgb2YgdGhlIG1vbnRoIHdpdGggdGhlIGhlbHAgb2YgVm9sdW50ZWVycy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNTE1Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkje4IiudcLyC4SaKRZgaWedOwHk4=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKpu7zgBQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcYQyqOK+dAg+/nt1WkXxTNuSQme" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1426 9th St, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Emmaus Services for the Aging" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1426 9th St, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 745-1200<br /><b>Fax No:</b>(202) 745-1246<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.emmausdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing<br \><b>Services : </b> Day programs/Drop-in centers, Nutritional services<br \><b>Program : </b> Food delivery (meals/groceries), Free meals/Soup kitchens<br \><b>Population : </b> Seniors (55+)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday-Friday 9:00 am to 5:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Residents Citywide.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Emmaus Services for the Aging is a 501(c)(3) non-profit organization that reaches out to build trust with seniors to provide support, advocacy, and services that help them remain active, respected, independent, and vital members of their community.
+<br />
+<br />
+EMERGENCY FOOD
+<br />
+Emmaus Services for the Aging provides access to some basic food supplies for older adults 55+ on a need basis; this need is determined by case by case evaluation done by the Agency. Emmaus also offers a range of programmatic services which include opportunities for educational and technology; access to health and wellness programs and discussions such as Thrive & Jive and Raise the Bar exercise programs. We also provide a nutritious and well balanced lunch which is served to all active participants. Additionally, Emmaus delivers food supplies to eligible older adults, 60+ who are enrolled in the program.  This is usually done on the 3rd Saturday of the month with the help of Volunteers.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

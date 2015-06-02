@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8yNzExIENvbm5lY3RpY3V0IEF2ZW51ZSwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwOGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAyNzExIENvbm5lY3RpY3V0IEF2ZW51ZSwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDhkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjY1LTE2Mjk8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDMyOC01ODQ1PGJyIC8+ZGQCBQ8PFgIfAgUqPGI+V2Vic2l0ZTogPC9iPnd3dy53b29kbGV5aG91c2Uub3JnPGJyIC8+ZGQCBw8PFgIfAgXWATxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nLCBNZW50YWwgSGVhbHRoPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENyaXNpcyBiZWRzLCBDcmlzaXMgaW50ZXJ2ZW50aW9uLCBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFBlcnNvbnMgd2l0aCBtZW50YWwgaWxsbmVzcywgV29tZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUA8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXktRnJpZGF5IDk6MDAgYW0gLSA1OjAwIHBtPGJyIC8+ZGQCDw8PFgIfAgWOATxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+REMgUmVzaWRlbnRzIHdpdGggbWVudGFsIGlsbG5lc3M7IFJlZmVycmFscyB0aHJvdWdoIFdvb2RsZXkgSG91c2UsIEluYy4gb3IgdGhlIERlcGFydG1lbnQgb2YgTWVudGFsIEhlYWx0aC48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFzQo8Yj5EZXNjcmlwdGlvbjogPC9iPldvb2RsZXkgSG91c2UgaXMgYW4gaW5ub3ZhdGl2ZSwgY29tbXVuaXR5LWJhc2VkIG9yZ2FuaXphdGlvbiBkZWRpY2F0ZWQgdG8gaGVscGluZyBwZW9wbGUgd2l0aCBtZW50YWwgaWxsbmVzcyBsaXZlIGZ1bGwgYW5kIGhlYWx0aHkgbGl2ZXMgd2l0aCBkaWduaXR5LiBXb29kbGV5IEhvdXNlIGhhcyBzZXJ2ZWQgYXMgYSBwYXRod2F5IHRvIHJlY292ZXJ5IGZvciB0aG91c2FuZHMgb2YgV2FzaGluZ3RvbiwgREMgYXJlYSByZXNpZGVudHMgYnkgb2ZmZXJpbmcgc2FmZSwgc2VjdXJlIGhvdXNpbmcgb3B0aW9ucyBhbmQgYSBjb21wcmVoZW5zaXZlIHJhbmdlIG9mIHNlcnZpY2VzIGFuZCBzdXBwb3J0LiBXb29kbGV5IEhvdXNlIGlzIGFsc28gY29tbWl0dGVkIHRvIGVtcG93ZXJpbmcgY2xpZW50cyBvbiBhbiBpbmRpdmlkdWFsIGJhc2lzIHRvIGFjaGlldmUgcHJvZHVjdGl2ZSwgaW5kZXBlbmRlbnQgbGl2aW5nLg0KT3VyIHJlc2lkZW50aWFsIHByb2dyYW1zIGluY2x1ZGU6DQo8YnIgLz4NCjxiciAvPg0KQ3Jvc3NpbmcgUGxhY2UsIGEgV29vZGxleSBQYXJrIGdyb3VwIGhvbWUgZm9yIHBlb3BsZSBpbiBjcmlzaXMgb3Igd2hvIGFyZSBleHBlcmllbmNpbmcgYW4gYWN1dGUgcGhhc2Ugb2YgdGhlaXIgaWxsbmVzczsgdGhlIFZhbGVudGkgSG91c2UsIGEgV29vZGxleSBQYXJrIHRyYW5zaXRpb25hbCBncm91cCBob21lIGZvciBwZW9wbGUgd29ya2luZyB0byB0cmFuc2l0aW9uIHRvIHRoZSBuZXh0IGxldmVsIG9mIGluZGVwZW5kZW50IGxpdmluZzsgdGhlIEhvbGx5IEhvdXNlLCBhIFNoZXBoZXJkIFBhcmsgZ3JvdXAgaG9tZSBzcGVjaWFsaXppbmcgaW4gbG9uZ2VyLXRlcm0gaG91c2luZzsgYW5kIGEgU3VwcG9ydGVkIEluZGVwZW5kZW50IExpdmluZyBBcGFydG1lbnQgUHJvZ3JhbSB3aXRoIGFwYXJ0bWVudHMgYW5kIGNvbmRvcyBpbiBOb3J0aHdlc3QgV2FzaGluZ3RvbiBmb3IgcGVvcGxlIHdobyBjYW4gbGl2ZSB3aXRob3V0IGRhaWx5IHN1cGVydmlzaW9uLg0KPGJyIC8+DQo8YnIgLz4NCldvb2RsZXkgSG91c2UncyB0cmFuc2l0aW9uYWwgaG91c2luZyBwcm92aWRlcyAyNCBob3VyIHN0YWZmIHN1cGVydmlzaW9uIGFuZCBvZmZlcnMgY2FzZSBtYW5hZ2VtZW50LCBpbmRlcGVuZGVudCBob3VzaW5nIGFzc2lzdGFuY2UsIG1lZGljYWwgc2VydmljZXMsIG9jY3VwYXRpb25hbCBza2lsbHMgdHJhaW5pbmcsIGVkdWNhdGlvbiBhbmQgcHN5Y2hpYXRyaWMgdHJlYXRtZW50LiBSZWZlcnJhbHMgdGhyb3VnaCBXb29kbGV5IEhvdXNlLCBJbmMuICgyMDIpIDUxOC0wMDYxIG9yIHRocm91Z2ggdGhlIERlcGFydG1lbnQgb2YgTWVudGFsIEhlYWx0aC4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzIxOB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZK1vCUy9c6Eg9ZwthUbVZDdv2XeU" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLe8tCfDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYH79JT2i7A8b+rW4yT08wJh9sIL" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2711 Connecticut Avenue, NW Washington DC 20008" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Crossing Place (Woodley House)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2711 Connecticut Avenue, NW Washington, DC 20008</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 265-1629<br /><b>Fax No:</b>(202) 328-5845<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.woodleyhouse.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Mental Health<br \><b>Services : </b> Crisis beds, Crisis intervention, Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Persons with mental illness, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday-Friday 9:00 am - 5:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC Residents with mental illness; Referrals through Woodley House, Inc. or the Department of Mental Health.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Woodley House is an innovative, community-based organization dedicated to helping people with mental illness live full and healthy lives with dignity. Woodley House has served as a pathway to recovery for thousands of Washington, DC area residents by offering safe, secure housing options and a comprehensive range of services and support. Woodley House is also committed to empowering clients on an individual basis to achieve productive, independent living.
+Our residential programs include:
+<br />
+<br />
+Crossing Place, a Woodley Park group home for people in crisis or who are experiencing an acute phase of their illness; the Valenti House, a Woodley Park transitional group home for people working to transition to the next level of independent living; the Holly House, a Shepherd Park group home specializing in longer-term housing; and a Supported Independent Living Apartment Program with apartments and condos in Northwest Washington for people who can live without daily supervision.
+<br />
+<br />
+Woodley House's transitional housing provides 24 hour staff supervision and offers case management, independent housing assistance, medical services, occupational skills training, education and psychiatric treatment. Referrals through Woodley House, Inc. (202) 518-0061 or through the Department of Mental Health. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

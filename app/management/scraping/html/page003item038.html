@@ -1,0 +1,178 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTc0MDU4IE1pbm5lc290YSBBdmVudWUsLiBORSAzcmQgRmxyLiBXYXNoaW5ndG9uIERDIDIwMDE5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFODQwNTggTWlubmVzb3RhIEF2ZW51ZSwuIE5FIDNyZCBGbHIuIFdhc2hpbmd0b24sIERDIDIwMDE5ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY5OC01NzAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2OTgtNTczNDxiciAvPmRkAgUPDxYCHwIFVTxiPldlYnNpdGU6IDwvYj5kb2VzLmRjLmdvdi9zZXJ2aWNlL3Nlbmlvci1jb21tdW5pdHktc2VydmljZS1lbXBsb3ltZW50LXByb2dyYW08YnIgLz5kZAIHDw8WAh8CBbECPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFbXBsb3ltZW50IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gSm9iIHNlYXJjaCAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZSwgSm9iIHNraWxscyBhc3Nlc3NtZW50ICZhbXA7IHJlYWRpbmVzcywgVm9jYXRpb25hbCB0cmFpbmluZyAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgU2VuaW9ycyAoNTUrKSwgV29tZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUM8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgODozMCBhbSAtIDU6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgVhPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIHdvbWVuIHdobyBhcmUgU2VuaW9ycyAoNTUrKTsgYWRkaXRpb25hbCBkZXRhaWxzIGJlbG93LjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWyDjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIERpc3RyaWN04oCZcyBTZW5pb3IgQ29tbXVuaXR5IFNlcnZpY2UgRW1wbG95bWVudCBQcm9ncmFtIChTQ1NFUCkgb2ZmZXJzIHN1YnNpZGl6ZWQgc2tpbGxzIHRyYWluaW5nIGFuZCBqb2IgcGxhY2VtZW50IGFzc2lzdGFuY2UgdG8gZGlzYWR2YW50YWdlZCBEaXN0cmljdCByZXNpZGVudHMgYWdlcyA1NSB5ZWFycyBhbmQgb2xkZXIuIFNDU0VQIHByb3ZpZGVzIHR3byB0eXBlcyBvZiB0cmFpbmluZyB0byBub24tam9iIHJlYWR5IERDIG1hdHVyZSBqb2Itc2Vla2Vycy4gRGV0ZXJtaW5hdGlvbnMgYXJlIGJhc2VkIHVwb24gYW4gaW5pdGlhbCBhc3Nlc3NtZW50IGFuZCB0aGUgZGV2ZWxvcG1lbnQgb2YgYW4gSW5kaXZpZHVhbCBFbXBsb3ltZW50IFBsYW4gKElFUCkuIFRoZSBwcm9ncmFtIHRhaWxvcnMgcmVjcnVpdG1lbnQsIHRyYWluaW5nIGFuZCBlbXBsb3ltZW50IHN0cmF0ZWdpZXMgdG8gaGVscCBwbGFjZSBzZW5pb3JzIHdpdGggaG9zdCBhZ2VuY2llcyBmb3IgdHJhaW5pbmcgYW5kIGVtcGxveW1lbnQgaW4gZ3Jvd3RoIGluZHVzdHJpZXMgb3Igd2l0aCB0aGUgRGVwYXJ0bWVudCBvZiBFbXBsb3ltZW50IFNlcnZpY2VzIChET0VTKSBmb3IgcmVzb3VyY2VzIHRvIG1lZXQgZW1wbG95bWVudCBuZWVkcy4NCjxiciAvPg0KPGJyIC8+DQpBbGwgU0NTRVAgcGFydGljaXBhbnRzIGFyZSBjb25zaWRlcmVkIHRyYWluZWVzIGFuZCBhcmUgbm90IGVtcGxveWVlcyBvZiB0aGUgREMgRGVwYXJ0bWVudCBvZiBFbXBsb3ltZW50IFNlcnZpY2VzIG9yIHRoZSBmZWRlcmFsIGdvdmVybm1lbnQuIFdhZ2VzIGFyZSBmaXhlZCBhdCB0aGUgbWluaW11bSB3YWdlIGxldmVsLCB3aGljaGV2ZXIgaXMgaGlnaGVyIG9mIHRoZSBzdGF0ZSBvciBmZWRlcmFsIGN1cnJlbnQgbWluaW11bSB3YWdlLiAgVGhlIGFtb3VudCBpcyBub3Qgc3ViamVjdCB0byBjaGFuZ2UgYmFzZWQgb24gaW5kaXZpZHVhbCBwZXJmb3JtYW5jZS4gIEhvc3QgQWdlbmN5IGFzc2lnbm1lbnQgYW5kL29yIHRyYWluaW5nIGFjdGl2aXRpZXMgbWF5IG5vdCBleGNlZWQgMjAgaG91cnMgcGVyIHdlZWsuIFNDU0VQIHBhcnRpY2lwYW50cyBhcmUgY29tcGVuc2F0ZWQgZm9yIHRlbiBmZWRlcmFsIGhvbGlkYXlzLiBObyBTQ1NFUCBwYXJ0aWNpcGFudCBtYXkgd29yayBvciBiZSBwYWlkIGZvciB3b3JraW5nIG9uIGFueSBmZWRlcmFsIGhvbGlkYXkuDQo8YnIgLz4NCjxiciAvPg0KRWxpZ2liaWxpdHkgUmVxdWlyZW1lbnRzIGluY2x1ZGU6DQo8YnIgLz4NCi1CZSB1bmVtcGxveWVkDQo8YnIgLz4NCi1CZSBhIERpc3RyaWN0IG9mIENvbHVtYmlhIFJlc2lkZW50DQo8YnIgLz4NCi1NZWV0IHRoZSBEZXBhcnRtZW50IG9mIEhlYWx0aCBhbmQgSHVtYW4gU2VydmljZXMgUG92ZXJ0eSBHdWlkZWxpbmVzDQo8YnIgLz4NCi1CZSA1NSB5ZWFycyBvZiBhZ2Ugb3Igb2xkZXIgKGFkZGl0aW9uYWwgcmVxdWlyZW1lbnRzIGF0dGFjaGVkIHRvIGFnZSByZXF1aXJlbWVudCkNCjxiciAvPg0KLU5vIGJlIGpvYi1yZWFkeSBkdWUgdG8gZXh0ZW5kZWQgaGlzdG9yeSBvZiB1bmVtcGxveW1lbnQgYW5kIGhhcyBub3QgYmVlbiB0cmFpbmVkIG9yIGNlcnRpZmllZCBpbiBhIHRyYWRlIG9yIHNraWxsIGFuZCBoYXMgbm90IHBhcnRpY2lwYXRlZCBpbiBqb2ItcmVsYXRlZCB0cmFpbmluZyBvciBwcm9ncmFtcy4NCjxiciAvPg0KLUJlIGVsaWdpYmxlIHRvIHdvcmsgaW4gdGhlIFVTIGFuZCBoYXZlIHRoZSBtZW50YWwgYW5kIHBoeXNpY2FsIGNhcGFjaXR5IHRvIHBlcmZvcm0gd29yay1yZWxhdGVkIGFjdGl2aXRpZXMgZm9yIGF0IGxlYXN0IDIwIGhvdXJzIHBlciB3ZWVrLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQIxNR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZOIsgQWWGgH8iUcXkBxEU5U4Ra7f" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK+yd2ZCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcolEDfvhTRE0peO2KjAM+0nQyQ/" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4058 Minnesota Avenue,. NE 3rd Flr. Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Department of Employment Services--Senior Community Service Employment Program" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4058 Minnesota Avenue,. NE 3rd Flr. Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 698-5700<br /><b>Fax No:</b>(202) 698-5734<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>does.dc.gov/service/senior-community-service-employment-program<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness, Vocational training &amp; placement assistance<br \><b>Population : </b> Men, Seniors (55+), Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:30 am - 5:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and women who are Seniors (55+); additional details below.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The District’s Senior Community Service Employment Program (SCSEP) offers subsidized skills training and job placement assistance to disadvantaged District residents ages 55 years and older. SCSEP provides two types of training to non-job ready DC mature job-seekers. Determinations are based upon an initial assessment and the development of an Individual Employment Plan (IEP). The program tailors recruitment, training and employment strategies to help place seniors with host agencies for training and employment in growth industries or with the Department of Employment Services (DOES) for resources to meet employment needs.
+<br />
+<br />
+All SCSEP participants are considered trainees and are not employees of the DC Department of Employment Services or the federal government. Wages are fixed at the minimum wage level, whichever is higher of the state or federal current minimum wage.  The amount is not subject to change based on individual performance.  Host Agency assignment and/or training activities may not exceed 20 hours per week. SCSEP participants are compensated for ten federal holidays. No SCSEP participant may work or be paid for working on any federal holiday.
+<br />
+<br />
+Eligibility Requirements include:
+<br />
+-Be unemployed
+<br />
+-Be a District of Columbia Resident
+<br />
+-Meet the Department of Health and Human Services Poverty Guidelines
+<br />
+-Be 55 years of age or older (additional requirements attached to age requirement)
+<br />
+-No be job-ready due to extended history of unemployment and has not been trained or certified in a trade or skill and has not participated in job-related training or programs.
+<br />
+-Be eligible to work in the US and have the mental and physical capacity to perform work-related activities for at least 20 hours per week.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

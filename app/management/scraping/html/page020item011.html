@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxOTAxIEQgU3RyZWV0LCBTRSAgV2FzaGluZ3RvbiBEQyAyMDAwM2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxOTAxIEQgU3RyZWV0LCBTRSAgV2FzaGluZ3RvbiwgREMgMjAwMDNkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjk4LTA0MDA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigzMDEpIDk1My00NTc0PGJyIC8+ZGQCBQ8PFgIfAgVXPGI+V2Vic2l0ZTogPC9iPnd3dy51bml0eWhlYWx0aGNhcmUub3JnL0hlYWx0aENlbnRlcnMvU2VydmljZURlcHRDb3JyZWN0aW9ucy5odG1sPGJyIC8+ZGQCBw8PFgIfAgWOATxiPkNhdGVnb3J5IDogPC9iPiBNZWRpY2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGg8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFByaW1hcnkgKEFkdWx0LCBGYW1pbHkgJmFtcDsgUGVkaWF0cmljcyk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBSk8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj4yNCBob3VyczxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBb8GPGI+RGVzY3JpcHRpb246IDwvYj5Vbml0eSBIZWFsdGggQ2FyZSBIZWFsdGggQ2VudGVycyBoYXZlIHNlcnZpY2Ugc2l0ZXMgbG9jYXRlZCBpbiBldmVyeSB3YXJkIG9mIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYS4gVGhlIENlbnRlcnMgcHJvdmlkZSBxdWFsaXR5LCBjb21wYXNzaW9uYXRlIGFuZCBjb21wcmVoZW5zaXZlIHByaW1hcnkgaGVhbHRoIGNhcmUgc2VydmljZXMuIERDIHJlc2lkZW50cyBjYW4gYWNjZXNzIFVuaXR5IEhlYWx0aCBDYXJlIHNlcnZpY2VzIHJlZ2FyZGxlc3Mgb2YgYWJpbGl0eSB0byBwYXkuIEZvciB0aG9zZSB3aG8gY2FuIHBheSwgYSBzbGlkaW5nIHNjYWxlIGJhc2VkIG9uIGZhbWlseSBzaXplIGFuZCBpbmNvbWUgaXMgdXNlZCB0byBkZXRlcm1pbmUgdGhlIGFwcHJvcHJpYXRlIGFtb3VudC4gVW5pdHkgSGVhbHRoIENhcmUgYWNjZXB0cyBNZWRpY2FpZCwgTWVkaWNhcmUsIE1hbmFnZWQgQ2FyZSBPcmdhbml6YXRpb25zLCBEQyBIZWFsdGhjYXJlIEFsbGlhbmNlIChEQyBDaGFydGVyZWQgSGVhbHRoIENhcmUgQWxsaWFuY2UgYW5kIFVuaXRlZCBIZWFsdGggQ2FyZSBDb21tdW5pdHkgUGxhbiksIGFuZCBvdGhlciBwcml2YXRlIGluc3VyYW5jZSBwbGFucy4NCjxiciAvPg0KPGJyIC8+DQpGb3IgaW5mb3JtYXRpb24gcmVnYXJkaW5nIG91ciBzZXJ2aWNlcyBhdCB0aGUgRGVwYXJ0bWVudCBvZiBDb3JyZWN0aW9ucyAoRE9DKSBwbGVhc2UgY2FsbCAoMjAyKSA2OTgtMDQwMC4NCjxiciAvPg0KPGJyIC8+DQpUbyBSZWFjaCBhIFBoeXNpY2lhbiBhZnRlciBOb3JtYWwgSG91cnMsIHBsZWFzZSBjYWxsICgzMDEpIDk1My00NTc0PGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzM5Mh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZJZs2cxBErzKXeV9xM9vtGTwzJlv" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLlvJmEBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcMz3ny+3CiNSjtz+3VgCajnJpxE" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1901 D Street, SE  Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care (Central Detention Facility)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1901 D Street, SE  Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 698-0400<br /><b>Phone No2:</b>(301) 953-4574<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceDeptCorrections.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Primary (Adult, Family &amp; Pediatrics)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24 hours<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Health Centers have service sites located in every ward of the District of Columbia. The Centers provide quality, compassionate and comprehensive primary health care services. DC residents can access Unity Health Care services regardless of ability to pay. For those who can pay, a sliding scale based on family size and income is used to determine the appropriate amount. Unity Health Care accepts Medicaid, Medicare, Managed Care Organizations, DC Healthcare Alliance (DC Chartered Health Care Alliance and United Health Care Community Plan), and other private insurance plans.
+<br />
+<br />
+For information regarding our services at the Department of Corrections (DOC) please call (202) 698-0400.
+<br />
+<br />
+To Reach a Physician after Normal Hours, please call (301) 953-4574<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

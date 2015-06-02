@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTExNTA5IE5vcnRoIENhcGl0b2wgU3RyZWV0LCBORSBXYXNoaW5ndG9uIERDIDIwMDAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjE1MDkgTm9ydGggQ2FwaXRvbCBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDAyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDUyNi04NDkxPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1MjYtMDU2NDxiciAvPmRkAgUPDxYCHwIFIjxiPldlYnNpdGU6IDwvYj53d3cuc29tZS5vcmc8YnIgLz5kZAIHDw8WAh8CBdYBPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmcsIE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ3Jpc2lzIGJlZHMsIENyaXNpcyBpbnRlcnZlbnRpb24sIFRyYW5zaXRpb25hbCBob3VzaW5nL1NpbmdsZSBSb29tIE9jY3VwYW5jeTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyB3aXRoIG1lbnRhbCBpbGxuZXNzLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFKTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjI0IGhvdXJzPGJyIC8+ZGQCDw8PFgIfAgVoPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5SZWZlcnJhbHMgYXJlIGNvbnNpZGVyZWQgZnJvbSBhbGwgc291cmNlcyAoaW5jbHVkaW5nIHNlbGYtcmVmZXJyYWxzKS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFpAg8Yj5EZXNjcmlwdGlvbjogPC9iPlNPTUUgKFNvIE90aGVycyBNaWdodCBFYXQpIGlzIGFuIGludGVyZmFpdGgsIGNvbW11bml0eS1iYXNlZCBvcmdhbml6YXRpb24gdGhhdCBleGlzdHMgdG8gaGVscCB0aGUgcG9vciBhbmQgaG9tZWxlc3Mgb2YgdGhlIG5hdGlvbidzIGNhcGl0YWwuIFNPTUUncyBzZXJ2aWNlcyBtZWV0IHRoZSBpbW1lZGlhdGUgZGFpbHkgbmVlZHMgb2YgcGVvcGxlIHdpdGggZm9vZCwgY2xvdGhpbmcsIGFuZCBoZWFsdGggY2FyZS4gQWRkaXRpb25hbGx5LCBzZXJ2aWNlcyB0byBoZWxwIGJyZWFrIHRoZSBjeWNsZSBvZiBob21lbGVzc25lc3MgYXJlIG9mZmVyZWQgdGhyb3VnaCBhZmZvcmRhYmxlIGhvdXNpbmcsIGpvYiB0cmFpbmluZywgYWRkaWN0aW9uIHRyZWF0bWVudCwgYW5kIGNvdW5zZWxpbmcsIHRvIHRoZSBwb29yLCB0aGUgZWxkZXJseSBhbmQgaW5kaXZpZHVhbHMgd2l0aCBtZW50YWwgaWxsbmVzcy4gRWFjaCBkYXksIFNPTUUgaXMgcmVzdG9yaW5nIGhvcGUgYW5kIGRpZ25pdHkgb25lIHBlcnNvbiBhdCBhIHRpbWUuIA0KPGJyIC8+DQo8YnIgLz4gDQpKb3JkYW4gSG91c2UgaXMgYSBTT01FIHByb2dyYW0gdGhhdCBwcm92aWRlcyBob3VzaW5nIGFuZCBtZW50YWwgaGVhbHRoIHNlcnZpY2VzLiBKb3JkYW4gSG91c2UgaGFzIGEgcHN5Y2hpYXRyaWMgY3Jpc2lzIHN0YWJpbGl6YXRpb24gY2VudGVyIGZvciBwZXJzb25zIGV4cGVyaWVuY2luZyBhIHBzeWNoaWF0cmljIGVtZXJnZW5jeSAoZGFuZ2VyIHRvIHNlbGYgb3Igb3RoZXJzKS4gSm9yZGFuIEhvdXNlIGFjY2VwdHMgdm9sdW50YXJ5IHBsYWNlbWVudCBvbmx5LiBKb3JkYW4gSG91c2UgaGFzIDI0IGhvdXIgc3RhZmYgYW5kIG9uLWNhbGwgYWNjZXNzIHRvIHBzeWNoaWF0cmlzdCBhbmQgbWVudGFsIGhlYWx0aCB0aGVyYXBpc3QsIGFuZCBKb3JkYW4gSG91c2UgYWxzbyBoYXMgY2FzZSBtYW5hZ2VtZW50IGFzc2lzdGFuY2Ugd2l0aCBob3VzaW5nLiBSZWZlcnJhbHMgYXJlIGNvbnNpZGVyZWQgZnJvbSBhbGwgc291cmNlcyAoaW5jbHVkaW5nIHNlbGYtcmVmZXJyYWxzKS4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzIxNx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZLKIEWbIC3UpZ9KgFbLw1s37iO3V" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK67J+VAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVgTwg3aJl0ReJOaWQyWDp6iJ85L" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1509 North Capitol Street, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Jordan House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1509 North Capitol Street, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 526-8491<br /><b>Fax No:</b>(202) 526-0564<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.some.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Mental Health<br \><b>Services : </b> Crisis beds, Crisis intervention, Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Persons with mental illness, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24 hours<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Referrals are considered from all sources (including self-referrals).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>SOME (So Others Might Eat) is an interfaith, community-based organization that exists to help the poor and homeless of the nation's capital. SOME's services meet the immediate daily needs of people with food, clothing, and health care. Additionally, services to help break the cycle of homelessness are offered through affordable housing, job training, addiction treatment, and counseling, to the poor, the elderly and individuals with mental illness. Each day, SOME is restoring hope and dignity one person at a time. 
+<br />
+<br /> 
+Jordan House is a SOME program that provides housing and mental health services. Jordan House has a psychiatric crisis stabilization center for persons experiencing a psychiatric emergency (danger to self or others). Jordan House accepts voluntary placement only. Jordan House has 24 hour staff and on-call access to psychiatrist and mental health therapist, and Jordan House also has case management assistance with housing. Referrals are considered from all sources (including self-referrals). <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMzQ1IFUgU3RyZWV0LCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjEzNDUgVSBTdHJlZXQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVNPGI+Q29udGFjdCBQZXJzb246PC9iPk1lZ2FuIEphbmlja2k8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODg5LTc3MDI8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFvwM8Yj5DYXRlZ29yeSA6IDwvYj4gRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRW1wbG95bWVudCBzZXJ2aWNlcywgTWF0ZXJpYWwgbmVlZHMsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgQ2xvdGhpbmcsIEpvYiBza2lsbHMgYXNzZXNzbWVudCAmYW1wOyByZWFkaW5lc3MsIE1haWwgJmFtcDsgcGhvbmUgc2VydmljZXMsIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gRmFtaWxpZXMsIEhvbWVsZXNzLCBNZW4sIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBS48Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5TcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFjwE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgOTowMCBhbS0xMTowMCBhbSAoaW50YWtlIGhvdXJzKTsgYW5kIE1vbmRheSAtIEZyaWRheSA5OjAwIGFtIC0gMTowMCBwbSAocHJvZ3JhbSBwYXJ0aWNpcGFudHMpLjxiciAvPmRkAg8PDxYCHwIFMTxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWVuIGFuZCBXb21lbi48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF6AM8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBTYW1hcml0YW4gTWluaXN0cnkgKE5leHQgU3RlcHMgUHJvZ3JhbSkgb2ZmZXJzIGJvdGggZW1wbG95bWVudCBhbmQgdm9jYXRpb25hbCB0cmFpbmluZyBhbmQgc29jaWFsIHNlcnZpY2VzIGFzc2lzdGFuY2UuIFBhcnRpY2lwYW50cyBjYW4gYWNjZXNzIHNvY2lhbCBzZXJ2aWNlcyB0aHJvdWdoIGNhc2Ugd29yayBzdXBwb3J0IGFuZCByZWZlcnJhbHMgZm9yIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcyBzZWVraW5nIGFzc2lzdGFuY2UuIEFzc2lzdGFuY2UgaXMgYWxzbyBvZmZlcmVkIGluIHByb3ZpZGluZyBqb2IgcmVhZGluZXNzIHNraWxsczsgaG91c2luZyBwbGFjZW1lbnQgYXNzaXN0YW5jZTsgYW5kIG1hdGVyaWFsIGFzc2lzdGFuY2UsIHdoaWNoIGluY2x1ZGVzOiBjbG90aGluZywgaHlnaWVuZSBuZWNlc3NpdGllcywgZm9vZCwgYXMgd2VsbCBhcywgaW50ZXJuZXQgYW5kIHBob25lIHNlcnZpY2UpLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQI3NB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZMr2VRSj2jbYJvmutCnqtRkddxLL" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLI1c3zCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAV5+ecuqm2v20J8ExIt/r+WHNVlo" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1345 U Street, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Samaritan Ministry (Next Steps Program)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1345 U Street, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Megan Janicki<br /><b>Phone No:</b>(202) 889-7702<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training, Social Services<br \><b>Services : </b> Employment services, Material needs, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Clothing, Job skills assessment &amp; readiness, Mail &amp; phone services, Referrals for social services<br \><b>Population : </b> Families, Homeless, Men, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am-11:00 am (intake hours); and Monday - Friday 9:00 am - 1:00 pm (program participants).<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and Women.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Samaritan Ministry (Next Steps Program) offers both employment and vocational training and social services assistance. Participants can access social services through case work support and referrals for individuals and families seeking assistance. Assistance is also offered in providing job readiness skills; housing placement assistance; and material assistance, which includes: clothing, hygiene necessities, food, as well as, internet and phone service).<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

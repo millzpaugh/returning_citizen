@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS80OTIzIEVhc3QgQ2FwaXRvbCBTdHJlZXQgTkUgV2FzaGluZ3RvbiBEQyAyMDAxOWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTA0OTIzIEVhc3QgQ2FwaXRvbCBTdHJlZXQgTkUgV2FzaGluZ3RvbiwgREMgMjAwMTlkZAIDDw8WAh8CBU48Yj5Db250YWN0IFBlcnNvbjo8L2I+THVlbGxhIEpvaG5zb248YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTgzLTA5OTc8YnIgLz5kZAIFDw8WAh8CBVw8Yj5XZWJzaXRlOiA8L2I+d3d3LmNzb3NhLmdvdi9zdXBlcnZpc2lvbi9wcm9ncmFtcy92b3RlZS9jc29zYS12b3RlZS1icm9jaHVyZS0yMDEwLnBkZjxiciAvPmRkAgcPDxYCHwIFuAM8Yj5DYXRlZ29yeSA6IDwvYj4gRWR1Y2F0aW9uLCBFbXBsb3ltZW50ICZhbXA7IFZvY2F0aW9uYWwgVHJhaW5pbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRWR1Y2F0aW9uYWwgc2VydmljZXMsIEVtcGxveW1lbnQgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHVsdCBCYXNpYyBFZHVjYXRpb24vTGl0ZXJhY3kvVHV0b3JpbmcsIEVuZ2xpc2ggYXMgYSBTZWNvbmQgTGFuZ3VhZ2UgKEVTTCksIEdFRCBwcm9ncmFtcywgSm9iIHNlYXJjaCAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZSwgSm9iIHNraWxscyBhc3Nlc3NtZW50ICZhbXA7IHJlYWRpbmVzczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgWHATxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TXVzdCBiZSB1bmRlciB0aGUgc3VwZXJ2aXNpb24gb2YgQ291cnQgU2VydmljZXMgYW5kIE9mZmVuZGVyIFN1cGVydmlzaW9uIEFnZW5jeSAoQ1NPQSkgZm9yIHJlZmVycmFsLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWnDDxiPkRlc2NyaXB0aW9uOiA8L2I+Vk9URUUgc3RhZmYgdXRpbGl6ZXMgZWR1Y2F0aW9uYWwgYW5kIHZvY2F0aW9uYWwgYXNzZXNzbWVudCB0b29scyB0byBhc3Nlc3MgdGhlIG5lZWRzIG9mIG9mZmVuZGVycyB3aG8gYXJlIHJlZmVycmVkIHRvIFZPVEVFIENlbnRlcnMuIFJlZmVycmFscyBmb3IgZWR1Y2F0aW9uYWwsIGJhc2ljIHRlY2hub2xvZ3kgYW5kIGVtcGxveWFiaWxpdHkgdHJhaW5pbmcgYXJlIHVuZGVyIHRoZSBzdXBlcnZpc2lvbiBvZiB0aGUgQ291cnQgU2VydmljZXMgYW5kIE9mZmVuZGVyIFN1cGVydmlzaW9uIEFnZW5jeSAoQ1NPU0EpLCB3aXRoIG5vIGFnZSByZXN0cmljdGlvbnMgZm9yIHBhcnRpY2lwYW50cy4gDQo8YnIgLz4NCjxiciAvPg0KUGFydGljaXBhbnRzIHdpbGwgdW5kZXJnbyBvY2N1cGF0aW9uYWwgYW5kIGVkdWNhdGlvbmFsIGFzc2Vzc21lbnRzIGFuZCB3aWxsIHJlY2VpdmUgYW4gSW5kaXZpZHVhbCBEZXZlbG9wbWVudCBQbGFuIChJRFApIGFuZC9vciBhbiBJbmRpdmlkdWFsIEVkdWNhdGlvbiBQbGFuIChJRVApIHByZXBhcmVkIGJ5IENTT1NBIHN0YWZmLiBMZWFybmluZyBMYWIgU3BlY2lhbGlzdHMgYXNzaXN0IG9mZmVuZGVycyBpbiBpbXByb3ZpbmcgdGhlaXIgZWR1Y2F0aW9uYWwgbGV2ZWwsIGZhY2lsaXRhdGUgbGlmZSBza2lsbHMgcHJlcGFyYXRpb24gYW5kIGFkbWluaXN0ZXIgdGhlIGVkdWNhdGlvbmFsIGFuZCB2b2NhdGlvbmFsIGFzc2Vzc21lbnRzLiBJbiBhZGRpdGlvbiwgdGhlIHVuaXQgcHJvdmlkZXMgSW5mb3JtYXRpb24gU3lzdGVtcyBUZWNobm9sb2d5IHRyYWluaW5nIChJU1QpLiBUaGUgZWR1Y2F0aW9uYWwgc2VydmljZXMgcHJvdmlkZWQgZm9yIHBhcnRpY2lwYW50cyBpbmNsdWRlOiBBZHVsdCBCYXNpYyBFZHVjYXRpb24gKEFCRSksIEdlbmVyYWwgRXF1aXZhbGVuY3kgRGlwbG9tYSBwcmVwIChHRUQpLCBFbmdsaXNoIGFzIGEgU2Vjb25kIExhbmd1YWdlIChFU0wpLCBhbmQgY29yZS9saWZlIHNraWxscy4NCjxiciAvPg0KPGJyIC8+DQpWb2NhdGlvbmFsIERldmVsb3BtZW50IFNwZWNpYWxpc3RzIGFzc2lzdCBvZmZlbmRlcnMgaW4gcHJlcGFyaW5nIGZvciBlbXBsb3ltZW50IG9wcG9ydHVuaXRpZXMgYW5kL29yIHJlZmVycyBvZmZlbmRlcnMgdG8gdm9jYXRpb25hbCBwcm9ncmFtcyBiYXNlZCBvbiB2b2NhdGlvbmFsIGFzc2Vzc21lbnRzIGFuZCB0aGUgb2ZmZW5kZXLigJlzIGludGVyZXN0LCBza2lsbHMgYW5kIGFiaWxpdGllcy4gVGhlIGVtcGxveW1lbnQgc2VydmljZXMgcHJvdmlkZWQgdGhyb3VnaCBWT1RFRSBpbmNsdWRlOiBlbXBsb3lhYmlsaXR5IGFzc2Vzc21lbnRzIGZvciBqb2IgcmVhZGluZXNzOyBjdXN0b21lciBzZXJ2aWNlIHNraWxscywgY29tbXVuaWNhdGlvbiBza2lsbHMsIGludGVycGVyc29uYWwgc2tpbGxzLCBza2lsbHMgaWRlbnRpZmljYXRpb24sIHJlc3VtZSB3cml0aW5nLCBpbnRlcnZpZXdpbmcgc2tpbGxzLCBwcm9ibGVtIHNvbHZpbmcsIGV0aGljcywgZHJ1ZyBmcmVlIHdvcmtwbGFjZSwgc2V4dWFsIGhhcmFzc21lbnQsIGFuZCB0aGUga2V5cyB0byBrZWVwaW5nIGEgam9iLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQI5MB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZLnayM5Aw6b4VMUE3VslNfku21wf" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKlp6ayAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARTXKLisEuPRPDesTpG2ho/zevei" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4923 East Capitol Street NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="V.O.T.E.E. (Vocational Opportunities Training and Education Employment)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4923 East Capitol Street NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Luella Johnson<br /><b>Phone No:</b>(202) 583-0997<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.csosa.gov/supervision/programs/votee/csosa-votee-brochure-2010.pdf<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Employment &amp; Vocational Training<br \><b>Services : </b> Educational services, Employment services<br \><b>Program : </b> Adult Basic Education/Literacy/Tutoring, English as a Second Language (ESL), GED programs, Job search &amp; placement assistance, Job skills assessment &amp; readiness<br \><b>Population : </b> Criminal justice involved, Men, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Must be under the supervision of Court Services and Offender Supervision Agency (CSOA) for referral.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>VOTEE staff utilizes educational and vocational assessment tools to assess the needs of offenders who are referred to VOTEE Centers. Referrals for educational, basic technology and employability training are under the supervision of the Court Services and Offender Supervision Agency (CSOSA), with no age restrictions for participants. 
+<br />
+<br />
+Participants will undergo occupational and educational assessments and will receive an Individual Development Plan (IDP) and/or an Individual Education Plan (IEP) prepared by CSOSA staff. Learning Lab Specialists assist offenders in improving their educational level, facilitate life skills preparation and administer the educational and vocational assessments. In addition, the unit provides Information Systems Technology training (IST). The educational services provided for participants include: Adult Basic Education (ABE), General Equivalency Diploma prep (GED), English as a Second Language (ESL), and core/life skills.
+<br />
+<br />
+Vocational Development Specialists assist offenders in preparing for employment opportunities and/or refers offenders to vocational programs based on vocational assessments and the offender’s interest, skills and abilities. The employment services provided through VOTEE include: employability assessments for job readiness; customer service skills, communication skills, interpersonal skills, skills identification, resume writing, interviewing skills, problem solving, ethics, drug free workplace, sexual harassment, and the keys to keeping a job.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

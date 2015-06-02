@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkzMSBNY0RvbmFsZCBQbGFjZSwgTkUgV2FzaGluZ3RvbiBEQyAyMDAwM2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSozMSBNY0RvbmFsZCBQbGFjZSwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMDNkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTA2LTc1NjY8YnIgLz5kZAIFDw8WAh8CBSk8Yj5XZWJzaXRlOiA8L2I+d3d3Lm94Zm9yZGhvdXNlLm9yZzxiciAvPmRkAgcPDxYCHwIFmAE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBQZXJzb25zIGluIHJlY292ZXJ5LCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgU1PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbiBpbiByZWNvdmVyeS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFkAQ8Yj5EZXNjcmlwdGlvbjogPC9iPk94Zm9yZCBIb3VzZXMgYXJlIGRlbW9jcmF0aWNhbGx5IHJ1biwgc2VsZi1zdXBwb3J0ZWQsIGRydWcvYWxjb2hvbCBmcmVlIGhvdXNlcyB3aGVyZSByZWNvdmVyaW5nIHN1YnN0YW5jZSBhYnVzZXJzIHJlc2lkZSBhbmQgc3VwcG9ydCBlYWNoIG90aGVy4oCZcyByZWNvdmVyeSB0aHJvdWdoIG1lbnRvcmluZywgZW5jb3VyYWdlbWVudCBhbmQgZWR1Y2F0aW9uLiBSZXNpZGVudHMgbXVzdCBoYXZlIGluY29tZSBhbmQgc2hhcmUgZXhwZW5zZXMgaW4gdGhlIGhvdXNlLiBIb3VzZSBvZmZpY2lhbHMgYXJlIGVsZWN0ZWQgYnkgdGhlIHJlc3BlY3RpdmUgdGVuYW50cy4NCjxiciAvPg0KPGJyIC8+DQpUaGUgTWNEb25hbGQgUGxhY2UgaG91c2UgaXMgZm9yIHdvbWVuIGluIHJlY292ZXJ5OyBhIHBlcnNvbmFsIGludGVydmlldyBpcyByZXF1aXJlZCAod2l0aCByZXNwZWN0aXZlIGhvdXNlIHJlcHJlc2VudGF0aXZlcykgYW5kIHJlbnQgcmFuZ2VzIGZyb20gJDUwIHRvICQ4NSBwZXIgd2Vlay48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMjY0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkEdrv01CHiaSAoGmkYdvunH3rH44=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLKtfnBDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAR7eVNtxSnsTn2Ci4c2jkdbK8sOq" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="31 McDonald Place, NE Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="McDonald Place - Oxford House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">31 McDonald Place, NE Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 506-7566<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.oxfordhouse.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Persons in recovery, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women in recovery.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Oxford Houses are democratically run, self-supported, drug/alcohol free houses where recovering substance abusers reside and support each other’s recovery through mentoring, encouragement and education. Residents must have income and share expenses in the house. House officials are elected by the respective tenants.
+<br />
+<br />
+The McDonald Place house is for women in recovery; a personal interview is required (with respective house representatives) and rent ranges from $50 to $85 per week.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

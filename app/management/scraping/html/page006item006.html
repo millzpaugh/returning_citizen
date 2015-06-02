@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTU0NDAwIE1hY0FydGh1ciBCbHZkLCBOVyBTVEUuIDEwMyBXYXNoaW5ndG9uICBEQyAyMDAwN2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTY0NDAwIE1hY0FydGh1ciBCbHZkLCBOVyBTVEUuIDEwMyBXYXNoaW5ndG9uICwgREMgMjAwMDdkZAIDDw8WAh8CBXE8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDgwMCkgNDMyLTY4ODI8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDk2NS00NDAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA5NjUtMTc2NTxiciAvPmRkAgUPDxYCHwIFPjxiPldlYnNpdGU6IDwvYj53d3cudGhlYm93ZW5jZW50ZXIub3JnL3BhZ2VzL2NsaW5pYy5odG1sPGJyIC8+ZGQCBw8PFgIfAgWGAzxiPkNhdGVnb3J5IDogPC9iPiBNZW50YWwgSGVhbHRoPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1lbnRhbCBoZWFsdGggdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRmFtaWx5IGlzc3Vlcy0tY291bnNlbGluZywgbWFycmlhZ2UsIHBhcmVudGluZzxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50PGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBTbGlkaW5nIGZlZSBzY2FsZSAoRmVlIGlzIGJhc2VkIG9uIGluY29tZSAmYW1wOyBvdGhlciBmYWN0b3JzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFcDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA4OjMwIGFtIC0gNTowMCBwbS4gRXZlbmluZyBhbmQgU2F0dXJkYXkgYXBwb2ludG1lbnRzIGF2YWlsYWJsZS48YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgWyCDxiPkRlc2NyaXB0aW9uOiA8L2I+R2VvcmdldG93biBGYW1pbHkgQ2VudGVyIENsaW5pYyBvZmZlcnMgYWZmb3JkYWJsZSBwc3ljaG90aGVyYXB5IHRvIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcywgYXMgd2VsbCBhcywgY29uc3VsdGF0aW9uIHRvIG9yZ2FuaXphdGlvbnMgaW4gV2FzaGluZ3RvbiwgREMuIFRyYWluZWQgbWVudGFsIGhlYWx0aCBwcm9mZXNzaW9uYWxzIGZvY3VzIG9uIGlzc3VlcyBzdWNoIGFzIGFueGlldHksIGRlcHJlc3Npb24sIHBoeXNpY2FsIGlsbG5lc3MsIG1hcml0YWwgZGlzY29yZCwgYmVoYXZpb3JhbCBwcm9ibGVtcywgZmFtaWx5IHJlbGF0aW9uc2hpcCBkaWxlbW1hcywgYW5kIHdvcmtwbGFjZSBkaWZmaWN1bHRpZXMuIFN0YWZmIHV0aWxpemVzIHRoZSBCb3dlbiBmYW1pbHkgc3lzdGVtcyB0aGVvcnkuICBCb3dlbiBmYW1pbHkgc3lzdGVtcyB0aGVvcnkgaXMgYSB0aGVvcnkgb2YgaHVtYW4gYmVoYXZpb3IgdGhhdCB2aWV3cyB0aGUgZmFtaWx5IGFzIGFuIGVtb3Rpb25hbCB1bml0IGFuZCB1c2VzIHN5c3RlbXMgdGhpbmtpbmcgdG8gZGVzY3JpYmUgdGhlIGNvbXBsZXggaW50ZXJhY3Rpb25zIGluIHRoZSB1bml0LiBJdCB3YXMgZGV2ZWxvcGVkIGJ5IHBzeWNoaWF0cmlzdCwgRHIuIE11cnJheSBCb3dlbi4gIEZhbWlseSBDZW50ZXIgQ2xpbmljIGlzIG5vbnByb2ZpdC4gDQo8YnIgLz4NCjxiciAvPg0KQSBzbGlkaW5nIGZlZSBzY2FsZSBpcyBhdmFpbGFibGUgZm9yIHBlb3BsZSB3aXRoIGxpbWl0ZWQgZmluYW5jaWFsIHJlc291cmNlcy4gVGhlIGZlZSBzY2FsZSwgYmFzZWQgb24gYW5udWFsIGluY29tZSwgbnVtYmVyIG9mIGRlcGVuZGVudHMsIGFuZCBpbnN1cmFuY2UgYmVuZWZpdHMsIHJhbmdlcyBmcm9tICQxMCB0byAkMTI1IHBlciBob3VyIGFuZCBiZWNhdXNlIHRoZSBDbGluaWMgaXMgYSBmZWUtZm9yLXNlcnZpY2UgY2VudGVyLCBwYXltZW50IGlzIGV4cGVjdGVkIGF0IHRoZSBlbmQgb2YgZWFjaCBzZXNzaW9uLiBQbGVhc2UgcmV2aWV3IHlvdXIgaW5zdXJhbmNlIGJlbmVmaXRzIGFuZCByZXN0cmljdGlvbnMgYmVmb3JlIHlvdSBjYWxsLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxNzIeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSKNqKg9sXdxMIZd91XzKSVePHG7A==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK9/dXhAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdulg7dATYGewqt058zzSsZf+S9O" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4400 MacArthur Blvd, NW STE. 103 Washington  DC 20007" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Georgetown Family Center Clinic, Inc" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4400 MacArthur Blvd, NW STE. 103 Washington , DC 20007</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(800) 432-6882<br /><b>Phone No2:</b>(202) 965-4400<br /><b>Fax No:</b>(202) 965-1765<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.thebowencenter.org/pages/clinic.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Family issues--counseling, marriage, parenting<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Public funding, Self-payment<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:30 am - 5:00 pm. Evening and Saturday appointments available.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Georgetown Family Center Clinic offers affordable psychotherapy to individuals and families, as well as, consultation to organizations in Washington, DC. Trained mental health professionals focus on issues such as anxiety, depression, physical illness, marital discord, behavioral problems, family relationship dilemmas, and workplace difficulties. Staff utilizes the Bowen family systems theory.  Bowen family systems theory is a theory of human behavior that views the family as an emotional unit and uses systems thinking to describe the complex interactions in the unit. It was developed by psychiatrist, Dr. Murray Bowen.  Family Center Clinic is nonprofit. 
+<br />
+<br />
+A sliding fee scale is available for people with limited financial resources. The fee scale, based on annual income, number of dependents, and insurance benefits, ranges from $10 to $125 per hour and because the Clinic is a fee-for-service center, payment is expected at the end of each session. Please review your insurance benefits and restrictions before you call.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

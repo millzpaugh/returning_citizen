@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxNDQwIE1lcmlkaWFuIFBsYWNlLCBOVyBXYXNoaW5ndG9uIERDIDIwMDEwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDE0NDAgTWVyaWRpYW4gUGxhY2UsIE5XIFdhc2hpbmd0b24sIERDIDIwMDEwZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDYzOS0wMzYxPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2MzktMDI3NjxiciAvPmRkAgUPDxYCHwIFLTxiPldlYnNpdGU6IDwvYj53d3cuYnVpbGRpbmdmdXR1cmVzLm9yZzxiciAvPmRkAgcPDxYCHwIFzwM8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1vbmV0YXJ5IGFzc2lzdGFuY2UsIFNvY2lhbCBzZXJ2aWNlcywgVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBNZWRpY2FsIGV4cGVuc2VzLCBlLmcuIGNvc3Qgb2YgcHJlc2NyaXB0aW9ucywgTW9ydGdhZ2UvUmVudCAoRVJBUCksIE90aGVyIGFzc2lzdGFuY2UsIGUuZy4gdHJhbnNwb3J0YXRpb24sIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzLCBVdGlsaXRpZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBGYW1pbGllcywgUGVyc29ucyB3aXRoIEhJVi9BSURTLCBXb21lbiB3aXRoIGNoaWxkcmVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBVs8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkxvdy1pbmNvbWU7IExpdmluZyB3aXRoIEhJVi9BSURTIGFuZCBvdGhlciBkaXNhYmlsaXRpZXMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBZwKPGI+RGVzY3JpcHRpb246IDwvYj5CdWlsZGluZyBGdXR1cmVz4oCZIG1pc3Npb24gaXMgdG8gaW5jcmVhc2UgYWNjZXNzIHRvIHNhZmUsIGFmZm9yZGFibGUgcXVhbGl0eSBob3VzaW5nIGZvciBmYW1pbGllcywgY2hpbGRyZW4gYW5kIGluZGl2aWR1YWxzIGxpdmluZyB3aXRoIEhJVi9BSURTIGluIFdhc2hpbmd0b24sIERDLiBUaGlzIHByb3ZpZGVzIGEgZm91bmRhdGlvbiBmb3IgYnVpbGRpbmcgZGlnbmlmaWVkLCBzdGFibGUsIGFuZCBoZWFsdGh5IGxpdmVzIGFuZCBmdXR1cmVzLg0KPGJyIC8+DQo8YnIgLz4NCkhPVVNJTkcNCkJ1aWxkaW5nIEZ1dHVyZXMgaXMgYSBzcGVjaWFsIG5lZWRzIGhvdXNpbmcgcHJvZ3JhbXMgZm9yIGZhbWlsaWVzIGxpdmluZyB3aXRoIEhJVi9BSURTIGFuZCBvdGhlciBkaXNhYmlsaXRpZXMuIEJ1aWxkaW5nIEZ1dHVyZXMgb2ZmZXJzIGFnZW5jeSBvd25lZCBmYW1pbHkgYXBhcnRtZW50IHVuaXRzLCBzdWJzaWRpemVkIHJlbnRhbCBhc3Npc3RhbmNlIGluIHByaXZhdGVseSBvd25lZCBhcGFydG1lbnRzLCBhbmQgc2hvcnQtdGVybSBmaW5hbmNpYWwgYXNzaXN0YW5jZSBmb3IgaGVscCB3aXRoIG1vcnRnYWdlcyBvciByZW50cywgdXRpbGl0aWVzLCBhbmQgYmFzaWMgdGVsZXBob25lIHNlcnZpY2VzLiBSZXNpZGVudHMgcGF5IDMwJSByZW50IG9mIHRoZSBmYW1pbHkgaW5jb21lLiBBcHBseSBkaXJlY3RseSB0byBCdWlsZGluZyBGdXR1cmVzLS1hcHBsaWNhdGlvbnMgYXJlIGFsc28gYXZhaWxhYmxlIG9uIHRoZSB3ZWJzaXRlLiBUaGVyZSBpcyBvZnRlbiBhIHdhaXRpbmcgbGlzdCBmb3IgcGxhY2VtZW50LiANCjxiciAvPg0KPGJyIC8+DQpTT0NJQUwgU0VSVklDRVMNCkJ1aWxkaW5nIEZ1dHVyZXMgb2ZmZXJzIG1lZGljYWwgY2FzZSBtYW5hZ2VtZW50IHNlcnZpY2VzIGFuZCB3ZWVrbHkgcGVlciBzdXBwb3J0IGdyb3VwcyBvcGVuIHRvIHJlc2lkZW50cyBvZiB0aGVpciBob3VzaW5nIHByb2dyYW0gYW5kIHRoZSBicm9hZGVyIGNvbW11bml0eS4gQnVpbGRpbmcgRnV0dXJlcyBvZmZlciBzdXBwb3J0IGdyb3VwcyBzdXBwb3J0aW5nIHRoZSBmb2xsb3dpbmcgdGFyZ2V0ZWQgZ3JvdXBzOiAoMSkgUGVyc29ucyBsaXZpbmcgd2l0aCBISVYvQUlEUyB3aG8gYXJlIGluIHJlY292ZXJ5IGZyb20gYWxjb2hvbCBvciBzdWJzdGFuY2UgYWJ1c2UgYW5kICgyKSBwZXJzb25zIGxpdmluZyB3aXRoIEhJVi9BSURTIGZvY3VzZWQgb24gcGh5c2ljYWwgYW5kIG1lbnRhbCBoZWFsdGggaXNzdWVzIGhlbHBpbmcgcGFydGljaXBhbnRzIGxpdmUgd2l0aCB0aGUgZGlzZWFzZS4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzEyOB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZLiOMYxIt3cBotW+iJ+nrdGUfIxt" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLOkpvnDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYa35pgPNYypmWG6+xD7q9mi4D7u" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1440 Meridian Place, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Building Futures " id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1440 Meridian Place, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 639-0361<br /><b>Fax No:</b>(202) 639-0276<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.buildingfutures.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Social Services<br \><b>Services : </b> Monetary assistance, Social services, Transitional housing/Single Room Occupancy<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Medical expenses, e.g. cost of prescriptions, Mortgage/Rent (ERAP), Other assistance, e.g. transportation, Referrals for social services, Utilities<br \><b>Population : </b> Families, Persons with HIV/AIDS, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low-income; Living with HIV/AIDS and other disabilities.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Building Futures’ mission is to increase access to safe, affordable quality housing for families, children and individuals living with HIV/AIDS in Washington, DC. This provides a foundation for building dignified, stable, and healthy lives and futures.
+<br />
+<br />
+HOUSING
+Building Futures is a special needs housing programs for families living with HIV/AIDS and other disabilities. Building Futures offers agency owned family apartment units, subsidized rental assistance in privately owned apartments, and short-term financial assistance for help with mortgages or rents, utilities, and basic telephone services. Residents pay 30% rent of the family income. Apply directly to Building Futures--applications are also available on the website. There is often a waiting list for placement. 
+<br />
+<br />
+SOCIAL SERVICES
+Building Futures offers medical case management services and weekly peer support groups open to residents of their housing program and the broader community. Building Futures offer support groups supporting the following targeted groups: (1) Persons living with HIV/AIDS who are in recovery from alcohol or substance abuse and (2) persons living with HIV/AIDS focused on physical and mental health issues helping participants live with the disease. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

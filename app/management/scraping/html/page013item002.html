@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTI0MjIgOHRoIFN0cmVldCwgU0UsIDJuZCBGbG9vciBXYXNoaW5ndG9uICBEQyAyMDAwM2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTM0MjIgOHRoIFN0cmVldCwgU0UsIDJuZCBGbG9vciBXYXNoaW5ndG9uICwgREMgMjAwMDNkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTQ2LTA2NDY8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDU0Ni02ODE3PGJyIC8+ZGQCBQ8PFgIfAgUlPGI+V2Vic2l0ZTogPC9iPnd3dy5uYW1pZGMub3JnLzxiciAvPmRkAgcPDxYCHwIFWTxiPkNhdGVnb3J5IDogPC9iPiBNZW50YWwgSGVhbHRoPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEFkdm9jYWN5L091dHJlYWNoIHNlcnZpY2VzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVRPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+RnJlZSBldmVyeSBXZWRuZXNkYXkgZXZlbmluZyBmcm9tIDdwbSB0byA4OjMwYW0uPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFsAQ8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBOYXRpb25hbCBBbGxpYW5jZSBvbiBNZW50YWwgSWxsbmVzcyBvZmZlcnMgc3VwcG9ydCBncm91cHMgZm9yIHRob3NlIG1lbnRhbCB3aXRoIGlsbG5lc3MgYW5kIHRoZWlyIGZhbWlseSAoZnJlZSBldmVyeSBXZWRuZXNkYXkgZXZlbmluZyBmcm9tIDdwbSB0byA4OjMwYW0pIGFuZCBjb25zdW1lciBncm91cHMgaW5jbHVkaW5nIEJSSURHRVMgKEJ1aWxkaW5nIFJlY292ZXJ5IGFuZCBJbmRpdmlkdWFsIERyZWFtcyBhbmQgR29hbHMgdGhyb3VnaCBFZHVjYXRpb24gYW5kIFN1cHBvcnQpIGEgc2VsZi1oZWxwLCBjb25zdW1lci1mYWNpbGl0YXRlZCBncm91cDsgYWR2b2NhY3kgYW5kIGVkdWNhdGlvbmFsIHNlcnZpY2VzIGluY2x1ZGluZyAiSW4gT3VyIE93biBWb2ljZSIgd2hlcmUgY29uc3VtZXJzIHNwZWFrIHRvIGNvbW11bml0eSBncm91cHMgYWJvdXQgdGhlaXIgcGVyc29uYWwgcmVjb3ZlcnkgZXhwZXJpZW5jZSBhcyB3ZWxsIGFzIHRyYWluIHRoZSBEaXN0cmljdCdzIENyaXNpcyBJbnRlcnZlbnRpb24gUG9saWNlIE9mZmljZXJzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0ODMeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWT4GJwrNsbPzhVXllvSTkig+4vZaA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK3kuWWAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZSk8qUtuqBd0BVrA6EHFsEA4/1t" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="422 8th Street, SE, 2nd Floor Washington  DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="National Alliance on Mental Illness" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">422 8th Street, SE, 2nd Floor Washington , DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 546-0646<br /><b>Fax No:</b>(202) 546-6817<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.namidc.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Advocacy/Outreach services<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Free every Wednesday evening from 7pm to 8:30am.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The National Alliance on Mental Illness offers support groups for those mental with illness and their family (free every Wednesday evening from 7pm to 8:30am) and consumer groups including BRIDGES (Building Recovery and Individual Dreams and Goals through Education and Support) a self-help, consumer-facilitated group; advocacy and educational services including "In Our Own Voice" where consumers speak to community groups about their personal recovery experience as well as train the District's Crisis Intervention Police Officers.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

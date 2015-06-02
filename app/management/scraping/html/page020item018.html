@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS0zOTI0IE1pbm5lc290YSBBdmVudWUsIE5FIFdhc2hpbmd0b24gREMgMjAwMTlkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUuMzkyNCBNaW5uZXNvdGEgQXZlbnVlLCBORSBXYXNoaW5ndG9uLCBEQyAyMDAxOWRkAgMPDxYCHwIFTDxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAzOTgtODY4MzxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNjI3LTc4MTU8YnIgLz5kZAIFDw8WAh8CBVE8Yj5XZWJzaXRlOiA8L2I+d3d3LnVuaXR5aGVhbHRoY2FyZS5vcmcvSGVhbHRoQ2VudGVycy9TZXJ2aWNlTWlubmVzb3RhLmh0bWw8YnIgLz5kZAIHDw8WAh8CBbkDPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lZGljYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ29tbXVuaXR5IGhlYWx0aCwgVXJnZW50IGNhcmUvV2Fsay1pbiBzZXJ2aWNlPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBISVYvQUlEUywgT2ItR3luLCBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIE1lZGljYXJlLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVxPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IOKAkyBGcmlkYXk6IDg6MDAgYW0g4oCTIDEwOjAwIHBtOyBTYXR1cmRheXMgJiBTdW5kYXlzOiA4OjAwIGFtIC0gMjowMCBwbS48YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgXMCTxiPkRlc2NyaXB0aW9uOiA8L2I+VW5pdHkgSGVhbHRoIENhcmUgSGVhbHRoIENlbnRlcnMgaGF2ZSBzZXJ2aWNlIHNpdGVzIGxvY2F0ZWQgaW4gZXZlcnkgd2FyZCBvZiB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEuIFRoZSBDZW50ZXJzIHByb3ZpZGUgcXVhbGl0eSwgY29tcGFzc2lvbmF0ZSBhbmQgY29tcHJlaGVuc2l2ZSBwcmltYXJ5IGhlYWx0aCBjYXJlIHNlcnZpY2VzLiBEQyByZXNpZGVudHMgY2FuIGFjY2VzcyBVbml0eSBIZWFsdGggQ2FyZSBzZXJ2aWNlcyByZWdhcmRsZXNzIG9mIGFiaWxpdHkgdG8gcGF5LiBGb3IgdGhvc2Ugd2hvIGNhbiBwYXksIGEgc2xpZGluZyBzY2FsZSBiYXNlZCBvbiBmYW1pbHkgc2l6ZSBhbmQgaW5jb21lIGlzIHVzZWQgdG8gZGV0ZXJtaW5lIHRoZSBhcHByb3ByaWF0ZSBhbW91bnQuIFVuaXR5IEhlYWx0aCBDYXJlIGFjY2VwdHMgTWVkaWNhaWQsIE1lZGljYXJlLCBNYW5hZ2VkIENhcmUgT3JnYW5pemF0aW9ucywgREMgSGVhbHRoY2FyZSBBbGxpYW5jZSAoREMgQ2hhcnRlcmVkIEhlYWx0aCBDYXJlIEFsbGlhbmNlIGFuZCBVbml0ZWQgSGVhbHRoIENhcmUgQ29tbXVuaXR5IFBsYW4pLCBhbmQgb3RoZXIgcHJpdmF0ZSBpbnN1cmFuY2UgcGxhbnMuDQo8YnIgLz4NCjxiciAvPg0KVGhlIE1pbm5lc290YSBBdmUuIEhlYWx0aCBDbGluaWMgY3VycmVudGx5IG9mZmVycyBzZXJ2aWNlcyB0aGF0IGluY2x1ZGUgdGhlIGZvbGxvd2luZzogQWR1bHQgTWVkaWNpbmUsIE9CL0dZTiBTZXJ2aWNlcywgUGVkaWF0cmljcywgQ2FzZSBNYW5hZ2VtZW50LCBMYWJvcmF0b3J5IFNlcnZpY2VzLCBTb2NpYWwgU2VydmljZXMsIEhJViBUZXN0aW5nLCBDb3Vuc2VsaW5nIGFuZCBUcmVhdG1lbnQsIEhlYWx0aCBFZHVjYXRpb24sIA0KPGJyIC8+DQo8YnIgLz4NCkFsbCBwb3RlbnRpYWwgcGF0aWVudHMgc2hvdWxkIGNhbGwgaW50byB0aGUgUGF0aWVudCBTY2hlZHVsaW5nIENlbnRlciB0byBzY2hlZHVsZSBtb3N0IGFwcG9pbnRtZW50cy4NCjxiciAvPg0KUGF0aWVudCBTY2hlZHVsaW5nIENlbnRlcjogMjAyLjQ2OS40Njk5DQo8YnIgLz4NCjxiciAvPg0KVGhlIGhvdXJzIG9mIG9wZXJhdGlvbiBhdCB0aGUgbG9jYXRpb24gYXJlIGFzIGZvbGxvd3M6IA0KTW9uZGF5IOKAkyBGcmlkYXk6IDg6MDAgYW0g4oCTIDEwOjAwIHBtDQpTYXR1cmRheXMgJiBTdW5kYXlzOiA4OjAwIGFtIC0gMjowMCBwbQ0KV2Fsay1pbnMgQXJlIFdlbGNvbWU8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzg0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkG+GNcev1meAI3owSR5e9oHLHdII=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL25angAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAb/lsDJ62vSeaYjvwjanMyhq89J3" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3924 Minnesota Avenue, NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care (Minnesota Avenue Health Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3924 Minnesota Avenue, NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 398-8683<br /><b>Fax No:</b>(202) 627-7815<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceMinnesota.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health, Urgent care/Walk-in service<br \><b>Type Of Care : </b> HIV/AIDS, Ob-Gyn, Primary (Adult, Family &amp; Pediatrics)<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday – Friday: 8:00 am – 10:00 pm; Saturdays & Sundays: 8:00 am - 2:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Health Centers have service sites located in every ward of the District of Columbia. The Centers provide quality, compassionate and comprehensive primary health care services. DC residents can access Unity Health Care services regardless of ability to pay. For those who can pay, a sliding scale based on family size and income is used to determine the appropriate amount. Unity Health Care accepts Medicaid, Medicare, Managed Care Organizations, DC Healthcare Alliance (DC Chartered Health Care Alliance and United Health Care Community Plan), and other private insurance plans.
+<br />
+<br />
+The Minnesota Ave. Health Clinic currently offers services that include the following: Adult Medicine, OB/GYN Services, Pediatrics, Case Management, Laboratory Services, Social Services, HIV Testing, Counseling and Treatment, Health Education, 
+<br />
+<br />
+All potential patients should call into the Patient Scheduling Center to schedule most appointments.
+<br />
+Patient Scheduling Center: 202.469.4699
+<br />
+<br />
+The hours of operation at the location are as follows: 
+Monday – Friday: 8:00 am – 10:00 pm
+Saturdays & Sundays: 8:00 am - 2:00 pm
+Walk-ins Are Welcome<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

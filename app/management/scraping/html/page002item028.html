@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSQ2MDAgVyBTdHJlZXQsIE5FIFdhc2hpbmd0b24gREMgMjAwMDJkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUlNjAwIFcgU3RyZWV0LCBORSBXYXNoaW5ndG9uLCBEQyAyMDAwMmRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA4MzItNDA3MDxiciAvPmRkAgUPDxYCHwIFIjxiPldlYnNpdGU6IDwvYj53d3cuY2VldC5vcmc8YnIgLz5kZAIHDw8WAh8CBeYDPGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbiwgRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVkdWNhdGlvbmFsIHNlcnZpY2VzLCBFbXBsb3ltZW50IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gR0VEIHByb2dyYW1zLCBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBKb2Igc2tpbGxzIGFzc2Vzc21lbnQgJmFtcDsgcmVhZGluZXNzLCBWb2NhdGlvbmFsIHRyYWluaW5nICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gU2VsZi1wYXltZW50PGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBQYXltZW50IGFzc2lzdGFuY2UgKENoZWNrIHdpdGggZmFjaWxpdHkgZm9yIGRldGFpbHMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgUyPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+OTowMCBhbSAtIDU6MDAgcG08YnIgLz5kZAIPDw8WAh8CBS88Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPjE2IHllYXJzICgrKTxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgW/BjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIG1pc3Npb24gb2YgdGhlIENlbnRlciBmb3IgRW1wb3dlcm1lbnQgYW5kIEVtcGxveW1lbnQgVHJhaW5pbmcgKENFRVQpIGlzIHRvIGVkdWNhdGUgYW5kIGVtcG93ZXIgbG93LWluY29tZSBhbmQgZGlzYWR2YW50YWdlZCByZXNpZGVudHMgb2YgdGhlIERDIE1ldHJvcG9saXRhbiBhcmVhIChXYXNoaW5ndG9uLCBEQywgTWFyeWxhbmQsIFZpcmdpbmlhKSwgYnkgcHJvdmlkaW5nIHRyYWluaW5nIHRoYXQgd2lsbCBlbmFibGUgdGhlbSB0byBtZWV0IHRoZWlyIGJhc2ljIGh1bWFuIG5lZWRzLCBhbmQgZ2l2ZSB0aGVtIHRoZSBjb25maWRlbmNlIG5lY2Vzc2FyeSB0byBjb21wZXRlIGluIHRoZSB3b3JrZm9yY2UuDQo8YnIgLz4gDQo8YnIgLz4gIA0KVGhlIENFRVQgcHJvZ3JhbSBvZmZlcnMgY2xhc3NlcyBvbiBlbnRyZXByZW5ldXJpYWwgZGV2ZWxvcG1lbnQgdHJhaW5pbmcsIGN1c3RvbWVyIHNlcnZpY2VzIGFuZCBzYWxlcyBza2lsbHMsIGNvbXB1dGVyIHJlcGFpciwgbmV0d29ya2luZywgYm9vay1rZWVwaW5nLCB3b3JrcGxhY2UgbGl0ZXJhY3ksIGludGVydmlld2luZyB0ZWNobmlxdWVzLCBkcmVzc2luZyBmb3Igc3VjY2VzcywgbWFpbnRhaW5pbmcgYSBqb2IsIGpvYiBzZWFyY2ggYXNzaXN0YW5jZSwgYW5kIEdFRCBwcmVwYXJhdGlvbiBjb3Vyc2VzLiBDbGFzc2VzIGFyZSBvZmZlcmVkOiBGYWxsIChTZXB0LURlYykgYW5kIFNwcmluZyAoRmViLU1heSksIDY6MDAgcG0gLSA5OjAwIHBtLiBUaGUgY29zdCBpcyAkODUgcGVyIHNlbWVzdGVyLiBOZWVkIGJhc2VkIHNjaG9sYXJzaGlwcyBhcmUgYXZhaWxhYmxlLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQIzMh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZDt3CBLLIEtx0XfhKgY51tBssSSd" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKW5Le2AgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAfsqa+ycJ65pJACq8Yj5iTiABgBT" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="600 W Street, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="CEET (Center Empowerment and Employment Training)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">600 W Street, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 832-4070<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ceet.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Employment &amp; Vocational Training<br \><b>Services : </b> Educational services, Employment services<br \><b>Program : </b> GED programs, Job search &amp; placement assistance, Job skills assessment &amp; readiness, Vocational training &amp; placement assistance<br \><b>Population : </b> Men, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Self-payment<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>9:00 am - 5:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>16 years (+)<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The mission of the Center for Empowerment and Employment Training (CEET) is to educate and empower low-income and disadvantaged residents of the DC Metropolitan area (Washington, DC, Maryland, Virginia), by providing training that will enable them to meet their basic human needs, and give them the confidence necessary to compete in the workforce.
+<br /> 
+<br />  
+The CEET program offers classes on entrepreneurial development training, customer services and sales skills, computer repair, networking, book-keeping, workplace literacy, interviewing techniques, dressing for success, maintaining a job, job search assistance, and GED preparation courses. Classes are offered: Fall (Sept-Dec) and Spring (Feb-May), 6:00 pm - 9:00 pm. The cost is $85 per semester. Need based scholarships are available.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

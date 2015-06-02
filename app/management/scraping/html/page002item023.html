@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgzMDMwIDEydGggU3RyZWV0LCBORSBXYXNoaW5ndG9uIERDIDIwMDE3ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTMwMzAgMTJ0aCBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDE3ZGQCAw8PFgIfAgVxPGI+Q29udGFjdCBQZXJzb246PC9iPlByaXNjaWxsYSBQbHVtYjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA4MzMtNDAxMDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgODMzLTQwOTI8YnIgLz5kZAIFDw8WAh8CBSg8Yj5XZWJzaXRlOiA8L2I+d3d3LmNhc2V5dHJlZXMub3JnPGJyIC8+ZGQCBw8PFgIfAgXKATxiPkNhdGVnb3J5IDogPC9iPiBFbXBsb3ltZW50ICZhbXA7IFZvY2F0aW9uYWwgVHJhaW5pbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRW1wbG95bWVudCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IFNlYXNvbmFsIGVtcGxveW1lbnQ8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuLCBZb3V0aCAoMTIgLSAyNCk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFlwI8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPigxNiB5cnMgKyksIGVucm9sbGVkIGluIG9yIGp1c3QgZ3JhZHVhdGluZyBoaWdoIHNjaG9vbCBsb2NhdGVkIGluIHRoZSBXYXNoaW5ndG9uIE1ldHJvIEFyZWEsIHdpbGxpbmcgdG8gd29yayBvdXRkb29ycyBpbiBhbGwgd2VhdGhlciBjb25kaXRpb25zIHdpdGggYSB2YXJpZXR5IG9mIGxhbmRzY2FwaW5nIHRvb2xzIGFuZCBlcXVpcG1lbnQgaW50ZXJlc3RlZCBpbiBsZWFybmluZyBhYm91dCBhbmQgY2FyaW5nIGZvciB0cmVlcy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFuAY8Yj5EZXNjcmlwdGlvbjogPC9iPkNhc2V5IFRyZWVz4oCZIFN1bW1lciBDcmV3IGlzIGEgaGlnaCBzY2hvb2wgam9icyBwcm9ncmFtIHdoZXJlIHRlYW1zIG9mIHN0dWRlbnRzIHNlcnZlIGFzIGNhcmV0YWtlcnMgZm9yIHRoZSBEaXN0cmljdOKAmXMgdHJlZXMgZm9yIGVpZ2h0IHdlZWtzIGluIHRoZSBzdW1tZXIuIEdlbmVyYWwgcmVzcG9uc2liaWxpdGllcyBpbmNsdWRlIHdhdGVyaW5nLCB3ZWVkaW5nIGFuZCBtdWxjaGluZyB0cmVlcy4gQ3JldyBtZW1iZXJzIHRyYXZlbCBieSB0cnVjayBhbmQgc3RyZWV0IGJpa2UgKGFzIGEgcGFydCBvZiB0aGUgV2F0ZXIgQnktQ3ljbGUgdGVhbSkuIENyZXcgbWVtYmVycyB3b3JrIDM1IGhvdXJzIHBlciB3ZWVrIGFuZCBlYXJuICQ5LjAwIHBlciBob3VyLiANCjxiciAvPiANCjxiciAvPiAgDQpFbGlnaWJpbGl0eSBSZXF1aXJlbWVudHMgaW5jbHVkZSB0aGUgZm9sbG93aW5nOg0KPGJyIC8+DQrigKIgRW5yb2xsZWQgaW4gb3IganVzdCBncmFkdWF0aW5nIGZyb20gYSBoaWdoIHNjaG9vbCBpbiB0aGUgRC5DLiBhcmVhOw0KPGJyIC8+IA0K4oCiIDE2IHllYXJzIG9sZCBvciBvbGRlcjsNCjxiciAvPiANCuKAoiBXaWxsaW5nIHRvIHdvcmsgb3V0ZG9vcnMgaW4gYWxsIHdlYXRoZXIgY29uZGl0aW9ucyB3aXRoIGEgdmFyaWV0eSBvZiBsYW5kc2NhcGluZyB0b29scyBhbmQgZXF1aXBtZW50Ow0KPGJyIC8+IA0K4oCiIEludGVyZXN0ZWQgaW4gY2FyaW5nIGZvciBhbmQgbGVhcm5pbmcgYWJvdXQgdHJlZXM7IGFuZA0KPGJyIC8+DQrigKIgQWJpbGl0eSB0byBsaWZ0IGFuZCBjYXJyeSA0MCBsYnMuDQoNCjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQIxNh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZC83ZPulxcTGpd4xoWmhiF+gePFT" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKivp+3AwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdP44O1c8wRUBUWyz38HPJKpGGbh" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3030 12th Street, NE Washington DC 20017" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Casey Trees Summer Crew" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3030 12th Street, NE Washington, DC 20017</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Priscilla Plumb<br /><b>Phone No:</b>(202) 833-4010<br /><b>Fax No:</b>(202) 833-4092<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.caseytrees.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Seasonal employment<br \><b>Population : </b> Men, Women, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>(16 yrs +), enrolled in or just graduating high school located in the Washington Metro Area, willing to work outdoors in all weather conditions with a variety of landscaping tools and equipment interested in learning about and caring for trees.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Casey Trees’ Summer Crew is a high school jobs program where teams of students serve as caretakers for the District’s trees for eight weeks in the summer. General responsibilities include watering, weeding and mulching trees. Crew members travel by truck and street bike (as a part of the Water By-Cycle team). Crew members work 35 hours per week and earn $9.00 per hour. 
+<br /> 
+<br />  
+Eligibility Requirements include the following:
+<br />
+• Enrolled in or just graduating from a high school in the D.C. area;
+<br /> 
+• 16 years old or older;
+<br /> 
+• Willing to work outdoors in all weather conditions with a variety of landscaping tools and equipment;
+<br /> 
+• Interested in caring for and learning about trees; and
+<br />
+• Ability to lift and carry 40 lbs.
+
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

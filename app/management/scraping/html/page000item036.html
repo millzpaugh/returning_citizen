@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxNjI5IEsgU3RyZWV0LCBOVyBXYXNoaW5ndG9uICBEQyAyMDAwNmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxNjI5IEsgU3RyZWV0LCBOVyBXYXNoaW5ndG9uICwgREMgMjAwMDZkZAIDDw8WAh8CBXE8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzk5LTc3MjE8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDM1NS02NDUyPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA0NjYtNDE2NTxiciAvPmRkAgUPDxYCHwIFKTxiPldlYnNpdGU6IDwvYj53d3cuYW5hbmlhc2luYy5uZXQvPGJyIC8+ZGQCBw8PFgIfAgWiAjxiPkNhdGVnb3J5IDogPC9iPiBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQsIERVSS9EV0kgZWR1Y2F0aW9uIHByb2dyYW08YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVoPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDk6MDAgYW0tNTowMCBwbTsgQWZ0ZXIgSG91cnMgcGxlYXNlIGNhbGwgKDIwMikgMzk5LTc3MjE8YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwIFMjxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+U3RhdGUgSXNzdWVkIElEPGJyIC8+ZGQCEw8PFgIfAgWaCTxiPkRlc2NyaXB0aW9uOiA8L2I+QW5hbmlhcywgSW5jLiB3YXMgY3JlYXRlZCB0byBwcm92aWRlIHN1YnN0YW5jZSBhYnVzZSBhbmQgZWR1Y2F0aW9uYWwgc2VydmljZXMgYW5kIHN0cml2ZXMgdG8gYXNzaXN0IHRoZSBXYXNoaW5ndG9uIERDIG1ldHJvcG9saXRhbiBhcmVhIGNvbW11bml0aWVzIGluIHRoZWlyIGVuZGVhdm9yIHRvIG1haW50YWluIGEgZHJ1ZyBmcmVlIGVudmlyb25tZW50IGJ5IHByb3ZpZGluZyBwcm9mZXNzaW9uYWwgYW5kIGNvc3QgZWZmZWN0aXZlIERXSSAmIERVSSBFZHVjYXRpb24sIFN1YnN0YW5jZSBBYnVzZSBFZHVjYXRpb24gYW5kIEFuZ2VyIE1hbmFnZW1lbnQgRWR1Y2F0aW9uIHNlcnZpY2VzIGZvciBhbGwgcGVvcGxlIGluIG5lZWQuIA0KPGJyIC8+DQo8YnIgLz4NCkFuYW5pYXMgSW5jLiBvZmZlcnMgc2V2ZXJhbCBvdXRwYXRpZW50IGVkdWNhdGlvbmFsIGNsYXNzZXMgaW4gdGhlIE1ldHJvcG9saXRhbiBhcmVhLiBDbGFzc2VzIGFyZSB0eXBpY2FsbHkgaGVsZCBNb25kYXksIFdlZG5lc2RheSwgYW5kIFRodXJzZGF5IGZyb20gNjowMCBwbSDigJMgOTowMCBwbS4gIFBsZWFzZSBjb250YWN0IEFuYW5pYXMgYnkgZW1haWwgb3IgcGhvbmUgdG8gc2lnbiB1cCBmb3IgYW4gZWR1Y2F0aW9uYWwgY2xhc3MuIFRoZSBEV0kvRFVJIGVkdWNhdGlvbiBwcm9ncmFtIG9mZmVycyB3ZWVrbHkgaW5kaXZpZHVhbCBhbmQgZ3JvdXAgY2xhc3NlcyBmb3IgRFdJL0RVSSBvZmZlbmRlcnMuIFRoZSBSZWxhcHNlIFByZXZlbnRpb24gcHJvZ3JhbSBvZmZlcnMgYSBtaW5pbXVtIG9mIGVpZ2h0IGhvdXJzIG9mIGluZGl2aWR1YWwgYW5kIC8gb3IgZ3JvdXAgY2xhc3NlcyBkdXJpbmcgbW9ybmluZyBhbmQgZXZlbmluZyBob3VycyBmb3IgdGhvc2UgbmVlZGluZyByZWxhcHNlIHByZXZlbnRpb24gZWR1Y2F0aW9uLiBUaGUgU3Vic3RhbmNlIEFidXNlIGVkdWNhdGlvbiBwcm9ncmFtIG9mZmVycyBwc3ljaG8tZWR1Y2F0aW9uYWwgZ3JvdXBzIG9uIGRydWcgYW5kIHN1YnN0YW5jZSBhYnVzZS4gRmluYWxseSwgdGhlIEFuZ2VyIE1hbmFnZW1lbnQgcHJvZ3JhbSBvZmZlcnMgYSBtaW5pbXVtIG9mIDggd2Vla3MgY2xhc3NlcyB0byB0aG9zZSB0aGF0IG5lZWQgYW5nZXIgbWFuYWdlbWVudCBlZHVjYXRpb24uICBQcml2YXRlIGluc3VyYW5jZSBhY2NlcHRlZC4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQ1OR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZMN6YxhOGBp93QelCj9FJ2l3WV9o" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKWyY6ECgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAaeAbmCChNdcXoS5l0kORET+4f8h" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1629 K Street, NW Washington  DC 20006" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Ananias, Inc" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1629 K Street, NW Washington , DC 20006</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 399-7721<br /><b>Phone No2:</b>(202) 355-6452<br /><b>Fax No:</b>(202) 466-4165<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ananiasinc.net/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management, DUI/DWI education program<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Private health insurance<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am-5:00 pm; After Hours please call (202) 399-7721<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>State Issued ID<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Ananias, Inc. was created to provide substance abuse and educational services and strives to assist the Washington DC metropolitan area communities in their endeavor to maintain a drug free environment by providing professional and cost effective DWI & DUI Education, Substance Abuse Education and Anger Management Education services for all people in need. 
+<br />
+<br />
+Ananias Inc. offers several outpatient educational classes in the Metropolitan area. Classes are typically held Monday, Wednesday, and Thursday from 6:00 pm – 9:00 pm.  Please contact Ananias by email or phone to sign up for an educational class. The DWI/DUI education program offers weekly individual and group classes for DWI/DUI offenders. The Relapse Prevention program offers a minimum of eight hours of individual and / or group classes during morning and evening hours for those needing relapse prevention education. The Substance Abuse education program offers psycho-educational groups on drug and substance abuse. Finally, the Anger Management program offers a minimum of 8 weeks classes to those that need anger management education.  Private insurance accepted. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxMjIxMSBWZWlycyBNaWxsIFJvYWQgV2hlYXRvbiBNRCAyMDkwNmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxMjIxMSBWZWlycyBNaWxsIFJvYWQgV2hlYXRvbiwgTUQgMjA5MDZkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgOTYyLTA2MDA8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFdDxiPkNhdGVnb3J5IDogPC9iPiBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWF0ZXJpYWwgbmVlZHM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBUaHJpZnQgc3RvcmVzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVoPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC1TYXR1cmRheSBmcm9tIDk6MzBhbSB0byA4cG0gYW5kIFN1bmRheSBmcm9tIDExOjAwIGFtIHRvIDY6MDAgcG08YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgXCAjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIFVuaXF1ZSBUaHJpZnQgU3RvcmVzIGFyZSBzdG9yZXMgdGhhdCBzdXBwbGllcyB1c2VkIGFuZCByZWZ1cmJpc2hlZCBob3VzZWhvbGQgaXRlbXMgKGZ1cm5pdHVyZSwgbGFtcHMsIGJlZHMsIGRyZXNzZXIgZHJhd3MsIHJ1Z3MpLCBjbG90aGVzLCBraXRjaGVuIHdhcmUsIHRveXMgYW5kIGVxdWlwbWVudC4gSXRlbXMgYXJlIHNvbGQgYXQgYSBmYWN0aW9uIG9mIHJldGFpbCBhbmQgc29tZSBzdG9yZSBhY2NlcHQgdm91Y2hlcuKAmXMgZnJvbSBzb2NpYWwgc2VydmljZSBhZ2VuY2llcyB0byBwdXJjaGFzZSBpdGVtcy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNTM5Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkL1b/dJs8NT0oGITjoXJ7MiAJmbc=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLoyJWwCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASE0HfT7RrVbNPEoGzO4TQzq7sz4" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="12211 Veirs Mill Road Wheaton MD 20906" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unique Thrift Stores (Wheaton)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">12211 Veirs Mill Road Wheaton, MD 20906</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 962-0600<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Material needs<br \><b>Program : </b> Thrift stores<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday -Saturday from 9:30am to 8pm and Sunday from 11:00 am to 6:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Unique Thrift Stores are stores that supplies used and refurbished household items (furniture, lamps, beds, dresser draws, rugs), clothes, kitchen ware, toys and equipment. Items are sold at a faction of retail and some store accept voucher’s from social service agencies to purchase items.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

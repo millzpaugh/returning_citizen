@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSMzNSBLIFN0cmVldCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQzNSBLIFN0cmVldCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMDJkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNDQyLTQyMDI8YnIgLz5kZAIFDw8WAh8CBSQ8Yj5XZWJzaXRlOiA8L2I+d3d3LmRtaC5kYy5nb3Y8YnIgLz5kZAIHDw8WAh8CBcUCPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQsIFVyZ2VudCBjYXJlL1dhbGstaW4gc2VydmljZTxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gT3V0cGF0aWVudDxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyB3aXRoIGludGVsbGVjdHVhbCBkaXNhYmlsaXR5LCBQZXJzb25zIHdpdGggcGh5c2ljYWwgZGlzYWJpbGl0eSwgU2VuaW9ycyAoNTUrKSwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA4OjMwYW0gLSAzOjAwcG08YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgW3CTxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIERlcGFydG1lbnQgb2YgTWVudGFsIEhlYWx0aCAoRE1IKSBzZXJ2aWNlcyBpbmNsdWRlIGRpYWdub3N0aWMvYXNzZXNzbWVudCBzZXJ2aWNlcywgY291bnNlbGluZywgbWVkaWNhdGlvbiwgaW50ZW5zaXZlIGRheSB0cmVhdG1lbnQsIGFuZCBjcmlzaXMvZW1lcmdlbmN5IHNlcnZpY2VzLiBJbmRpdmlkdWFsaXplZCBtZW50YWwgaGVhbHRoIHNlcnZpY2VzIGFyZSBzdXBwb3J0ZWQgYnkgcmVoYWJpbGl0YXRpb24gcHJvZ3JhbXMsIHBlZXIgc3VwcG9ydHMsIHN1cHBvcnRpdmUgZW1wbG95bWVudCBvcHBvcnR1bml0aWVzLCBob3VzaW5nIGFzc2lzdGFuY2UgYW5kIGEgcmFuZ2Ugb2YgY29tbXVuaXR5IGhvdXNpbmcgYWx0ZXJuYXRpdmVzIHRvIGZhY2lsaXR5LWJhc2VkIGNhcmUuIA0KPGJyIC8+DQo8YnIgLz4NCkRNSCBwcm92aWRlcyBtZW50YWwgaGVhbHRoIHNlcnZpY2VzIGFuZCBzdXBwb3J0cyB0byB1bmlxdWUgcG9wdWxhdGlvbnMsIGluY2x1ZGluZyBpbmRpdmlkdWFscyB3aG8gYXJlIGRlYWYvaGVhcmluZyBpbXBhaXJlZCwgbGltaXRlZCBvciBubyBFbmdsaXNoIHNwZWFraW5nLCBvciB3aG8gaGF2ZSBjby1vY2N1cnJpbmcgaW50ZWxsZWN0dWFsIGRpc2FiaWxpdGllcy4gRE1IIGFsc28gb2ZmZXJzIHdhbGstaW4gc2VydmljZXMuIFlvdSBjYW4gd2FsayBpbnRvIGEgY2xpbmljIGFuZCBiZSBzZWVuIHRoZSBzYW1lIGRheSB3aXRob3V0IGFuIGFwcG9pbnRtZW50IGZyb20gODozMCBhbSB0byAzOjAwIHBtLiANCjxiciAvPg0KPGJyIC8+DQpTZXJ2aWNlcyBpbmNsdWRlIGFzc2Vzc21lbnQsIGNvdW5zZWxpbmcsIHBzeWNoaWF0cmljIGV2YWx1YXRpb24gYW5kIG1lZGljYXRpb24gbWFuYWdlbWVudC4gWW91IG1heSBiZSByZWZlcnJlZCB0byBhIGNvbW11bml0eSBwcm92aWRlciBmb3Igb25nb2luZyBjYXJlLiBJbmRpdmlkdWFscyB3aG8gYXJlIHVuaW5zdXJlZCBjYW4gZ2V0IHByZXNjcmliZWQgbWVkaWNhdGlvbiBhdCB0aGUgRE1IIHBoYXJtYWN5LiBUaGUgcGhhcm1hY3kgaXMgb3BlbiBNb25kYXkgdGhyb3VnaCBGcmlkYXkgZnJvbSA4OjMwIGFtIHRvIDU6MDAgcG0uIFByZXNjcmlwdGlvbnMgcmVjZWl2ZWQgYmVmb3JlIDQ6MTUgcG0gd2lsbCBiZSBmaWxsZWQgdGhlIHNhbWUgZGF5LiBDYWxsICgyMDIpIDQ0Mi00OTU0IGZvciBwaGFybWFjeSBhc3Npc3RhbmNlLiA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzYzHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk7QsOw7HogGCUhOW+XAW9qJDFLKE=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKdg8rmDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZvOef703tbSb4qiUR8S77K7CgXC" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="35 K Street, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Department of Mental Health/Multicultural and Community Services" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">35 K Street, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 442-4202<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dmh.dc.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment, Urgent care/Walk-in service<br \><b>Type Of Care : </b> Outpatient<br \><b>Population : </b> Men, Persons with intellectual disability, Persons with physical disability, Seniors (55+), Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:30am - 3:00pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Department of Mental Health (DMH) services include diagnostic/assessment services, counseling, medication, intensive day treatment, and crisis/emergency services. Individualized mental health services are supported by rehabilitation programs, peer supports, supportive employment opportunities, housing assistance and a range of community housing alternatives to facility-based care. 
+<br />
+<br />
+DMH provides mental health services and supports to unique populations, including individuals who are deaf/hearing impaired, limited or no English speaking, or who have co-occurring intellectual disabilities. DMH also offers walk-in services. You can walk into a clinic and be seen the same day without an appointment from 8:30 am to 3:00 pm. 
+<br />
+<br />
+Services include assessment, counseling, psychiatric evaluation and medication management. You may be referred to a community provider for ongoing care. Individuals who are uninsured can get prescribed medication at the DMH pharmacy. The pharmacy is open Monday through Friday from 8:30 am to 5:00 pm. Prescriptions received before 4:15 pm will be filled the same day. Call (202) 442-4954 for pharmacy assistance. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

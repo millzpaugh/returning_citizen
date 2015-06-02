@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS40ODYwIEZvcnQgVG90dGVuIERyaXZlLCBORSBXYXNoaW5ndG9uIERDIDIwMDExZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLzQ4NjAgRm9ydCBUb3R0ZW4gRHJpdmUsIE5FIFdhc2hpbmd0b24sIERDIDIwMDExZGQCAw8PFgIfAgVuPGI+Q29udGFjdCBQZXJzb246PC9iPkNhdGh5IEJhdHNvbjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA2MzUtMTc0NDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNjM1LTMwNDc8YnIgLz5kZAIFDw8WAh8CBUA8Yj5XZWJzaXRlOiA8L2I+d3d3LmNmbHNkYy5vcmcvaG91c2luZy1jYXNlLW1hbmFnZW1lbnQuY2ZtPGJyIC8+ZGQCBw8PFgIfAgWMAjxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFRyYW5zaXRpb25hbCBob3VzaW5nL1NpbmdsZSBSb29tIE9jY3VwYW5jeTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyBpbiByZWNvdmVyeSwgUGVyc29ucyB3aXRoIEhJVi9BSURTLCBQZXJzb25zIHdpdGggbWVudGFsIGlsbG5lc3MsIFBlcnNvbnMgd2l0aCBwaHlzaWNhbCBkaXNhYmlsaXR5LCBTZW5pb3JzICg1NSspLCBWZXRlcmFucywgV29tZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFRTxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+Q2FsbCBmb3IgZWxpZ2liaWxpdHkgcmVxdWlyZW1lbnRzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXuBTxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIE1pbGVzdG9uZSBQbGFjZSBvcGVyYXRlcyBhcyBhbiBhZmZpbGlhdGUgb2YgQ29tbXVuaXR5IExpZmUgU2VydmljZXMgKENGTFMpLiBUaGUgcHJvZ3JhbSBwcm92aWRlcyBhZmZvcmRhYmxlIGxvbmctdGVybSBob3VzaW5nIGZvciAzNSBmb3JtZXJseSBob21lbGVzcyBzaW5nbGUgYWR1bHRzLCBtYW55IG9mIHdob20gYXJlIHZldGVyYW5zLCBhbmQvb3IgaGF2ZSBtZW50YWwsIGVtb3Rpb25hbCwgb3IgaGVhbHRoIGNoYWxsZW5nZXMuIEJlc2lkZXMgc2FmZSBhbmQgc2VjdXJlIGhvdXNpbmcsIE1pbGVzdG9uZSByZXNpZGVudHMgcmVjZWl2ZSBpbnRlbnNpdmUgY2FzZSBtYW5hZ2VtZW50LCBzdWJzdGFuY2UgYWJ1c2UgY291bnNlbGluZyBhbmQgcmVsYXBzZSBwcmV2ZW50aW9uIHN1cHBvcnQsIGVtcGxveW1lbnQgY291bnNlbGluZyBhbmQgYWNjZXNzIHRvIGVtZXJnZW5jeSBzZXJ2aWNlcy4gVGhyb3VnaCB0aGVzZSBzZXJ2aWNlcyBNaWxlc3RvbmUgUmVzaWRlbnRzIGFyZSBhYmxlIHRvIGxpdmUgZnVsbGVyIGxpdmVzIG9mIHNlbGYtZW1wb3dlcm1lbnQgYW5kIHN1c3RhaW5hYmlsaXR5Lg0KPGJyIC8+DQo8YnIgLz4NCkZvciBhZGRpdGlvbmFsIGluZm9ybWF0aW9uIGFib3V0IHRoZSBwcm9ncmFtLCBpbmNsdWRpbmcgZWxpZ2liaWxpdHkgcmVxdWlyZW1lbnRzLCBjb250YWN0IENhdGh5IEJhdHNvbiBhdCAyMDItNjM1LTE3NDQgb3IgY2JhdHNvbkBjZmxzZGMub3JnLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMyMjkeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTgOJERga4gSoJU6/pwMZP1XA36fQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKbqduZCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAczGq8weuE3rUxgftrzkTmXc9huB" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4860 Fort Totten Drive, NE Washington DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Milestone Place (Community Family Life Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4860 Fort Totten Drive, NE Washington, DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Cathy Batson<br /><b>Phone No:</b>(202) 635-1744<br /><b>Fax No:</b>(202) 635-3047<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.cflsdc.org/housing-case-management.cfm<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Persons in recovery, Persons with HIV/AIDS, Persons with mental illness, Persons with physical disability, Seniors (55+), Veterans, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Call for eligibility requirements.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Milestone Place operates as an affiliate of Community Life Services (CFLS). The program provides affordable long-term housing for 35 formerly homeless single adults, many of whom are veterans, and/or have mental, emotional, or health challenges. Besides safe and secure housing, Milestone residents receive intensive case management, substance abuse counseling and relapse prevention support, employment counseling and access to emergency services. Through these services Milestone Residents are able to live fuller lives of self-empowerment and sustainability.
+<br />
+<br />
+For additional information about the program, including eligibility requirements, contact Cathy Batson at 202-635-1744 or cbatson@cflsdc.org.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

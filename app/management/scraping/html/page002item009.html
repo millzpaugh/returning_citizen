@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTM4MDIgUmhvZGUgSXNsYW5kIEF2ZSwgTkUgM3JkIEZMIFdhc2hpbmd0b24gREMgMjAwMThkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgU0ODAyIFJob2RlIElzbGFuZCBBdmUsIE5FIDNyZCBGTCBXYXNoaW5ndG9uLCBEQyAyMDAxOGRkAgMPDxYCHwIFcDxiPkNvbnRhY3QgUGVyc29uOjwvYj5OYW5uaWUgSm9obnNvbjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA4MzItODMzNjxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgODMyLTQ3NTk8YnIgLz5kZAIFDw8WAh8CBSo8Yj5XZWJzaXRlOiA8L2I+d3d3LmNhdGFhZGFob3VzZS5vcmc8YnIgLz5kZAIHDw8WAh8CBdECPGI+Q2F0ZWdvcnkgOiA8L2I+IFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgU3PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5BUFJBIFZvdWNoZXIgUHJvZ3JhbTxiciAvPmRkAhEPDxYCHwIFKzxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UGhvdG8gSUQ8YnIgLz5kZAITDw8WAh8CBcsFPGI+RGVzY3JpcHRpb246IDwvYj5DYWx2YXJ5J3MgSGVhbHRoIENhcmUsIEluYy4gaXMgYSBzcGlyaXR1YWxseSBiYXNlZCAoMzAgZGF5IHByZS1vcmllbnRhdGlvbikgb3V0cGF0aWVudCB0cmVhdG1lbnQgcHJvZ3JhbS4gU2VydmljZXMgaW5jbHVkZSBpbmRpdmlkdWFsIGFuZCBncm91cCB0aGVyYXB5OyBhbmdlciBtYW5hZ2VtZW50OyBhbmQgY2FzZSBtYW5hZ2VtZW50LiBQb3RlbnRpYWwgcGFydGljaXBhbnRzIGhhdmUgNyB0byAxMCBkYXlzIGRydWcgYW5kIGFsY29ob2wgZnJlZSBvciBoYXZlIGNvbWUgZGlyZWN0bHkgb3V0IG9mIGEgZGV0b3ggcHJvZ3JhbS4gUGFydGljaXBhbnRzIG11c3QgYWxzbyBwcm92aWRlIHJlY2VudCBUQiB0ZXN0IHJlc3VsdHMuIEFsY29ob2wgQW5vbnltb3VzIGFuZCBOYXJjb3RpYyBBbm9ueW1vdXMgKEFBL05BKSBtZWV0aW5ncyBhcmUgaGVsZCBNb25kYXkgdGhyb3VnaCBGcmlkYXkgYXQgMTE6MDAgYW0gYW5kIDI6MDAgcG0uIFByb2dyYW0gcGFydGljaXBhbnRzIGFyZSBlbGlnaWJsZSBmb3IgNiBtb250aHMgb2YgYWZ0ZXJjYXJlOyBlZHVjYXRpb25hbC9zb2NpYWwgc2tpbGxzOyByZWxhcHNlIHByZXZlbnRpb24gYW5kIHJlY292ZXJ5IHByb2dyYW1zOyBhbiA4LXdlZWsgQW5nZXIgTWFuYWdlbWVudCBwcm9ncmFtOyBhbmQgc3VwcG9ydCBncm91cCBzZXJ2aWNlcyBmb3IgcGVyc29ucyB3aXRoIEhJVi9BSURTLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0NDEeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTc0dt9IVL/3ZMmz1ihewzqLma8nA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLoqvCYAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQo62Twss0K7JxT2sq0AgKhJtcWK" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="802 Rhode Island Ave, NE 3rd FL Washington DC 20018" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Calvary's Healthcare, Inc (CATAADA House)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">802 Rhode Island Ave, NE 3rd FL Washington, DC 20018</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Nannie Johnson<br /><b>Phone No:</b>(202) 832-8336<br /><b>Fax No:</b>(202) 832-4759<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.cataadahouse.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders<br \><b>Population : </b> Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>APRA Voucher Program<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Calvary's Health Care, Inc. is a spiritually based (30 day pre-orientation) outpatient treatment program. Services include individual and group therapy; anger management; and case management. Potential participants have 7 to 10 days drug and alcohol free or have come directly out of a detox program. Participants must also provide recent TB test results. Alcohol Anonymous and Narcotic Anonymous (AA/NA) meetings are held Monday through Friday at 11:00 am and 2:00 pm. Program participants are eligible for 6 months of aftercare; educational/social skills; relapse prevention and recovery programs; an 8-week Anger Management program; and support group services for persons with HIV/AIDS.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

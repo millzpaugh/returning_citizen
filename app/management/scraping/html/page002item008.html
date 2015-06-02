@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxMjE3IEdvb2QgSG9wZSBSb2FkLCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDEyMTcgR29vZCBIb3BlIFJvYWQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY3OC0yMzQxPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2NzgtMjg3OTxiciAvPmRkAgUPDxYCHwIFLTxiPldlYnNpdGU6IDwvYj53d3cuY2FsdmFyeXNlcnZpY2VzLm9yZzxiciAvPmRkAgcPDxYCHwIF8gE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTaGVsdGVycywgVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gUGVyc29ucyBpbiByZWNvdmVyeSwgUGVyc29ucyB3aXRoIEhJVi9BSURTLCBQZXJzb25zIHdpdGggbWVkaWNhbCBuZWVkcywgUGVyc29ucyB3aXRoIG1lbnRhbCBpbGxuZXNzLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgU2PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbiAodW5hdHRhY2hlZCkuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBbwLPGI+RGVzY3JpcHRpb246IDwvYj5DYWx2YXJ5IFdvbWVuJ3MgU2VydmljZXMgaXMgYW4gb3JnYW5pemF0aW9uIHRoYXQgb2ZmZXJzIGhvdXNpbmcgYW5kIHNlcnZpY2VzIHRvIGhvbWVsZXNzIHdvbWVuIHRocm91Z2ggdGhyZWUgcHJvZ3JhbXMg4oCTIENhbHZhcnkgV29tZW7igJlzIFNoZWx0ZXIsIFNpc3RlciBDaXJjbGUsIGFuZCBQYXRod2F5cy4gVGhyb3VnaCB0aGVzZSBwcm9ncmFtcywgQ2FsdmFyeSBjYXJyaWVzIG91dCBpdHMgbWlzc2lvbiB0byBhY2hpZXZlIGV4Y2VsbGVuY2UgYnkgb2ZmZXJpbmcg4oCTIGEgc2FmZSwgY2FyaW5nIHBsYWNlIGZvciB0b25pZ2h0OyBzdXBwb3J0LCBob3BlIGFuZCBjaGFuZ2UgZm9yIHRvbW9ycm93LiBXb21lbiB3aG8gY29tZSB0byBDYWx2YXJ5IGZpbmQgbW9yZSB0aGFuIGEgc2FmZSBwbGFjZSB0byBsaXZlIGFuZCBiYXNpYyBuZWVkcyBsaWtlIG51dHJpdGlvdXMgbWVhbHMuIENhbHZhcnkgYWxzbyBwcm92aWRlcyB3b21lbiBlZHVjYXRpb25hbCBwcm9ncmFtcywgZW1wbG95bWVudCBvcHBvcnR1bml0aWVzLCBwZXJzb25hbCBzdXBwb3J0IGZyb20gY2FzZSBtYW5hZ2VycywgbWVudGFsIGhlYWx0aCBzZXJ2aWNlcywgYWRkaWN0aW9uIHJlY292ZXJ5IHN1cHBvcnQgYW5kIG11Y2ggbW9yZS4gV2l0aCBhIHN0cm9uZyBlbXBoYXNpcyBvbiByZXNpZGVudCBpbnZvbHZlbWVudCwgY29sbGFib3JhdGlvbiB3aXRoIG90aGVyIGFnZW5jaWVzLCBhbmQgZXhjZWxsZW5jZSBpbiBtYW5hZ2VtZW50LCBDYWx2YXJ5IHN0cml2ZXMgdG8gcHJvdmlkZSB0aGUgYmVzdCBwb3NzaWJsZSBzZXJ2aWNlcyB0byB3b21lbiBpbiBuZWVkIGluIG91ciBjb21tdW5pdHkuDQo8YnIgLz4NCjxiciAvPg0KSE9VU0lORw0KPGJyIC8+DQpDYWx2YXJ5IFdvbWVuJ3MgU2VydmljZXMgb2ZmZXJzIGEgdHJhbnNpdGlvbmFsIGhvdXNpbmcgcHJvZ3JhbSBmb3IgYWxsIHdvbWVuIGluIG5lZWQuICJQYXRod2F5cyIgaXMgYSB0cmFuc2l0aW9uYWwgaG91c2luZyBwcm9ncmFtIHRoYXQgb2ZmZXJzIHN0YWJpbGl0eSBhbmQgc3VwcG9ydCBmb3IgMTMgd29tZW4gd2hvIGhhdmUgYmVlbiBjaHJvbmljYWxseSBob21lbGVzcy4gIlNpc3RlciBDaXJjbGUiIGlzIGEgcGVybWFuZW50IGhvdXNpbmcgcHJvZ3JhbSB0aGF0IG9mZmVycyBsb25nLXRlcm0gc3VwcG9ydCBhbmQgaW5kZXBlbmRlbnQgaG91c2luZyB0byB3b21lbiBpbiByZWNvdmVyIGZyb20gc3Vic3RhbmNlIGFkZGljdGlvbiwgbWFueSBvZiB3aG9tIHN0cnVnZ2xlIHdpdGggY2hyb25pYyBtZWRpY2FsIGNvbmRpdGlvbnMgc3VjaCBhcyBISVYvQUlEUyBhbmQgY2FuY2VyLiBUaGUgYXBhcnRtZW50IHNpdGVzIGFyZSBzY2F0dGVyZWQuIFJlc2lkZW50cyBtdXN0IGJlIHBoeXNpY2FsbHkgYWJsZSB0byBwZXJmb3JtIGxpZ2h0IGR1dHkgaG91c2Vob2xkIGNob3Jlcy4gU2VsZiByZWZlcnJhbHMgYXJlIGFjY2VwdGVkLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxMjkeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSeIcMWz+6oL/1KK1hGeD0kWNX4Mg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKWqOrXDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAbP0lYHPty5igXYPu22YyzCYQQxF" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1217 Good Hope Road, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Calvary Women's Services" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1217 Good Hope Road, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 678-2341<br /><b>Fax No:</b>(202) 678-2879<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.calvaryservices.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Shelters, Transitional housing/Single Room Occupancy<br \><b>Population : </b> Persons in recovery, Persons with HIV/AIDS, Persons with medical needs, Persons with mental illness, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women (unattached).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Calvary Women's Services is an organization that offers housing and services to homeless women through three programs – Calvary Women’s Shelter, Sister Circle, and Pathways. Through these programs, Calvary carries out its mission to achieve excellence by offering – a safe, caring place for tonight; support, hope and change for tomorrow. Women who come to Calvary find more than a safe place to live and basic needs like nutritious meals. Calvary also provides women educational programs, employment opportunities, personal support from case managers, mental health services, addiction recovery support and much more. With a strong emphasis on resident involvement, collaboration with other agencies, and excellence in management, Calvary strives to provide the best possible services to women in need in our community.
+<br />
+<br />
+HOUSING
+<br />
+Calvary Women's Services offers a transitional housing program for all women in need. "Pathways" is a transitional housing program that offers stability and support for 13 women who have been chronically homeless. "Sister Circle" is a permanent housing program that offers long-term support and independent housing to women in recover from substance addiction, many of whom struggle with chronic medical conditions such as HIV/AIDS and cancer. The apartment sites are scattered. Residents must be physically able to perform light duty household chores. Self referrals are accepted.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxNjY3IEdvb2QgSG9wZSBSb2FkLCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDE2NjcgR29vZCBIb3BlIFJvYWQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDc5Ny04ODA2PGJyIC8+ZGQCBQ8PFgIfAgUiPGI+V2Vic2l0ZTogPC9iPnd3dy5zb21lLm9yZzxiciAvPmRkAgcPDxYCHwIFlAM8Yj5DYXRlZ29yeSA6IDwvYj4gRW1lcmdlbmN5IEZvb2QsIEhvdXNpbmcsIFNvY2lhbCBTZXJ2aWNlcywgVm9sdW50ZWVyIE9wcG9ydHVuaXRpZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRGF5IHByb2dyYW1zL0Ryb3AtaW4gY2VudGVycywgTnV0cml0aW9uYWwgc2VydmljZXMsIFNvY2lhbCBzZXJ2aWNlcywgVm9sdW50ZWVyIG9wcG9ydHVuaXRpZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIEZvb2QgZGVsaXZlcnkgKG1lYWxzL2dyb2NlcmllcyksIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBTZW5pb3JzICg1NSspLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPkNvbnRhY3QgZm9yIGFkZGl0aW9uYWwgZGV0YWlscy48YnIgLz5kZAIPDw8WAh8CBU88Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlNlbmlvciBDaXRpemVucyBvZiB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBb8GPGI+RGVzY3JpcHRpb246IDwvYj5TT01FIChTbyBPdGhlcnMgTWlnaHQgRWF0KSBpcyBhbiBpbnRlcmZhaXRoLCBjb21tdW5pdHktYmFzZWQgb3JnYW5pemF0aW9uIHRoYXQgZXhpc3RzIHRvIGhlbHAgdGhlIHBvb3IgYW5kIGhvbWVsZXNzIG9mIG91ciBuYXRpb24ncyBjYXBpdGFsLiBTT01FIG1lZXRzIHRoZSBpbW1lZGlhdGUgZGFpbHkgbmVlZHMgb2YgdGhlIHBlb3BsZSB3ZSBzZXJ2ZSB3aXRoIGZvb2QsIGNsb3RoaW5nLCBhbmQgaGVhbHRoIGNhcmUuIFNPTUUgaGVscHMgdG8gYnJlYWsgdGhlIGN5Y2xlIG9mIGhvbWVsZXNzbmVzcyBieSBvZmZlcmluZyBzZXJ2aWNlcywgc3VjaCBhcyBhZmZvcmRhYmxlIGhvdXNpbmcsIGpvYiB0cmFpbmluZywgYWRkaWN0aW9uIHRyZWF0bWVudCwgYW5kIGNvdW5zZWxpbmcsIHRvIHRoZSBwb29yLCB0aGUgZWxkZXJseSBhbmQgaW5kaXZpZHVhbHMgd2l0aCBtZW50YWwgaWxsbmVzcy4gRWFjaCBkYXksIFNPTUUgaXMgcmVzdG9yaW5nIGhvcGUgYW5kIGRpZ25pdHkgb25lIHBlcnNvbiBhdCBhIHRpbWUuDQo8YnIgLz4NCjxiciAvPg0KVGhpcyBpcyBhIGRheSBjZW50ZXIgd2hlcmUgc2VuaW9yIGNpdGl6ZW5zIGNvbWUgdG9nZXRoZXIgZm9yIGFjdGl2aXRpZXMgYW5kIHNlcnZpY2VzIHRoYXQgc3VwcG9ydCB0aGVpciBpbmRlcGVuZGVuY2UsIHJlZHVjZSB0aGVpciBpc29sYXRpb24gYW5kIGxvbmVsaW5lc3MsIGNvdW5zZWxpbmcgc2VydmljZXMsIGhlYWx0aHkgbWVhbHMsIGhlYWx0aCBwcm9tb3Rpb24sIG51dHJpdGlvbiBlZHVjYXRpb24sIHRyYW5zcG9ydGF0aW9uLCBhbmQgcmVjcmVhdGlvbiBzZXJ2aWNlcy4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzY4NB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZKxmYztSVZMkm9kZeRdNXHpHJwBr" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKWndaXCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcnPUxc4Js4cqx0PVMHPwC6MiJWC" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1667 Good Hope Road, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Kuehner Senior Center/Homebound Senior Program (SOME)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1667 Good Hope Road, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 797-8806<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.some.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing, Social Services, Volunteer Opportunities<br \><b>Services : </b> Day programs/Drop-in centers, Nutritional services, Social services, Volunteer opportunities<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Food delivery (meals/groceries), Referrals for social services<br \><b>Population : </b> Men, Seniors (55+), Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Contact for additional details.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Senior Citizens of the District of Columbia.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>SOME (So Others Might Eat) is an interfaith, community-based organization that exists to help the poor and homeless of our nation's capital. SOME meets the immediate daily needs of the people we serve with food, clothing, and health care. SOME helps to break the cycle of homelessness by offering services, such as affordable housing, job training, addiction treatment, and counseling, to the poor, the elderly and individuals with mental illness. Each day, SOME is restoring hope and dignity one person at a time.
+<br />
+<br />
+This is a day center where senior citizens come together for activities and services that support their independence, reduce their isolation and loneliness, counseling services, healthy meals, health promotion, nutrition education, transportation, and recreation services. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

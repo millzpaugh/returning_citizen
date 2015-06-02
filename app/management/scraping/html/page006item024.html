@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSQyOTAxIDE0dGggU3QsIE5XIFdhc2hpbmd0b24gREMgMjAwMDlkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUlMjkwMSAxNHRoIFN0LCBOVyBXYXNoaW5ndG9uLCBEQyAyMDAwOWRkAgMPDxYCHwIFTDxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAyNjUtODIwMDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgMjY1LTk4Nzg8YnIgLz5kZAIFDw8WAh8CBSI8Yj5XZWJzaXRlOiA8L2I+d3d3Lmd3dWwub3JnPGJyIC8+ZGQCBw8PFgIfAgXSAzxiPkNhdGVnb3J5IDogPC9iPiBFbXBsb3ltZW50ICZhbXA7IFZvY2F0aW9uYWwgVHJhaW5pbmcsIFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFbXBsb3ltZW50IHNlcnZpY2VzLCBNb25ldGFyeSBhc3Npc3RhbmNlLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBGaW5hbmNpYWwgY291bnNlbGluZyAobW9uZXkgbWFuYWdlbWVudCwgaG91c2luZyAmYW1wOyBjcmVkaXQpLCBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBKb2Igc2tpbGxzIGFzc2Vzc21lbnQgJmFtcDsgcmVhZGluZXNzLCBVdGlsaXRpZXMsIFZvY2F0aW9uYWwgdHJhaW5pbmcgJmFtcDsgcGxhY2VtZW50IGFzc2lzdGFuY2U8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBasOPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgR3JlYXRlciBXYXNoaW5ndG9uIFVyYmFuIExlYWd1ZSAoR1dVTCkgaXMgYSBtYWpvciBpbnRlcnJhY2lhbCwgbm9ucGFydGlzYW4sIG5vbnByb2ZpdCBzb2NpYWwgc2VydmljZXMgYW5kIGNpdmlsIHJpZ2h0cyBvcmdhbml6YXRpb24gd2l0aCBoZWFkcXVhcnRlcnMgaW4gdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhIGFuZCBvZmZpY2VzIGluIHRoZSBEaXN0cmljdCBhbmQgUHJpbmNlIEdlb3JnZSdzIENvdW50eSwgTWFyeWxhbmQuIEdXVUwncyBtaXNzaW9uIGlzIOKAnHRvIGluY3JlYXNlIHRoZSBlY29ub21pYyBhbmQgcG9saXRpY2FsIGVtcG93ZXJtZW50IG9mIGJsYWNrcyBhbmQgb3RoZXIgbWlub3JpdGllcyBhbmQgdG8gaGVscCBhbGwgQW1lcmljYW5zIHNoYXJlIGVxdWFsbHkgaW4gdGhlIHJlc3BvbnNpYmlsaXRpZXMgYW5kIHJld2FyZHMgb2YgZnVsbCBjaXRpemVuc2hpcC7igJ0gDQo8YnIgLz4NCjxiciAvPg0KR1dVTCBvZmZlcnMgZW1wbG95bWVudCBhbmQgdm9jYXRpb25hbCB0cmFpbmluZyBhcyB3ZWxsIGFzIHNvY2lhbCBzZXJ2aWNlcyBpbiBlZHVjYXRpb24sIGhvdXNpbmcgYW5kIGNvbW11bml0eSBkZXZlbG9wbWVudCwgYW5kIHV0aWxpdHkgYW5kIGZvb2QgYXNzaXN0YW5jZSBmb3IgbWVuIGFuZCB3b21lbi4gSXQgcHJvdmlkZXMgdHJhaW5pbmcsIGpvYiByZWZlcnJhbCwgcmVzdW1lIHByZXBhcmF0aW9uIGFuZCB3b3JrIHJlYWRpbmVzcyB3b3Jrc2hvcHMuIFRoZXNlIHNlcnZpY2VzIGFyZSBwcm92aWRlZCBvbmUtb24tb25lIG9yIHRvIHNtYWxsIGdyb3Vwcy4gR1dVTCBhbHNvIHNwb25zb3JzIGdlbmVyYWwgam9iIGZhaXJzIGFuZCBob2xkcyBhIHBhcnRuZXJzaGlwIHdpdGggV2FsLU1hcnQgaW4gYSB3b3JrZm9yY2UgZGV2ZWxvcG1lbnQgcHJvZ3JhbSB3aGljaCBwcm92aWRlcyBjYXJlZXIgZGV2ZWxvcG1lbnQgYW5kL29yIGVtcGxveW1lbnQgdHJhaW5pbmcgdG8gY2xpZW50cyBzZWVraW5nIHNlcnZpY2VzLg0KPGJyIC8+DQo8YnIgLz4NClRoZSBob3VzaW5nIGFuZCBjb21tdW5pdHkgZGV2ZWxvcG1lbnQgc2VydmljZXMgYWlkIGluIHRoZSBidWlsZGluZyBvZiBmaW5hbmNpYWwgYnJpZGdlcyBmcm9tIHJlbnRpbmcgdG8gaG9tZW93bmVyc2hpcCBhbmQgc3RhYmlsaXR5IGZvciBmYW1pbGllcyBpbiB0aGUgRGlzdHJpY3QgYXMgd2VsbCBhcyBQcmluY2UgR2Vvcmdl4oCZcyBDb3VudHksIE1hcnlsYW5kLiBQcm9ncmFtIGFzc2lzdGFuY2UgaXMgYWxzbyBvZmZlcmVkIGluY2x1ZGU6IEVtcGxveWVyLUFzc2lzdGVkIGhvdXNpbmcsIGhvbWUgcHVyY2hhc2UgYXNzaXN0YW5jZSwgcmVudGFsIGFzc2lzdGFuY2UsIHJlc2lkZW50aWFsIGVuZXJneSBlZmZpY2llbmN5IHJldHJvZml0LCBIb21lIFB1cmNoYXNlIEFzc2lzdGFuY2UgUHJvZ3JhbSAoSFBBUCkgc2VsbGVyIGZvcm0gYW5kIGluZGl2aWR1YWwgZGV2ZWxvcG1lbnQgYWNjb3VudCBhc3Npc3RhbmNlLg0KPGJyIC8+DQo8YnIgLz4NClRocm91Z2ggdGhlIHV0aWxpdHkgYW5kIGZvb2QgYXNzaXN0YW5jZSBzZXJ2aWNlcyBvZmZlcmVkIHRoZSBMZWFndWUgaGFzIHBhcnRuZXJlZCB3aXRoIEQuQy4gV2F0ZXIgYW5kIFNld2VyIEF1dGhvcml0eeKAmXMgU1BMQVNIIHByb2dyYW0gYW5kIFBFUENP4oCZcyBlbmVyZ3kgYXNzaXN0YW5jZSBwcm9ncmFtIHRvIHByb3ZpZGUgcmVzaWRlbnRzIHdpdGggc3VwcG9ydCBkdXJpbmcgZmluYW5jaWFsIGNyaXNpcy4gR1dVTCdzIGZvb2QgYXNzaXN0YW5jZSBzZXJ2aWNlcyBvY2N1ciB0aHJvdWdoIHByb2dyYW1zIG9mZmVyZWQgZHVyaW5nIHRoZSBob2xpZGF5IHNlYXNvbi48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUCODUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQ0mjMnMrAxfVV5aST8pQMWdPk8OQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLm8cHVBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAX7Vw/+ybLvWt/EBxgjCder5u8me" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2901 14th St, NW Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Greater Washington Urban League (GWUL)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2901 14th St, NW Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 265-8200<br /><b>Fax No:</b>(202) 265-9878<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.gwul.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training, Social Services<br \><b>Services : </b> Employment services, Monetary assistance, Social services<br \><b>Program : </b> Financial counseling (money management, housing &amp; credit), Job search &amp; placement assistance, Job skills assessment &amp; readiness, Utilities, Vocational training &amp; placement assistance<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Greater Washington Urban League (GWUL) is a major interracial, nonpartisan, nonprofit social services and civil rights organization with headquarters in the District of Columbia and offices in the District and Prince George's County, Maryland. GWUL's mission is “to increase the economic and political empowerment of blacks and other minorities and to help all Americans share equally in the responsibilities and rewards of full citizenship.” 
+<br />
+<br />
+GWUL offers employment and vocational training as well as social services in education, housing and community development, and utility and food assistance for men and women. It provides training, job referral, resume preparation and work readiness workshops. These services are provided one-on-one or to small groups. GWUL also sponsors general job fairs and holds a partnership with Wal-Mart in a workforce development program which provides career development and/or employment training to clients seeking services.
+<br />
+<br />
+The housing and community development services aid in the building of financial bridges from renting to homeownership and stability for families in the District as well as Prince George’s County, Maryland. Program assistance is also offered include: Employer-Assisted housing, home purchase assistance, rental assistance, residential energy efficiency retrofit, Home Purchase Assistance Program (HPAP) seller form and individual development account assistance.
+<br />
+<br />
+Through the utility and food assistance services offered the League has partnered with D.C. Water and Sewer Authority’s SPLASH program and PEPCO’s energy assistance program to provide residents with support during financial crisis. GWUL's food assistance services occur through programs offered during the holiday season.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSY0MTAgN3RoIFN0cmVldCwgU0UgV2FzaGluZ3RvbiBEQyAyMDAwM2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSc0MTAgN3RoIFN0cmVldCwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMDNkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTQ2LTU5NDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDMzMC01ODM5PGJyIC8+ZGQCBQ8PFgIfAgUjPGI+V2Vic2l0ZTogPC9iPnd3dy5zbXlhbC5vcmc8YnIgLz5kZAIHDw8WAh8CBbcCPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmcsIE1lZGljYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ29tbXVuaXR5IGhlYWx0aCwgRGF5IHByb2dyYW1zL0Ryb3AtaW4gY2VudGVyczxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gSElWL0FJRFM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBMZXNiaWFuLCBHYXksIEJpc2V4dWFsLCBUcmFuc2dlbmRlciAmYW1wOyBTZXh1YWwgTWlub3JpdGllcywgTWVuLCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBXA8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Ecm9wLWluIHRlc3Rpbmc6IE1vbmRheSAtIFRodXJzZGF5IDM6MDAgcG0gLSA1OjAwIHBtOyBGcmlkYXkgMzowMCBwbSAtIDY6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgVKPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Zb3V0aCBhZ2VzIDEzLTIxIHlycyAoTEdCVFEgY29tbXVuaXR5KS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFuAk8Yj5EZXNjcmlwdGlvbjogPC9iPlNleHVhbCBNaW5vcml0eSBZb3V0aCBBc3Npc3RhbmNlIExlYWd1ZSAoU01ZQUwpIHN1cHBvcnRzIGFuZCBlbXBvd2VycyBsZXNiaWFuLCBnYXksIGJpc2V4dWFsLCB0cmFuc2dlbmRlciBhbmQgcXVlc3Rpb25pbmcgKExHQlRRKSB5b3V0aCBpbiB0aGUgV2FzaGluZ3RvbiwgREMgbWV0cm9wb2xpdGFuIHJlZ2lvbi4gVGhyb3VnaCB5b3V0aCBsZWFkZXJzaGlwLCBTTVlBTCBjcmVhdGVzIG9wcG9ydHVuaXRpZXMgZm9yIExHQlRRIHlvdXRoIHRvIGJ1aWxkIHNlbGYtY29uZmlkZW5jZSwgZGV2ZWxvcCBjcml0aWNhbCBsaWZlIHNraWxscywgYW5kIGVuZ2FnZSB0aGVpciBwZWVycyBhbmQgY29tbXVuaXR5IHRocm91Z2ggc2VydmljZSBhbmQgYWR2b2NhY3kuIENvbW1pdHRlZCB0byBzb2NpYWwgY2hhbmdlLCBTTVlBTCBidWlsZHMsIHN1c3RhaW5zIGFuZCBhZHZvY2F0ZXMgZm9yIHByb2dyYW1zLCBwb2xpY2llcyBhbmQgc2VydmljZXMgdGhhdCBMR0JUUSB5b3V0aCBuZWVkIGFzIHRoZXkgZ3JvdyBpbnRvIGFkdWx0aG9vZC4gVGhlIExlYWd1ZSBhbHNvIG9mZmVycyBtZWRpY2FsIHNlcnZpY2VzIGZvciBISVYgVGVzdGluZywgY291bnNlbGluZyBhbmQgcmVmZXJyYWxzLCBzdXBwb3J0IGFuZCBkaXNjdXNzaW9uIGdyb3VwcywgYSBQZWVyIEVkdWNhdGlvbiBwcm9ncmFtLCBXb21lbuKAmXMgTGVhZGVyc2hpcCBJbnN0aXR1dGUsIEdTQSBOZXR3b3JrIChHYXkgU3RyYWlnaHQgQWxsaWFuY2UpIGFuZCByZWNyZWF0aW9uYWwgbmlnaHRzLg0KPGJyIC8+DQo8YnIgLz4NCkhJViBURVNUSU5HLCBDT1VOU0VMSU5HIEFORCBSRUZFUlJBTA0KPGJyIC8+DQpTTVlBTCBwcm92aWRlcyBmcmVlIEhJViB0ZXN0aW5nLCBjb3Vuc2VsaW5nLCBhbmQgcmVmZXJyYWwgZm9yIHlvdXRoLiBNYWtlIGFuIGFwcG9pbnRtZW50IG9yIHN0b3AgYnkgZHVyaW5nIGRyb3AtaW4gdGVzdGluZyB0aW1lcyB0byBnZXQgYSBmcmVlLCByYXBpZCwgYW5kIGNvbmZpZGVudGlhbCB0ZXN0IGZvciBISVYuIFlvdXRoIGNhbiBkcm9wIGluIE1vbmRheS1UaHVyc2RheSBmcm9tIDM6MDAgcG0gLTU6MDAgcG0gYW5kIEZyaWRheXMgZnJvbSAzOjAwIHBtIC02OjAwIHBtLCBvciB0aGV5IGNhbiBzZXQgdXAgYW4gYXBwb2ludG1lbnQgZm9yIGFueSBkYXkgb2YgdGhlIHdlZWsgYnkgZW1haWxpbmcgdGVzdGluZ0BzbXlhbC5vcmcuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2NDYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWR1a1d6uLBaBw66UpTGXKveRXiCZA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLX88+xDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUSUUEoKvKyS/gWAFzy8gOLQfzBx" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="410 7th Street, SE Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Sexual Minority Youth Assistance League (SMYAL)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">410 7th Street, SE Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 546-5940<br /><b>Fax No:</b>(202) 330-5839<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.smyal.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Medical<br \><b>Services : </b> Community health, Day programs/Drop-in centers<br \><b>Type Of Care : </b> HIV/AIDS<br \><b>Population : </b> Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Drop-in testing: Monday - Thursday 3:00 pm - 5:00 pm; Friday 3:00 pm - 6:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Youth ages 13-21 yrs (LGBTQ community).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Sexual Minority Youth Assistance League (SMYAL) supports and empowers lesbian, gay, bisexual, transgender and questioning (LGBTQ) youth in the Washington, DC metropolitan region. Through youth leadership, SMYAL creates opportunities for LGBTQ youth to build self-confidence, develop critical life skills, and engage their peers and community through service and advocacy. Committed to social change, SMYAL builds, sustains and advocates for programs, policies and services that LGBTQ youth need as they grow into adulthood. The League also offers medical services for HIV Testing, counseling and referrals, support and discussion groups, a Peer Education program, Women’s Leadership Institute, GSA Network (Gay Straight Alliance) and recreational nights.
+<br />
+<br />
+HIV TESTING, COUNSELING AND REFERRAL
+<br />
+SMYAL provides free HIV testing, counseling, and referral for youth. Make an appointment or stop by during drop-in testing times to get a free, rapid, and confidential test for HIV. Youth can drop in Monday-Thursday from 3:00 pm -5:00 pm and Fridays from 3:00 pm -6:00 pm, or they can set up an appointment for any day of the week by emailing testing@smyal.org. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTUxMDAxIENvbm5lY3RpY3V0IEF2ZSwgTlcgU1RFLiA5MzAgV2FzaGluZ3RvbiBEQyAyMDAzNmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTYxMDAxIENvbm5lY3RpY3V0IEF2ZSwgTlcgU1RFLiA5MzAgV2FzaGluZ3RvbiwgREMgMjAwMzZkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNDY0LTE1OTY8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDQ2NC0xNjYwPGJyIC8+ZGQCBQ8PFgIfAgUnPGI+V2Vic2l0ZTogPC9iPnd3dy53b3dvbmxpbmUub3JnPGJyIC8+ZGQCBw8PFgIfAgWdAjxiPkNhdGVnb3J5IDogPC9iPiBFbXBsb3ltZW50ICZhbXA7IFZvY2F0aW9uYWwgVHJhaW5pbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRW1wbG95bWVudCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEpvYiBzZWFyY2ggJmFtcDsgcGxhY2VtZW50IGFzc2lzdGFuY2UsIEpvYiBza2lsbHMgYXNzZXNzbWVudCAmYW1wOyByZWFkaW5lc3MsIFZvY2F0aW9uYWwgdHJhaW5pbmcgJmFtcDsgcGxhY2VtZW50IGFzc2lzdGFuY2U8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBXb21lbjxiciBcPmRkAgkPDxYCHwIFLjxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPlNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBSk8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPldvbWVuLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWvDTxiPkRlc2NyaXB0aW9uOiA8L2I+VGhyb3VnaCBXaWRlciBPcHBvcnR1bml0aWVzIGZvciBXb21lbuKAmXMgKFdPVykgbmF0aW9uYWwgd29yayB3b21lbiBhcmUgc3VwcG9ydGVkIHRocm91Z2ggc3RyYXRlZ2llcyB0aGF0IHByb21vdGUgZWNvbm9taWMgaW5kZXBlbmRlbmNlLiBQcm9tb3RpbmcgaXNzdWVzIHN1Y2ggYXMgcmFpc2luZyB0aGUgbWluaW11bSB3YWdlOyBlbnN1cmluZyB3b21lbuKAmXMgYWNjZXNzIHRvIG5vbi10cmFkaXRpb25hbCBlbXBsb3ltZW50OyBzdXBwb3J0aW5nIGNvbW11bml0eSBlY29ub21pYyBkZXZlbG9wbWVudCBzdHJhdGVnaWVzOyBpbmNyZWFzaW5nIGFjY2VzcyB0byB3b3JrIHN1cHBvcnRzIHN1Y2ggYXMgY2hpbGQgY2FyZSwgaGVhbHRoIGNhcmUgYW5kIHRyYW5zcG9ydGF0aW9uIGFzc2lzdGFuY2U7IGEgZmxleGlibGUgd29yayBwbGFjZSB0aGF0IHN1cHBvcnRzIHdvcmsgYW5kIGZhbWlseTsgdGhlIGNyZWF0aW9uIG9mIGpvYnMgdGhhdCBwYXkgYSBzZWxmLXN1ZmZpY2llbmN5IHdhZ2Ugb3IgcGF0aHdheXMgdG8gdGhvc2Ugam9iczsgZGlzc2VtaW5hdGluZyBwcm9taXNpbmcgcHJhY3RpY2VzIGluIHdvcmtmb3JjZSBkZXZlbG9wbWVudDsgYW5kIGluY3JlYXNpbmcgYWNjZXNzIHRvIHN1cHBvcnQgdGhhdCBhbGxvdyBlbGRlcnMgdG8gYWdlIGluIHBsYWNlIHdpdGggZGlnbml0eS4NCjxici8gPg0KPGJyLyA+DQpQcm9ncmFtcyBpbmNsdWRlOg0KVGhlIE5hdGlvbmFsIFdvbWVuJ3MgV29ya2ZvcmNlIE5ldHdvcmsgaXMgY29tcHJpc2VkIG9mIG9yZ2FuaXphdGlvbnMgY29tbWl0dGVkIHRvIGluY3JlYXNpbmcgd29tZW4gYW5kIGdpcmxzIGFjY2VzcyB0byB3ZWxsLXBhaWQgd29yay4NCg0KVGhlIEZhbWlseSBFY29ub21pYyBTZWN1cml0eSAoRkVTKSBwcm9ncmFtIHByb3ZpZGVzIHJlc291cmNlcyBhbmQgdGVjaG5pY2FsIGFzc2lzdGFuY2UgdG8gc3RhdGUgYW5kIGxvY2FsIG9yZ2FuaXphdGlvbnMgdG8gaW1wbGVtZW50IHBvbGljaWVzIGFuZCBwcm9ncmFtcyB0aGF0IGhlbHAgbG93LWluY29tZSBmYW1pbGllcyBhY2hpZXZlIGVjb25vbWljIHNlbGYtc3VmZmljaWVuY3kuIFRoZSBGRVMgcHJvamVjdCBvcGVyYXRlcyBpbiAzNiBzdGF0ZXMsIHJlYWNoaW5nIG1vcmUgdGhhbiAyMDAwIGNvbW11bml0eS1iYXNlZCBvcmdhbml6YXRpb25zOw0KPGJyLyA+DQo8YnIvID4NClRoZSBFbGRlciBFY29ub21pYyBTZWN1cml0eSBJbml0aWF0aXZlIChJbml0aWF0aXZlKSBjb21iaW5lcyBvcmdhbml6aW5nLCByZXNlYXJjaCBhbmQgYWR2b2NhY3kgdG8gcHJvbW90ZSBvbGRlciBBbWVyaWNhbnMgYWJpbGl0eSB0byBhZ2UgaW4gcGxhY2Ugd2l0aCBhZGVxdWF0ZSByZXNvdXJjZXMgYW5kIHN1cHBvcnRzOyBhbmQNCjxici8gPg0KPGJyLyA+DQpQdWJsaWMgZWR1Y2F0aW9uIGFuZCBhZHZvY2FjeSBvbiBhIG5hdGlvbmFsIGxldmVsIHRvIGFkdmFuY2UgbGVnaXNsYXRpdmUgYW5kIGFkbWluaXN0cmF0aXZlIHJlZm9ybXMuIFRvIHRoYXQgZW5kLCBXT1cgc2VydmVzIGluIGEgbGVhZGVyc2hpcCByb2xlIGluIGEgbnVtYmVyIG9mIGNvYWxpdGlvbnMsIGluY2x1ZGluZyBUcmFkZXN3b21lbiBOb3cgYW5kIFRvbW9ycm93IGFuZCBUaGUgV29ya2ZvcmNlIEFsbGlhbmNlLiBXT1cgY28tY2hhaXJzIHRoZSBOYXRpb25hbCBDb2FsaXRpb24gb24gV29tZW4gYW5kIEpvYiBUcmFpbmluZy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTI0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk66URnyDviPvYTsuvI+UPNHyfLAs=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKRisuvDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQUEV6GtCsSjfRDFGKpI2GOkJq8I" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1001 Connecticut Ave, NW STE. 930 Washington DC 20036" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Wider Opportunities for Women (WOW)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1001 Connecticut Ave, NW STE. 930 Washington, DC 20036</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 464-1596<br /><b>Fax No:</b>(202) 464-1660<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.wowonline.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness, Vocational training &amp; placement assistance<br \><b>Population : </b> Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Through Wider Opportunities for Women’s (WOW) national work women are supported through strategies that promote economic independence. Promoting issues such as raising the minimum wage; ensuring women’s access to non-traditional employment; supporting community economic development strategies; increasing access to work supports such as child care, health care and transportation assistance; a flexible work place that supports work and family; the creation of jobs that pay a self-sufficiency wage or pathways to those jobs; disseminating promising practices in workforce development; and increasing access to support that allow elders to age in place with dignity.
+<br/ >
+<br/ >
+Programs include:
+The National Women's Workforce Network is comprised of organizations committed to increasing women and girls access to well-paid work.
+
+The Family Economic Security (FES) program provides resources and technical assistance to state and local organizations to implement policies and programs that help low-income families achieve economic self-sufficiency. The FES project operates in 36 states, reaching more than 2000 community-based organizations;
+<br/ >
+<br/ >
+The Elder Economic Security Initiative (Initiative) combines organizing, research and advocacy to promote older Americans ability to age in place with adequate resources and supports; and
+<br/ >
+<br/ >
+Public education and advocacy on a national level to advance legislative and administrative reforms. To that end, WOW serves in a leadership role in a number of coalitions, including Tradeswomen Now and Tomorrow and The Workforce Alliance. WOW co-chairs the National Coalition on Women and Job Training.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

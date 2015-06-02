@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSoxNjE4IE1vbnJvZSBTdHJlZXQsIE5XIFdhc2hpbmd0b24gREMgMjAwMDlkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUrMTYxOCBNb25yb2UgU3RyZWV0LCBOVyBXYXNoaW5ndG9uLCBEQyAyMDAwOWRkAgMPDxYCHwIFTDxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA5MzktMjQwMDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgMjM0LTczMjM8YnIgLz5kZAIFDw8WAh8CBTE8Yj5XZWJzaXRlOiA8L2I+d3d3LmNhdGhvbGljY2hhcml0aWVzZGMub3JnPGJyIC8+ZGQCBw8PFgIfAgXGBTxiPkNhdGVnb3J5IDogPC9iPiBFbWVyZ2VuY3kgRm9vZCwgRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nLCBMZWdhbCwgTWVkaWNhbCwgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGgsIEVtcGxveW1lbnQgc2VydmljZXMsIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBSZWZlcnJhbHMgdG8gc3BlY2lhbHR5IGNhcmUsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gRGVudGFsLCBPYi1HeW4sIFByaW1hcnkgKEFkdWx0LCBGYW1pbHkgJmFtcDsgUGVkaWF0cmljcyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIEVtZXJnZW5jeSBmb29kL2dyb2NlcmllcywgRmluYW5jaWFsIGNvdW5zZWxpbmcgKG1vbmV5IG1hbmFnZW1lbnQsIGhvdXNpbmcgJmFtcDsgY3JlZGl0KSwgSm9iIHNlYXJjaCAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZSwgSm9iIHNraWxscyBhc3Nlc3NtZW50ICZhbXA7IHJlYWRpbmVzcywgUmVmZXJyYWxzIGZvciBzb2NpYWwgc2VydmljZXMsIFZvY2F0aW9uYWwgdHJhaW5pbmcgJmFtcDsgcGxhY2VtZW50IGFzc2lzdGFuY2U8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBJbW1pZ3JhbnRzL1JlZnVnZWVzLCBNZW4sIFdvbWVuPGJyIFw+ZGQCCQ8PFgIfAgVuPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2gsIEl0YWxpYW4gJiBGcmVuY2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVkPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+SG91cnMgdmFyeSBieSBhcmVhIG9mIHNlcnZpY2UsIHBsZWFzZSBzZWUgaG91cnMgb2Ygb3BlcmF0aW9uIGJlbG93LjxiciAvPmRkAg8PDxYCHwIFUDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWVuIGFuZCBXb21lbiwgaW5jbHVkaW5nIGltbWlncmFudHMvcmVmdWdlZXMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBekePGI+RGVzY3JpcHRpb246IDwvYj5UaGUgU3BhbmlzaCBDYXRob2xpYyBDZW50ZXIgb2ZmZXJzIG1hbnkgcHJvZ3JhbXMgdGhhdCBtZWV0IHRoZSBlbWVyZ2VuY3kgYW5kIGxvbmcgdGVybSBuZWVkcyBvZiBjbGllbnRzLiBUaGUgY2VudGVyIGhhcyA0IGxvY2F0aW9ucyBhbmQgb2ZmZXJzIGhvbGlzdGljIHNlcnZpY2VzIHRvIGltbWlncmFudHMgYXJvdW5kIHRoZSB3b3JsZCB0aHJvdWdoIHNlcnZpY2VzIHRoYXQgaW5jbHVkZTogbWVkaWNhbCBhbmQgZGVudGFsIGNsaW5pY3MsIGpvYiB0cmFpbmluZyBwcm9ncmFtcywgRW5nbGlzaCBjbGFzc2VzLCBhIGZvb2QgcGFudHJ5IGFuZCBjYXNlIG1hbmFnZW1lbnQgc2VydmljZXMuIA0KPGJyIC8+DQpFTUVSR0VOQ1kgRk9PRCBBU1NJU1RBTkNFOiANClRoZSBjZW50ZXIgb2ZmZXJzIHNldmVyYWwgcHJvZ3JhbXMgdGhhdCBjYW4gaGVscCBnZXQgZm9vZCBvbiB0aGUgdGFibGUuIFRoZSBjZW50ZXIgYWxzbyBydW5zIHRoZSBTSEFSRSBGb29kIE5ldHdvcmssIHdoaWNoIG1ha2VzIGdyb2NlcmllcyBoZWFsdGhpZXIsIGFmZm9yZGFibGUgYW5kIGFjY2Vzc2libGUuIFRocm91Z2ggdGhlIFNoYXJlIEZvb2QgTmV0d29yayBlYWNoIG1vbnRoLCBjbGllbnRzIGNhbiBzYXZlIG1vbmV5IG9uIGdyb2NlcmllcyBidXlpbmcgdGhyb3VnaCB0aGUgU0hBUkUgRm9vZCBOZXR3b3JrLiAgRm9yIG9ubHkgJDIwIGEgbW9udGgsIGNsaWVudHMgY2FuIGdldCBhIHBhY2thZ2Ugd2l0aCBoaWdoLXF1YWxpdHkgYW5kIGZyZXNoIGdyb2NlcmllcyB3b3J0aCBtb3JlIHRoYW4gJDQ1LiBUaGlzIHByb2dyYW0gaXMgb3BlbiB0byBldmVyeW9uZSENCjxiciAvPg0KUFJFLUFQUFJFTlRJQ0VTSElQIEdSRUVOIENPTlNUUlVDVElPTiBUUkFJTklORyBQUk9HUkFNOg0KVGhlIFNwYW5pc2ggQ2F0aG9saWMgQ2VudGVy4oCZcyBQcmUtQXBwcmVudGljZXNoaXAgR3JlZW4gQ29uc3RydWN0aW9uIFRyYWluaW5nIFByb2dyYW0gaXMgb3BlbiB0byBhbGwgREMgYW5kIE1hcnlsYW5kIHJlc2lkZW50cyBvdmVyIHRoZSBhZ2Ugb2YgMTggeWVhcnMuIFRoZSBjb3Vyc2Ugd29yayBpcyB0YXVnaHQgaW4gRW5nbGlzaCB3aXRoIGFzc2lzdGFuY2UgZm9yIFNwYW5pc2ggc3BlYWtlcnMsIGFzIHRoZSBwcm9ncmFtIGhvcGVzIHRvIGVtcG93ZXIgSGlzcGFuaWMgaW1taWdyYW50cyB3aXRoIG5ldyBqb2Igc2tpbGxzIHRoYXQgY2FuIGJlbmVmaXQgdGhlIGNvbW11bml0eSBpbW1lZGlhdGVseS4gVGhlIGNvdXJzZSBpZiBvZmZlcmVkIGZvciBmcmVlIGFuZCBpbnRlZ3JhdGVzIGEgbnVtYmVyIG9mIHNraWxsIHNldHMgdG8gcHJvdmlkZSBncmFkdWF0ZXMgd2l0aCBrbm93bGVkZ2UgYW5kIGFiaWxpdGllcyB0byBjb21wZXRlIGluIHRoZSBlbWVyZ2luZyBncmVlbiBlY29ub215LiBUaGUgY291cnNlIHdvcmsgbGFzdCAxMi13ZWVrcyBhbmQgaGFzIG5hdGlvbmFsbHkgY2VydGlmaWVkIGN1cnJpY3VsdW0gaW4gdGhlIGxhdGVzdCBncmVlbiBidWlsZGluZyB0ZWNobm9sb2d5LiBDbGllbnRzIGhhdmUgdGhlIG9wdGlvbiB0byBlbnJvbGwgaW4gb25lIG9mIHR3byBzZWN0aW9ucyBhbmQgYm90aCBzZWN0aW9ucyBtZWV0IE1vbmRheSB0aHJvdWdoIEZyaWRheS4gU2VjdGlvbiAxIG1lZXRzIGR1cmluZyB0aGUgaG91cnMgb2YgODozMCBhbSB0byAxMjozMCBwbSBhbmQgU2VjdGlvbiAyIG1lZXRzIGZyb20gMTowMCBwbSB0byA1OjAwIHBtLiBDbGllbnRzIHdpbGwgYmUgdHJhaW5lZCBpbiBzcGVjaWFsaXplZCBncmVlbiBidWlsZGluZyB3aGljaCBpbmNsdWRlczogc29sYXIgcGFuZWwgaW5zdGFsbGF0aW9uLCB3ZWF0aGVyaXphdGlvbiwgc3VzdGFpbmFibGUgYnVpbGRpbmcsIG9jY3VwYXRpb25hbCBtYXRoLCB0ZWNobmljYWwgRW5nbGlzaCwgT1NIQSB0cmFpbmluZywgYW5kIHdpbGwgcmVjZWl2ZSBzZXJ2aWNlcyBpbiBqb2Igc2tpbGxzIGFuZCByZWZlcnJhbHMuDQo8YnIgLz4NCjxiciAvPg0KTUVESUNBTCBDTElOSUM6DQpUaGUgU3BhbmlzaCBDYXRob2xpYyBDZW50ZXIgb2ZmZXJzIGFjY2VzcyB0byBwcmltYXJ5IGNhcmUgZm9yIGFkdWx0cyBhbmQgY2hpbGRyZW4uIFRocm91Z2ggdGhlIHByb2dyYW1zLCBHZW5lcmFsIE1lZGljYWwgU2VydmljZXMsIHBlb3BsZSBvZiBhbGwgYWdlcyB3aG8gYXJlIGxvdy1pbmNvbWUgYW5kIHVuaW5zdXJlZCwgb3IgY292ZXJlZCBieSBBbGxpYW5jZSBEQyBhcmUgd2VsY29tZS4gVGhlIGNlbnRlciBwcm92aWRlcyBsb3ctY29zdCwgcGF0aWVudC1jZW50ZXJlZCBwcmltYXJ5IGNhcmUgc2VydmljZXMgYW5kIHNwZWNpYWx0eSBzZXJ2aWNlcyBvbi1zaXRlLCBpbmNsdWRpbmcgbWlub3Igc3VyZ2VyeSwgR3luZWNvbG9neSwgQ2FyZGlvbG9neSwgUHVsbW9ub2xvZ3ksIE5lcGhyb2xvZ3ksIERlcm1hdG9sb2d5LCBPcnRob3BlZGljcywgQWN1cHVuY3R1cmUgYW5kIHJlZmVycmFscyB0byBvdGhlciBzcGVjaWFsdHkgc2VydmljZXMgaW5jbHVkaW5nIFBoeXNpY2FsIFRoZXJhcHkuDQo8YnIgLz4NCkFwcG9pbnRtZW50cyBjYW4gYmUgbWFkZSBieSBjYWxsaW5nICgyMDIpIDkzOS0yNDAwIGFuZCB3YWxrLWlucyBhcmUgYWxzbyBhY2NlcHRlZC4NCjxiciAvPg0KREVOVEFMIENMSU5JQ1M6DQpUaGUgU3BhbmlzaCBDYXRob2xpYyBDZW50ZXIgdW5kZXJzdGFuZHMgdGhlIG5lZWQgZm9yIHByZXZlbnRhdGl2ZSwgcXVhbGl0eSBkZW50YWwgY2FyZSBpbiBXYXNoaW5ndG9uLCBEQydzIEhpc3BhbmljIGNvbW11bml0eSBhcyBwZXJ2YXNpdmUgYW5kIGxhcmdlbHkgdW5tZXQuIFRoZSBjZW50ZXIgb3BlcmF0ZXMgdHdvIGNsaW5pY3MgdGhhdCBzZXJ2ZSB1bmluc3VyZWQgcGF0aWVudHMsIHByb3ZpZGluZyBwcmV2ZW50aXZlIGFuZCBhY3V0ZSBkZW50YWwgc2VydmljZXMgd2l0aCB0aGUgaGVscCBvZiBzdGFmZiBkZW50aXN0cywgaHlnaWVuaXN0cyBhbmQgcHJvIGJvbm8gdm9sdW50ZWVycy4gICANCjxiciAvPg0KQ2xpbmljcyBwcm92aWRlIHByZXZlbnRpdmUsIGRpYWdub3N0aWMsIGVtZXJnZW5jeSBhbmQgcmVzdG9yYXRpdmUgb3JhbCBoZWFsdGggY2FyZSB0byBhZHVsdHMgYW5kIGNoaWxkcmVuIHdobyBhcmUgdW5pbnN1cmVkLiBUaGUgZGVudGFsIHNlcnZpY2VzIGFyZSBhdmFpbGFibGUgYnkgYXBwb2ludG1lbnQsIHRob3VnaCBhIGxpbWl0ZWQgbnVtYmVyIG9mIGVtZXJnZW5jaWVzIGFyZSBhY2NlcHRlZCBmcm9tIDg6MzAgYW0gdG8gMTI6MzAgcG0gZWFjaCBkYXkuIEEgbW9kZXJhdGUgZmVlIGlzIHJlcXVlc3RlZCBmb3IgYW55IGVtZXJnZW5jeSBzZXJ2aWNlcw0KPGJyIC8+DQpUaGUgcHJldmVudGl2ZSBhbmQgcmVzdG9yYXRpdmUgc2VydmljZXMgb2ZmZXJlZCBhdCBib3RoIGNsaW5pY3MgaW5jbHVkZTogT3JhbCBFeGFtcywgWC1SYXlzLCBQcm9waHlsYXhpcywgUm9vdCBDYW5hbCBUcmVhdG1lbnRzLCBGaWxsaW5ncywgYW5kIFBhcnRpYWwgRGVudHVyZXMNCjxiciAvPg0KVGhlIGNsaW5pYyBpcyBvcGVuIHRvIGFsbCB0aG9zZSBpbiBuZWVkLCByZWdhcmRsZXNzIG9mIHJhY2UsIGFnZSwgbmF0aW9uYWxpdHksIGdlbmRlciwgc2V4dWFsIG9yaWVudGF0aW9uLCByZXNpZGVuY2Ugb3IgYmVsaWVmLiBQYXRpZW50cyBtdXN0IGJlIDE4IG9yIG9sZGVyLCBvciBhY2NvbXBhbmllZCBieSBhIGxlZ2FsIGd1YXJkaWFuLiBUaGUgY2xpbmljcyB3b3JrIHdpdGggbG93LWluY29tZSwgdW5pbnN1cmVkIGZhbWlsaWVzLiBGb3IgTWFyeWxhbmQgcGF0aWVudHMsIHNlcnZpY2UgdXBvbiByZWZlcnJhbCBvbmx5Lg0KPGJyIC8+DQpIT1VSUyAoREVOVEFMIENMSU5JQyk6DQpUaGUgV2FzaGluZ3RvbiwgREMsIERlbnRhbCBDbGluaWMgaXMgb3BlbiBmcm9tIDg6MzAgYW0gdG8gNTowMCBwbSBNb25kYXkgdGhyb3VnaCBGcmlkYXksIGFuZCBleHRlbmRlZCBob3VycyBvbiBUaHVyc2RheXMgZnJvbSA1OjAwIHBtIHRvIDg6MDAgcG0uPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzYyNh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZApO0euyZGjWFPxUC5ldRwud2Bsd" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL+4/7ABwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZEvyOePhxihmj7asm/Jh/G+/Y5V" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1618 Monroe Street, NW Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Spanish Catholic Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1618 Monroe Street, NW Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 939-2400<br /><b>Fax No:</b>(202) 234-7323<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.catholiccharitiesdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Employment &amp; Vocational Training, Legal, Medical, Social Services<br \><b>Services : </b> Community health, Employment services, Nutritional services, Referrals to specialty care, Social services<br \><b>Type Of Care : </b> Dental, Ob-Gyn, Primary (Adult, Family &amp; Pediatrics)<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Emergency food/groceries, Financial counseling (money management, housing &amp; credit), Job search &amp; placement assistance, Job skills assessment &amp; readiness, Referrals for social services, Vocational training &amp; placement assistance<br \><b>Population : </b> Immigrants/Refugees, Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Italian & French<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Hours vary by area of service, please see hours of operation below.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and Women, including immigrants/refugees.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Spanish Catholic Center offers many programs that meet the emergency and long term needs of clients. The center has 4 locations and offers holistic services to immigrants around the world through services that include: medical and dental clinics, job training programs, English classes, a food pantry and case management services. 
+<br />
+EMERGENCY FOOD ASSISTANCE: 
+The center offers several programs that can help get food on the table. The center also runs the SHARE Food Network, which makes groceries healthier, affordable and accessible. Through the Share Food Network each month, clients can save money on groceries buying through the SHARE Food Network.  For only $20 a month, clients can get a package with high-quality and fresh groceries worth more than $45. This program is open to everyone!
+<br />
+PRE-APPRENTICESHIP GREEN CONSTRUCTION TRAINING PROGRAM:
+The Spanish Catholic Center’s Pre-Apprenticeship Green Construction Training Program is open to all DC and Maryland residents over the age of 18 years. The course work is taught in English with assistance for Spanish speakers, as the program hopes to empower Hispanic immigrants with new job skills that can benefit the community immediately. The course if offered for free and integrates a number of skill sets to provide graduates with knowledge and abilities to compete in the emerging green economy. The course work last 12-weeks and has nationally certified curriculum in the latest green building technology. Clients have the option to enroll in one of two sections and both sections meet Monday through Friday. Section 1 meets during the hours of 8:30 am to 12:30 pm and Section 2 meets from 1:00 pm to 5:00 pm. Clients will be trained in specialized green building which includes: solar panel installation, weatherization, sustainable building, occupational math, technical English, OSHA training, and will receive services in job skills and referrals.
+<br />
+<br />
+MEDICAL CLINIC:
+The Spanish Catholic Center offers access to primary care for adults and children. Through the programs, General Medical Services, people of all ages who are low-income and uninsured, or covered by Alliance DC are welcome. The center provides low-cost, patient-centered primary care services and specialty services on-site, including minor surgery, Gynecology, Cardiology, Pulmonology, Nephrology, Dermatology, Orthopedics, Acupuncture and referrals to other specialty services including Physical Therapy.
+<br />
+Appointments can be made by calling (202) 939-2400 and walk-ins are also accepted.
+<br />
+DENTAL CLINICS:
+The Spanish Catholic Center understands the need for preventative, quality dental care in Washington, DC's Hispanic community as pervasive and largely unmet. The center operates two clinics that serve uninsured patients, providing preventive and acute dental services with the help of staff dentists, hygienists and pro bono volunteers.   
+<br />
+Clinics provide preventive, diagnostic, emergency and restorative oral health care to adults and children who are uninsured. The dental services are available by appointment, though a limited number of emergencies are accepted from 8:30 am to 12:30 pm each day. A moderate fee is requested for any emergency services
+<br />
+The preventive and restorative services offered at both clinics include: Oral Exams, X-Rays, Prophylaxis, Root Canal Treatments, Fillings, and Partial Dentures
+<br />
+The clinic is open to all those in need, regardless of race, age, nationality, gender, sexual orientation, residence or belief. Patients must be 18 or older, or accompanied by a legal guardian. The clinics work with low-income, uninsured families. For Maryland patients, service upon referral only.
+<br />
+HOURS (DENTAL CLINIC):
+The Washington, DC, Dental Clinic is open from 8:30 am to 5:00 pm Monday through Friday, and extended hours on Thursdays from 5:00 pm to 8:00 pm.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

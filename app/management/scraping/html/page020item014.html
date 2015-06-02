@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgxMjMgNDV0aC4gU3RyZWV0LCBORSBXYXNoaW5ndG9uIERDIDIwMDE5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTEyMyA0NXRoLiBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDE5ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDM4OC03ODkxPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAzODgtNTIwMjxiciAvPmRkAgUPDxYCHwIFUTxiPldlYnNpdGU6IDwvYj53d3cudW5pdHloZWFsdGhjYXJlLm9yZy9IZWFsdGhDZW50ZXJzL1NlcnZpY2VFYXN0Uml2ZXIuaHRtbDxiciAvPmRkAgcPDxYCHwIFtQM8Yj5DYXRlZ29yeSA6IDwvYj4gTWVkaWNhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBDb21tdW5pdHkgaGVhbHRoPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBGYW1pbHkgcGxhbm5pbmcsIEhJVi9BSURTLCBPYi1HeW4sIFByaW1hcnkgKEFkdWx0LCBGYW1pbHkgJmFtcDsgUGVkaWF0cmljcyksIFZpc2lvbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBNZWRpY2FyZSwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50LCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBTbGlkaW5nIGZlZSBzY2FsZSAoRmVlIGlzIGJhc2VkIG9uIGluY29tZSAmYW1wOyBvdGhlciBmYWN0b3JzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFdTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSwgVHVlc2RheSwgVGh1cnNkYXksICYgRnJpZGF5OiA4OjAwIGFtIHRvIDQ6NDUgcG07IFdlZG5lc2RheTogODowMCBhbS03OjMwIHBtLjxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBd0JPGI+RGVzY3JpcHRpb246IDwvYj5Vbml0eSBIZWFsdGggQ2FyZSBIZWFsdGggQ2VudGVycyBoYXZlIHNlcnZpY2Ugc2l0ZXMgbG9jYXRlZCBpbiBldmVyeSB3YXJkIG9mIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYS4gIFRoZSBDZW50ZXJzIHByb3ZpZGUgcXVhbGl0eSwgY29tcGFzc2lvbmF0ZSBhbmQgY29tcHJlaGVuc2l2ZSBwcmltYXJ5IGhlYWx0aCBjYXJlIHNlcnZpY2VzLiBEQyByZXNpZGVudHMgY2FuIGFjY2VzcyBVbml0eSBIZWFsdGggQ2FyZSBzZXJ2aWNlcyByZWdhcmRsZXNzIG9mIGFiaWxpdHkgdG8gcGF5LiBGb3IgdGhvc2Ugd2hvIGNhbiBwYXksIGEgc2xpZGluZyBzY2FsZSBiYXNlZCBvbiBmYW1pbHkgc2l6ZSBhbmQgaW5jb21lIGlzIHVzZWQgdG8gZGV0ZXJtaW5lIHRoZSBhcHByb3ByaWF0ZSBhbW91bnQuIFVuaXR5IEhlYWx0aCBDYXJlIGFjY2VwdHMgTWVkaWNhaWQsIE1lZGljYXJlLCBNYW5hZ2VkIENhcmUgT3JnYW5pemF0aW9ucywgREMgSGVhbHRoY2FyZSBBbGxpYW5jZSAoREMgQ2hhcnRlcmVkIEhlYWx0aCBDYXJlIEFsbGlhbmNlIGFuZCBVbml0ZWQgSGVhbHRoIENhcmUgQ29tbXVuaXR5IFBsYW4pLCBhbmQgb3RoZXIgcHJpdmF0ZSBpbnN1cmFuY2UgcGxhbnMuDQoNCjxiciAvPg0KPGJyIC8+DQpUaGUgbWVkaWNhbCBzZXJ2aWNlcyBwcm92aWRlZCBhdCB0aGUgRWFzdCBvZiB0aGUgUml2ZXIgc2l0ZSBpbmNsdWRlIHRoZSBmb2xsb3dpbmc6DQpQZWRpYXRyaWNzLCBDYXJkaW9sb2d5LCBPcGh0aGFsbW9sb2d5LCBEZXJtYXRvbG9neSwgSElWL0FJRFMgU2VydmljZXMsIFBvZGlhdHJ5LCBQdWxtb25hcnkgTWVkaWNpbmUsIE9CLUdZTiwgUmhldW1hdG9sb2d5LCBVcm9sb2d5LCBTb2NpYWwgU2VydmljZSwgTGFib3JhdG9yeSBzZXJ2aWNlcywgQ2FzZSBNYW5hZ2VtZW50LCBhbmQgU3VyZ2VyeSBTZXJ2aWNlcy4NCjxiciAvPg0KPGJyIC8+DQpBbGwgcG90ZW50aWFsIHBhdGllbnRzIHNob3VsZCBjYWxsIGludG8gdGhlIFBhdGllbnQgU2NoZWR1bGluZyBDZW50ZXIgdG8gc2NoZWR1bGUgbW9zdCBhcHBvaW50bWVudHMuDQo8YnIgLz4NClBhdGllbnQgU2NoZWR1bGluZyBDZW50ZXI6IDIwMi40NjkuNDY5OQ0KPGJyIC8+DQo8YnIgLz4NClRoZSBoZWFsdGggY2VudGVyIGhvdXJzIGFyZSBhcyBmb2xsb3dzOiANCk1vbmRheSwgVHVlc2RheSwgVGh1cnNkYXksICYgRnJpZGF5OiA4OjAwIEFNIHRvIDQ6NDUgUE0NCldlZG5lc2RheTogODowMCBBTS03OjMwIFBNPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzM4MR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZGkBBqYB3p21mxM8T0qrGHbHY7iI" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLFxtesAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAX2L0DBiqwrgq0pVDxAespKRBNVV" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="123 45th. Street, NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care (East of the River Health Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">123 45th. Street, NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 388-7891<br /><b>Fax No:</b>(202) 388-5202<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceEastRiver.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Family planning, HIV/AIDS, Ob-Gyn, Primary (Adult, Family &amp; Pediatrics), Vision<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday, Tuesday, Thursday, & Friday: 8:00 am to 4:45 pm; Wednesday: 8:00 am-7:30 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Health Centers have service sites located in every ward of the District of Columbia.  The Centers provide quality, compassionate and comprehensive primary health care services. DC residents can access Unity Health Care services regardless of ability to pay. For those who can pay, a sliding scale based on family size and income is used to determine the appropriate amount. Unity Health Care accepts Medicaid, Medicare, Managed Care Organizations, DC Healthcare Alliance (DC Chartered Health Care Alliance and United Health Care Community Plan), and other private insurance plans.
+
+<br />
+<br />
+The medical services provided at the East of the River site include the following:
+Pediatrics, Cardiology, Ophthalmology, Dermatology, HIV/AIDS Services, Podiatry, Pulmonary Medicine, OB-GYN, Rheumatology, Urology, Social Service, Laboratory services, Case Management, and Surgery Services.
+<br />
+<br />
+All potential patients should call into the Patient Scheduling Center to schedule most appointments.
+<br />
+Patient Scheduling Center: 202.469.4699
+<br />
+<br />
+The health center hours are as follows: 
+Monday, Tuesday, Thursday, & Friday: 8:00 AM to 4:45 PM
+Wednesday: 8:00 AM-7:30 PM<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

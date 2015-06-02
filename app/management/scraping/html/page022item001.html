@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSc4MDQgNDZ0aCBTdHJlZXQsIE5FIFdhc2hpbmd0b24gREMgMjAwMTlkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUoODA0IDQ2dGggU3RyZWV0LCBORSBXYXNoaW5ndG9uLCBEQyAyMDAxOWRkAgMPDxYCHwIFXzxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA0MDAtMjkxMzxiciAvPjxiPlBob25lIE5vMjo8L2I+KDIwMikgNjM2LTE2NDYgPGI+RXh0Mjo8L2I+MjAxPGJyIC8+ZGQCBQ8PFgIfAgVPPGI+V2Vic2l0ZTogPC9iPnd3dy5mYWNlYm9vay5jb20vcGFnZXMvV2FuZGEtQWxzdG9uLUhvdXNlLzE4Njg2ODY0MTM1MDMyNTxiciAvPmRkAgcPDxYCHwIF1gE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBMZXNiaWFuLCBHYXksIEJpc2V4dWFsLCBUcmFuc2dlbmRlciAmYW1wOyBTZXh1YWwgTWlub3JpdGllcywgTWVuLCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBWw8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkhvbWVsZXNzIG9yIGF0IHJpc2sgcGVyc29ucyBvZiB0aGUgTEdCVFEgY29tbXVuaXR5LCBhZ2VzIDE2LTI0IHllYXJzIG9sZC48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFgwc8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBXYW5kYSBBbHN0b24gSG91c2UgaXMgc29sZWx5IGRlZGljYXRlZCB0byBvZmZlcmluZyBwcmUtaW5kZXBlbmRlbnQgbGl2aW5nIGFuZCBzdXBwb3J0IHNlcnZpY2VzIHRvIGhvbWVsZXNzLCBvciBhdCByaXNrIGdheSwgbGVzYmlhbiwgYmlzZXh1YWwsIHRyYW5zZ2VuZGVyLCBhbmQgcXVlc3Rpb25pbmcgKExHQlRRKSB5b3V0aCBhZ2VzIDE2LTI0IHllYXJzIG9sZCBpbiBhbGwgOCB3YXJkcyBvZiB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEuIFRoZSBXYW5kYSBBbHN0b24gSG91c2Ugb2ZmZXJzIHNlcnZpY2VzIHRoYXQgaW5jbHVkZTogSW5kaXZpZHVhbCBDb3Vuc2VsaW5nLCBTdXBwb3J0IEdyb3VwcywgSW5kaXZpZHVhbCBUcmVhdG1lbnQgUGxhbnMsIERyb3AgSW4gQ2VudGVyLCBISVYgUHJldmVudGlvbiBDb3Vuc2VsaW5nLCBSZWZlcnJhbHMsIFNob3dlcnMsIExhdW5kcnksIExpZmUgU2tpbGxzIFdvcmtzaG9wcy9Kb2IgVHJhaW5pbmcgYW5kIEVkdWNhdGlvbmFsIEFzc2lzdGFuY2UsIENvbXB1dGVyIExhYiwgSElWIFRlc3RpbmcsIGFuZCBTbmFja3MuIEluIG9yZGVyIHRvIHF1YWxpZnkgZm9yIHRoZSBwcm9ncmFtIGluZGl2aWR1YWxzIG11c3QgYmUgaW52b2x2ZWQgaW4gc3RydWN0dXJlZCBhY3Rpdml0eSAoc2Nob29sLCBlbXBsb3ltZW50LCB2b2NhdGlvbmFsIHRyYWluaW5nKSBhbmQgYWdyZWUgdG8gYWJpZGUgYnkgcHJvZ3JhbSBydWxlcyBhbmQgcGF5IGEgcGVyY2VudGFnZSBvZiBpbmNvbWUgdG93YXJkIHJlbnQuIEFwcGxpY2FudHMgbXVzdCBiZSBpbnRlcnZpZXdlZCBieSBUcmFuc2dlbmRlciBIZWFsdGggRW1wb3dlcm1lbnQuIFBsZWFzZSBjYWxsICgyMDIpIDYzNi0xNjM1IGZvciBtb3JlIGluZm9ybWF0aW9uLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMzMjEeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWR6Dtf+lTs72kQT++G8ca3Ppt8o2g==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKg/+WRDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXSM8L2lUQ1PlRbnDh+eqcUQP7Jo" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="804 46th Street, NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Wanda Alston House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">804 46th Street, NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 400-2913<br /><b>Phone No2:</b>(202) 636-1646 <b>Ext2:</b>201<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.facebook.com/pages/Wanda-Alston-House/186868641350325<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Women, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless or at risk persons of the LGBTQ community, ages 16-24 years old.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Wanda Alston House is solely dedicated to offering pre-independent living and support services to homeless, or at risk gay, lesbian, bisexual, transgender, and questioning (LGBTQ) youth ages 16-24 years old in all 8 wards of the District of Columbia. The Wanda Alston House offers services that include: Individual Counseling, Support Groups, Individual Treatment Plans, Drop In Center, HIV Prevention Counseling, Referrals, Showers, Laundry, Life Skills Workshops/Job Training and Educational Assistance, Computer Lab, HIV Testing, and Snacks. In order to qualify for the program individuals must be involved in structured activity (school, employment, vocational training) and agree to abide by program rules and pay a percentage of income toward rent. Applicants must be interviewed by Transgender Health Empowerment. Please call (202) 636-1635 for more information.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

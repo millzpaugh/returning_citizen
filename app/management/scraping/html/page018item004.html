@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSszNjU1IENhbHZlcnQgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA3ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDM2NTUgQ2FsdmVydCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA3ZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDMzMy00OTQ5PGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBaMBPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gSHlwb3RoZXJtaWEgJmFtcDsgaHlwZXJ0aGVybWlhIHNlcnZpY2VzIChtb2JpbGUgdmFuL3RyYW5zcG9ydGF0aW9uL3NoZWx0ZXJzKTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFPDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPkZhY2lsaXR5IGNsb3NlcyBhdCA3OjAwIGFtLjxiciAvPmRkAg8PDxYCHwIFJzxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWVuLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXaAjxiPkRlc2NyaXB0aW9uOiA8L2I+U2FpbnQgTHVrZSdzIENodXJjaCBpcyBvbmUgb2YgdGhlIERpc3RyaWN0J3MgSHlwb3RoZXJtaWEgc2hlbHRlcnMgdGhhdCBwcm92aWRlcyBtZW4gd2l0aCB3aXRoIHNoZWx0ZXIgZHVyaW5nIHRoZSBjb2xkIHdlYXRoZXIgbW9udGhzLiBUaGUgcHJvZ3JhbSBwcm92aWRlcyBtZW4gd2l0aCBib3ggbWVhbHMgYW5kIHRoZXkgd2lsbCBoYXZlIGFjY2VzcyB0byB1dGlsaXplIHRoZSAxLzIgYmF0aHMuIFRoZSBmYWNpbGl0eSBjbG9zZXMgYXQgNzowMCBhbSwgYnV0IHRoZSBwcm9ncmFtIHByb3ZpZGVzIHRyYW5zcG9ydGF0aW9uIHRvIG90aGVyIGRheSBwcm9ncmFtcy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzA0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkSJ75XVmQCF4gktZAxBAEqhPaJPg=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKm4aeSAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUxuIY7cHIr7eZ87NBXHVOXDpFtA" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3655 Calvert Street, NW Washington DC 20007" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Saint Luke's Church" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3655 Calvert Street, NW Washington, DC 20007</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 333-4949<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Hypothermia &amp; hyperthermia services (mobile van/transportation/shelters)<br \><b>Population : </b> Men<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Facility closes at 7:00 am.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Saint Luke's Church is one of the District's Hypothermia shelters that provides men with with shelter during the cold weather months. The program provides men with box meals and they will have access to utilize the 1/2 baths. The facility closes at 7:00 am, but the program provides transportation to other day programs.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

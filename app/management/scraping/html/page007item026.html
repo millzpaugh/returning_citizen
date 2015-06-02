@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSJQLk8uIEJveCA2MDY4MiBXYXNoaW5ndG9uIERDIDIwMDM5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFI1AuTy4gQm94IDYwNjgyIFdhc2hpbmd0b24sIERDIDIwMDM5ZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDUwNi0yMjUzPGJyIC8+ZGQCBQ8PFgIfAgUpPGI+V2Vic2l0ZTogPC9iPnd3dy5ob3BlaG91c2VkYy5vcmc8YnIgLz5kZAIHDw8WAh8CBbICPGI+Q2F0ZWdvcnkgOiA8L2I+IFBhcmVudGluZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIFBhcmVudGluZyBzdXBwb3J0LCBlLmcuIGNsYXNzZXMsIGdyb3VwcywgU3VwcG9ydCBncm91cHM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBDcmltaW5hbCBqdXN0aWNlIGludm9sdmVkPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBT08Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkluY2FyY2VyYXRlZCBGYXRoZXJzIG9ubHkuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBfcFPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgSG9wZSBIb3VzZSBvZmZlcnMgaW5ub3ZhdGl2ZSBwcm9ncmFtcyB0byBzdXBwb3J0IGNoaWxkcmVuIGFuZCBmYW1pbGllcyB3aXRoIGFuIGluY2FyY2VyYXRlZCBsb3ZlZCBvbmUuIEFsbCBvZiB0aGUgcHJvZ3JhbXMgb2ZmZXJlZCBleGlzdCB3aXRoIGEgc3Ryb25nIGZvY3VzIG9mIHN0cmVuZ3RoZW5pbmcgZmFtaWxpZXMgYW5kIHRoZSByZWxhdGlvbmFsIGJvbmRzIHdpdGggZmF0aGVycyBpbiBib25kIChvciBvdGhlciByZWxhdGl2ZXMpLiBUaGUgSG9wZSBIb3VzZSBvZmZlcnMgdGhlIGZvbGxvd2luZyBwcm9ncmFtczogdGhlIEZhdGhlciB0byBDaGlsZCBUZWxlY29uZmVyZW5jZSBwcm9ncmFtLCBGYXRoZXIgdG8gQ2hpbGQgUmVhZGluZyBQcm9ncmFtLCBGYXRoZXIgdG8gQ2hpbGQgU3VtbWVyIENhbXAgQmVoaW5kIEJhcnMsIEhvcGUgSG91c2UgTGVjdHVyZSBhbmQgRmlsbSBzZXJpZXMsIEhvcGUgSG91c2UgS2lkcyBhbmQgTW9tcyBhbmQgQWR2b2NhY3kgcHJvZ3JhbS4gRm9yIG1vcmUgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGVhY2ggb2YgdGhlIHByb2dyYW0gcGxlYXNlIHZpc2l0IHRoZSB3ZWJzaXRlLg0KPGJyIC8+DQo8YnIgLz4NClByb2dyYW0gb25seSBhY2NlcHRzIGFwcGxpY2F0aW9ucyBmcm9tIGltcHJpc29uZWQgZmF0aGVycyBhbmQgZmF0aGVycyBtdXN0IHF1YWxpZnkgYnkgdGhlIHJlc3BlY3RpdmUgaW5zdGl0dXRpb24gaW4gb3JkZXIgdG8gcGFydGljaXBhdGUuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzcxNx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZIaitV1PgtBz0NDDVjw64/8ARNjG" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLe05OPDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVYzSLuZW1HlIwlB3SUSOTOk7tLf" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="P.O. Box 60682 Washington DC 20039" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Hope House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">P.O. Box 60682 Washington, DC 20039</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 506-2253<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.hopehousedc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Parenting, Social Services<br \><b>Services : </b> Family support services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Parenting support, e.g. classes, groups, Support groups<br \><b>Population : </b> Criminal justice involved<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Incarcerated Fathers only.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Hope House offers innovative programs to support children and families with an incarcerated loved one. All of the programs offered exist with a strong focus of strengthening families and the relational bonds with fathers in bond (or other relatives). The Hope House offers the following programs: the Father to Child Teleconference program, Father to Child Reading Program, Father to Child Summer Camp Behind Bars, Hope House Lecture and Film series, Hope House Kids and Moms and Advocacy program. For more information regarding each of the program please visit the website.
+<br />
+<br />
+Program only accepts applications from imprisoned fathers and fathers must qualify by the respective institution in order to participate.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

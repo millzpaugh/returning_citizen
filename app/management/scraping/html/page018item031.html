@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSM3MSBPIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQ3MSBPIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzk3LTg4MDY8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDI2NS0zODQ5PGJyIC8+ZGQCBQ8PFgIfAgUiPGI+V2Vic2l0ZTogPC9iPnd3dy5zb21lLm9yZzxiciAvPmRkAgcPDxYCHwIFrAM8Yj5DYXRlZ29yeSA6IDwvYj4gRW1lcmdlbmN5IEZvb2QsIEhvdXNpbmcsIFNvY2lhbCBTZXJ2aWNlcywgVm9sdW50ZWVyIE9wcG9ydHVuaXRpZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRGF5IHByb2dyYW1zL0Ryb3AtaW4gY2VudGVycywgTWF0ZXJpYWwgbmVlZHMsIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXMsIFZvbHVudGVlciBvcHBvcnR1bml0aWVzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBDbG90aGluZywgRnJlZSBtZWFscy9Tb3VwIGtpdGNoZW5zLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBIb21lbGVzcywgTWVuLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFVjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPlZvbHVudGVlciBIb3VyczogNzozMCBhbSAtIDg6MzAgYW0sIDExOjMwIGFtIC0xOjAwIHBtPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFjw08Yj5EZXNjcmlwdGlvbjogPC9iPlNPTUUgKFNvIE90aGVycyBNaWdodCBFYXQpIGlzIGFuIGludGVyZmFpdGgsIGNvbW11bml0eS1iYXNlZCBvcmdhbml6YXRpb24gdGhhdCBleGlzdHMgdG8gaGVscCB0aGUgcG9vciBhbmQgaG9tZWxlc3Mgb2Ygb3VyIG5hdGlvbidzIGNhcGl0YWwuIFNPTUUgd2lsbCBtZWV0IHRoZSBpbW1lZGlhdGUgZGFpbHkgbmVlZHMgb2YgdGhlIHBlb3BsZSB3ZSBzZXJ2ZSB3aXRoIGZvb2QsIGNsb3RoaW5nLCBhbmQgaGVhbHRoIGNhcmUuIFNPTUUgYWxzbyBoZWxwcyBicmVhayB0aGUgY3ljbGUgb2YgaG9tZWxlc3NuZXNzIGJ5IG9mZmVyaW5nIHNlcnZpY2VzLCBzdWNoIGFzIGFmZm9yZGFibGUgaG91c2luZywgam9iIHRyYWluaW5nLCBhZGRpY3Rpb24gdHJlYXRtZW50LCBhbmQgY291bnNlbGluZywgdG8gdGhlIHBvb3IsIHRoZSBlbGRlcmx5IGFuZCBpbmRpdmlkdWFscyB3aXRoIG1lbnRhbCBpbGxuZXNzLiBFYWNoIGRheSwgU09NRSBpcyByZXN0b3JpbmcgaG9wZSBhbmQgZGlnbml0eSBvbmUgcGVyc29uIGF0IGEgdGltZS4gDQo8YnIgLz4NCjxiciAvPg0KVk9MVU5URUVSIE9QUE9SVFVOSVRJRVMNCjxiciAvPg0KVm9sdW50ZWVycyBhcmUgbmVlZGVkIHRvIGhlbHAgc2VydmUgZm9vZCBhbmQgcmVzZXQgdGFibGVzIGR1cmluZyBicmVha2Zhc3QgYW5kIGx1bmNoIGhvdXJzLiAgVm9sdW50ZWVycyBhcmUgYWxzbyBuZWVkZWQgZm9yIHBhaW50aW5nIGFuZCBiYXNpYyByZXBhaXIgd29yay4NCjxiciAvPg0KPGJyIC8+DQpFTUVSR0VOQ1kgRk9PRDogDQo8YnIgLz4NClNPTUUncyBEaW5pbmcgUm9vbXMgZm9yIHRoZSBIb21lbGVzcyBoYXZlIGJlZW4gc2VydmluZyB0aGUgRGlzdHJpY3TigJlzIG5lZWRpZXN0IGluZGl2aWR1YWxzIHNpbmNlIDE5NzAuIEJyZWFrZmFzdCBhbmQgbHVuY2ggYXJlIHNlcnZlZCBlYWNoIGRheSB0byBhbGwgd2hvIGNvbWUgdG8gU09NRS4gU09NReKAmXMgcHJpb3JpdHkgaXMgdG8gc2VydmUgZXZlcnlvbmUgd2l0aCBkaWduaXR5IGFuZCByZXNwZWN0IHdpdGggbm8gcXVlc3Rpb25zIGFza2VkLg0KPGJyIC8+DQpUaGUgRGluaW5nIFJvb20gZm9yIFdvbWVuIGFuZCBDaGlsZHJlbiB3YXMgZXN0YWJsaXNoZWQgaW4gcmVzcG9uc2UgdG8gdGhlIGdyb3dpbmcgbnVtYmVyIG9mIGhvbWVsZXNzIHdvbWVuIGFuZCBjaGlsZHJlbi4gSXQgaXMgYSBzZXBhcmF0ZSBkaW5pbmcgYXJlYSB3aGVyZSB3b21lbiBhbmQgY2hpbGRyZW4gY2FuIGVuam95IGEgbWVhbCBpbiBhIHF1aWV0ZXIsIG1vcmUgcHJpdmF0ZSBlYXRpbmcgc3BhY2UuICANCjxiciAvPg0KPGJyIC8+DQpIT1VTSU5HOiANCjxiciAvPg0KU09NRSBvZmZlcnMgdGhyZWUgZGlmZmVyZW50IHRyYW5zaXNpb25hbCBob3VzaW5nIHByb2dyYW1zIHRocm91Z2ggSm9yZGFuIEhvdXNlLCBNYXJ5IENsYWlyZSBIb3VzZSBhbmQgSXNhaWFoIEhvdXNlLiAgRWFjaCByZXNpZGVudCBwcm92aWRlcyBhIHRyYW5zaXRpb25hbCBob3VzaW5nIHByb2dyYW0gY2F0ZXJpbmcgdG8gdmFyaW91cyBzZXJ2aWNlcyBpbiBnZW5kZXIgc3BlY2lmaWMgYW5kIHNlcGFyYXRlIHByb2dyYW1zLiBPdXRwYXRpZW50IHByZS10cmVhdG1lbnQgYW5kIGFzc2Vzc21lbnQgaXMgcmVxdWlyZWQgYXMgcHJlcGFyYXRpb24gaW4gcmVzaWRlbnRpYWwgdHJlYXRtZW50IHByb2dyYW1zLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMzNzIeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQo7xkxuJ76+tUsqlbNoWMYN/jsfw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKN+fbSDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASNQIXKj8st2d6LoTSTpICO66Kqp" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="71 O Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="So Others Might Eat (SOME)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">71 O Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 797-8806<br /><b>Fax No:</b>(202) 265-3849<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.some.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing, Social Services, Volunteer Opportunities<br \><b>Services : </b> Day programs/Drop-in centers, Material needs, Nutritional services, Social services, Volunteer opportunities<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Clothing, Free meals/Soup kitchens, Referrals for social services<br \><b>Population : </b> Families, Homeless, Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Volunteer Hours: 7:30 am - 8:30 am, 11:30 am -1:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>SOME (So Others Might Eat) is an interfaith, community-based organization that exists to help the poor and homeless of our nation's capital. SOME will meet the immediate daily needs of the people we serve with food, clothing, and health care. SOME also helps break the cycle of homelessness by offering services, such as affordable housing, job training, addiction treatment, and counseling, to the poor, the elderly and individuals with mental illness. Each day, SOME is restoring hope and dignity one person at a time. 
+<br />
+<br />
+VOLUNTEER OPPORTUNITIES
+<br />
+Volunteers are needed to help serve food and reset tables during breakfast and lunch hours.  Volunteers are also needed for painting and basic repair work.
+<br />
+<br />
+EMERGENCY FOOD: 
+<br />
+SOME's Dining Rooms for the Homeless have been serving the District’s neediest individuals since 1970. Breakfast and lunch are served each day to all who come to SOME. SOME’s priority is to serve everyone with dignity and respect with no questions asked.
+<br />
+The Dining Room for Women and Children was established in response to the growing number of homeless women and children. It is a separate dining area where women and children can enjoy a meal in a quieter, more private eating space.  
+<br />
+<br />
+HOUSING: 
+<br />
+SOME offers three different transisional housing programs through Jordan House, Mary Claire House and Isaiah House.  Each resident provides a transitional housing program catering to various services in gender specific and separate programs. Outpatient pre-treatment and assessment is required as preparation in residential treatment programs.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

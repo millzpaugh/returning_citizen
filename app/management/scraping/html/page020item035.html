@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSwxMDEgUSBTdHJlZXQsIE5FIFNURS4gRyAgV2FzaGluZ3RvbiBEQyAyMDAwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS0xMDEgUSBTdHJlZXQsIE5FIFNURS4gRyAgV2FzaGluZ3RvbiwgREMgMjAwMDJkZAIDDw8WAh8CBXI8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTI5LTI5NzI8YnIgLz48Yj5Ub2xsIEZyZWU6IDwvYj4oODAwKSA1MzUtNzI1MjxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNTQ0LTI3MTQ8YnIgLz5kZAIFDw8WAh8CBVA8Yj5XZWJzaXRlOiA8L2I+d3d3LnVuaXR5aGVhbHRoY2FyZS5vcmcvSGVhbHRoQ2VudGVycy9TZXJ2aWNlUGF0aHdheXMuaHRtbDxiciAvPmRkAgcPDxYCHwIFigM8Yj5DYXRlZ29yeSA6IDwvYj4gTWVkaWNhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBDb21tdW5pdHkgaGVhbHRoPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIE1lZGljYXJlLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgWcATxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA4OjE1IGFtIOKAkyAxMjowMCBwbTsgVHVlc2RheSDigJMgVGh1cnNkYXk6IDE6MDAgcG0g4oCTIDQ6NDUgcG07IGFuZCBUdWVzZGF5ICYgVGh1cnNkYXkgODowMCBhbSB0byA0OjMwIHBtLjxiciAvPmRkAg8PDxYCHwIFdDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+QXBwbGljYW50cyBtdXN0IGJlIGFibGUgdG8gIGRlbW9uc3RyYXRlIGhvbWVsZXNzbmVzcywgbWVudGFsIGlsbG5lc3MgYW5kIGluY29tZS4gPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBbMIPGI+RGVzY3JpcHRpb246IDwvYj5Vbml0eSBIZWFsdGggQ2FyZSBIb21lbGVzcyBTZXJ2aWNlIENlbnRlcnMgaGF2ZSBiZWVuIHByb3ZpZGluZyBob21lbGVzcyBzZXJ2aWNlcyBzaW5jZSAxOTg1LiBDdXJyZW50bHksIHRoZSBwcm9ncmFtIG9wZXJhdGVzIDEwIGhvbWVsZXNzIG1lZGljYWwgc2VydmljZSBzaXRlcyBsb2NhdGVkIGluIGFsbW9zdCBldmVyeSB3YXJkIG9mIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYS4gVW5pdHkgcHJvdmlkZXMgcXVhbGl0eSwgY29tcGFzc2lvbmF0ZSBhbmQgY29tcHJlaGVuc2l2ZSBwcmltYXJ5IGhlYWx0aCBjYXJlIHNlcnZpY2VzIHRvIGhvbWVsZXNzIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcyBhbm51YWxseS4gVGhlIHNlcnZpY2VzIHByb3ZpZGVkIGJ5IFVuaXR5IEhlYWx0aCBDYXJl4oCZcyBleHRlbnNpdmUgbmV0d29yayBhbGxvd3MgYXNzaXN0YW5jZSB0aHJvdWdob3V0IHRoZSBjb21tdW5pdHkgaW5jbHVkaW5nIHNpdGVzIGxvY2F0ZWQgaW4gZW1lcmdlbmN5IHNoZWx0ZXJzIGFuZCBob21lbGVzcyBzZXJ2aWNlIGZhY2lsaXRpZXMgYWNyb3NzIHRoZSBjaXR5Lg0KPGJyIC8+DQo8YnIgLz4NCk91ciBuZXdlc3QgY2xpbmljIGF0IFBhdGh3YXlzIHJlcHJlc2VudHMgYW5kIGltcG9ydGFudCBjb2xsYWJvcmF0aW9uIGJldHdlZW4gVW5pdHkgSGVhbHRoIENhcmUgYW5kIFBhdGh3YXlzIHRvIEhvdXNpbmcgdG8gcHJvdmlkZSBtZWRpY2FsIGNhcmUgZm9yIG91ciBob21lbGVzcyBwYXRpZW50cyB3aG8gYXJlIGFjdGl2ZWx5IGVuZ2FnZWQgaW4gdGhlIHByb2Nlc3Mgb2YgYmVjb21pbmcgaG91c2VkLiBPbmx5IHByaW1hcnkgY2FyZSBzZXJ2aWNlcyBhcmUgb2ZmZXJlZCBhdCB0aGlzIHNpdGUuIA0KPGJyIC8+DQo8YnIgLz4NClRoZSBIb3VycyBvZiBvcGVyYXRpb24gYXJlIGFzIGZvbGxvd3M6DQo8YnIgLz4NCk1vbmRheSDigJMgRnJpZGF5IDg6MTUgYW0g4oCTIDEyOjAwIHBtDQo8YnIgLz4NClR1ZXNkYXkg4oCTIFRodXJzZGF5OiAxOjAwIHBtIOKAkyA0OjQ1IHBtDQo4OjAwIGFtIHRvIDQ6MzAgcG0gKFR1ZXNkYXkgYW5kIFRodXJzZGF5KTxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0MDQeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQ/Gp4cQoS/uTumGWwBHfbVILDx8g==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLs5uqsCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAReIwZ7153xzqavDgVVUiM6hpnOs" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="101 Q Street, NE STE. G  Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care Homeless Service Center (Pathways to Housing)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">101 Q Street, NE STE. G  Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 529-2972<br /><b>Toll Free: </b>(800) 535-7252<br /><b>Fax No:</b>(202) 544-2714<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServicePathways.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Primary (Adult, Family &amp; Pediatrics)<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:15 am – 12:00 pm; Tuesday – Thursday: 1:00 pm – 4:45 pm; and Tuesday & Thursday 8:00 am to 4:30 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Applicants must be able to  demonstrate homelessness, mental illness and income. <br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Homeless Service Centers have been providing homeless services since 1985. Currently, the program operates 10 homeless medical service sites located in almost every ward of the District of Columbia. Unity provides quality, compassionate and comprehensive primary health care services to homeless individuals and families annually. The services provided by Unity Health Care’s extensive network allows assistance throughout the community including sites located in emergency shelters and homeless service facilities across the city.
+<br />
+<br />
+Our newest clinic at Pathways represents and important collaboration between Unity Health Care and Pathways to Housing to provide medical care for our homeless patients who are actively engaged in the process of becoming housed. Only primary care services are offered at this site. 
+<br />
+<br />
+The Hours of operation are as follows:
+<br />
+Monday – Friday 8:15 am – 12:00 pm
+<br />
+Tuesday – Thursday: 1:00 pm – 4:45 pm
+8:00 am to 4:30 pm (Tuesday and Thursday)<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

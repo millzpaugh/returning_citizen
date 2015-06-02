@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSY5MDEgM3JkIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSc5MDEgM3JkIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODQyLTM0MTE8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDY4Mi05NDIzPGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBZEBPGI+Q2F0ZWdvcnkgOiA8L2I+IFBhcmVudGluZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBGYW1pbHkgc3VwcG9ydCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IFBhcmVudGluZyBzdXBwb3J0LCBlLmcuIGNsYXNzZXMsIGdyb3VwczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFUjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjNyZCBTYXR1cmRheSAob2YgZWFjaCBtb250aCkgMTE6MDAgYW0gdG8gMTowMCBwbS48YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwIFPTxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+Q291cnNlIGZlZTogJDM1LjAwIChib29rKS48YnIgLz5kZAITDw8WAh8CBe0BPGI+RGVzY3JpcHRpb246IDwvYj5NdC4gQ2FybWVsIEJhcHRpc3QgQ2h1cmNoIG9mZmVycyBzcGlyaXR1YWwgYmFzZWQgcGFyZW50aW5nIGNvdXJzZXMgZm9yIHBhcmVudHMgYW5kIGNoaWxkY2FyZSBwcm92aWRlcnMuIENsYXNzZXMgYXJlIGhlbGQgdGhlIHRoaXJkIFNhdHVyZGF5IG9mIGVhY2ggbW9udGgsIHN0YXJ0aW5nIGF0IDExOjAwIGFtIHRvIDE6MDAgcG0uIENvdXJzZSBmZWU6ICQzNSAoYm9va3MpPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzU4NB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZNdWFlmXrsm2P+DgQq/GJAZPhC6n" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKMtbPHCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAex95/rae8BHSLgV8fv3q2xs0Ruy" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="901 3rd Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Mt. Carmel Baptist Church" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">901 3rd Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 842-3411<br /><b>Fax No:</b>(202) 682-9423<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Parenting<br \><b>Services : </b> Family support services<br \><b>Program : </b> Parenting support, e.g. classes, groups<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>3rd Saturday (of each month) 11:00 am to 1:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Course fee: $35.00 (book).<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Mt. Carmel Baptist Church offers spiritual based parenting courses for parents and childcare providers. Classes are held the third Saturday of each month, starting at 11:00 am to 1:00 pm. Course fee: $35 (books)<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTRWQSBIb3NwaXRhbCA1MCBJcnZpbmcgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwNDIyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFNVZBIEhvc3BpdGFsIDUwIElydmluZyBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwNDIyZGQCAw8PFgIfAgUyPGJyIC8+PGJyIC8+PGI+VG9sbCBGcmVlOiA8L2I+KDg3NykgMjIyLTgzODc8YnIgLz5kZAIFDw8WAh8CBTI8Yj5XZWJzaXRlOiA8L2I+d3d3LnZhLmdvdi9ob21lbGVzcy9oY2h2LmFzcDxiciAvPmRkAgcPDxYCHwIF7QE8Yj5DYXRlZ29yeSA6IDwvYj4gU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgUmVmZXJyYWxzIGZvciBzb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBIb21lbGVzcywgVmV0ZXJhbnM8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBbgHPGI+RGVzY3JpcHRpb246IDwvYj5IZWFsdGhjYXJlIGZvciBIb21lbGVzcyBWZXRlcmFucyAoSENIVikgcHJvZ3JhbXMgcHJvdmlkZXMgY29tbXVuaXR5LWJhc2VkIHJlc2lkZW50aWFsIHRyZWF0bWVudCBmb3IgaG9tZWxlc3MgVmV0ZXJhbnMuICBNYW55IEhDSFYgcHJvZ3JhbXMgbm93IHNlcnZlIGFzIHRoZSBodWIgZm9yIGEgbXlyaWFkIG9mIGhvdXNpbmcgYW5kIG90aGVyIHNlcnZpY2VzIHdoaWNoIHByb3ZpZGUgVkEgKFZldGVyYW4gQWZmYWlycykgYSB3YXkgdG8gb3V0cmVhY2ggYW5kIGFzc2lzdCBob21lbGVzcyBWZXRlcmFucyBieSBvZmZlcmluZyB0aGVtIGVudHJ5IHRvIFZBIGNhcmUuDQo8YnIgLz4NCjxiciAvPg0KT3V0cmVhY2ggaXMgdGhlIGNvcmUgb2YgdGhlIEhDSFYgcHJvZ3JhbS4gVGhlIGdvYWwgaXMgdG8gcmVkdWNlIGhvbWVsZXNzbmVzcyBhbW9uZyBWZXRlcmFucyBieSBjb25kdWN0aW5nIG91dHJlYWNoIHRvIHRob3NlIHdobyBhcmUgdGhlIG1vc3QgdnVsbmVyYWJsZSBhbmQgYXJlIG5vdCBjdXJyZW50bHkgcmVjZWl2aW5nIHNlcnZpY2VzIGFuZCBlbmdhZ2luZyB0IGhlbSBpbiB0cmVhdG1lbnQgYW5kIHJlaGFiaWxpdGF0aXZlIHByb2dyYW1zLiANCjxiciAvPg0KPGJyIC8+DQpUaGUgQ29udHJhY3QgUmVzaWRlbnRpYWwgVHJlYXRtZW50IFByb2dyYW0gVmV0ZXJhbnMgd2l0aCBzZXJpb3VzIG1lbnRhbCBoZWFsdGggZGlhZ25vc2VzIGNhbiBiZSBwbGFjZWQgaW4gY29tbXVuaXR5LWJhc2VkIHByb2dyYW1zIHRoYXQgcHJvdmlkZSBxdWFsaXR5IGhvdXNpbmcgYW5kIHNlcnZpY2VzLg0KPGJyIC8+DQo8YnIgLz4NCkJlbmVmaXRzIGNhbGw6IDgwMC04MjctMTAwMA0KSGVhbHRoIENhcmUgY2FsbDogODc3LTIyMi1WRVRTICg4Mzg3KQ0KPGJyIC8+DQo8YnIgLz4NClZldGVyYW5zIENyaXNpcyBMaW5lOiA4MDAtMjczLTgyNTUgcHJlc3MgMTxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM3NTUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTYozvdUEkfZ+VY1tIidpgtntjmtQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKNwsPYCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXKNuUvFzIvFudhrqY7DoeqH2QQJ" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="VA Hospital 50 Irving Street, NW Washington DC 20422" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Health Care for Homeless Veterans (HCHV)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">VA Hospital 50 Irving Street, NW Washington, DC 20422</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><br /><b>Toll Free: </b>(877) 222-8387<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.va.gov/homeless/hchv.asp<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Referrals for social services<br \><b>Population : </b> Homeless, Veterans<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Healthcare for Homeless Veterans (HCHV) programs provides community-based residential treatment for homeless Veterans.  Many HCHV programs now serve as the hub for a myriad of housing and other services which provide VA (Veteran Affairs) a way to outreach and assist homeless Veterans by offering them entry to VA care.
+<br />
+<br />
+Outreach is the core of the HCHV program. The goal is to reduce homelessness among Veterans by conducting outreach to those who are the most vulnerable and are not currently receiving services and engaging t hem in treatment and rehabilitative programs. 
+<br />
+<br />
+The Contract Residential Treatment Program Veterans with serious mental health diagnoses can be placed in community-based programs that provide quality housing and services.
+<br />
+<br />
+Benefits call: 800-827-1000
+Health Care call: 877-222-VETS (8387)
+<br />
+<br />
+Veterans Crisis Line: 800-273-8255 press 1<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

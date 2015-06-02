@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTEzODQ1IFNvdXRoIENhcGl0b2wgU3RyZWV0LCBTVyBXYXNoaW5ndG9uIERDIDIwMDMyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjM4NDUgU291dGggQ2FwaXRvbCBTdHJlZXQsIFNXIFdhc2hpbmd0b24sIERDIDIwMDMyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU2Mi01NTc2PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1NjItNDIxOTxiciAvPmRkAgUPDxYCHwIFLzxiPldlYnNpdGU6IDwvYj53d3cuY292ZW5hbnRiYXB0aXN0ZGMub3JnPGJyIC8+ZGQCBw8PFgIfAgWEATxiPkNhdGVnb3J5IDogPC9iPiBFbWVyZ2VuY3kgRm9vZDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBOdXRyaXRpb25hbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEVtZXJnZW5jeSBmb29kL2dyb2NlcmllczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFOjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPlRodXJzZGF5IDk6MzBhbSB0bzEyOjMwcG08YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwIFQDxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+TXVzdCBzaG93IHByb29mIG9mIHJlc2lkZW5jeS48YnIgLz5kZAITDw8WAh8CBawKPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgTWluaXN0cnkgb2YgRXZhbmdlbGlzbSBhbmQgT3V0cmVhY2ggb2YgQ292ZW5hbnQgQmFwdGlzdCBDaHVyY2ggcHJvdmlkZXMgYSBtZWFucyBvZiBjb21tdW5pY2F0aW5nIHRoZSBnb3NwZWwgb2YgSmVzdXMgQ2hyaXN0IGJleW9uZCB0aGUgd2FsbHMgb2YgdGhlIGNodXJjaCBidWlsZGluZyB0aHJvdWdoIHdvcmQgYW5kIGRlZWQuICBJdHMgdHdvLWZvbGQgZm9jdXMgb24gcmVhY2hpbmcgb3V0IGFuZCBicmluZ2luZyBpbiBhbGxvd3MgdGhlIG1pc3Npb24gb2YgdGhlIGNodXJjaCBhbmQgZ3Jvd3RoIG9mIHRoZSBjaHVyY2ggdG8gY29tcGxlbWVudCBlYWNoIG90aGVyIGluIG11dHVhbGx5IGJlbmVmaWNpYWwgd2F5cy4gIFRoZSBtZXNzYWdlIG9mIEplc3VzIENocmlzdCBjYW5ub3QgYmUgc2VwYXJhdGVkIGZyb20gaGlzIGNvbmNlcm4gdG8gZmVlZCB0aGUgaHVuZ3J5LCBzbyB0aGUgRXZhbmdlbGlzbSBhbmQgT3V0cmVhY2ggTWluaXN0cnkgc2Vla3MgdG8gZmVlZCBwZW9wbGUgYm90aCBzcGlyaXR1YWxseSBhbmQgcGh5c2ljYWxseS4gIFdoaWxlIHNwcmVhZGluZyB0aGUgZ29vZCBuZXdzIGFib3V0IEplc3VzIGFuZCBpbnZpdGluZyBwZW9wbGUgdG8gam9pbiBvdXIgZmVsbG93c2hpcCwgd2UgYWxzbyBhZGRyZXNzIHRoZWlyIGJhc2ljIG5lZWRzIHRocm91Z2ggY29tbXVuaXR5IHNlcnZpY2UsIHNvY2lhbCBhY3Rpb24sIGFuZCBjb21wcmVoZW5zaXZlIHByb2dyYW1zIG9mIGxvY2FsLCBuYXRpb25hbCwgYW5kIGludGVybmF0aW9uYWwgbWlzc2lvbnMuDQo8YnIgLz4NCjxiciAvPg0KRk9PRCBCQU5LDQo8YnIgLz4NCkNvdmVuYW50IEZvb2QgQmFuayBkaXN0cmlidXRlcyBzdXBwbGVtZW50YWwgZm9vZCBiYWdzIHRvIHRoZSBjb21tdW5pdHkgZXZlcnkgVGh1cnNkYXkgYmV0d2VlbiB0aGUgaG91cnMgb2YgOTozMCBhbSDigJMgMTI6MzAgcG0uICBJbiBhZGRpdGlvbiwgd2UgcHJvdmlkZSBhIGxpc3RlbmluZyBlYXIsIG9mZmVyIHByYXllciwgYW5kIG1ha2UgcmVmZXJyYWxzIHRvIHJlc291cmNlcyBpbiB0aGUgY29tbXVuaXR5IHN1Y2ggYXMgcGhvdG8gaWRlbnRpZmljYXRpb25zLCBlbnRpdGxlbWVudHMsIHRyYWluaW5nIHByb2dyYW1zLCBob3VzaW5nLCBldGMuICBBbm51YWxseSwgd2UgcHJvdmlkZSBUaGFua3NnaXZpbmcgYW5kIENocmlzdG1hcyBiYXNrZXRzIGFuZCBhIGNvbW11bml0eSBDaHJpc3RtYXMgcGFydHkgd2hlcmUgdG95cyBhcmUgZGlzdHJpYnV0ZWQgdG8gY2hpbGRyZW4gaW4gbmVlZC4NCjxiciAvPg0KPGJyIC8+DQpNZXRybyBidXM6IEE0LCBBOCAmIE04LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2MTYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWT99NgjDVE2N7DveztC1X2Dtv3Mug==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLH2YXXDQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZTlpQBXO/epSurs8wK7AuDGVQP0" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3845 South Capitol Street, SW Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Covenant Baptist Church" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3845 South Capitol Street, SW Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 562-5576<br /><b>Fax No:</b>(202) 562-4219<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.covenantbaptistdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food<br \><b>Services : </b> Nutritional services<br \><b>Program : </b> Emergency food/groceries<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Thursday 9:30am to12:30pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Must show proof of residency.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Ministry of Evangelism and Outreach of Covenant Baptist Church provides a means of communicating the gospel of Jesus Christ beyond the walls of the church building through word and deed.  Its two-fold focus on reaching out and bringing in allows the mission of the church and growth of the church to complement each other in mutually beneficial ways.  The message of Jesus Christ cannot be separated from his concern to feed the hungry, so the Evangelism and Outreach Ministry seeks to feed people both spiritually and physically.  While spreading the good news about Jesus and inviting people to join our fellowship, we also address their basic needs through community service, social action, and comprehensive programs of local, national, and international missions.
+<br />
+<br />
+FOOD BANK
+<br />
+Covenant Food Bank distributes supplemental food bags to the community every Thursday between the hours of 9:30 am – 12:30 pm.  In addition, we provide a listening ear, offer prayer, and make referrals to resources in the community such as photo identifications, entitlements, training programs, housing, etc.  Annually, we provide Thanksgiving and Christmas baskets and a community Christmas party where toys are distributed to children in need.
+<br />
+<br />
+Metro bus: A4, A8 & M8.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

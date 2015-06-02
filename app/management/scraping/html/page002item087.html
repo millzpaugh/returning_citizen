@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8yMDAxIE1pc3Npc3NpcHBpIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAyMDAxIE1pc3Npc3NpcHBpIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBYYBPGI+Q29udGFjdCBQZXJzb246PC9iPkxhdXJhIEdpdW50YSwgRGlyZWN0b3Igb2YgSG91c2luZzxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA2MTAtOTYzMjxiciAvPjxiPlBob25lIE5vMjo8L2I+KDIwMikgNTYxLTM4NTA8YnIgLz5kZAIFDw8WAh8CBSs8Yj5XZWJzaXRlOiA8L2I+d3d3LmNvdmVuYW50aG91c2Uub3JnPGJyIC8+ZGQCBw8PFgIfAgW4ATxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFNoZWx0ZXJzLCBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuLCBXb21lbiB3aXRoIGNoaWxkcmVuLCBZb3V0aCAoMTIgLSAyNCk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFVzxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+SG9tZWxlc3Mgc2luZ2xlIG9yIHBhcmVudGluZyB5b3V0aCBhZ2VzIDE4LTI0IHllYXJzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXlEjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIENvdmVuYW50IEhvdXNlIGZpcnN0IHN0ZXAgZm9yIGtpZHMgdXBvbiBlbnRyeSBpcyB0byBhZGRyZXNzIHRoZWlyIGltbWVkaWF0ZSBuZWVkcyDigJMgYSB3YXJtIG1lYWwsIGEgc2hvd2VyLCBhbmQgdGhlIGNoYW5jZSB0byBzbGVlcCBpbiBhIGJlZCBhbmQgdG8gd2VhciBjbGVhbiBjbG90aGVzLiBBc2lkZSBmcm9tIGZ1bGZpbGxpbmcgdGhlIGJhc2ljIG5lZWRzLCB3aXRoaW4gNzIgaG91cnMgb2YgZW50ZXJpbmcgdGhlIENvdmVuYW50IEhvdXNlLCBuZXcgYXJyaXZhbHMgdmlzaXQgdGhlIGluLWhvdXNlIENsaW5pYyBmb3IgbWVkaWNhbCBhdHRlbnRpb247IHRlZW5zIGFyZSBldmFsdWF0ZWQgaW4gdGVybXMgb2Ygam9iIHJlYWRpbmVzcywgZWR1Y2F0aW9uYWwgc3RhdHVzIGFuZCBsZWdhbCBzdGF0dXMgYW5kIHNob3VsZCBhbnkgeW91bmcgcGVyc29uIHJlcXVpcmUgbGVnYWwgYWlkIHRoZSBzdGFmZiBsYXd5ZXIgd2lsbCBhc3Npc3QgYW5kIGFzc2VzcyBkdXJpbmcgdGhlIGludGFrZSBwcm9jZXNzLiBST1BBTCAoUmlnaHRzIG9mIFBhc3NhZ2UgQXBhcnRtZW50IExpdmluZyk7IFN0cmVldCBPdXRyZWFjaDsgQ29tbXVuaXR5IFN1cHBvcnQgU2VydmljZXM7IEVkdWNhdGlvbmFsIFNlcnZpY2VzOyBWb2NhdGlvbmFsIEpvYiBTa2lsbHMgUHJvZ3JhbXM7IE1lbnRhbCBIZWFsdGggU2VydmljZXM7IFByZXZlbnRpb24gU2VydmljZXM7IENoaWxkIERldmVsb3BtZW50IENlbnRlcg0KPGJyIC8+DQo8YnIgLz4NClRoZSBDcmlzaXMgQ2VudGVyIHByb3ZpZGVzIDQ0IGJlZHMgZm9yIGltbWVkaWF0ZSwgc2hvcnQtdGVybSBlbWVyZ2VuY3kgc2hlbHRlciB0byBob21lbGVzcyBzaW5nbGUgYW5kIHBhcmVudGluZyB5b3VuZyBwZW9wbGUsIHdobyBsYWNrIGEgc2FmZSBwbGFjZSB0byBsYXkgdGhlaXIgaGVhZHMgYXQgbmlnaHQuIFlvdW5nIHBlb3BsZSBhcmUgcHJvdmlkZWQgd2l0aCBhbiBpbmRpdmlkdWFsIGNhc2UgcGxhbiwgZW5yb2xsZWQgaW4gam9iIHByZXBhcmVkbmVzcyBhbmQvb3Igam9iIHRyYWluaW5nIHByb2dyYW1zLCBwcm92aWRlZCB3aXRoIG9uLXNpdGUgR0VEIHByZXBhcmVkbmVzcyBjbGFzc2VzIGFuZCBhcmUgcHJvdmlkZWQgd2l0aCBhIHdhcmRyb2JlIG9mIHdvcmstYXBwcm9wcmlhdGUgY2xvdGhpbmcgdG8gYmVpbmcgdGhlaXIgam9iIHNlYXJjaC4NCjxiciAvPg0KPGJyIC8+DQpUaGUgUmlnaHRzIG9mIFBhc3NhZ2UgKFJPUCkgaXMgYW4gaW5ub3ZhdGl2ZSB0cmFuc2l0aW9uYWwgbGl2aW5nIHByb2dyYW0gdGhhdCBhZGRyZXNzZXMgdGhlIGxvbmctdGVybSBuZWVkcyBvZiBhdC1yaXNrIGtpZHMgd2hvIGZpcnN0IGNvbWUgaW4gY3Jpc2lzLiBPbmNlIGFjY2VwdGVkIGludG8gUmlnaHRzIG9mIFBhc3NhZ2UgZnJvbSB0aGUgQ3Jpc2lzIENhcmUgcHJvZ3JhbSwgcmVzaWRlbnRzIGxpdmUgaW4gc2VtaS1pbmRlcGVuZGVuY2UgYXQgQ292ZW5hbnQgSG91c2UgZm9yIHVwIHRvIDE4IG1vbnRocy4gWW91dGggaGF2ZSBhY2Nlc3MgdG8gc2VydmljZXMgdGhhdCBpbmNsdWRlOiBza2lsbCBhbmQgZWR1Y2F0aW9uIGFzc2Vzc21lbnRzLCBlbXBsb3ltZW50IGFuZCBlZHVjYXRpb25hbCBhc3Npc3RhbmNlLCBpbmRpdmlkdWFsIHBsYW5uaW5nIGFuZCBnb2FsLXNldHRpbmcsIHZvY2F0aW9uYWwgYXNzaXN0YW5jZSAoaW50ZXJ2aWV3aW5nIHNraWxscywgcHJvcGVyIGRyZXNzIGNvZGUsIGpvYiByZXRlbnRpb24sIGFuZCBlbXBsb3llci9lbXBsb3llZSBpbnRlcmFjdGlvbnMpLCBqb2IgcmVhZGluZXNzIHNraWxscyBhbmQgZW1wbG95bWVudCBzdXBwb3J0LCBpbmRlcGVuZGVudCBsaXZpbmcgc2tpbGxzICh3b3Jrc2hvcCB0b3BpY3M6IHBheWluZyByZW50LCBtYWludGFpbmluZyBhIGNoZWNraW5nIGFjY291bnQsIGFuZCBzZXR0aW5nIHNob3J0L2xvbmctdGVybSBnb2FscyksIGZpbmFuY2lhbCBkZXZlbG9wbWVudCBhbmQgYnVkZ2V0IG1hbmFnZW1lbnQsIGZ1bGwtc2VydmljZSBjaGlsZCBkZXZlbG9wbWVudCBjZW50ZXIsIGFmdGVyLWNhcmUgdG8gZW5zdXJlIHN0YWJpbGl0eSBhbmQgY29udGludWVkIHB1cnN1aXQgb2YgZ29hbHMgYW5kIGNvb3JkaW5hdGlvbiBhbmQgcmVmZXJyYWwgdG8gY29tbXVuaXR5IHByb3ZpZGVycy4NCjxiciAvPg0KPGJyIC8+DQpFbGlnaWJpbGl0eSByZXF1aXJlcyB5b3VuZyBwZW9wbGUgdG8gYmUgYmV0d2VlbiB0aGUgYWdlcyBvZiAxOCBhbmQgMjQgeWVhcnMsIGJlIGEgaG9tZWxlc3Mgc2luZ2xlIG9yIHBhcmVudGluZyB5b3V0aDsgbWFpbnRhaW4gZW1wbG95bWVudCwgYXMgd2VsbCBhcywgZW5yb2xsIGluIENvdmVuYW50IEhvdXNlIFdhc2hpbmd0b27igJlzIGVtcGxveW1lbnQgYW5kIGVkdWNhdGlvbmFsIGFzc2lzdGFuY2UgcHJvZ3JhbXMuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzEwNB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZHacs8SdRxDfx6wfYN43f1netTg8" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKq4rPCBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAe1VLMY+4rcSD9mq0t6qjOE6eH2U" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2001 Mississippi Avenue, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Covenant House (Crisis Center/Housing Program)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2001 Mississippi Avenue, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Laura Giunta, Director of Housing<br /><b>Phone No:</b>(202) 610-9632<br /><b>Phone No2:</b>(202) 561-3850<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.covenanthouse.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Shelters, Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Women, Women with children, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless single or parenting youth ages 18-24 years.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Covenant House first step for kids upon entry is to address their immediate needs – a warm meal, a shower, and the chance to sleep in a bed and to wear clean clothes. Aside from fulfilling the basic needs, within 72 hours of entering the Covenant House, new arrivals visit the in-house Clinic for medical attention; teens are evaluated in terms of job readiness, educational status and legal status and should any young person require legal aid the staff lawyer will assist and assess during the intake process. ROPAL (Rights of Passage Apartment Living); Street Outreach; Community Support Services; Educational Services; Vocational Job Skills Programs; Mental Health Services; Prevention Services; Child Development Center
+<br />
+<br />
+The Crisis Center provides 44 beds for immediate, short-term emergency shelter to homeless single and parenting young people, who lack a safe place to lay their heads at night. Young people are provided with an individual case plan, enrolled in job preparedness and/or job training programs, provided with on-site GED preparedness classes and are provided with a wardrobe of work-appropriate clothing to being their job search.
+<br />
+<br />
+The Rights of Passage (ROP) is an innovative transitional living program that addresses the long-term needs of at-risk kids who first come in crisis. Once accepted into Rights of Passage from the Crisis Care program, residents live in semi-independence at Covenant House for up to 18 months. Youth have access to services that include: skill and education assessments, employment and educational assistance, individual planning and goal-setting, vocational assistance (interviewing skills, proper dress code, job retention, and employer/employee interactions), job readiness skills and employment support, independent living skills (workshop topics: paying rent, maintaining a checking account, and setting short/long-term goals), financial development and budget management, full-service child development center, after-care to ensure stability and continued pursuit of goals and coordination and referral to community providers.
+<br />
+<br />
+Eligibility requires young people to be between the ages of 18 and 24 years, be a homeless single or parenting youth; maintain employment, as well as, enroll in Covenant House Washington’s employment and educational assistance programs.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

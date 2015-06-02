@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkzOTM5IEJlbm5pbmcgUm9hZCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAxOWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSozOTM5IEJlbm5pbmcgUm9hZCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMTlkZAIDDw8WAh8CBaQBPGI+Q29udGFjdCBQZXJzb246PC9iPkRlYm9yYWggRGV3cywgQ2FybCBNY0FsbGlzdGVyPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY1MC01NjI0PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA2NTAtNTY2NzxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgMzk2LTQxMDY8YnIgLz5kZAIFDw8WAh8CBSM8Yj5XZWJzaXRlOiA8L2I+d3d3Lm1oY2RvLm9yZzxiciAvPmRkAgcPDxYCHwIFnwU8Yj5DYXRlZ29yeSA6IDwvYj4gRWR1Y2F0aW9uLCBFbXBsb3ltZW50ICZhbXA7IFZvY2F0aW9uYWwgVHJhaW5pbmcsIEhvdXNpbmcsIFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFZHVjYXRpb25hbCBzZXJ2aWNlcywgRW1wbG95bWVudCBzZXJ2aWNlcywgTW9uZXRhcnkgYXNzaXN0YW5jZSwgU29jaWFsIHNlcnZpY2VzLCBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIEZpbmFuY2lhbCBjb3Vuc2VsaW5nIChtb25leSBtYW5hZ2VtZW50LCBob3VzaW5nICZhbXA7IGNyZWRpdCksIEdFRCBwcm9ncmFtcywgSm9iIHNlYXJjaCAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZSwgSm9iIHNraWxscyBhc3Nlc3NtZW50ICZhbXA7IHJlYWRpbmVzcywgTW9ydGdhZ2UvUmVudCAoRVJBUCksIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzLCBVdGlsaXRpZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBGYW1pbGllcywgSG9tZWxlc3MsIE1lbiwgV29tZW4sIFdvbWVuIHdpdGggY2hpbGRyZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFXDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPkludGFrZSBhbmQgT3JpZW50YXRpb24gVHVlLCBXZWQsIFRodXJzIDk6MDAgYW0gdG8gMTE6MzAgYW0uPGJyIC8+ZGQCDw8PFgIfAgUxPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIFdvbWVuLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXyCzxiPkRlc2NyaXB0aW9uOiA8L2I+TWFyc2hhbGwgSGVpZ2h0cyBDb21tdW5pdHkgRGV2ZWxvcG1lbnQgT3JnYW5pemF0aW9uIG9mZmVycyBzZXJ2aWNlcyBpbiBlbXBsb3ltZW50IGFuZCB2b2NhdGlvbmFsIHRyYWluaW5nLCBlZHVjYXRpb24sIHNvY2lhbCBzZXJ2aWNlcyBhbmQgaG91c2luZyBhc3Npc3RhbmNlLg0KPGJyIC8+DQo8YnIgLz4NCkVNUExPWU1FTlQgQVNTSVNUQU5DRToNCjxiciAvPg0KTWVuIGFuZCB3b21lbiBjYW4gdXRpbGl6ZSB0aGUgY2FyZWVyIGFzc2Vzc21lbnQgcHJvY2VzcywgYXMgd2VsbCBhcyBjb3Vuc2VsaW5nIHNlcnZpY2VzIG9mZmVyZWQgZm9yIGJvdGggZW1wbG95bWVudCBhbmQgZWR1Y2F0aW9uLiBQYXJ0aWNpcGFudHMgbWF5IGFsc28gcmVjZWl2ZSBwcmUtZW1wbG95bWVudCBza2lsbHMgdHJhaW5pbmcsIGpvYiBwbGFjZW1lbnQgYW5kIG1vbml0b3JpbmcuIEpvYiB0cmFpbmluZyByZWZlcnJhbHMgYW5kIEdFRCBjbGFzc2VzIGFyZSBNb25kYXkgLSBUaHVyc2RheSBmcm9tIDk6MDAgYW0gYW0gdG8gNTowMCBwbS4gDQoNClRocm91Z2ggdGhlIGludGFrZSBhbmQgb3JpZW50YXRpb24gcHJvY2VzcyBpbmRpdmlkdWFscyBjYW4gcmVjZWl2ZSBhIGNhcmVlciBhc3Nlc3NtZW50LCBlbXBsb3ltZW50IGFuZCBlZHVjYXRpb24gY291bnNlbGluZywgcHJlLWVtcGxveW1lbnQgc2tpbGxzIHRyYWluaW5nLCBqb2IgcGxhY2VtZW50IGFuZCBtb25pdG9yaW5nOyBlbWVyZ2VuY3kgc2VydmljZTsgaG91c2luZyBhc3Npc3RhbmNlOyBhbmQgaW5kaXZpZHVhbCBhbmQgcGVlciBncm91cCBjb3Vuc2VsaW5nLiANCjxiciAvPg0KPGJyIC8+DQpTT0NJQUwgU0VSVklDRVM6DQo8YnIgLz4NCk1hcnNoYWxsIEhlaWdodHMgQ29tbXVuaXR5IERldmVsb3BtZW50IE9yZ2FuaXphdGlvbiBhbHNvIG9mZmVycyBlbWVyZ2VuY3kgc2VydmljZSBpbiBob3VzaW5nIGFzc2lzdGFuY2UgYW5kIGZvciBpbmRpdmlkdWFsIGFuZC9vciBwZWVyIGdyb3VwIGNvdW5zZWxpbmcuIFNob3VsZCBhbnkgcGVyc29uIGJlIHNlZWtpbmcgYXNzaXN0YW5jZSB3aXRoIGZvb2QgdGhleSBjYW4gcmVjZWl2ZSBoZWxwIE1vbmRheSB0aHJvdWdoIEZyaWRheSBmcm9tIDk6MDAgYW0gdG8gNTozMCBwbSAobXVzdCBzaG93IElEOyBwcm9vZiBvZiByZXNpZGVuY2UgJiByZWZlcnJhbCkuIFBlcnNvbnMgbWF5IGFsc28gc2VlayBvdXQgY3Jpc2lzIGNsb3RoaW5nIGFuZCBjb3Vuc2VsaW5nIHNlcnZpY2UgZm9yIFdhcmQgNyByZXNpZGVudHMuDQo8YnIgLz4NCjxiciAvPg0KSG91c2luZyBjb3Vuc2VsaW5nIHJlZmVycmFsczsgcmVudGFsIGFzc2lzdGFuY2UsIHV0aWxpdGllcyBhc3Npc3RhbmNlIGFuZCBtb3J0Z2FnZSBkZWZhdWx0IGFzc2lzdGFuY2UuIFByb3ZpZGVzIHRyYW5zaXRpb25hbCBob3VzaW5nIGFzc2lzdGFuY2UgZm9yIHRoZSBob21lbGVzcyBtdXN0IGJlIHdvcmtpbmcuIE5lYXJlc3QgPGJyIC8+DQpNZXRybyBzdGF0aW9uOiBNaW5uZXNvdGEgQXZlbnVlL0Jlbm5pbmcgUm9hZC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUCNjIeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWREI9/1SAngvzc2L6Fx4R38ocpLQA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLchMb5CwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXlSWdMpqjKjOgnbIEMGES7Uymmf" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3939 Benning Road, NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Marshall Heights Community Development Organization" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3939 Benning Road, NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Deborah Dews, Carl McAllister<br /><b>Phone No:</b>(202) 650-5624<br /><b>Phone No2:</b>(202) 650-5667<br /><b>Fax No:</b>(202) 396-4106<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.mhcdo.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Employment &amp; Vocational Training, Housing, Social Services<br \><b>Services : </b> Educational services, Employment services, Monetary assistance, Social services, Transitional housing/Single Room Occupancy<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Financial counseling (money management, housing &amp; credit), GED programs, Job search &amp; placement assistance, Job skills assessment &amp; readiness, Mortgage/Rent (ERAP), Referrals for social services, Utilities<br \><b>Population : </b> Families, Homeless, Men, Women, Women with children<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Intake and Orientation Tue, Wed, Thurs 9:00 am to 11:30 am.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and Women.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Marshall Heights Community Development Organization offers services in employment and vocational training, education, social services and housing assistance.
+<br />
+<br />
+EMPLOYMENT ASSISTANCE:
+<br />
+Men and women can utilize the career assessment process, as well as counseling services offered for both employment and education. Participants may also receive pre-employment skills training, job placement and monitoring. Job training referrals and GED classes are Monday - Thursday from 9:00 am am to 5:00 pm. 
+
+Through the intake and orientation process individuals can receive a career assessment, employment and education counseling, pre-employment skills training, job placement and monitoring; emergency service; housing assistance; and individual and peer group counseling. 
+<br />
+<br />
+SOCIAL SERVICES:
+<br />
+Marshall Heights Community Development Organization also offers emergency service in housing assistance and for individual and/or peer group counseling. Should any person be seeking assistance with food they can receive help Monday through Friday from 9:00 am to 5:30 pm (must show ID; proof of residence & referral). Persons may also seek out crisis clothing and counseling service for Ward 7 residents.
+<br />
+<br />
+Housing counseling referrals; rental assistance, utilities assistance and mortgage default assistance. Provides transitional housing assistance for the homeless must be working. Nearest <br />
+Metro station: Minnesota Avenue/Benning Road.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

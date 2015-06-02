@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgxMTI1IDE1dGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA1ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTExMjUgMTV0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA1ZGQCAw8PFgIfAgVxPGI+Q29udGFjdCBQZXJzb246PC9iPk5hbmN5IFNjaG5laWRlcjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA0NDItODU5NDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNDQyLTg3NDI8YnIgLz5kZAIFDw8WAh8CBSg8Yj5XZWJzaXRlOiA8L2I+d3d3LnJzYS5kaHMuZGMuZ292PGJyIC8+ZGQCBw8PFgIfAgXDAzxiPkNhdGVnb3J5IDogPC9iPiBFbXBsb3ltZW50ICZhbXA7IFZvY2F0aW9uYWwgVHJhaW5pbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRW1wbG95bWVudCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEpvYiBzZWFyY2ggJmFtcDsgcGxhY2VtZW50IGFzc2lzdGFuY2UsIEpvYiBza2lsbHMgYXNzZXNzbWVudCAmYW1wOyByZWFkaW5lc3MsIFJlaGFiaWxpdGF0aXZlIHNlcnZpY2VzLCBWb2NhdGlvbmFsIHRyYWluaW5nICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBQZXJzb25zIHdpdGggaW50ZWxsZWN0dWFsIGRpc2FiaWxpdHksIFBlcnNvbnMgd2l0aCBwaHlzaWNhbCBkaXNhYmlsaXR5LCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUc8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5QbGVhc2UgY29udGFjdCBmb3IgaG91cnMgb2Ygb3BlcmF0aW9uLjxiciAvPmRkAg8PDxYCHwIFlQE8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPllvdXRoIChtZW4gYW5kIHdvbWVuKSBhZ2VzIDE2IHRvIDIxIHllYXJzIG9mIGFnZSB3aG8gaGF2ZSBiZWVuIGRpYWdub3NlZCB3aXRoIGludGVsbGVjdHVhbCBvciBwaHlzaWNhbCBkaXNhYmlsaXR5LjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXpAjxiPkRlc2NyaXB0aW9uOiA8L2I+Vm9jYXRpb25hbCBSZWhhYmlsaXRhdGlvbiBTZXJ2aWNlcyBwcm92aWRlcyB2b2NhdGlvbmFsIHJlaGFiaWxpdGF0aW9uIHNlcnZpY2VzIGZvciB5b3V0aCB3aG8gaGF2ZSBiZWVuIGRpYWdub3NlZCB3aXRoIGFuIGludGVsbGVjdHVhbCBvciBwaHlzaWNhbCBkaXNhYmlsaXR5LiBUaGUgc2VydmljZXMgcHJvdmlkZWQgaGVscCB5b3V0aCBhdHRhaW4gdm9jYXRpb25hbCBhbmQvb3IgcG9zdC1zZWNvbmRhcnkgZWR1Y2F0aW9uYWwgZ29hbHMuIFNvY2lhbCBTZWN1cml0eSBJbnN1cmFuY2UgKFNTSSkgcmVjaXBpZW50cyBhcmUgcHJlc3VtZWQgdG8gbWVldCBlbGlnaWJpbGl0eSBjcml0ZXJpYS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUCODAeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWT/VAXJHp4r7fXSJ/NViVRuSV0j2A==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKs0tOFCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAa+rlz/lGEHB+qmm0jFbs9aMWyPC" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1125 15th Street, NW Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Vocational Rehabilitation Services (Youth and Transition Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1125 15th Street, NW Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Nancy Schneider<br /><b>Phone No:</b>(202) 442-8594<br /><b>Fax No:</b>(202) 442-8742<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.rsa.dhs.dc.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness, Rehabilitative services, Vocational training &amp; placement assistance<br \><b>Population : </b> Men, Persons with intellectual disability, Persons with physical disability, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Please contact for hours of operation.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Youth (men and women) ages 16 to 21 years of age who have been diagnosed with intellectual or physical disability.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Vocational Rehabilitation Services provides vocational rehabilitation services for youth who have been diagnosed with an intellectual or physical disability. The services provided help youth attain vocational and/or post-secondary educational goals. Social Security Insurance (SSI) recipients are presumed to meet eligibility criteria.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

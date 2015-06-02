@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMjUwIEggU3RyZWV0LCBORSBXYXNoaW5ndG9uIERDIDIwMDAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjEyNTAgSCBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDAyZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU0My01ODMwPGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBdUCPGI+Q2F0ZWdvcnkgOiA8L2I+IFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBJbnRlbnNpdmUgb3V0cGF0aWVudCwgT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IENvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBQZXJzb25zIHdpdGggSElWL0FJRFMsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUM8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgOTozMCBhbSAtIDU6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgU9PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIHdvbWVuIGluIHJlY292ZXJ5LjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXvAjxiPkRlc2NyaXB0aW9uOiA8L2I+TGl2aW5nIGluIEJhbGFuY2UgaXMgYW4gQWR1bHQgT3V0cGF0aWVudC9JbnRlbnNpdmUgT3V0cGF0aWVudCBUcmVhdG1lbnQgcHJvZ3JhbS4gVHJlYXRtZW50IHNlcnZpY2VzIGluY2x1ZGU6IGluZGl2aWR1YWwgdGhlcmFweSwgZmFtaWx5IHRoZXJhcHksIG1lbidzIGdyb3VwIHRoZXJhcHksIHdvbWVuJ3MgZ3JvdXAgdGhlcmFweSwgY28tZWQgZ3JvdXAgdGhlcmFweSwgSElWL0FJRFMgZm9jdXNlZCB0cmVhdG1lbnQgYW5kIG1lbnRhbCBoZWFsdGgvY28tb2NjdXJyaW5nIHRyZWF0bWVudC4gVGhlIHByb2dyYW0gb3BlcmF0ZXMgTW9uZGF5IHRocm91Z2ggRnJpZGF5IGZyb20gOTozMGFtLTU6MDBwbS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNDA4Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkJ66uuFmUjwHy5XIwgcz5zNbc8UI=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLc+pTqBwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASxwY1pM0dmgJm5dvGr7XQ6Muh67" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1250 H Street, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Living in Balance" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1250 H Street, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 543-5830<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders<br \><b>Population : </b> Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:30 am - 5:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and women in recovery.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Living in Balance is an Adult Outpatient/Intensive Outpatient Treatment program. Treatment services include: individual therapy, family therapy, men's group therapy, women's group therapy, co-ed group therapy, HIV/AIDS focused treatment and mental health/co-occurring treatment. The program operates Monday through Friday from 9:30am-5:00pm.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

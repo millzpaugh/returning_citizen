@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS5PbmUgQ2hldnkgQ2hhc2UgQ2lyY2xlLCBOVyBXYXNoaW5ndG9uIERDIDIwMDE1ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFL09uZSBDaGV2eSBDaGFzZSBDaXJjbGUsIE5XIFdhc2hpbmd0b24sIERDIDIwMDE1ZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDM2My00ODE3PGJyIC8+ZGQCBQ8PFgIfAgVcPGI+V2Vic2l0ZTogPC9iPnd3dy5jaGV2eWNoYXNlcGMub3JnL21pbmlzdHJpZXMvbWlzc2lvbi90cmFuc2l0aW9uLWFzc2lzdGFuY2UtcHJvZ3JhbS88YnIgLz5kZAIHDw8WAh8CBcsDPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWF0ZXJpYWwgbmVlZHMsIE1vbmV0YXJ5IGFzc2lzdGFuY2UsIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIENsb3RoaW5nLCBFbWVyZ2VuY3kgZm9vZC9ncm9jZXJpZXMsIE90aGVyIGFzc2lzdGFuY2UsIGUuZy4gdHJhbnNwb3J0YXRpb24sIFBob3RvIElEJ3MsIHNvY2lhbCBzZWN1cml0eSBjYXJkcywgYmlydGggY2VydGlmaWNhdGVzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIEhvbWVsZXNzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVfPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+VHVlc2RheSwgV2VkbmVzZGF5IGFuZCBGcmlkYXkgbW9ybmluZ3MgKENhbGwgZm9yIGFwcG9pbnRtZW50KS48YnIgLz5kZAIPDw8WAh8CBVE8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkluZGl2aWR1YWxzICh3b3JraW5nLCB1bmVtcGxveWVkIG9yIGhvbWVsZXNzKS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFoAg8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBUcmFuc2l0aW9uIEFzc2lzdGFuY2UgUHJvZ3JhbSAoVEFQKSBpcyBhbiBvdXRyZWFjaCBtaXNzaW9uIG9mIHRoZSBDaGV2eSBDaGFzZSBQcmVzYnl0ZXJpYW4gQ2h1cmNoLCB0aGF0IHByb3ZpZGVzIGRpcmVjdCBzZXJ2aWNlcyB0byB3b3JraW5nIGFuZCB1bmVtcGxveWVkLCBvZnRlbiBob21lbGVzcywgaW5kaXZpZHVhbHMgd2hvIGNvbWUgdG8gdGhlIGNodXJjaCBmb3IgYXNzaXN0YW5jZS4gVEFQIGhlbHBzIHBlb3BsZSBvYnRhaW4gaWRlbnRpZmljYXRpb24gZG9jdW1lbnRzIChiaXJ0aCBjZXJ0aWZpY2F0ZSBhbmQgbm9uLWRyaXZlcuKAmXMgSUQpIG5lZWRlZCBmb3IgZW1wbG95bWVudCwgc2hvcnQtdGVybSB0cmFuc3BvcnRhdGlvbiBhc3Npc3RhbmNlIHRvIHZlcmlmaWVkIG5ldyBqb2JzLCByZWZlcnJhbHMsIGNsb3RoaW5nIGFuZCBmb29kLiBUQVAgc2VydmVzIHBlb3BsZSBmcm9tIHRoZSBlbnRpcmUgV2FzaGluZ3RvbiBtZXRyb3BvbGl0YW4gYXJlYSwgd2l0aCBtb3N0IGNvbWluZyBmcm9tIHRoZSBpbm5lciBjaXR5LiBPdmVyIDkwIGFnZW5jaWVzIHJlZmVyIGNsaWVudHMgdG8gVEFQLiBNYW55IGFyZSByZWZlcnJlZCBmcm9tIHNoZWx0ZXJzIGZvciB0aGUgaG9tZWxlc3MsIGhhbGZ3YXkgaG91c2VzIGFuZCBzdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50IHByb2dyYW1zLiANCjxiciAvPg0KPGJyIC8+DQpUaGUgcHJvZ3JhbSBpcyBzdGFmZmVkIGJ5IEp1YW4gQ2FybG9zIEJlbmF2aWRlcywgYSBiaWxpbmd1YWwgb3V0cmVhY2ggd29ya2VyLCBhbG9uZyB3aXRoIG1vcmUgdGhhbiA0MCB2b2x1bnRlZXJzIHdobyBpbnRlcnZpZXcgY2xpZW50cywgd29yayBpbiB0aGUgb2ZmaWNlLCBoZWxwIHdpdGggZm9vZCBhbmQgY2xvdGhpbmcgYW5kIG1ha2Ugc2FuZHdpY2hlcy4gVEFQIGFsd2F5cyB3ZWxjb21lcyB2b2x1bnRlZXJzIHRvIHdvcmsgaW4gdGhlIG9mZmljZSwgd3JpdGUgZ3JhbnQgcHJvcG9zYWxzLCBwdXJjaGFzZSBncm9jZXJpZXMsIG1ha2Ugc2FuZHdpY2hlcywgb3Igc29ydCBjbG90aGluZy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzA3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFky3bEh0boHpgRA863xYgSaSl/e1g=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKFzJC9DgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAe0mIRVy+sJVU/v1aKTH+H4C1oPG" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="One Chevy Chase Circle, NW Washington DC 20015" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Transition Assistance Program/Chevy Chase Presbyterian  Church" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">One Chevy Chase Circle, NW Washington, DC 20015</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 363-4817<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.chevychasepc.org/ministries/mission/transition-assistance-program/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Social Services<br \><b>Services : </b> Material needs, Monetary assistance, Nutritional services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Clothing, Emergency food/groceries, Other assistance, e.g. transportation, Photo ID's, social security cards, birth certificates, Referrals for social services<br \><b>Population : </b> Criminal justice involved, Homeless<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Tuesday, Wednesday and Friday mornings (Call for appointment).<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Individuals (working, unemployed or homeless).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Transition Assistance Program (TAP) is an outreach mission of the Chevy Chase Presbyterian Church, that provides direct services to working and unemployed, often homeless, individuals who come to the church for assistance. TAP helps people obtain identification documents (birth certificate and non-driver’s ID) needed for employment, short-term transportation assistance to verified new jobs, referrals, clothing and food. TAP serves people from the entire Washington metropolitan area, with most coming from the inner city. Over 90 agencies refer clients to TAP. Many are referred from shelters for the homeless, halfway houses and substance abuse treatment programs. 
+<br />
+<br />
+The program is staffed by Juan Carlos Benavides, a bilingual outreach worker, along with more than 40 volunteers who interview clients, work in the office, help with food and clothing and make sandwiches. TAP always welcomes volunteers to work in the office, write grant proposals, purchase groceries, make sandwiches, or sort clothing.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

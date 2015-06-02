@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs0NDA2IEdlb3JnaWEgQXZlbnVlLCBOVyBXYXNoaW5ndG9uIERDIDIwMDExZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDQ0MDYgR2VvcmdpYSBBdmVudWUsIE5XIFdhc2hpbmd0b24sIERDIDIwMDExZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDcyMy0zMDAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA3MjMtMzMwMzxiciAvPmRkAgUPDxYCHwIFJDxiPldlYnNpdGU6IDwvYj53d3cubHNzbmNhLm9yZzxiciAvPmRkAgcPDxYCHwIFnwI8Yj5DYXRlZ29yeSA6IDwvYj4gU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEFidXNlICZhbXA7IG5lZ2xlY3Qgc2VydmljZXMsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgSHVtYW4gdHJhZmZpY2tpbmcsIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gSW1taWdyYW50cy9SZWZ1Z2VlczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFuhM8Yj5EZXNjcmlwdGlvbjogPC9iPkx1dGhlcmFuIFNvY2lhbCBTZXJ2aWNlcyBoYXMgZm91ciBsb2NhdGlvbnMgdGhhdCBwcm92aWRlIHNlcnZpY2VzIGluIGFkb3B0aW9uLCBmb3N0ZXIgY2FyZSwgZGlzYXN0ZXIgcHJlcGFyYXRpb24gYW5kIHJlc3BvbnNlLCBhbmQgcmVmdWdlZS9pbW1pZ3JhbnQgc2VydmljZXMuIFRoZSBtYWluIG9mZmljZSBwcm92aWRlcyBzZXJ2aWNlcyBpbiBhZG9wdGlvbiBmb3IgdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhIGFuZCBNYXJ5bGFuZCwgZm9zdGVyIGNhcmUsIGNhbXBzIGFuZCBkaXNhc3RlciBwcmVwYXJhdGlvbiBhbmQgcmVzcG9uc2Ugc2VydmljZXMuIA0KPGJyIC8+DQo8YnIgLz4NCkFET1BUSU9OIFNFUlZJQ0VTDQpUaGUgYWRvcHRpb24gcHJvZ3JhbSBoYXMgdHdvIG1haW4gY29tcG9uZW50czogaG9tZSBzdHVkeSBhbmQgcG9zdC1wbGFjZW1lbnQgdmlzaXRzIGZvciBkb21lc3RpYyBhbmQgaW50ZXJuYXRpb25hbCBhZG9wdGlvbnMuIFRyYWluZWQgcHJvZmVzc2lvbmFscyB3aWxsIGhlbHAgeW91IG5hdmlnYXRlIGV2ZXJ5IHN0ZXAgb2YgdGhlIGFkb3B0aW9uIHByb2Nlc3MgYW5kIGNvbmR1Y3QgeW91ciBob21lIHN0dWR5IGFuZCBwb3N0LXBsYWNlbWVudCB2aXNpdHMuIA0KPGJyIC8+DQo8YnIgLz4NCkZPU1RFUiBDQVJFIFBST0dSQU0NCjxiciAvPg0KV29ya2luZyBpbiBwYXJ0bmVyc2hpcCB3aXRoIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSBDaGlsZCBhbmQgRmFtaWx5IFNlcnZpY2VzIEFkbWluaXN0cmF0aW9uIENGU0EpLCBMdXRoZXJhbiBTb2NpYWwgU2VydmljZXMgcmVjcnVpdHMgYW5kIHRyYWlucyBhZHVsdHMgbG9jYWxseSB0byBiZWNvbWUgZm9zdGVyIHBhcmVudHMgZm9yIG5lZ2xlY3RlZCBvciBhYnVzZWQgY2hpbGRyZW4gbGl2aW5nIGluIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYS4gRm9yIGluZm9ybWF0aW9uIHJlZ2FyZGluZyB1bmFjY29tcGFuaWVkIHJlZnVnZWUgbWlub3IgY2FyZSBwbGVhc2Ugc2VlIHdlYnNpdGUuDQo8YnIgLz4NCjxiciAvPg0KQ0FNUCBQUk9HUkFNUw0KPGJyIC8+DQpDYW1wIHByb2dyYW1zIGFyZSBvZmZlcmVkIGZvciBraWRzIGFnZWQgNy0xMywgdGVlbnMgYWdlZCAxNC0yMSBhbmQgZm9yIGVudGlyZSBmYW1pbGllcy4NCjxiciAvPg0KPGJyIC8+DQpLSUQgQ0FNUA0KPGJyIC8+DQpDYW1wIEtpZHMgSGF2ZW4gaXMgYSB3ZWVrLWxvbmcgZ2V0LWF3YXkgb24gdGhlIGNhbXB1cyBvZiB0aGUgTWFyLUx1IFJpZGdlIENhbXAgYW5kIENvbmZlcmVuY2UgQ2VudGVyIGluIEplZmZlcnNvbiwgTUQuIENhbXBlcnMgZ2V0IHRvIHN3aW0sIHBsYXkgZ2FtZXMsIHNsZWVwIGluIHNsZWVwaW5nIGJhZ3MsIGRvIGFydHMgYW5kIGNyYWZ0cyBwcm9qZWN0cywgYW5kIGdvIG9uIGFkdmVudHVyZXMgaW4gdGhlIHdvb2RzLg0KPGJyIC8+DQo8YnIgLz4NClRFRU4gQ0FNUA0KPGJyIC8+DQpUZWVuIEhhdmVuIFJldHJlYXRzIGlzIGEgc2VyaWVzIG9mIHRocmVlIHdlZWtlbmQgcmV0cmVhdHMgaGVsZCB0aHJvdWdob3V0IHRoZSB5ZWFyLCBlYWNoIGF0IGEgZGlmZmVyZW50IGxvY2F0aW9uLiBUaGUgdGVlbiByZXRyZWF0cyBhaW0gdG8gcHJvdmlkZSB5b3V0aCB3aXRoIGxpZmUgc2tpbGxzLCBzdHJvbmcgcm9sZSBtb2RlbHMsIGFuZCBvcHBvcnR1bml0aWVzIGZvciBjcmVhdGl2ZSBzZWxmLWV4cHJlc3Npb24gYXMgdGhleSBwbGFuIGZvciB0aGVpciBmdXR1cmUgYXMgeW91bmcgYWR1bHRzLiBNZW50b3JpbmcgYW5kIHNwZWNpYWwgZGF5IGFjdGl2aXRpZXMgYXJlIGFsc28gYXZhaWxhYmxlIHRvIHRlZW5zIGJldHdlZW4gcmV0cmVhdHMuDQo8YnIgLz4NCjxiciAvPg0KRkFNSUxZIENBTVANCjxiciAvPg0KRmFtaWx5IE1pbmktQ2FtcCwgaXMgYW4gb3Zlcm5pZ2h0IHJldHJlYXQgZm9yIHBhcmVudHMvY2FyZWdpdmVycyBhbmQgY2hpbGRyZW4gdG8gZW5qb3kgYSB0YXN0ZSBvZiBjYW1wIHRvZ2V0aGVyLiBQYXJlbnRpbmcgc3VwcG9ydCBjbGFzc2VzIGFuZCBhY3Rpdml0aWVzIGFsc28gdGFrZSBwbGFjZSBzZXZlcmFsIHRpbWVzIGFubnVhbGx5IHRvIGhlbHAgYWR1bHRzIGFzIHRoZXkgZGVhbCB3aXRoIHRoZSBwYXJ0aWN1bGFyIGNoYWxsZW5nZXMgb2YgcmFpc2luZyBjaGlsZHJlbiB3aGVuIEhJViBpcyAiaW4gdGhlIGZhbWlseS4iDQo8YnIgLz4NCjxiciAvPg0KRElTQVNURVIgUFJFUEFSQVRJT04gQU5EIFJFU1BPTlNFIA0KPGJyIC8+DQpTZXJ2aWNlcyBhcmUgb2ZmZXJlZCBpbiBib3RoIGRpc2FzdGVyIHByZXBhcmF0aW9uIGFuZCByZXNwb25zZS4gVGhlIHNlcnZpY2VzIHByb3ZpZGVkIGFyZSBib3RoIGltbWVkaWF0ZSBhbmQgZmFyIHJlYWNoaW5nIChzdWNoIGFzIHNoZWx0ZXIsIGZvb2QgYW5kIG1lZGljYWwgY2FyZSkuIFJlbG9jYXRpb24gc2VydmljZXMgYW5kIGVtcGxveW1lbnQgcHJvZ3JhbXMgYXJlIGFsc28gb2ZmZXJlZCB0byBoZWxwIHZpY3RpbXMgZ2V0IGJhY2sgb24gdGhlaXIgZmVldC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjcxHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkE98yWEVzXtelAWbDk3yFJ9iPVus=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLTjavYBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAd/f+S3UnIxKvZHF9wuMZtngO3I4" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4406 Georgia Avenue, NW Washington DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Lutheran Social Services (Refugee &amp; Immigrant Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4406 Georgia Avenue, NW Washington, DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 723-3000<br /><b>Fax No:</b>(202) 723-3303<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.lssnca.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Abuse &amp; neglect services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Human trafficking, Referrals for social services<br \><b>Population : </b> Immigrants/Refugees<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Lutheran Social Services has four locations that provide services in adoption, foster care, disaster preparation and response, and refugee/immigrant services. The main office provides services in adoption for the District of Columbia and Maryland, foster care, camps and disaster preparation and response services. 
+<br />
+<br />
+ADOPTION SERVICES
+The adoption program has two main components: home study and post-placement visits for domestic and international adoptions. Trained professionals will help you navigate every step of the adoption process and conduct your home study and post-placement visits. 
+<br />
+<br />
+FOSTER CARE PROGRAM
+<br />
+Working in partnership with the District of Columbia Child and Family Services Administration CFSA), Lutheran Social Services recruits and trains adults locally to become foster parents for neglected or abused children living in the District of Columbia. For information regarding unaccompanied refugee minor care please see website.
+<br />
+<br />
+CAMP PROGRAMS
+<br />
+Camp programs are offered for kids aged 7-13, teens aged 14-21 and for entire families.
+<br />
+<br />
+KID CAMP
+<br />
+Camp Kids Haven is a week-long get-away on the campus of the Mar-Lu Ridge Camp and Conference Center in Jefferson, MD. Campers get to swim, play games, sleep in sleeping bags, do arts and crafts projects, and go on adventures in the woods.
+<br />
+<br />
+TEEN CAMP
+<br />
+Teen Haven Retreats is a series of three weekend retreats held throughout the year, each at a different location. The teen retreats aim to provide youth with life skills, strong role models, and opportunities for creative self-expression as they plan for their future as young adults. Mentoring and special day activities are also available to teens between retreats.
+<br />
+<br />
+FAMILY CAMP
+<br />
+Family Mini-Camp, is an overnight retreat for parents/caregivers and children to enjoy a taste of camp together. Parenting support classes and activities also take place several times annually to help adults as they deal with the particular challenges of raising children when HIV is "in the family."
+<br />
+<br />
+DISASTER PREPARATION AND RESPONSE 
+<br />
+Services are offered in both disaster preparation and response. The services provided are both immediate and far reaching (such as shelter, food and medical care). Relocation services and employment programs are also offered to help victims get back on their feet.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

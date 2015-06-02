@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkzMjQwIFN0YW50b24gUm9hZCwgU0UgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSozMjQwIFN0YW50b24gUm9hZCwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODg5LTM3NTQ8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDg4OS05MzAxPGJyIC8+ZGQCBQ8PFgIfAgVPPGI+V2Vic2l0ZTogPC9iPnd3dy51bml0eWhlYWx0aGNhcmUub3JnL0hlYWx0aENlbnRlcnMvU2VydmljZVN0YW50b24uaHRtbDxiciAvPmRkAgcPDxYCHwIFrQM8Yj5DYXRlZ29yeSA6IDwvYj4gTWVkaWNhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBDb21tdW5pdHkgaGVhbHRoPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBGYW1pbHkgcGxhbm5pbmcsIEhJVi9BSURTLCBPYi1HeW4sIFByaW1hcnkgKEFkdWx0LCBGYW1pbHkgJmFtcDsgUGVkaWF0cmljcyk8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBNZWRpY2FpZCwgTWVkaWNhcmUsIFByaXZhdGUgaGVhbHRoIGluc3VyYW5jZSwgUHVibGljIGZ1bmRpbmcsIFNlbGYtcGF5bWVudCwgU3RhdGUgZmluYW5jZWQgaW5zdXJhbmNlIChvdGhlciB0aGFuIE1lZGljYWlkKTxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gU2xpZGluZyBmZWUgc2NhbGUgKEZlZSBpcyBiYXNlZCBvbiBpbmNvbWUgJmFtcDsgb3RoZXIgZmFjdG9ycyk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUM8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXktRnJpZGF5OiA4OjAwIGFtIC0gNDo0MzAgcG0uPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFxAg8Yj5EZXNjcmlwdGlvbjogPC9iPlVuaXR5IEhlYWx0aCBDYXJlIEhlYWx0aCBDZW50ZXJzIGhhdmUgc2VydmljZSBzaXRlcyBsb2NhdGVkIGluIGV2ZXJ5IHdhcmQgb2YgdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhLiBUaGUgQ2VudGVycyBwcm92aWRlIHF1YWxpdHksIGNvbXBhc3Npb25hdGUgYW5kIGNvbXByZWhlbnNpdmUgcHJpbWFyeSBoZWFsdGggY2FyZSBzZXJ2aWNlcy4gREMgcmVzaWRlbnRzIGNhbiBhY2Nlc3MgVW5pdHkgSGVhbHRoIENhcmUgc2VydmljZXMgcmVnYXJkbGVzcyBvZiBhYmlsaXR5IHRvIHBheS4gRm9yIHRob3NlIHdobyBjYW4gcGF5LCBhIHNsaWRpbmcgc2NhbGUgYmFzZWQgb24gZmFtaWx5IHNpemUgYW5kIGluY29tZSBpcyB1c2VkIHRvIGRldGVybWluZSB0aGUgYXBwcm9wcmlhdGUgYW1vdW50LiBVbml0eSBIZWFsdGggQ2FyZSBhY2NlcHRzIE1lZGljYWlkLCBNZWRpY2FyZSwgTWFuYWdlZCBDYXJlIE9yZ2FuaXphdGlvbnMsIERDIEhlYWx0aGNhcmUgQWxsaWFuY2UgKERDIENoYXJ0ZXJlZCBIZWFsdGggQ2FyZSBBbGxpYW5jZSBhbmQgVW5pdGVkIEhlYWx0aCBDYXJlIENvbW11bml0eSBQbGFuKSwgYW5kIG90aGVyIHByaXZhdGUgaW5zdXJhbmNlIHBsYW5zLg0KPGJyIC8+DQo8YnIgLz4NCk1lZGljYWwgc2VydmljZXMgcHJvdmlkZWQgYXQgdGhlIFN0YW50b24gUm9hZCBzaXRlIGluY2x1ZGUgdGhlIGZvbGxvd2luZzogUGVkaWF0cmljcywgRGVybWF0b2xvZ3ksIEhJVi9BSURTIFNlcnZpY2VzLCBPQi1HWU4sIEFkdWx0IE1lZGljaW5lLCBMYWJvcmF0b3J5IHNlcnZpY2VzLCBDYXNlIE1hbmFnZW1lbnQsIGFuZCBTdXJnZXJ5IFNlcnZpY2VzLiANCjxiciAvPg0KPGJyIC8+DQpBbGwgcG90ZW50aWFsIHBhdGllbnRzIHNob3VsZCBjYWxsIGludG8gdGhlIFBhdGllbnQgU2NoZWR1bGluZyBDZW50ZXIgdG8gc2NoZWR1bGUgbW9zdCBhcHBvaW50bWVudHMuDQo8YnIgLz4NClBhdGllbnQgU2NoZWR1bGluZyBDZW50ZXI6IDIwMi40NjkuNDY5OQ0KPGJyIC8+DQo8YnIgLz4NCkhvdXJzIG9mIG9wZXJhdGlvbiBhcmUgTW9uZGF5IOKAkyBGcmlkYXkgZnJvbSA4OjAwYW0g4oCTIDQ6MzBwbS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzg5Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk25V//SceKXg+qAY7FW2Ow5RZsKQ=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLb/s7iDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZwuHOrvrgxT4UE0h84gAm31mUnr" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3240 Stanton Road, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care (Stanton Road Health Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3240 Stanton Road, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 889-3754<br /><b>Fax No:</b>(202) 889-9301<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceStanton.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Family planning, HIV/AIDS, Ob-Gyn, Primary (Adult, Family &amp; Pediatrics)<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday-Friday: 8:00 am - 4:430 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Health Centers have service sites located in every ward of the District of Columbia. The Centers provide quality, compassionate and comprehensive primary health care services. DC residents can access Unity Health Care services regardless of ability to pay. For those who can pay, a sliding scale based on family size and income is used to determine the appropriate amount. Unity Health Care accepts Medicaid, Medicare, Managed Care Organizations, DC Healthcare Alliance (DC Chartered Health Care Alliance and United Health Care Community Plan), and other private insurance plans.
+<br />
+<br />
+Medical services provided at the Stanton Road site include the following: Pediatrics, Dermatology, HIV/AIDS Services, OB-GYN, Adult Medicine, Laboratory services, Case Management, and Surgery Services. 
+<br />
+<br />
+All potential patients should call into the Patient Scheduling Center to schedule most appointments.
+<br />
+Patient Scheduling Center: 202.469.4699
+<br />
+<br />
+Hours of operation are Monday – Friday from 8:00am – 4:30pm.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTExNDE2IE5vcnRoIENhcGl0b2wgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDAxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjE0MTYgTm9ydGggQ2FwaXRvbCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDAxZGQCAw8PFgIfAgWQATxiPkNvbnRhY3QgUGVyc29uOjwvYj5SYWNoZWwgTC4gTW9ycmlzb24sIENoYXJsZXMgVHVybmVyLCBMZW5hIEJyb3duPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDIzMi03MzIwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAyMzItNzMyNDxiciAvPmRkAgUPDxYCHwIFJzxiPldlYnNpdGU6IDwvYj53d3cuZWZmb3J0c2RjLm9yZzxiciAvPmRkAgcPDxYCHwIFvAI8Yj5DYXRlZ29yeSA6IDwvYj4gRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVtcGxveW1lbnQgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBKb2Igc2tpbGxzIGFzc2Vzc21lbnQgJmFtcDsgcmVhZGluZXNzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTWVuLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVRPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+RGF5IFByb2dyYW06IE1vbmRheSAtIEZyaWRheSwgOTowMCBhbSAtIDU6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgVZPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIHdvbWVuIGludm9sdmVkIGluIHRoZSBjcmltaW5hbCBqdXN0aWNlIHN5c3RlbS48YnIgLz5kZAIRDw8WAh8CBVc8Yj5Eb2N1bWVudGF0aW9uIE5lZWRlZDogPC9iPlByb3ZpZGUgY3VycmVudCBJRCwgU1MgY2FyZCwgY3VycmVudCBUQiB0ZXN0IHJlc3VsdHM8YnIgLz5kZAITDw8WAh8CBaYLPGI+RGVzY3JpcHRpb246IDwvYj5FRkZPUlRTIGlzIGEgbm9uLXByb2ZpdCwgdGF4IGV4ZW1wdCA1MDEgKGMpICgzKSBvcmdhbml6YXRpb24gYW5kIGlzIGEgam9pbnQgdmVudHVyZSBzdHJ1Y3R1cmVkIGJ5IGluZGl2aWR1YWxzIGZyb20gYm90aCBzaWRlcyBvZiB0aGUgQ3JpbWluYWwgSnVzdGljZSBTeXN0ZW3igKIgRUZGT1JUUyBmb2N1cyBpcyBvbiByZS1pbnRlZ3JhdGlvbiBpbnRvIHNvY2lldHk7IGFkZHJlc3NpbmcgdGhlIGVjb25vbWljLCBlZHVjYXRpb25hbCwgaGVhbHRoIGFuZCBvdGhlciBzb2NpYWwgZmFjdG9ycyB0aGF0IHVuZGVybGllIHJlcGVhdGVkIGJlaGF2aW9ycy4gRUZGT1JUUywgaGVscHMgY3VzdG9tZXJzIHdpdGggZW1wbG95bWVudCBmcm9tIGxvY2FsIGVudHJlcHJlbmV1cmlhbCBhbGxpYW5jZXMuIEVGRk9SVFMgc3RhZmYgdHJhaW4gaXRzIGN1c3RvbWVycyBpbi1ob3VzZSBhbmQgc2VuZCB0aG9zZSB3aG8gbWVldCB0aGUgY3JpdGVyaWEgdG8gdmFyaW91cyBlbnRyZXByZW5ldXJzIGZvciBlbXBsb3ltZW50LiBFRkZPUlRTIHByb3ZpZGVzIHRyZWF0bWVudCBwcm9ncmFtIGZvciBleC1vZmZlbmRlcnMgd2hvIHN1Y2Nlc3NmdWxseSBjb21wbGV0ZXMgb3VyIERydWcgVHJlYXRtZW50IFByb2dyYW0gYmVmb3JlIGhpcy9oZXIgcmVsZWFzZSBmcm9tIGluY2FyY2VyYXRpb24uDQo8YnIgLz4NCjxiciAvPg0KRW1wbG95bWVudCBGb3IgRm9ybWVyIE9mZmVuZGVycyBSZWNlaXZpbmcgVHJlYXRtZW50IFNlcnZpY2VzIChFRkZPUlRTKSBpcyBhIGRheSBwcm9ncmFtLCBvZmZlcmVkIE1vbmRheSDigJMgRnJpZGF5IGZyb20gOTowMCBhbSB0byA1OjAwIHBtLCB0aGF0IG9mZmVycyBlbXBsb3ltZW50IHJlYWRpbmVzcyBwcm9ncmFtcyBmb3IgZm9ybWVybHkgaW5jYXJjZXJhdGVkIG1lbiBhbmQgd29tZW4uIFRoZSBwcm9ncmFtIGluY2x1ZGVzIGEgdHdvLXdlZWsgb3JpZW50YXRpb24sIHJlc3VtZSBwcmVwYXJhdGlvbiwg4oCcZHJlc3MgZm9yIHN1Y2Nlc3PigJ0gc2tpbGxzIHRyYWluaW5nLCB0aW1lIG1hbmFnZW1lbnQgc2tpbGxzLCBidWRnZXRpbmcgc2tpbGxzIGFuZCBhbmdlciBtYW5hZ2VtZW50IGNvdW5zZWxpbmcuIFBhcnRpY2lwYW50cyB3aWxsIGhhdmUgYWNjZXNzIHRvIGVtcGxveW1lbnQgYW5kIHN1YnN0YW5jZSBhYnVzZSByZWZlcnJhbHMsIE5hcmNvdGljcyBBbm9ueW1vdXMgKE5BKSBhbmQgQWxjb2hvbGljcyBBbm9ueW1vdXMgKEFBKSwgc2tpbGxzIHRyYWluaW5nIHByb2dyYW1zLCBiYXNpYyBjb21wdXRlciB0cmFpbmluZyBhbmQgaW5kZXBlbmRlbnQgbGl2aW5nIHNraWxscy4gVG8gYmUgY29uc2lkZXJlZCBmb3IgZWxpZ2liaWxpdHkgaW5kaXZpZHVhbHMgbXVzdCBwcm92aWRlIGEgY3VycmVudCBJRCwgU29jaWFsIFNlY3VyaXR5IENhcmQsIGFuZCBjdXJyZW50IFRCIHRlc3QgcmVzdWx0cy4NCg0KPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAjQ1Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkr2zTYPcFd7RkyMISfO+hIxOh8Pw=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLb6MkaApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBZSDzOH6wuKSrmeq89N9JdXUw+Zc=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1416 North Capitol Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="EFFORTS (Employment For Former Offenders Receiving Treatment Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1416 North Capitol Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Rachel L. Morrison, Charles Turner, Lena Brown<br /><b>Phone No:</b>(202) 232-7320<br /><b>Fax No:</b>(202) 232-7324<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.effortsdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness<br \><b>Population : </b> Criminal justice involved, Men, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Day Program: Monday - Friday, 9:00 am - 5:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and women involved in the criminal justice system.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Provide current ID, SS card, current TB test results<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>EFFORTS is a non-profit, tax exempt 501 (c) (3) organization and is a joint venture structured by individuals from both sides of the Criminal Justice System• EFFORTS focus is on re-integration into society; addressing the economic, educational, health and other social factors that underlie repeated behaviors. EFFORTS, helps customers with employment from local entrepreneurial alliances. EFFORTS staff train its customers in-house and send those who meet the criteria to various entrepreneurs for employment. EFFORTS provides treatment program for ex-offenders who successfully completes our Drug Treatment Program before his/her release from incarceration.
+<br />
+<br />
+Employment For Former Offenders Receiving Treatment Services (EFFORTS) is a day program, offered Monday – Friday from 9:00 am to 5:00 pm, that offers employment readiness programs for formerly incarcerated men and women. The program includes a two-week orientation, resume preparation, “dress for success” skills training, time management skills, budgeting skills and anger management counseling. Participants will have access to employment and substance abuse referrals, Narcotics Anonymous (NA) and Alcoholics Anonymous (AA), skills training programs, basic computer training and independent living skills. To be considered for eligibility individuals must provide a current ID, Social Security Card, and current TB test results.
+
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

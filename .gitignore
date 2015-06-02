@@ -1,0 +1,15 @@
+venv
+.venv
+*.pyc
+bin/
+.project
+*.ipynb
+.idea/
+app/static/.sass-cache/*
+.DS_Store
+.ipynb_checkpoints/
+.elasticbeanstalk/
+.settings/
+*.zip
+Archive/
+local_static/

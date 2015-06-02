@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTUxOTAxIE1pc3Npc3NpcHBpIEF2ZSwgU0UgKFRIRUFSQykgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTYxOTAxIE1pc3Npc3NpcHBpIEF2ZSwgU0UgKFRIRUFSQykgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjc4LTY1MDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDg4OS0wMDYzPGJyIC8+ZGQCBQ8PFgIfAgUyPGI+V2Vic2l0ZTogPC9iPnBhcmtsYW5kc2NvbW11bml0eWNlbnRlci5vcmc8YnIgLz5kZAIHDw8WAh8CBc0CPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZywgUGFyZW50aW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVtcGxveW1lbnQgc2VydmljZXMsIEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBwYXJlbnRhbCByZXVuaWZpY2F0aW9uLCBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBQYXJlbnRpbmcgc3VwcG9ydCwgZS5nLiBjbGFzc2VzLCBncm91cHM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVdPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+V29ya3Nob3BzOiBNb25kYXksIFR1ZXNkYXkgYW5kIFdlZG5lc2RheSBhdCAxMDozMCBhbS0yOjAwIHBtPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFywc8Yj5EZXNjcmlwdGlvbjogPC9iPlBhcmtsYW5kcyBDb21tdW5pdHkgQ2VudGVyIGlzIGEgY29tbXVuaXR5LWJhc2VkIG9yZ2FuaXphdGlvbiB0aGF0IHN0cml2ZXMgdG8gaW1wcm92ZSB0aGUgcXVhbGl0eSBvZiBsaWZlIG9mIGxvdy1pbmNvbWUgYW5kIGRpc2FkdmFudGFnZWQgZmFtaWxpZXMsIHRoYXQgd2lsbCB1bHRpbWF0ZWx5IGluY3JlYXNlIHRoZSBudW1iZXIgb2YgY2hpbGRyZW4gc3VjY2VlZGluZyBpbiBzY2hvb2wgd2l0aCBob3BlIGZvciB0aGUgZnV0dXJlIGFuZCByZWR1Y2UgY2hpbGQgYWJ1c2UgYW5kIG5lZ2xlY3QgdGhyb3VnaCB5ZWFyLXJvdW5kIHRyYW5zZm9ybWF0aW9uL2xpZmUtc2tpbGwgd29ya3Nob3BzIGFuZCBpbmRpdmlkdWFsIGNvYWNoaW5nLg0KPGJyIC8+DQo8YnIgLz4NClBhcmtsYW5kcyBDb21tdW5pdHkgQ2VudGVyIG9mZmVycyBsaWZlc3R5bGUgYXNzZXNzbWVudCwgc29jaWFsIHNlcnZpY2VzIHN1cHBvcnQsIHdvcmtzaG9wcyBhbmQgY29hY2hpbmcsIHJlZmVycmFscyBhbmQgZmFtaWx5IGJvbmRpbmcgYWN0aXZpdGllcy4gVGhyb3VnaCB3b3Jrc2hvcHMgYW5kIGNvYWNoaW5nIHRoZSBNb3ZpbmcgT24tQSBMaWZlLUNoYW5naW5nIHByb2dyYW0gdGhlIGxpdmVzIG9mIGxvdy1pbmNvbWUgYW5kIGRpc2FkdmFudGFnZWQgYWR1bHRz4oCZIHBhcmVudHMgYW5kIGFkdWx0cyBjYW4gcGFydGljaXBhdGUgaW4gdHJhbnNmb3JtaW5nIHdvcmtzaG9wcyBmb3IgaW5kaXZpZHVhbCBncm93dGggYW5kIGRldmVsb3BtZW50LCBmYW1pbHkgcnVsZXMgYW5kIHZhbHVlcywgY2hpbGQtcmVhcmluZyBhbmQgZmFtaWx5IGhlYWx0aCBwcmFjdGljZXMuIFdvcmtzaG9wcyBhcmUgb2ZmZXJlZCB5ZWFyLXJvdW5kIGV2ZXJ5IE1vbmRheSwgVHVlc2RheSwgYW5kIFdlZG5lc2RheSBzdGFydGluZyBhdCAxMDozMCBhbSBhbmQgbGFzdGluZyBmb3IgYXBwcm94aW1hdGVseSAyLTMgaG91cnMuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1NzIeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWT9xHCoI1Dm/LatFTX1viS0XSaXuA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLOm8WrBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZcUKEkoQrs2PBFq5j3lwuSA3CeX" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1901 Mississippi Ave, SE (THEARC) Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Parklands Community Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1901 Mississippi Ave, SE (THEARC) Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 678-6500<br /><b>Fax No:</b>(202) 889-0063<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>parklandscommunitycenter.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training, Parenting<br \><b>Services : </b> Employment services, Family support services<br \><b>Program : </b> Case management, counseling, parental reunification, Job search &amp; placement assistance, Parenting support, e.g. classes, groups<br \><b>Population : </b> Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Workshops: Monday, Tuesday and Wednesday at 10:30 am-2:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Parklands Community Center is a community-based organization that strives to improve the quality of life of low-income and disadvantaged families, that will ultimately increase the number of children succeeding in school with hope for the future and reduce child abuse and neglect through year-round transformation/life-skill workshops and individual coaching.
+<br />
+<br />
+Parklands Community Center offers lifestyle assessment, social services support, workshops and coaching, referrals and family bonding activities. Through workshops and coaching the Moving On-A Life-Changing program the lives of low-income and disadvantaged adults’ parents and adults can participate in transforming workshops for individual growth and development, family rules and values, child-rearing and family health practices. Workshops are offered year-round every Monday, Tuesday, and Wednesday starting at 10:30 am and lasting for approximately 2-3 hours. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

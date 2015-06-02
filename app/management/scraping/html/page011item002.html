@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSoxNDE5IENvbHVtYmlhIFJvYWQsIE5XIFdhc2hpbmd0b24gREMgMjAwMDlkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUrMTQxOSBDb2x1bWJpYSBSb2FkLCBOVyBXYXNoaW5ndG9uLCBEQyAyMDAwOWRkAgMPDxYCHwIFcTxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAzMTktMjIyOTxiciAvPjxiPlBob25lIE5vMjo8L2I+KDIwMikgMzE5LTIyMjU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDQ2Mi01Njk2PGJyIC8+ZGQCBQ8PFgIfAgUlPGI+V2Vic2l0ZTogPC9iPnd3dy5sYXljLWRjLm9yZzxiciAvPmRkAgcPDxYCHwIFuAM8Yj5DYXRlZ29yeSA6IDwvYj4gTWVudGFsIEhlYWx0aDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNZW50YWwgaGVhbHRoIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IENvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzLCBDb21tdW5pdHkgU2VydmljZSBBZ2VuY3kgKENTQSksIEZhbWlseSBpc3N1ZXMtLWNvdW5zZWxpbmcsIG1hcnJpYWdlLCBwYXJlbnRpbmcsIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgVW5kZXIgYWdlIDE4LCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQzxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA5OjAwIGFtIC0gNzowMCBwbSA8YnIgLz5kZAIPDw8WAh8CBT08Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkRDIHlvdXRoIGFnZXMgMTQtMjEgeWVhcnMuPGJyIC8+ZGQCEQ8PFgIfAgVBPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5QaG90byBJRCB3aXRoIGN1cnJlbnQgYWRkcmVzcy48YnIgLz5kZAITDw8WAh8CBaIPPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgTGF0aW4gQW1lcmljYW4gWW91dGggQ2VudGVyIChMQVlDKSBvZmZlcnMgYW4gaW50ZW5zaXZlIG91dHBhdGllbnQgZHJ1ZyBhYnVzZSBjb3Vuc2VsaW5nIGZvciBhZ2VzIDE0IHRvIDIxIHllYXJzIHdpdGggY2FzZSBtYW5hZ2VtZW50IGFuZCBhZnRlcmNhcmUuIFRoZSBvdXRwYXRpZW50IHByb2dyYW0gaGVscHMgeW91dGggYW5kIGZhbWlsaWVzIHJlYWNoIGltcHJvdmVkIGxldmVscyBvZiBjb2duaXRpdmUgYW5kIGVtb3Rpb25hbCBmdW5jdGlvbmluZyBhbmQgYmVoYXZpb3JhbCBjaGFuZ2UuIFByb2dyYW0gZW1waGFzaXplcyBwb3NpdGl2ZSBhbHRlcm5hdGl2ZXMgdG8gZHJ1ZyB1c2UuIERpcmVjdCByZWZlcnJhbHMgYW5kIHdhbGstaW5zIGFjY2VwdGVkIGFuZCB0aGUgcHJvZ3JhbSBpcyBhbiBBUFJBIENob2ljZSBWb3VjaGVyIHByb3ZpZGVyLg0KPGJyIC8+DQo8YnIgLz4NCkxBWUMgYWxzbyBvZmZlcnMgcmVzb3VyY2UgYW5kIGRldmVsb3BtZW50IHByb2dyYW1zIGZvciBhdC1yaXNrIHlvdXRocyAoMTIgdG8gMjEgeXJzKSBhbmQgdGhlaXIgZmFtaWxpZXMuIExBWUMgcHJvZ3JhbXMgaW5jbHVkZTogDQo8YnIgLz4NCjxiciAvPg0KKDEpIERpdmVyc2lvbiBQcm9ncmFtLSBDb3Vuc2VsaW5nIHRvIHN1cHBvcnQgYW5kIHN0cmVuZ3RoZW4geW91dGggYW5kIGZhbWlsaWVzIHRvIGhlbHAgYWNoaWV2ZSBwZXJzb25hbCwgZWR1Y2F0aW9uYWwgYW5kIGNhcmVlciBhc3BpcmF0aW9ucyBhbmQgbWFpbnRhaW4gaGVhbHRoeSwgc2VsZi1zdWZmaWNpZW50IGxpZmVzdHlsZXMuDQo8YnIgLz4NCjxiciAvPg0KKDIpIEhvc3QgSG9tZXMtVGVtcG9yYXJ5IHNoZWx0ZXIgZm9yIHVwIHRvIHR3byB3ZWVrcyBmb3IgaG9tZWxlc3MgYW5kIHJ1bmF3YXkgZmVtYWxlIHlvdXRoIGluIGEgY3VsdHVyYWxseSBzZW5zaXRpdmUgc2V0dGluZy4NCjxiciAvPg0KPGJyIC8+DQooMykgRmFtaWx5IFN0cmVuZ3RoZW5pbmctICAxMy1zZXNzaW9uIHBhcmVudCBlZHVjYXRpb24gdGhhdCBhZGRyZXNzZXMgdmlvbGVuY2UgcHJldmVudGlvbiwgaW5jbHVkaW5nIGZhbWlseeKAmXMgcm9sZXMgYW5kIGNvbW11bmljYXRpb24gYW5nZXIgbWFuYWdlbWVudC4NCjxiciAvPg0KPGJyIC8+DQooNCkgRm9jdXMgb24gS2lkcy0gMTItd2VlayBjdXJyaWN1bHVtIGZvY3VzZWQgb24gSElWIGFuZCBzdWJzdGFuY2UgYWJ1c2UgcHJldmVudGlvbiBhZ2VzIDEwLTE3LiBJbmNvcnBvcmF0ZXMgZGVjaXNpb24tbWFraW5nIHNraWxscywgdmFsdWVzIGNsYXJpZmljYXRpb24sIGNvbW11bmljYXRpb24gc3R5bGVzLCBhbmQgaW5mb3JtYXRpb24gYWJvdXQgcmlza3kgYmVoYXZpb3Igdm91Y2hlciBwcm9ncmFtIGZvciBzdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50Lg0KPGJyIC8+DQo8YnIgLz4NCig1KSBGb3N0ZXIgQ2FyZS0gU2VydmljZXMgdG8gY2hpbGRyZW4gMCAtIDE4IHdobyBoYXZlIGJlZW4gdGVtcG9yYXJpbHkgcmVtb3ZlZCBmcm9tIHRoZWlyIGJpb2xvZ2ljYWwgaG9tZXMgYXMgYSByZXN1bHQgb2YgYWJ1c2Ugb3IgbmVnbGVjdC4NCjxiciAvPg0KPGJyIC8+DQooNikgU3RyZWV0IE91dHJlYWNoIFByb2dyYW0tIEVtZXJnZW5jeSBzaGVsdGVyLCBlZHVjYXRpb24gYW5kIHByZXZlbnRpb24gc2VydmljZXMgdG8gcnVuYXdheSB5b3V0aC4NCjxiciAvPg0KPGJyIC8+DQooNykgU3Vic3RhbmNlIEFidXNlLSBPdXRwYXRpZW50IGluZGl2aWR1YWwsIGdyb3VwIGFuZCBmYW1pbHkgY291bnNlbGluZzsgZHJ1ZyB0ZXN0aW5nLg0KPGJyIC8+DQo8YnIgLz4NCig4KSBUcmFuc2l0aW9uYWwgTGl2aW5nIFByb2dyYW0tIFN1cGVydmlzZWQgcmVzaWRlbnRpYWwgZmFjaWxpdHkgZm9yIDEwIG1hbGVzICgxN+KAkzIxKSwgZm9yIHVwIHRvIDE4IG1vbnRocy4gWW91dGhzIGFyZSBhc3Npc3RlZCB0b3dhcmRzIGluZGVwZW5kZW50IGxpdmluZy4NCjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2ODYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRR8koH3Wcmhe4Y2PHlu7f0R4f/jw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLyvvHiCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASdE3sTJERGQIEp6AJFEnOHpWP8p" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1419 Columbia Road, NW Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Latin American Youth Center (LAYC)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1419 Columbia Road, NW Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 319-2229<br /><b>Phone No2:</b>(202) 319-2225<br /><b>Fax No:</b>(202) 462-5696<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.layc-dc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders, Community Service Agency (CSA), Family issues--counseling, marriage, parenting, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Men, Under age 18, Women<br \><b>Forms Of Payment : </b> Medicaid, Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am - 7:00 pm <br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC youth ages 14-21 years.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID with current address.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Latin American Youth Center (LAYC) offers an intensive outpatient drug abuse counseling for ages 14 to 21 years with case management and aftercare. The outpatient program helps youth and families reach improved levels of cognitive and emotional functioning and behavioral change. Program emphasizes positive alternatives to drug use. Direct referrals and walk-ins accepted and the program is an APRA Choice Voucher provider.
+<br />
+<br />
+LAYC also offers resource and development programs for at-risk youths (12 to 21 yrs) and their families. LAYC programs include: 
+<br />
+<br />
+(1) Diversion Program- Counseling to support and strengthen youth and families to help achieve personal, educational and career aspirations and maintain healthy, self-sufficient lifestyles.
+<br />
+<br />
+(2) Host Homes-Temporary shelter for up to two weeks for homeless and runaway female youth in a culturally sensitive setting.
+<br />
+<br />
+(3) Family Strengthening-  13-session parent education that addresses violence prevention, including family’s roles and communication anger management.
+<br />
+<br />
+(4) Focus on Kids- 12-week curriculum focused on HIV and substance abuse prevention ages 10-17. Incorporates decision-making skills, values clarification, communication styles, and information about risky behavior voucher program for substance abuse treatment.
+<br />
+<br />
+(5) Foster Care- Services to children 0 - 18 who have been temporarily removed from their biological homes as a result of abuse or neglect.
+<br />
+<br />
+(6) Street Outreach Program- Emergency shelter, education and prevention services to runaway youth.
+<br />
+<br />
+(7) Substance Abuse- Outpatient individual, group and family counseling; drug testing.
+<br />
+<br />
+(8) Transitional Living Program- Supervised residential facility for 10 males (17–21), for up to 18 months. Youths are assisted towards independent living.
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

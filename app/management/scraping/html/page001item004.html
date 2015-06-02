@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSo3NDAgQmFybmFieSBTdHJlZXQsIFNFIFdhc2hpbmd0b24gREMgMjAwMzJkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUrNzQwIEJhcm5hYnkgU3RyZWV0LCBTRSBXYXNoaW5ndG9uLCBEQyAyMDAzMmRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAyOTItNDQyMDxiciAvPmRkAgUPDxYCHwIFIjxiPldlYnNpdGU6IDwvYj53d3cuc29tZS5vcmc8YnIgLz5kZAIHDw8WAh8CBbABPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gRmFtaWxpZXMsIFBlcnNvbnMgaW4gcmVjb3ZlcnksIFdvbWVuIHdpdGggY2hpbGRyZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFTjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+UG9vciBhbmQgaG9tZWxlc3MgaW5kaXZpZHVhbHMgYW5kIGZhbWlsaWVzIDxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWeBzxiPkRlc2NyaXB0aW9uOiA8L2I+Uy5PLk0uRS4gKFNvIE90aGVycyBNaWdodCBFYXQpIGlzIGFuIGludGVyZmFpdGgsIGNvbW11bml0eS1iYXNlZCBvcmdhbml6YXRpb24gdGhhdCBleGlzdHMgdG8gaGVscCB0aGUgcG9vciBhbmQgaG9tZWxlc3Mgb2Ygb3VyIG5hdGlvbidzIGNhcGl0YWwuIFMuTy5NLkUuIG1lZXRzIHRoZSBpbW1lZGlhdGUgZGFpbHkgbmVlZHMgb2YgdGhlIHBlb3BsZSB3ZSBzZXJ2ZSB3aXRoIGZvb2QsIGNsb3RoaW5nLCBhbmQgaGVhbHRoIGNhcmUuIFMuTy5NLkUuIGhlbHBzIHRvIGJyZWFrIHRoZSBjeWNsZSBvZiBob21lbGVzc25lc3MgYnkgb2ZmZXJpbmcgc2VydmljZXMsIHN1Y2ggYXMgYWZmb3JkYWJsZSBob3VzaW5nLCBqb2IgdHJhaW5pbmcsIGFkZGljdGlvbiB0cmVhdG1lbnQsIGFuZCBjb3Vuc2VsaW5nLCB0byB0aGUgcG9vciwgdGhlIGVsZGVybHkgYW5kIGluZGl2aWR1YWxzIHdpdGggbWVudGFsIGlsbG5lc3MuDQo8YnIgLz4NCjxiciAvPg0KUy5PLk0uRSwgb2ZmZXJzIHNldmVyYWwgaG91c2luZyBwcm9ncmFtcyB3aXRoIHNlcnZpY2VzIGxpa2UgZW1lcmdlbmN5IGFzc2lzdGFuY2U7IHN1YnN0YW5jZSBhYnVzZSByZWhhYmlsaXRhdGlvbjsgY2FzZSBtYW5hZ2VtZW50OyBqb2IgdHJhaW5pbmcgYW5kIGhvdXNpbmcgcHJvZ3JhbXMuIFRoZSBCYXJuYWJ5IEhvdXNlIHByb3ZpZGVzIHNldmVyYWwgdW5pdHMgb2Ygc2FmZSwgbG9uZy10ZXJtIGFmZm9yZGFibGUgaG91c2luZyBmb3IgdnVsbmVyYWJsZSBEaXN0cmljdCBmYW1pbGllcywgaW5jbHVkaW5nIG1vcmUgdGhhbiAxNjAgY2hpbGRyZW4uIEFkZGl0aW9uYWxseSwgZmFtaWxpZXMgYXJlIG9mZmVyZWQgc2VydmljZXMgaW4gY2FzZSBtYW5hZ2VtZW50LCBjcmVkaXQgY291bnNlbGluZywgbGlmZSBza2lsbHMgYW5kIGNoaWxkIGNhcmUuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzI1MB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZCEB47GtpRx98DSIvtDJ6M6dGKfp" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKE7fg2ApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oByER56xBFRAwrPEmOJp4dzLLZp5M=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="740 Barnaby Street, SE Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Barnaby House (SOME)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">740 Barnaby Street, SE Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 292-4420<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.some.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Families, Persons in recovery, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Poor and homeless individuals and families <br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>S.O.M.E. (So Others Might Eat) is an interfaith, community-based organization that exists to help the poor and homeless of our nation's capital. S.O.M.E. meets the immediate daily needs of the people we serve with food, clothing, and health care. S.O.M.E. helps to break the cycle of homelessness by offering services, such as affordable housing, job training, addiction treatment, and counseling, to the poor, the elderly and individuals with mental illness.
+<br />
+<br />
+S.O.M.E, offers several housing programs with services like emergency assistance; substance abuse rehabilitation; case management; job training and housing programs. The Barnaby House provides several units of safe, long-term affordable housing for vulnerable District families, including more than 160 children. Additionally, families are offered services in case management, credit counseling, life skills and child care.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

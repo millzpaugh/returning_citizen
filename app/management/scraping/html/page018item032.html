@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSM2MCBPIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQ2MCBPIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBVw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzk3LTg4MDYgPGI+RXh0OjwvYj4xMDMyPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAyNjUtMzg0OTxiciAvPmRkAgUPDxYCHwIFIjxiPldlYnNpdGU6IDwvYj53d3cuc29tZS5vcmc8YnIgLz5kZAIHDw8WAh8CBdwDPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lbnRhbCBIZWFsdGgsIFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNZW50YWwgaGVhbHRoIHRyZWF0bWVudCwgU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gSW50ZW5zaXZlIG91dHBhdGllbnQsIE91dHBhdGllbnQsIFBhcnRpYWwgaG9zcGl0YWxpemF0aW9uL2RheSBwcm9ncmFtLCBSZXNpZGVudGlhbCBsb25nLXRlcm0gdHJlYXRtZW50IChtb3JlIHRoYW4gMzAgZGF5cyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVyczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBBY2Nlc3MgdG8gcmVjb3Zlcnkgdm91Y2hlciwgUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBXY8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgODowMCBhbSAtIDQ6MDAgcG0gKGFwcG9pbnRtZW50cyBhcmUgcHJlZmVycmVkIGFuZCB3YWxrLWlucyBhY2NlcHRlZCkuPGJyIC8+ZGQCDw8PFgIfAgVZPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Ib21lbGVzcyB3aG8gbGl2ZSB3aXRoaW4gOCBibG9jayByYWRpdXMgb2YgdGhlIGNsaW5pYy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFowo8Yj5EZXNjcmlwdGlvbjogPC9iPlNPTUUgKFNvIE90aGVycyBNaWdodCBFYXQpIGlzIGFuIGludGVyZmFpdGgsIGNvbW11bml0eS1iYXNlZCBvcmdhbml6YXRpb24gdGhhdCBleGlzdHMgdG8gaGVscCB0aGUgcG9vciBhbmQgaG9tZWxlc3Mgb2Ygb3VyIG5hdGlvbidzIGNhcGl0YWwuIFNPTUUgd2lsbCBtZWV0IHRoZSBpbW1lZGlhdGUgZGFpbHkgbmVlZHMgb2YgdGhlIHBlb3BsZSB3ZSBzZXJ2ZSB3aXRoIGZvb2QsIGNsb3RoaW5nLCBhbmQgaGVhbHRoIGNhcmUuIFNPTUUgYWxzbyBoZWxwcyBicmVhayB0aGUgY3ljbGUgb2YgaG9tZWxlc3NuZXNzIGJ5IG9mZmVyaW5nIHNlcnZpY2VzLCBzdWNoIGFzIGFmZm9yZGFibGUgaG91c2luZywgam9iIHRyYWluaW5nLCBhZGRpY3Rpb24gdHJlYXRtZW50LCBhbmQgY291bnNlbGluZywgdG8gdGhlIHBvb3IsIHRoZSBlbGRlcmx5IGFuZCBpbmRpdmlkdWFscyB3aXRoIG1lbnRhbCBpbGxuZXNzLiBFYWNoIGRheSwgU09NRSBpcyByZXN0b3JpbmcgaG9wZSBhbmQgZGlnbml0eSBvbmUgcGVyc29uIGF0IGEgdGltZS4gDQo8YnIgLz4NCjxiciAvPg0KQXMgcGFydCBvZiBTT01F4oCZcyBCZWhhdmlvcmFsIEhlYWx0aCBTZXJ2aWNlcyAoQkhTKSwgcHJvZmVzc2lvbmFsIGNsaW5pY2lhbnMgcHJvdmlkZSBpbmRpdmlkdWFsIGFuZCBncm91cCBjb3Vuc2VsaW5nIHRvIGhvbWVsZXNzIGFuZCBleHRyZW1lbHkgbG93LWluY29tZSBpbmRpdmlkdWFscy4gU09NRSdzIHRoZXJhcGlzdHMgYW5kIHBzeWNoaWF0cmlzdHMgYWRkcmVzcyBtZW50YWwgaWxsbmVzcywgc3Vic3RhbmNlIGFidXNlLCBhbmQgZ2VuZXJhbCB0cmVhdG1lbnQgdGhyb3VnaCBhIGNvbXByZWhlbnNpdmUgc29jaWFsLXNlcnZpY2UgcHJvZ3JhbS4NCjxiciAvPg0KPGJyIC8+DQpBZnRlciBhbiBhc3Nlc3NtZW50LCB0aGUgbWVuIGFuZCB3b21lbiB3aG8gY29tZSB0byBTT01FIGZvciBtZW50YWwgaGVhbHRoIHN1cHBvcnQgbWF5IGJlIGdpdmVuIHJlZmVycmFscyB0byBvdXIgb3RoZXIgU09NRSBtZW50YWwgaGVhbHRoIHByb2dyYW1zLiAgVG8gYmUgZWxpZ2libGUgZm9yIFNPTUUncyBtZW50YWwgaGVhbHRoIHNlcnZpY2VzLCBhIHBhdGllbnQgbXVzdCBiZSBob21lbGVzcyBpbiB0aGUgRGlzdHJpY3QuDQo8YnIgLz4NCjxiciAvPg0KQ2xpbmljcyBjb21wcmVoZW5zaXZlIGhlYWx0aCBjYXJlIGluY2x1ZGVzIHNlcnZpY2VzIGZvcjogSElWIGNhcmUsIHBvZGlhdHJ5IHNlcnZpY2VzLCBnYXN0cm9lbnRlcm9sb2d5IGNsaW5pYzsgZGlhYmV0ZXMgdHJlYXRtZW50OyBleWUgY2xpbmljOyBkZW50YWwgY2xpbmljLiAgPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQyNx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZMLnBLCiilF7qve5jQQhdGnJwsN8" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKZo/ToBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZcWJXazmhxbN2p7OA4TSNvqqUlk" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="60 O Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="So Others Might Eat (SOME) - Behavioral Health Services" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">60 O Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 797-8806 <b>Ext:</b>1032<br /><b>Fax No:</b>(202) 265-3849<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.some.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health, Substance Abuse<br \><b>Services : </b> Mental health treatment, Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient, Partial hospitalization/day program, Residential long-term treatment (more than 30 days)<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Access to recovery voucher, Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:00 am - 4:00 pm (appointments are preferred and walk-ins accepted).<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless who live within 8 block radius of the clinic.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>SOME (So Others Might Eat) is an interfaith, community-based organization that exists to help the poor and homeless of our nation's capital. SOME will meet the immediate daily needs of the people we serve with food, clothing, and health care. SOME also helps break the cycle of homelessness by offering services, such as affordable housing, job training, addiction treatment, and counseling, to the poor, the elderly and individuals with mental illness. Each day, SOME is restoring hope and dignity one person at a time. 
+<br />
+<br />
+As part of SOME’s Behavioral Health Services (BHS), professional clinicians provide individual and group counseling to homeless and extremely low-income individuals. SOME's therapists and psychiatrists address mental illness, substance abuse, and general treatment through a comprehensive social-service program.
+<br />
+<br />
+After an assessment, the men and women who come to SOME for mental health support may be given referrals to our other SOME mental health programs.  To be eligible for SOME's mental health services, a patient must be homeless in the District.
+<br />
+<br />
+Clinics comprehensive health care includes services for: HIV care, podiatry services, gastroenterology clinic; diabetes treatment; eye clinic; dental clinic.  <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

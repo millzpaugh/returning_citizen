@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSY3NzI4IFdvb2Rtb250IEF2ZW51ZSBCZXRoZXNkYSBNRCAyMDgxNGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSc3NzI4IFdvb2Rtb250IEF2ZW51ZSBCZXRoZXNkYSwgTUQgMjA4MTRkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgOTA3LTkyNDQ8YnIgLz48Yj5GYXggTm86PC9iPigzMDEpIDY1Mi0xNzgxPGJyIC8+ZGQCBQ8PFgIfAgUsPGI+V2Vic2l0ZTogPC9iPnd3dy5iZXRoZXNkYWNhcmVzLmNvbS88YnIgLz5kZAIHDw8WAh8CBcwDPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBTb2NpYWwgU2VydmljZXMsIFZvbHVudGVlciBPcHBvcnR1bml0aWVzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1hdGVyaWFsIG5lZWRzLCBNb25ldGFyeSBhc3Npc3RhbmNlLCBOdXRyaXRpb25hbCBzZXJ2aWNlcywgU29jaWFsIHNlcnZpY2VzLCBWb2x1bnRlZXIgb3Bwb3J0dW5pdGllczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgQ2xvdGhpbmcsIEZyZWUgbWVhbHMvU291cCBraXRjaGVucywgTW9ydGdhZ2UvUmVudCAoRVJBUCksIE90aGVyIGFzc2lzdGFuY2UsIGUuZy4gdHJhbnNwb3J0YXRpb24sIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzLCBVdGlsaXRpZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBIb21lbGVzczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFkAE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXktRnJpZGF5OiA5OjAwIGFtLTEyOjMwIHBtOyBNb25kYXksIFdlZG5lc2RheSwgRnJpZGF5OiAyOjAwIHBtLTU6MDAgcG07IFR1ZXNkYXksIFRodXJzZGF5OiAzOjAwIHBtLTU6MDAgcG08YnIgLz5kZAIPDw8WAh8CBTs8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlBvb3IgYW5kIGhvbWVsZXNzIHBlb3BsZTxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXMEDxiPkRlc2NyaXB0aW9uOiA8L2I+QmV0aGVzZGEgQ2FyZXMsIEluYy4gb2ZmZXJzIGZsZXhpYmxlLCBjcmVhdGl2ZSByZXNwb25zZXMgdG8gcHJvYmxlbXMgcmVsYXRlZCB0byBob21lbGVzc25lc3MgYW5kIHBvdmVydHkuIFNlcnZpY2VzIGFyZSBvZmZlcmVkIHRvIHRob3NlIGxpdmluZyBvbiB0aGUgc3RyZWV0IGZyb20gdGhlIERDIE1ldHJvIGFyZWEuIEhvbWVsZXNzIHByZXZlbnRpb24gaXMgYXZhaWxhYmxlIGZvciByZXNpZGVudHMgb2YgTW9udGdvbWVyeSBDb3VudHkuIEEgaGlnaCBwcmlvcml0eSBvZiBCZXRoZXNkYSBDYXJlcyBpbiBzdG9wcGluZyB0aGUgY3JlYXRpb24gb2YgaG9tZWxlc3MgcGVvcGxlIGFuZCB0aGUgb3JnYW5pemF0aW9uIHdvcmtzIGhhcmQgaW4gdGhlaXIgcHJldmVudGlvbiBlZmZvcnRzLiBUaGUgcHJvZ3JhbSBvZmZlcnMgRXZpY3Rpb24gcHJldmVudGlvbiwgT3V0cmVhY2ggU3BlY2lhbGlzdCwgYSBNZWFsIFByb2dyYW0sIGNsb3RoaW5nIGNsb3NldCBwcm9ncmFtLCBhc3Npc3RhbmNlIHdpdGggcHJlc2NyaXB0aW9ucyBhbmQgcHN5Y2hpYXRyaWMgc2VydmljZXMuDQo8YnIgLz4NCjxiciAvPg0KRVZJQ1RJT04gUFJFVkVOVElPTiBQUk9HUkFNOg0KPGJyIC8+DQpCZXRoZXNkYSBDYXJlcyB3b3JrcyB3aXRoIG11bHRpcGxlIGFnZW5jaWVzIHRvIGNvb3JkaW5hdGUgaG91c2luZyBhbmQgc2VydmljZXMgZm9yIGNsaWVudHMuIFRoZSBwcm9ncmFtIGFsc28gdGFrZXMgY2FyZSB0byBlbmdhZ2UgY2xpZW50cyBhbmQgZ2FpbiB0cnVzdCBvbiBtdWx0aXBsZSBsZXZlbHMgc28gY2xpZW50cyBjYW4gZmVlbCBjb21mb3J0YWJsZSBiZWluZyBsaW5rZWQgaW50byBtdWx0aXBsZSBzZXJ2aWNlcy4NCjxiciAvPg0KPGJyIC8+DQpBRERJVElPTkFMIFNFUlZJQ0VTOg0KPGJyIC8+DQpBbiBPdXRyZWFjaCBTcGVjaWFsaXN0IGlzIGF2YWlsYWJsZSBNb25kYXkgdGhyb3VnaCBGcmlkYXkgZm9yIGRpc2N1c3Npb24gYW5kIHJlZmVycmFscy4gVGhlIE91dHJlYWNoIFNwZWNpYWxpc3QgbWVldHMgdGhlIGNsaWVudHMgd2hlcmUgdGhleSBhcmUgbG9jYXRlZC4gU29tZXRpbWVzIGNsaWVudHMgYXJlIGxvY2F0ZWQgb24gdGhlIHN0cmVldHMsIGFuZCBzb21ldGltZXMgdGhlIGNsaWVudHMgY29tZSB0byBvdXIgRHJvcC1JbiBDZW50ZXIuIFRoZSBPdXRyZWFjaCBTcGVjaWFsaXN0IGZpdHMgdGhlIG5lZWRzIG9mIHRoZSBjbGllbnQgdG8gdGhlIHNlcnZpY2VzIHRvIGZvcm0gYSBzdHJhdGVneSBmb3IgZWFjaCBjbGllbnQgdG8gZXhpdCBob21lbGVzc25lc3MuIFRoaXMgb2Z0ZW4gcmVxdWlyZXMgaG91c2luZyBwbGFjZW1lbnQgYW5kIG5ldHdvcmtpbmcgd2l0aCBob3VzaW5nIHByb3ZpZGVycy4NCjxiciAvPg0KPGJyIC8+DQpGb29kIGZvciB0aGUgaHVuZ3J5IGlzIGF2YWlsYWJsZSBldmVyeSBkYXkgb2YgdGhlIHdlZWsgdGhyb3VnaCBhdCBmb3VyIGFyZWEgY2h1cmNoZXMgdGhhdCBwYXJ0aWNpcGF0ZSBpbiB0aGUgbHVuY2ggcHJvZ3JhbS4gTG9jYXRpb25zIGFuZCB0aW1lcyBtYXkgYmUgZm91bmQgb24gdGhlaXIgd2Vic2l0ZS4NCjxiciAvPg0KPGJyIC8+DQpBIENsb3RoaW5nIENsb3NldCBpcyBhdmFpbGFibGUgdG8gcHJvdmlkZSBjbGVhbiBkb25hdGVkIGNsb3RoaW5nIHRvIGNsaWVudHMuDQo8YnIgLz4NCjxiciAvPg0KQXNzaXN0YW5jZSB3aXRoIFByZXNjcmlwdGlvbnMgaXMgYXZhaWxhYmxlIGZvciBob21lbGVzcyBjbGllbnRzIG9ubHkuDQo8YnIgLz4NCjxiciAvPg0KUHN5Y2hpYXRyaWMgU2VydmljZXMgYXJlIGF2YWlsYWJsZSBvbnNpdGUgb25lIG1vcm5pbmcgYSB3ZWVrIGZvciBob21lbGVzcyBjbGllbnRzLg0KPGJyIC8+DQo8YnIgLz4NClZPTFVOVEVFUiBPUFBPUlRVTklUSUVTDQo8YnIgLz4NClZvbHVudGVlcnMgYXJlIG5lZWRlZCB0byBoZWxwIHNlcnZlIG1lYWxzLCBzb3J0IGFuZCBkaXN0cmlidXRlIGNsb3RoaW5nLg0KPGJyIC8+DQo8YnIgLz4NCkhPVVJTDQo8YnIgLz4NCk1vbmRheSAtIEZyaWRheTogOTowMCBBTSB0byAxMjozMCBQTQ0KTW9uZGF5LCBXZWRuZXNkYXksIGFuZCBGcmlkYXk6IDI6MDAgdG8gNTowMCBQTQ0KVHVlc2RheSBhbmQgVGh1cnNkYXk6IDM6MDAgdG8gNTowMCBQTTxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1NTYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWS7hkCYwk443XpeEj1triby8jUKGA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLXl8LyDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYexqEgANDfQig4v4q418yoSmdng" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="7728 Woodmont Avenue Bethesda MD 20814" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Bethesda Cares" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">7728 Woodmont Avenue Bethesda, MD 20814</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 907-9244<br /><b>Fax No:</b>(301) 652-1781<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.bethesdacares.com/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Social Services, Volunteer Opportunities<br \><b>Services : </b> Material needs, Monetary assistance, Nutritional services, Social services, Volunteer opportunities<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Clothing, Free meals/Soup kitchens, Mortgage/Rent (ERAP), Other assistance, e.g. transportation, Referrals for social services, Utilities<br \><b>Population : </b> Homeless<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday-Friday: 9:00 am-12:30 pm; Monday, Wednesday, Friday: 2:00 pm-5:00 pm; Tuesday, Thursday: 3:00 pm-5:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Poor and homeless people<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Bethesda Cares, Inc. offers flexible, creative responses to problems related to homelessness and poverty. Services are offered to those living on the street from the DC Metro area. Homeless prevention is available for residents of Montgomery County. A high priority of Bethesda Cares in stopping the creation of homeless people and the organization works hard in their prevention efforts. The program offers Eviction prevention, Outreach Specialist, a Meal Program, clothing closet program, assistance with prescriptions and psychiatric services.
+<br />
+<br />
+EVICTION PREVENTION PROGRAM:
+<br />
+Bethesda Cares works with multiple agencies to coordinate housing and services for clients. The program also takes care to engage clients and gain trust on multiple levels so clients can feel comfortable being linked into multiple services.
+<br />
+<br />
+ADDITIONAL SERVICES:
+<br />
+An Outreach Specialist is available Monday through Friday for discussion and referrals. The Outreach Specialist meets the clients where they are located. Sometimes clients are located on the streets, and sometimes the clients come to our Drop-In Center. The Outreach Specialist fits the needs of the client to the services to form a strategy for each client to exit homelessness. This often requires housing placement and networking with housing providers.
+<br />
+<br />
+Food for the hungry is available every day of the week through at four area churches that participate in the lunch program. Locations and times may be found on their website.
+<br />
+<br />
+A Clothing Closet is available to provide clean donated clothing to clients.
+<br />
+<br />
+Assistance with Prescriptions is available for homeless clients only.
+<br />
+<br />
+Psychiatric Services are available onsite one morning a week for homeless clients.
+<br />
+<br />
+VOLUNTEER OPPORTUNITIES
+<br />
+Volunteers are needed to help serve meals, sort and distribute clothing.
+<br />
+<br />
+HOURS
+<br />
+Monday - Friday: 9:00 AM to 12:30 PM
+Monday, Wednesday, and Friday: 2:00 to 5:00 PM
+Tuesday and Thursday: 3:00 to 5:00 PM<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

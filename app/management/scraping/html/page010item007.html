@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSY2NDEwIEtlbmlsd29ydGggQXZlIFJpdmVyZGFsZSBNRCAyMDczN2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSc2NDEwIEtlbmlsd29ydGggQXZlIFJpdmVyZGFsZSwgTUQgMjA3MzdkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgOTI3LTE2MDE8YnIgLz48Yj5GYXggTm86PC9iPigzMDEpIDkyNy0xNjAyPGJyIC8+ZGQCBQ8PFgIfAgUkPGI+V2Vic2l0ZTogPC9iPnd3dy5rY3NjZ3cub3JnPGJyIC8+ZGQCBw8PFgIfAgXuATxiPkNhdGVnb3J5IDogPC9iPiBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEltbWlncmFudHMvUmVmdWdlZXM8YnIgXD5kZAIJDw8WAh8CBWQ8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaCwgS29yZWFuPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk9wZW4gTW9uZGF5LCBXZWRuZXNkYXkgJiBGcmlkYXkuPGJyIC8+ZGQCDw8PFgIfAgVJPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Mb3cgaW5jb21lIHRvIG1vZGVyYXRlIGluY29tZSBwZXJzb25zLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgW/CTxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIEtvcmVhbiBDb21tdW5pdHkgU2VydmljZXMgQ2VudGVyIChLQ1NDKSBwcm92aWRlcyBjb21wcmVoZW5zaXZlIHNvY2lhbCBzZXJ2aWNlcyB0byBsb3cgdG8gbW9kZXJhdGUgaW5jb21lIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcyB0byBwcm9tb3RlIHNlbGYtc3VmZmljaWVuY3kgYW5kIHRvIGJlIGNvbnRyaWJ1dGluZyBjb21tdW5pdHkgbWVtYmVycy4gSW4gb3JkZXIgZm9yIHRoZSBjbGllbnRzIHRvIGFjY2VzcyBhcHByb3ByaWF0ZSBzZXJ2aWNlcywgYmktbGluZ3VhbCBzdGFmZiBtZW1iZXJzIGFzc2lzdCB0aGVtIGV2ZXJ5IHN0ZXAgb2YgdGhlIHByb2Nlc3MgZnJvbSB0aGUgcmVxdWlyZWQgaW5mb3JtYXRpb24gZ2F0aGVyaW5nIHRvIGFwcGxpY2F0aW9uIGZpbGluZyBhbmQgZm9sbG93LXVwcy4NCjxiciAvPg0KPGJyIC8+DQpTZXJ2aWNlcyBpbmNsdWRlIGFzc2lzdGFuY2Ugd2l0aCB0aGUgZm9sbG93aW5nOg0KPGJyIC8+DQotU29jaWFsIFNlY3VyaXR5IEJlbmVmaXRzOiBSZXRpcmVtZW50ICAoU1NBKSwgU3BvdXNlLCBTdXJ2aXZvciwgRGlzYWJpbGl0eSwgYW5kIFN1cHBsZW1lbnRhbCBTZWN1cml0eSBJbmNvbWUgKFNTSSk7DQo8YnIgLz4NCi1NZWRpY2FyZSBBc3Npc3RhbmNlOiBPcmlnaW5hbCBNZWRpY2FyZSAoUGFydCBBICYgQiksIEFkdmFudGFnZSBQbGFuIChQYXJ0IEMpLCBQcmVzY3JpcHRpb24gUGxhbiAoUGFydCBEKSBhbmQgRXh0cmEgSGVscDsNCjxiciAvPg0KLU1lZGljYWwgQXNzaXN0YW5jZSBmb3IgYWR1bHRzIGFuZCBjaGlsZHJlbjogTWVkaWNhaWQsIFFNQiwgU0xNQiAmIE1DSFAvRkFNSVM7DQo8YnIgLz4NCi1TTkFQL0ZTUCAoRm9vZCBTdGFtcHMpOw0KPGJyIC8+DQotUHVibGljIENsaW5pYyBVdGlsaXphdGlvbiBhbmQgTWVkaWNhbCBFeHBlbnNlczsNCjxiciAvPg0KLUdvdmVybm1lbnQgU3Vic2lkaXplZCBMb3ctSW5jb21lIEZhbWlseSAmIFNlbmlvciBBcGFydG1lbnRzOw0KPGJyIC8+DQotTW9ydGdhZ2UgTW9kaWZpY2F0aW9uIFJlZmVycmFsIChNRCBvbmx5KTsgDQo8YnIgLz4NCi1TQ1NFUCAoU2VuaW9yIENvbW11bml0eSBTZXJ2aWNlIEVtcGxveW1lbnQgUHJvZ3JhbSk7DQo8YnIgLz4NCi1JbmZvcm1hdGlvbiBhbmQgUmVmZXJyYWwgU2VydmljZXM7IGFuZA0KPGJyIC8+DQotVHJhbnNsYXRpb24gYW5kIEludGVycHJldGF0aW9uIFNlcnZpY2VzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1NzAeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSbcEzAocl/PCU+eszQvK/sauTIqw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLFjKeFCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATelNkz14gdn3gcQPqPD+sVyI6OG" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="6410 Kenilworth Ave Riverdale MD 20737" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Korean Community Services Center of Greater Washington" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">6410 Kenilworth Ave Riverdale, MD 20737</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 927-1601<br /><b>Fax No:</b>(301) 927-1602<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.kcscgw.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Referrals for social services<br \><b>Population : </b> Immigrants/Refugees<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Korean<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Open Monday, Wednesday & Friday.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low income to moderate income persons.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Korean Community Services Center (KCSC) provides comprehensive social services to low to moderate income individuals and families to promote self-sufficiency and to be contributing community members. In order for the clients to access appropriate services, bi-lingual staff members assist them every step of the process from the required information gathering to application filing and follow-ups.
+<br />
+<br />
+Services include assistance with the following:
+<br />
+-Social Security Benefits: Retirement  (SSA), Spouse, Survivor, Disability, and Supplemental Security Income (SSI);
+<br />
+-Medicare Assistance: Original Medicare (Part A & B), Advantage Plan (Part C), Prescription Plan (Part D) and Extra Help;
+<br />
+-Medical Assistance for adults and children: Medicaid, QMB, SLMB & MCHP/FAMIS;
+<br />
+-SNAP/FSP (Food Stamps);
+<br />
+-Public Clinic Utilization and Medical Expenses;
+<br />
+-Government Subsidized Low-Income Family & Senior Apartments;
+<br />
+-Mortgage Modification Referral (MD only); 
+<br />
+-SCSEP (Senior Community Service Employment Program);
+<br />
+-Information and Referral Services; and
+<br />
+-Translation and Interpretation Services.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

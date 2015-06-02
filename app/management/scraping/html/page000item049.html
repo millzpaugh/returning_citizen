@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs0MTUgTWljaGlnYW4gQXZlbnVlLCBORSBXYXNoaW5ndG9uIERDIDIwMDE3ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDQxNSBNaWNoaWdhbiBBdmVudWUsIE5FIFdhc2hpbmd0b24sIERDIDIwMDE3ZGQCAw8PFgIfAgWjATxiPkNvbnRhY3QgUGVyc29uOjwvYj5KdXdhbiBKb25lcyAoSW50YWtlIE1hbmFnZXIpPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDYzNi0yOTUwPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA1MjktMjQ4ODxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNjM2LTI5OTY8YnIgLz5kZAIFDw8WAh8CBSM8Yj5XZWJzaXRlOiA8L2I+d3d3LmFyY2RjLm5ldDxiciAvPmRkAgcPDxYCHwIFhQM8Yj5DYXRlZ29yeSA6IDwvYj4gRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nLCBWb2x1bnRlZXIgT3Bwb3J0dW5pdGllczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFbXBsb3ltZW50IHNlcnZpY2VzLCBWb2x1bnRlZXIgb3Bwb3J0dW5pdGllczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IFJlaGFiaWxpdGF0aXZlIHNlcnZpY2VzLCBWb2NhdGlvbmFsIHRyYWluaW5nICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBQZXJzb25zIHdpdGggaW50ZWxsZWN0dWFsIGRpc2FiaWxpdHksIFdvbWVuLCBZb3V0aCAoMTIgLSAyNCk8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFMDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjg6MzBhbSAtIDU6MDBwbTxiciAvPmRkAg8PDxYCHwIFXTxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWVuIGFuZCBXb21lbiAoMTYgeWVhcnMgKykgd2l0aCBpbnRlbGxlY3R1YWwgZGlzYWJpbGl0aWVzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgW4AzxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIEFzc29jaWF0aW9uIG9mIFJldGFyZGVkIENpdGl6ZW5zIERDIChBUkMpIG9mZmVycyBqb2IgdHJhaW5pbmcsIHBvc3QtcGxhY2VtZW50IHN1cHBvcnQgYW5kIG1lbnRvcmluZyBmb3IgREMgcmVzaWRlbnRzIHdpdGggaW50ZWxsZWN0dWFsIGRpc2FiaWxpdGllcyBmcm9tIGFnZXMgMTYgeWVhcnMgb2xkIGFuZCBvbGRlci4gSm9iIHRyYWluaW5nIHNraWxscyBhcmUgb2ZmZXJlZCBpbiBpbmR1c3RyaWFsIG1haW50ZW5hbmNlLCBraXRjaGVuIGNhZmV0ZXJpYSBhbmQgY2xlcmljYWwgZHV0aWVzLg0KPGJyIC8+DQo8YnIgLz4NClZvbHVudGVlciBPcHBvcnR1bml0aWVzDQpWb2x1bnRlZXJzIGhlbHAgd2l0aCBsZWlzdXJlIHRpbWUgYWN0aXZpdGllcywgcGFpbnRpbmcsIHlhcmQgd29yaywgYW5kIG9mZmljZSBzdXBwb3J0Lg0KPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzczMR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZFzIa7QUqqoN+kv0mDBA7d2T+SnE" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLumfiVBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAf6RzUUUmaAqMc36sYAJ/74f644R" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="415 Michigan Avenue, NE Washington DC 20017" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Association of Retarded Citizens DC (ARC)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">415 Michigan Avenue, NE Washington, DC 20017</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Juwan Jones (Intake Manager)<br /><b>Phone No:</b>(202) 636-2950<br /><b>Phone No2:</b>(202) 529-2488<br /><b>Fax No:</b>(202) 636-2996<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.arcdc.net<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training, Volunteer Opportunities<br \><b>Services : </b> Employment services, Volunteer opportunities<br \><b>Program : </b> Rehabilitative services, Vocational training &amp; placement assistance<br \><b>Population : </b> Men, Persons with intellectual disability, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>8:30am - 5:00pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and Women (16 years +) with intellectual disabilities.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Association of Retarded Citizens DC (ARC) offers job training, post-placement support and mentoring for DC residents with intellectual disabilities from ages 16 years old and older. Job training skills are offered in industrial maintenance, kitchen cafeteria and clerical duties.
+<br />
+<br />
+Volunteer Opportunities
+Volunteers help with leisure time activities, painting, yard work, and office support.
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

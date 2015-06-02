@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSozODIwIE1pbGl0YXJ5IFJvYWQsIE5XIFdhc2hpbmd0b24gREMgMjAwMTVkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUrMzgyMCBNaWxpdGFyeSBSb2FkLCBOVyBXYXNoaW5ndG9uLCBEQyAyMDAxNWRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA2ODYtNjU1MzxiciAvPmRkAgUPDxYCHwIFKTxiPldlYnNpdGU6IDwvYj53d3cub3hmb3JkaG91c2Uub3JnPGJyIC8+ZGQCBw8PFgIfAgWWATxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFRyYW5zaXRpb25hbCBob3VzaW5nL1NpbmdsZSBSb29tIE9jY3VwYW5jeTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyBpbiByZWNvdmVyeTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgUzPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gaW4gcmVjb3ZlcnkuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBY0EPGI+RGVzY3JpcHRpb246IDwvYj5PeGZvcmQgSG91c2VzIGFyZSBkZW1vY3JhdGljYWxseSBydW4sIHNlbGYtc3VwcG9ydGVkLCBkcnVnL2FsY29ob2wgZnJlZSBob3VzZXMgd2hlcmUgcmVjb3ZlcmluZyBzdWJzdGFuY2UgYWJ1c2VycyByZXNpZGUgYW5kIHN1cHBvcnQgZWFjaCBvdGhlcuKAmXMgcmVjb3ZlcnkgdGhyb3VnaCBtZW50b3JpbmcsIGVuY291cmFnZW1lbnQgYW5kIGVkdWNhdGlvbi4gUmVzaWRlbnRzIG11c3QgaGF2ZSBpbmNvbWUgYW5kIHNoYXJlIGV4cGVuc2VzIGluIHRoZSBob3VzZS4gSG91c2Ugb2ZmaWNpYWxzIGFyZSBlbGVjdGVkIGJ5IHRoZSByZXNwZWN0aXZlIHRlbmFudHMuDQo8YnIgLz4NCjxiciAvPg0KVGhlIE1pbGl0YXJ5IFJvYWQgaG91c2UgaXMgZm9yIG1lbiBpbiByZWNvdmVyeTsgYSBwZXJzb25hbCBpbnRlcnZpZXcgaXMgcmVxdWlyZWQgKHdpdGggcmVzcGVjdGl2ZSBob3VzZSByZXByZXNlbnRhdGl2ZXMpIGFuZCByZW50IHJhbmdlcyBmcm9tICQ1MCB0byAkODUgcGVyIHdlZWsuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzI4MB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZHSkSP6pYjAVaLeZ9arwuFu4DAYq" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKw6MuWCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATm8Nk9t3q8y6o+06Vehh3evaQxh" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3820 Military Road, NW Washington DC 20015" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Military Road - Oxford House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3820 Military Road, NW Washington, DC 20015</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 686-6553<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.oxfordhouse.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Persons in recovery<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men in recovery.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Oxford Houses are democratically run, self-supported, drug/alcohol free houses where recovering substance abusers reside and support each other’s recovery through mentoring, encouragement and education. Residents must have income and share expenses in the house. House officials are elected by the respective tenants.
+<br />
+<br />
+The Military Road house is for men in recovery; a personal interview is required (with respective house representatives) and rent ranges from $50 to $85 per week.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

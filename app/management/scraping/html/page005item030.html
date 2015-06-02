@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgyMTI1IDE4dGggU3RyZWV0LCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTIxMjUgMTh0aCBTdHJlZXQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDc5Ny04ODA2PGJyIC8+ZGQCBQ8PFgIfAgUiPGI+V2Vic2l0ZTogPC9iPnd3dy5zb21lLm9yZzxiciAvPmRkAgcPDxYCHwIFnQE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFBlcnNvbnMgaW4gcmVjb3ZlcnksIFdvbWVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBYEBPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIFdvbWVuICh1bmF0dGFjaGVkKTsgTXVzdCBoYXZlIGluY29tZSBTU0ksIElEQSwgYW5kIGJlIEhvdXNpbmcgQ2hvaWNlIFZvdWNoZXIgZWxpZ2libGUuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBb0HPGI+RGVzY3JpcHRpb246IDwvYj5TLk8uTS5FIG9mZmVycyBzZXZlcmFsIGhvdXNpbmcgcHJvZ3JhbXMgd2l0aCBzZXJ2aWNlcyBsaWtlIGVtZXJnZW5jeSBhc3Npc3RhbmNlOyBzdWJzdGFuY2UgYWJ1c2UgcmVoYWJpbGl0YXRpb247IGNhc2UgbWFuYWdlbWVudDsgam9iIHRyYWluaW5nIGFuZCBob3VzaW5nIHByb2dyYW1zLiBUaGUgRnJlZWRvbSBIb3VzZSBwcm92aWRlcyBzaW5nbGUgcm9vbXMsIGNvbW1vbiBzb2NpYWwgYXJlYXMgYW5kIHNoYXJlZCBiYXRocyBmb3IgdW5hdHRhY2hlZCBtZW4gYW5kIHdvbWVuLiBBcHBsaWNhbnRzIG11c3QgYmUgZWxpZ2libGUgdG8gcmVjZWl2ZSBEQyBhbmQgRmVkZXJhbCBQdWJsaWMgSG91c2luZy4gT25jZSBhY2NlcHRlZCBpbnRvIHRoZSBwcm9ncmFtIHJlc2lkZW50cyB3aWxsIGJlIGFzc2lzdGVkIGJ5IGNhc2UgbWFuYWdlcnMgdG8gb2J0YWluIHBlcm1hbmVudCBob3VzaW5nLiBSZXNpZGVudHMgcGF5IDMwJSBvZiB0aGVpciBpbmNvbWUgYXMgcmVudCwgcGFydGljaXBhdGUgaW4gcmVndWxhciBob3VzZSBtZWV0aW5nIGFuZCBtYWludGFpbiB0aGVpciBoZWFsdGggYW5kIHNvYnJpZXR5LiBBbGwgYXBwbGljYW50cyBtdXN0IGhhdmUgaW5jb21lIFNTSSAoU29jaWFsIFNlY3VyaXR5IEluc3VyYW5jZSksIElEQSAoSW50ZXJpbSBEaXNhYmlsaXR5IEFzc2lzdGFuY2UpLCBIb3VzaW5nIENob2ljZSBWb3VjaGVyIGVsaWdpYmxlLiANCjxiciAvPg0KPGJyIC8+DQpUaGUgRnJlZWRvbSBIb3VzZSBvZmZlcnMgbG9uZyB0ZXJtIHRyYW5zaXRpb25hbCBob3VzaW5nLCBmb3Igc2luZ2xlIG1lbiBhbmQgd29tZW4gaW4gcmVjb3ZlcnkuIFRoZSBwcm9ncmFtIHByb3ZpZGVzIHNpbmdsZSByb29tIG9jY3VwYW5jeSwgd2l0aCBjb21tb24gc29jaWFsIGFyZWFzIGFuZCBzaGFyZWQgYmF0aHMgZm9yIHVuYXR0YWNoZWQgbWVuIGFuZCB3b21lbi4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzI0OB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZE+7ceQ+TDigdcGAFlkVQUAeYkZ9" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKHr+qcAQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAWxIiSti+5ICI6QQzAWoJXClZP2c" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2125 18th Street, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Freedom House (SOME)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2125 18th Street, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 797-8806<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.some.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Persons in recovery, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and Women (unattached); Must have income SSI, IDA, and be Housing Choice Voucher eligible.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>S.O.M.E offers several housing programs with services like emergency assistance; substance abuse rehabilitation; case management; job training and housing programs. The Freedom House provides single rooms, common social areas and shared baths for unattached men and women. Applicants must be eligible to receive DC and Federal Public Housing. Once accepted into the program residents will be assisted by case managers to obtain permanent housing. Residents pay 30% of their income as rent, participate in regular house meeting and maintain their health and sobriety. All applicants must have income SSI (Social Security Insurance), IDA (Interim Disability Assistance), Housing Choice Voucher eligible. 
+<br />
+<br />
+The Freedom House offers long term transitional housing, for single men and women in recovery. The program provides single room occupancy, with common social areas and shared baths for unattached men and women. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

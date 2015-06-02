@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTAxNjI4IDE2dGggU3RyZWV0LCBOVyAgM3JkIEZMIFdhc2hpbmd0b24gREMgMjAwMDlkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUxMTYyOCAxNnRoIFN0cmVldCwgTlcgIDNyZCBGTCBXYXNoaW5ndG9uLCBEQyAyMDAwOWRkAgMPDxYCHwIFczxiPkNvbnRhY3QgUGVyc29uOjwvYj5WaWxheSBDaGFsZXVucmF0aDxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA0NjItNDMzMDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNDYyLTI3NzQ8YnIgLz5kZAIFDw8WAh8CBS08Yj5XZWJzaXRlOiA8L2I+d3d3Lm5ld2NvbWVyc2VydmljZS5vcmc8YnIgLz5kZAIHDw8WAh8CBdAEPGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbiwgRW1lcmdlbmN5IEZvb2QsIEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZywgTWVkaWNhbCwgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGgsIEVkdWNhdGlvbmFsIHNlcnZpY2VzLCBFbXBsb3ltZW50IHNlcnZpY2VzLCBOdXRyaXRpb25hbCBzZXJ2aWNlcywgU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBISVYvQUlEUzxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgRW1lcmdlbmN5IGZvb2QvZ3JvY2VyaWVzLCBFbmdsaXNoIGFzIGEgU2Vjb25kIExhbmd1YWdlIChFU0wpLCBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEltbWlncmFudHMvUmVmdWdlZXMsIE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFlAE8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaCwgQ2hpbmVzZSwgVGhhaSwgQ2FtYm9kaWFuLCBMYW90aWFuLCBWaWV0bmFtZXNlICYgRnJlbmNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFRjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPlNlcnZpY2UgdGltZXMgdmFyeSwgcGxlYXNlIHNlZSBiZWxvdy48YnIgLz5kZAIPDw8WAh8CBTs8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlJlZnVnZWVzIGFuZCBpbW1pZ3JhbnRzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXQDDxiPkRlc2NyaXB0aW9uOiA8L2I+dGhlIE5ld2NvbWVyIENvbW11bml0eSBTZXJ2aWNlIENlbnRlciAoTkNTQykgaXMgYSBtaW5vcml0eS1iYXNlZCBub24tcHJvZml0IG9yZ2FuaXphdGlvbiB0aGF0IGhlbHBzIHJlZnVnZWVzIGFuZCBpbW1pZ3JhbnRzIGZyb20gYWxsIGNvdW50cmllcyBhY2hpZXZlIHNlbGYtc3VmZmljaWVuY3kgYW5kIGJlY29tZSBwYXJ0aWNpcGF0aW5nIG1lbWJlcnMgb2YgQW1lcmljYW4gc29jaWV0eS4gVGhlIE5ld2NvbWVyIENvbW11bml0eSBTZXJ2aWNlIENlbnRlciBvZmZlcnMgYXNzaXN0YW5jZSB3aXRoIGpvYiBwbGFjZW1lbnQsIGNvdW5zZWxpbmcsIHNvY2lhbCBzZXJ2aWNlcywgdHJhbnNsYXRpb24sIEVTTCBjbGFzc2VzLCBjcmlzaXMgaW50ZXJ2ZW50aW9uLCBBSURTIGVkdWNhdGlvbiBhbmQgb3V0cmVhY2gsIGltbWlncmF0aW9uIHNlcnZpY2VzLCBmaW5nZXJwcmludGluZywgcGhvdG9zLCBhbmQgRVRTICh3b3JrZm9yY2UgcmVhZGluZXNzKSB0ZXN0aW5nLg0KPGJyIC8+DQo8YnIgLz4NCkVEVUNBVElPTiBTRVJWSUNFUw0KPGJyIC8+DQo8YnIgLz4NCk5DU0Mgb2ZmZXJzIEVTTCBjb3Vyc2VzIGF0IGJvdGggYSBiZWdpbm5lciBsZXZlbCBhbmQgYW4gSW50ZXJtZWRpYXRlIGxldmVsLiAgQ2xhc3NlcyBhcmUgb3BlbiB0byBuZXdjb21lcnMgZnJvbSBhbGwgY291bnRyaWVzIGFuZCBhcmUgaGVsZCBNb25kYXkgdGhyb3VnaCBUaHVyc2RheSBmcm9tIDY6MzAgcG0gdG8gODozMCBwbS4gUGFydGljaXBhbnRzIG11c3QgYnV5IGJvb2tzIGF0IGEgY29zdCBvZiAkMTAwLiBQbGVhc2UgY2FsbCBvciBzdG9wIGJ5IE5DU0MncyBvZmZpY2UgdG8gcmVnaXN0ZXIgZm9yIGFuIEVTTCBjbGFzcy4NCjxiciAvPg0KPGJyIC8+DQpFTVBMT1lNRU5UICYgVk9DQVRJT05BTCBUUkFJTklORw0KPGJyIC8+DQo8YnIgLz4NCk5DU0MgcHJvdmlkZXMgYSB2YXJpZXR5IG9mIHNlcnZpY2VzIHRoYXQgaGVscCBjbGllbnRzIG9idGFpbiBhbmQgcmV0YWluIGVtcGxveW1lbnQgaW4gb3JkZXIgdG8gc3VwcG9ydCB0aGVtc2VsdmVzIGFuZCB0aGVpciBmYW1pbGllcy4gRm9yIG1vcmUgaW5mb3JtYXRpb24gYWJvdXQgTkNTQydzIGVtcGxveW1lbnQgc2VydmljZXMsIHBsZWFzZSBjb250YWN0IFNoZW1lbGVzIEFyZWdhIG9yIEVzaGV0dSBIYWlsZSBpbiB0aGUgREMgb2ZmaWNlIGF0ICgyMDIpIDQ2Mi00MzMwLiANCjxiciAvPg0KPGJyIC8+DQpFTUVSR0VOQ1kgRk9PRA0KPGJyIC8+DQo8YnIgLz4NClN0YXBsZSBmb29kIGlzIHByb3ZpZGVkIGJ5IE5DU0MgZnJvbSA5OjAwIGFtIHRvIDQ6MzAgcG0gKE1vbmRheS1GcmlkYXkpLiBUaGVzZSBzZXJ2aWNlcyBhcmUgTWV0cm8gYnVzIGFjY2Vzc2libGUgZnJvbSB0aGUgNTQsIFMyLg0KPGJyIC8+DQo8YnIgLz4NClNPQ0lBTCBTRVJWSUNFUw0KPGJyIC8+DQo8YnIgLz4NCk5DU0MgcHJvdmlkZXMgYXNzaXN0YW5jZSB0byByZWZ1Z2VlcyBpbiByZXNldHRsZW1lbnQ7IHNlbGYtc3VmZmljaWVuY3k7IGFuZCBub24tbGVnYWwgaW1taWdyYXRpb24gc2VydmljZXMuIEFzc2lzdGFuY2UgaXMgcHJvdmlkZWQsIE1vbmRheSB0aHJvdWdoIEZyaWRheSBmcm9tIDg6MzAgYW0gdG8gNTowMCBwbS4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAjk1Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkSwnXpyM47FthTb/TN7jfitfrMEY=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKXg+zNBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcvDfL05tssqnHH+BBNVILh1yEm1" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1628 16th Street, NW  3rd FL Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Newcomer Community Service Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1628 16th Street, NW  3rd FL Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Vilay Chaleunrath<br /><b>Phone No:</b>(202) 462-4330<br /><b>Fax No:</b>(202) 462-2774<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.newcomerservice.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Emergency Food, Employment &amp; Vocational Training, Medical, Social Services<br \><b>Services : </b> Community health, Educational services, Employment services, Nutritional services, Social services<br \><b>Type Of Care : </b> HIV/AIDS<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Emergency food/groceries, English as a Second Language (ESL), Job search &amp; placement assistance, Referrals for social services<br \><b>Population : </b> Immigrants/Refugees, Men, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Chinese, Thai, Cambodian, Laotian, Vietnamese & French<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Service times vary, please see below.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Refugees and immigrants.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>the Newcomer Community Service Center (NCSC) is a minority-based non-profit organization that helps refugees and immigrants from all countries achieve self-sufficiency and become participating members of American society. The Newcomer Community Service Center offers assistance with job placement, counseling, social services, translation, ESL classes, crisis intervention, AIDS education and outreach, immigration services, fingerprinting, photos, and ETS (workforce readiness) testing.
+<br />
+<br />
+EDUCATION SERVICES
+<br />
+<br />
+NCSC offers ESL courses at both a beginner level and an Intermediate level.  Classes are open to newcomers from all countries and are held Monday through Thursday from 6:30 pm to 8:30 pm. Participants must buy books at a cost of $100. Please call or stop by NCSC's office to register for an ESL class.
+<br />
+<br />
+EMPLOYMENT & VOCATIONAL TRAINING
+<br />
+<br />
+NCSC provides a variety of services that help clients obtain and retain employment in order to support themselves and their families. For more information about NCSC's employment services, please contact Shemeles Arega or Eshetu Haile in the DC office at (202) 462-4330. 
+<br />
+<br />
+EMERGENCY FOOD
+<br />
+<br />
+Staple food is provided by NCSC from 9:00 am to 4:30 pm (Monday-Friday). These services are Metro bus accessible from the 54, S2.
+<br />
+<br />
+SOCIAL SERVICES
+<br />
+<br />
+NCSC provides assistance to refugees in resettlement; self-sufficiency; and non-legal immigration services. Assistance is provided, Monday through Friday from 8:30 am to 5:00 pm. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

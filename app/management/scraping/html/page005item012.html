@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs5MjAgQmVsbGV2dWUgU3RyZWV0LCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDkyMCBCZWxsZXZ1ZSBTdHJlZXQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVyPGI+Q29udGFjdCBQZXJzb246PC9iPkhlbnJ5IFBpZXJjZSBJSUk8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTYyLTQ5Mzk8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDU2Mi01NjAyPGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBfcBPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTWVuLCBQZXJzb25zIGluIHJlY292ZXJ5LCBQZXJzb25zIHdpdGggSElWL0FJRFM8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgWAATxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWVuIHdobyBoYXZlIGNvbXBsZXRlZCAzMCBkYXkgcmVzaWRlbnRpYWwgcHJvZ3JhbSBhdCBCZWxsZXZ1ZSBvciBjb21lIHRocm91Z2ggQ1NPU0EgY29udHJhY3QuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBfoKPGI+RGVzY3JpcHRpb246IDwvYj5GZWRlcmFsIENpdHkgUmVjb3ZlcnkgU2VydmljZXMgKEZDUlMpIGN1cnJlbnRseSBwcm92aWRlcyB0cmFuc2l0aW9uYWwgaG91c2luZyBmb3IgbWVuIGFuZCAgd29tZW4gaW4gc2l0ZXMgdGhyb3VnaG91dCBXYXNoaW5ndG9uLCBEQy4gV2hlbiBGQ1JTIHdhcyBlc3RhYmxpc2hlZCwgaXQgd2FzIGluY29ycG9yYXRlZCB0byBwcm92aWRlIHRyYW5zaXRpb25hbCBob3VzaW5nICBhbmQgdG8gZnVydGhlciBhZGRyZXNzIHRoZSBzdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50IG5lZWRzIG9mIHRob3NlIHdobyBoYXZlIGlzc3VlcyB3aXRoIHRoZSBjcmltaW5hbCBqdXN0aWNlIHN5c3RlbS4gV2l0aCB0aGUgQWNjZXNzIHRvIFJlY292ZXJ5IChBVFIpIFByb2dyYW0sIEZDUlMgd29ya3Mgd2l0aCBEQyBQcmV0cmlhbCBTZXJ2aWNlcyBhbmQgdGhlIERlcGFydG1lbnQgb2YgSnVzdGljZSB0byBwcm92aWRlIGEgY29tcGxldGUgY29udGludXVtIG9mIGNhcmUgZm9yIG1lbiwgd29tZW4gYW5kIGZhbWlsaWVzIGluIFByZXRyaWFsIHN0YXR1cywgYW5kL29yIG9uIFBhcm9sZSBvciBQcm9iYXRpb24uIEZDUlMgYWxzbyBwcm92aWRlcyB0cmFuc2l0aW9uYWwgcmVjb3ZlcnkgY2FyZSBob3VzaW5nIGZvciBtZW4gYW5kIHdvbWVuIGluIHRocmVlIHNpdGVzIHRocm91Z2hvdXQgdGhlIFdhc2hpbmd0b24sIERDIGFyZWEgd2l0aCBhIGN1cnJlbnQgY2FwYWNpdHkgZm9yIDg2IHBlb3BsZS4NCjxiciAvPg0KPGJyIC8+DQpGQ1JTIGFsc28gd29ya3MgY2xvc2VseSB3aXRoIHRoZSBEQyBEZXBhcnRtZW50IG9mIEhlYWx0aC0tQVBSQSBwcm9ncmFtIHRvIHByb3ZpZGUgc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCBhZnRlcmNhcmUsIGVtcGxveW1lbnQgc2VydmljZXMsIGNhc2UgbWFuYWdlbWVudCwgcmVjb3ZlcnkgY291bnNlbGluZywgZWR1Y2F0aW9uIGluIHRocmVlIG91dHBhdGllbnQgY2VudGVycy4gDQo8YnIgLz4NCjxiciAvPg0KQmVsbGV2dWUgVHJhbnNpdGlvbmFsIEhvdXNpbmcgaXMgYSBjb21wb25lbnQgb2YgRmVkZXJhbCBDaXR5IFJlY292ZXJ5IFNlcnZpY2VzIHNob3J0LXRlcm0gcmVzaWRlbnRpYWwgcHJvZ3JhbS4gIE1hbGUgUGFydGljaXBhbnRzIGNvbXBsZXRlIDMwIGRheXMgb2YgcmVzaWRlbnRpYWwgdHJlYXRtZW50IGFuZCB0aGVuIHByb2NlZWQgdG8gcGFydGljaXBhdGUgaW4gOTAgZGF5cyBvZiB0cmFuc2l0aW9uYWwgaG91c2luZy4gIFRoZXJlIGlzIG5vIGRpcmVjdCBhY2Nlc3MgdG8gdHJhbnNpdGlvbmFsIGhvdXNpbmcgdW5sZXNzIHRoZSBwbGFjZW1lbnQgaXMgZG9uZSB0aHJvdWdoIENTT1NBIGNvbnRyYWN0LiAgQWxsIG90aGVycyBtdXN0IGNvbXBsZXRlIHRoZSAzMCBkYXkgcmVzaWRlbnRpYWwgY29tcG9uZW50LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM3NTEeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWT+lURfkszVBA92pYLX0eiOy+EXBg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKOlPB/ApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBpi9NIpWr+5OJKDTqtxk3S/3DsBs=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="920 Bellevue Street, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Federal City Recovery Services (Bellevue) Transitional Housing" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">920 Bellevue Street, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Henry Pierce III<br /><b>Phone No:</b>(202) 562-4939<br /><b>Fax No:</b>(202) 562-5602<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Criminal justice involved, Men, Persons in recovery, Persons with HIV/AIDS<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men who have completed 30 day residential program at Bellevue or come through CSOSA contract.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Federal City Recovery Services (FCRS) currently provides transitional housing for men and  women in sites throughout Washington, DC. When FCRS was established, it was incorporated to provide transitional housing  and to further address the substance abuse treatment needs of those who have issues with the criminal justice system. With the Access to Recovery (ATR) Program, FCRS works with DC Pretrial Services and the Department of Justice to provide a complete continuum of care for men, women and families in Pretrial status, and/or on Parole or Probation. FCRS also provides transitional recovery care housing for men and women in three sites throughout the Washington, DC area with a current capacity for 86 people.
+<br />
+<br />
+FCRS also works closely with the DC Department of Health--APRA program to provide substance abuse treatment aftercare, employment services, case management, recovery counseling, education in three outpatient centers. 
+<br />
+<br />
+Bellevue Transitional Housing is a component of Federal City Recovery Services short-term residential program.  Male Participants complete 30 days of residential treatment and then proceed to participate in 90 days of transitional housing.  There is no direct access to transitional housing unless the placement is done through CSOSA contract.  All others must complete the 30 day residential component.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

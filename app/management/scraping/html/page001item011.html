@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTsyNDU4IE1hcnRpbiBMdXRoZXIgS2luZywgSnIuIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTwyNDU4IE1hcnRpbiBMdXRoZXIgS2luZywgSnIuIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjc4LTc2NjI8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDY3OC03NDIyPGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBZ4BPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE51dHJpdGlvbmFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRW1lcmdlbmN5IGZvb2QvZ3JvY2VyaWVzLCBGcmVlIG1lYWxzL1NvdXAga2l0Y2hlbnM8YnIgXD5kZAIJDw8WAh8CBS48Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5TcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFngE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Gb29kIGJhZ3M6IEZyaWRheSAyOjMwIHBtLTU6MDAgcG07IFNhdCA5OjMwIGFtLTE6MDAgcG0uIENsb3RoaW5nIGV2ZXJ5IDMgbW9udGhzIHdoZW4gYXZhaWxhYmxlLiBEaW5uZXI6IEZyaWRheSA0OjAwIHBtLTY6MDBwbTxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBXQ8Yj5EZXNjcmlwdGlvbjogPC9iPlJlZmVycmFscyBwcmVmZXJyZWQgYnV0IG5vdCByZXF1aXJlZCBmb3IgZW1lcmdlbmN5IGZvb2QuIE5lYXJlc3QgTWV0cm8gc3RhdGlvbjogQW5hY29zdGlhLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2MDkeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQXXUa+a3ZbaxKIpNzKH0GjhCHTFg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKT55/ADAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQZIYtNAYvJ+SAXsCtZuvS9bZ7la" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2458 Martin Luther King, Jr. Avenue, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Bethlehem Baptist Church Outreach Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2458 Martin Luther King, Jr. Avenue, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 678-7662<br /><b>Fax No:</b>(202) 678-7422<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food<br \><b>Services : </b> Nutritional services<br \><b>Program : </b> Emergency food/groceries, Free meals/Soup kitchens<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Food bags: Friday 2:30 pm-5:00 pm; Sat 9:30 am-1:00 pm. Clothing every 3 months when available. Dinner: Friday 4:00 pm-6:00pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Referrals preferred but not required for emergency food. Nearest Metro station: Anacostia.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

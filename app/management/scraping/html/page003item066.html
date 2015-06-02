@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8xMjUwIEggU3RyZWV0LCBOVyBTVEUuIDEwMDAgV2FzaGluZ3RvbiBEQyAyMDAwNWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAxMjUwIEggU3RyZWV0LCBOVyBTVEUuIDEwMDAgV2FzaGluZ3RvbiwgREMgMjAwMDVkZAIDDw8WAh8CBaQBPGI+Q29udGFjdCBQZXJzb246PC9iPlJpY2hhcmQgSC4gQnJhZGxleSwgQ2hldCBHcmV5PGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDYzOC0zMjMyPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA2MzQtMTU0MDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNjYxLTc1OTk8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFgwI8Yj5DYXRlZ29yeSA6IDwvYj4gRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVtcGxveW1lbnQgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBWb2NhdGlvbmFsIHRyYWluaW5nICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBTE8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk1lbiBhbmQgV29tZW4uPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBcYFPGI+RGVzY3JpcHRpb246IDwvYj5Eb3dudG93biBTQU1TIG9mZmVycyB0cmFpbmluZyBpbiBob3NwaXRhbGl0eSBhbmQgbWFpbnRlbmFuY2UuIERvd250b3duIFNBTVMgd29ya2VycyBhcmUgcmVjb2duaXphYmxlIHRocm91Z2hvdXQgdGhlIGRvd250b3duIERDIGFyZWEgYnkgdGhlaXIgYnJpZ2h0IHJlZCBhdHRpcmUuIFRoZSBIb3NwaXRhbGl0eSBEaXZpc2lvbiBwcm92aWRlcyBhc3Npc3RhbmNlIHdpdGggZGlyZWN0aW9ucyBhbmQgaW5mb3JtYXRpb24gYWJvdXQgdmFyaW91cyBwb3B1bGFyIFdhc2hpbmd0b24sIERDIHNpdGVzLCB3aGlsZSB0aGUgTWFpbnRlbmFuY2UgRGl2aXNpb24gY2xlYW5zIHRoZSBzdHJlZXRzIGFuZCBzaWRld2Fsa3MgYW5kIGV2ZW4gcmVtb3ZlcyBncmFmZml0aS4gDQpUaGUgcHJvZ3JhbSdzIGhvbWVsZXNzIG91dHJlYWNoIHRlYW0gYXNzaXN0cyBob21lbGVzcyB3aXRoIGRldGFpbHMgZm9yIHNvY2lhbCBzZXJ2aWNlcyBhbmQgaG93IHRvIGNvbm5lY3Qgd2l0aCB0aG9zZSBzZXJ2aWNlcy4gVGhlIHBvc2l0aW9ucyBhcmUgZW50cnkgbGV2ZWwgYW5kIHRoZSBzYWxhcnkgaXMgYXQgYW4gZW50cnkgbGV2ZWwgd2l0aCB0aGUgaW5jbHVzaW9uIG9mIGJlbmVmaXRzLiBBcHBsaWNhdGlvbiBhcmUgYWNjZXB0ZWQgdGhyb3VnaG91dCB0aGUgeWVhciBhbmQgdHJhaW5pbmcgc2Vzc2lvbnMgYmVnaW4gaW4gSmFudWFyeS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUCNDQeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTbjXXCriktOybBl4dqUL/FORD+/g==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLBz+7XBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXMuYDpyPG0DwY09tfSMmCotj2kI" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1250 H Street, NW STE. 1000 Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Downtown SAMS" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1250 H Street, NW STE. 1000 Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Richard H. Bradley, Chet Grey<br /><b>Phone No:</b>(202) 638-3232<br /><b>Phone No2:</b>(202) 634-1540<br /><b>Fax No:</b>(202) 661-7599<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Vocational training &amp; placement assistance<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and Women.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Downtown SAMS offers training in hospitality and maintenance. Downtown SAMS workers are recognizable throughout the downtown DC area by their bright red attire. The Hospitality Division provides assistance with directions and information about various popular Washington, DC sites, while the Maintenance Division cleans the streets and sidewalks and even removes graffiti. 
+The program's homeless outreach team assists homeless with details for social services and how to connect with those services. The positions are entry level and the salary is at an entry level with the inclusion of benefits. Application are accepted throughout the year and training sessions begin in January.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

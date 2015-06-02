@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMzMzIE4gU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA1ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjEzMzMgTiBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA1ZGQCAw8PFgIfAgVyPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDIzNC0wOTUxPGJyIC8+PGI+VG9sbCBGcmVlOiA8L2I+KDgwMCkgNTM1LTcyNTI8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDIzNC0wOTUzPGJyIC8+ZGQCBQ8PFgIfAgVPPGI+V2Vic2l0ZTogPC9iPnd3dy51bml0eWhlYWx0aGNhcmUub3JnL0hlYWx0aENlbnRlcnMvU2VydmljZU5TdHJlZXQuaHRtbDxiciAvPmRkAgcPDxYCHwIFowM8Yj5DYXRlZ29yeSA6IDwvYj4gTWVkaWNhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBDb21tdW5pdHkgaGVhbHRoPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBISVYvQUlEUywgUHJpbWFyeSAoQWR1bHQsIEZhbWlseSAmYW1wOyBQZWRpYXRyaWNzKSwgVEIgc2NyZWVuaW5nczxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBNZWRpY2FyZSwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50LCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBTbGlkaW5nIGZlZSBzY2FsZSAoRmVlIGlzIGJhc2VkIG9uIGluY29tZSAmYW1wOyBvdGhlciBmYWN0b3JzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFuwE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Ib3VyczpUdWVzZGF5ICYgVGh1cnNkYXkgODozMCBhbSAtIDEyOjAwIG5vb247IFBzeWNoaWF0cnkgSG91cnM6IDJuZCBhbmQgNHRoIFR1ZXNkYXkgOTowMCBhbSAtIDExOjMwIGFtOyBEZW50aXN0OiAybmQgYW5kIDR0aCBXZWRuZXNkYXkgMTowMCBwbSAtIDM6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgUtPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbiBvbmx5PGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBY4MPGI+RGVzY3JpcHRpb246IDwvYj5Vbml0eSBIZWFsdGggQ2FyZSBIb21lbGVzcyBTZXJ2aWNlIENlbnRlcnMgaGF2ZSBiZWVuIHByb3ZpZGluZyBob21lbGVzcyBzZXJ2aWNlcyBzaW5jZSAxOTg1LiBDdXJyZW50bHksIHRoZSBwcm9ncmFtIG9wZXJhdGVzIDEwIGhvbWVsZXNzIG1lZGljYWwgc2VydmljZSBzaXRlcyBsb2NhdGVkIGluIGFsbW9zdCBldmVyeSB3YXJkIG9mIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYS4gVW5pdHkgcHJvdmlkZXMgcXVhbGl0eSwgY29tcGFzc2lvbmF0ZSBhbmQgY29tcHJlaGVuc2l2ZSBwcmltYXJ5IGhlYWx0aCBjYXJlIHNlcnZpY2VzIHRvIGhvbWVsZXNzIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcyBhbm51YWxseS4gVGhlIHNlcnZpY2VzIHByb3ZpZGVkIGJ5IFVuaXR5IEhlYWx0aCBDYXJl4oCZcyBleHRlbnNpdmUgbmV0d29yayBhbGxvdyBhc3Npc3RhbmNlIHRocm91Z2hvdXQgdGhlIGNvbW11bml0eSBpbmNsdWRpbmcgc2l0ZXMgbG9jYXRlZCBpbiBlbWVyZ2VuY3kgc2hlbHRlcnMgYW5kIGhvbWVsZXNzIHNlcnZpY2UgZmFjaWxpdGllcyBhY3Jvc3MgdGhlIGNpdHkuDQo8YnIgLz4NCjxiciAvPg0KVGhlIG1lZGljYWwgc2l0ZSBhdCBOIFN0cmVldCBWaWxsYWdlIGV4cGFuZHMgc2VydmljZXMgdG8gV2FzaGluZ3RvbiwgRC5DLuKAmXMgbGVhZGVyIGluIHRoZSBwcmV2ZW50aW9uIGFuZCBlbGltaW5hdGlvbiBvZiBob21lbGVzc25lc3MgYW1vbmcgd29tZW4uIE4gU3RyZWV0IFZpbGxhZ2UgcHJvdmlkZXMgY29tcHJlaGVuc2l2ZSBzZXJ2aWNlcyBhZGRyZXNzaW5nIGJvdGggZW1lcmdlbmN5IGFuZCBsb25nLXRlcm0gbmVlZHMsIGhlbHBpbmcgd29tZW4gYWNoaWV2ZSBwZXJzb25hbCBzdGFiaWxpdHkgYW5kIGdhaW5zIGluIHRoZWlyIGhvdXNpbmcsIGluY29tZSwgZW1wbG95bWVudCwgbWVudGFsIGhlYWx0aCwgcGh5c2ljYWwgaGVhbHRoLCBhbmQgYWRkaWN0aW9uIHJlY292ZXJ5LiBOIFN0cmVldCBWaWxsYWdlIHNlcnZlcyBvdmVyIDEsMDAwIHdvbWVuIGVhY2ggeWVhciwgd2hpY2ggaXMgb3ZlciA2MyUgb2YgdGhlIGFkdWx0LCBzaW5nbGUgaG9tZWxlc3Mgd29tZW4gaW4gRC5DLg0KPGJyIC8+DQo8YnIgLz4NClNlcnZpY2VzIGluY2x1ZGUgdGhlIGZvbGxvd2luZzogUHJpbWFyeSBtZWRpY2FsIGNhcmUgZm9yIGFkdWx0IHdvbWVuLCBISVYgVGVzdGluZyAoVHVlc2RheSdzIG9ubHkpLCBQc3ljaGlhdHJpYyBTZXJ2aWNlcywgYW5kIFRCIFNjcmVlbmluZ3MuIEhvdXJzIG9mIG9wZXJhdGlvbiBhcmUgYXMgZm9sbG93czogDQo8YnIgLz4NCjxiciAvPg0KSG91cnM6IDg6MzAgYW0gLSAxMjowMCBub29uIChUdWVzZGF5ICYgVGh1cnNkYXkpLS1TaW5nIGluIGlzIGF0IDg6MzAgYW0sIGZpcnN0IGNvbWUsIGZpcnN0IHNlcnZlIGZvciA4IHdvbWVuLg0KPGJyIC8+DQpQc3ljaGlhdHJ5IEhvdXJzOiAxOjAwIHBtIC0gNDozMCBwbSAoMm5kIGFuZCA0dGggVHVlc2RheSkNCjxiciAvPg0KRGVudGlzdCBIb3VyczogMTowMCBwbSAtIDM6MDAgcG0gKDJuZCBhbmQgNHRoIFdlZG5lc2RheSk8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNDAyHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkQzJlVJfU9utIv1Ws5T6sEXHXd1A=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLF/7qOBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUrVOLq6BkOtm4+20yuIf28xCrxQ" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1333 N Street, NW Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care Homeless Service Center (N Street Village)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1333 N Street, NW Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 234-0951<br /><b>Toll Free: </b>(800) 535-7252<br /><b>Fax No:</b>(202) 234-0953<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceNStreet.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> HIV/AIDS, Primary (Adult, Family &amp; Pediatrics), TB screenings<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Hours:Tuesday & Thursday 8:30 am - 12:00 noon; Psychiatry Hours: 2nd and 4th Tuesday 9:00 am - 11:30 am; Dentist: 2nd and 4th Wednesday 1:00 pm - 3:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women only<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Homeless Service Centers have been providing homeless services since 1985. Currently, the program operates 10 homeless medical service sites located in almost every ward of the District of Columbia. Unity provides quality, compassionate and comprehensive primary health care services to homeless individuals and families annually. The services provided by Unity Health Care’s extensive network allow assistance throughout the community including sites located in emergency shelters and homeless service facilities across the city.
+<br />
+<br />
+The medical site at N Street Village expands services to Washington, D.C.’s leader in the prevention and elimination of homelessness among women. N Street Village provides comprehensive services addressing both emergency and long-term needs, helping women achieve personal stability and gains in their housing, income, employment, mental health, physical health, and addiction recovery. N Street Village serves over 1,000 women each year, which is over 63% of the adult, single homeless women in D.C.
+<br />
+<br />
+Services include the following: Primary medical care for adult women, HIV Testing (Tuesday's only), Psychiatric Services, and TB Screenings. Hours of operation are as follows: 
+<br />
+<br />
+Hours: 8:30 am - 12:00 noon (Tuesday & Thursday)--Sing in is at 8:30 am, first come, first serve for 8 women.
+<br />
+Psychiatry Hours: 1:00 pm - 4:30 pm (2nd and 4th Tuesday)
+<br />
+Dentist Hours: 1:00 pm - 3:00 pm (2nd and 4th Wednesday)<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BUEyMDQxIE1hcnRpbiBMdXRoZXIgS2luZywgSnIuIEF2ZSwgU0UgU1RFLiAzMTEgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBUIyMDQxIE1hcnRpbiBMdXRoZXIgS2luZywgSnIuIEF2ZSwgU0UgU1RFLiAzMTEgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODg5LTMxODI8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIF0gI8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEludGVuc2l2ZSBvdXRwYXRpZW50LCBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBVbmRlciBhZ2UgMjE8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFWTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSAxOjAwIHBtIC0gODozMCBwbSAoMjRociBDcmlzaXMgSGVscGxpbmUpPGJyIC8+ZGQCDw8PFgIfAgVcPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5BZG9sZXNjZW50cyBhbmQgYWR1bHRzIGFidXNpbmcgb3IgYWRkaWN0ZWQgdG8gc3Vic3RhbmNlcy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF7Ag8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBSaXZlcnNpZGUgT3V0cGF0aWVudCBQcm9ncmFtIGlzIHNwZWNpZmljYWxseSBkZXNpZ25lZCB0byBwcm92aWRlIGEgY29udGludXVtIG9mIHRyZWF0bWVudCBmb3IgYWRvbGVzY2VudHMgYW5kIHlvdW5nIGFkdWx0cyB3aG8gYXJlIGFidXNpbmcgb3IgYWRkaWN0ZWQgdG8gc3Vic3RhbmNlcyBhbmQgd2hvIG1heSBwcmVzZW50IHdpdGggY28tb2NjdXJyaW5nIHBzeWNoaWF0cmljIGRpc29yZGVycy4gVGhlIG11bHRpZGltZW5zaW9uYWwgbW9kYWxpdGllcyBvZmZlcmVkIGluY2x1ZGUgYXNzZXNzbWVudCwgdHJlYXRtZW50LCBlZHVjYXRpb24sIHByZXZlbnRpb24sIGNhc2UgbWFuYWdlbWVudCwgc3lzdGVtcyBjb29yZGluYXRpb24sIGZhbWlseSBpbnRlcnZlbnRpb25zLCBob21lIHZpc2l0cyBhbmQgZXZpZGVuY2UgYmFzZWQgbWFudWFsaXplZCB0cmVhdG1lbnQuDQo8YnIgLz4NCjxiciAvPg0KVHJlYXRtZW50IHByb2dyYW0gYXBwcm9hY2hlcyBpbmNsdWRlOiB0aGUgQ2FubmFiaXMgWW91dGggVHJlYXRtZW50IChDWVQpLCBNb3RpdmF0aW9uYWwgRW5oYW5jZW1lbnQgVGhlcmFweSAoTUVUKSwgYW5kIENvZ25pdGl2ZSBCZWhhdmlvcmFsIFRoZXJhcHkgKENCVCkgMTIgU2VyaWVzLiBQcm9ncmFtIGVsZW1lbnRzIGFsc28gaW5jbHVkZSBhbiBhZ2dyZXNzaXZlIGZhbWlseSBvdXRyZWFjaCBwcm9ncmFtLCBjdWx0dXJhbCBlbnJpY2htZW50IGFjdGl2aXRpZXMsIGxpZmUgc2tpbGxzLCBldGhpY3MsIGNvbmZsaWN0IHJlc29sdXRpb24sIHNlbGYtZXN0ZWVtLCBhbmdlciBtYW5hZ2VtZW50IGFuZCBzb2NpYWxpemF0aW9uIGN1cnJpY3VsYS4NCjxiciAvPg0KPGJyIC8+DQpUcmFuc3BvcnRhdGlvbiBhbmQgbWVhbHMgYXJlIHByb3ZpZGVkIGZvciBhbGwgY2xpZW50cy4gVGhlIFJpdmVyc2lkZSBUcmVhdG1lbnQgQ2VudGVyIGlzIGFuIEFQUkEgVm91Y2hlciBQcm9ncmFtIHByb3ZpZGVyLiANCjxiciAvPg0KPGJyIC8+DQpNZXRybyBBY2Nlc3M6DQo8YnIgLz4NCkdyZWVuIExpbmUgLSBBbmFjb3N0aWEgTWV0cm8gU3RhdGlvbg0KPGJyIC8+DQo5MCA5MiA5MyA5NCBBMiBBNCBBNiBBOCBBNDIgDQpBNDYgQTQ4IEIyIFA2IFY3IFY5IFcyIFc2IFc4PGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzY0NB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZByn+UxG6deSLCXPy8a/GF/tKigZ" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK/kr+SBwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdRamxgr7YXz3Vp2IwQUnsC3A4BP" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2041 Martin Luther King, Jr. Ave, SE STE. 311 Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Riverside Treatment Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2041 Martin Luther King, Jr. Ave, SE STE. 311 Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 889-3182<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders<br \><b>Population : </b> Under age 21<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 1:00 pm - 8:30 pm (24hr Crisis Helpline)<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Adolescents and adults abusing or addicted to substances.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Riverside Outpatient Program is specifically designed to provide a continuum of treatment for adolescents and young adults who are abusing or addicted to substances and who may present with co-occurring psychiatric disorders. The multidimensional modalities offered include assessment, treatment, education, prevention, case management, systems coordination, family interventions, home visits and evidence based manualized treatment.
+<br />
+<br />
+Treatment program approaches include: the Cannabis Youth Treatment (CYT), Motivational Enhancement Therapy (MET), and Cognitive Behavioral Therapy (CBT) 12 Series. Program elements also include an aggressive family outreach program, cultural enrichment activities, life skills, ethics, conflict resolution, self-esteem, anger management and socialization curricula.
+<br />
+<br />
+Transportation and meals are provided for all clients. The Riverside Treatment Center is an APRA Voucher Program provider. 
+<br />
+<br />
+Metro Access:
+<br />
+Green Line - Anacostia Metro Station
+<br />
+90 92 93 94 A2 A4 A6 A8 A42 
+A46 A48 B2 P6 V7 V9 W2 W6 W8<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

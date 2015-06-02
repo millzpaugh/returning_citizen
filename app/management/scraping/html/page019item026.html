@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BQUgIERDIGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBQYgLCBEQyBkZAIDDw8WAh8CBQw8YnIgLz48YnIgLz5kZAIFDw8WAh8CBSc8Yj5XZWJzaXRlOiA8L2I+d3d3LnRoZWluY2RjLm9yZy88YnIgLz5kZAIHDw8WAh8CBYsCPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRGF5IHByb2dyYW1zL0Ryb3AtaW4gY2VudGVycywgVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTGVzYmlhbiwgR2F5LCBCaXNleHVhbCwgVHJhbnNnZW5kZXIgJmFtcDsgU2V4dWFsIE1pbm9yaXRpZXMsIE1lbiwgUGVyc29ucyB3aXRoIEhJVi9BSURTLCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBa0BPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Zb3V0aCBtdXN0IGJlIGJldHdlZW4gdGhlIGFnZXMgb2YgMTYtMjQ7IEhJViBwb3NpdGl2ZSBhbmQgTEdCVCwgMzAgZGF5cyBkcnVnIGZyZWUsIGVtcGxveWVkIG9yIHBoeXNpY2FsbHkgdW5hYmxlIHRvIHdvcmssIHVwZGF0ZWQgVEIgdGVzdC48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF2xM8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBtaXNzaW9uIG9mIFRyYW5zZ2VuZGVyIEhlYWx0aCBFbXBvd2VybWVudCAoVC5ILkUuIEluYy4pIGlzIHRvIGVuaGFuY2UgdGhlIHF1YWxpdHkgb2YgbGlmZSBvZiB0aGUgZGl2ZXJzZSB0cmFuc2dlbmRlciBwb3B1bGF0aW9ucyBzZXJ2ZWQgaW4gdGhlIERpc3RyaWN0IGJ5IGFkdm9jYXRpbmcgZm9yIGFuZCBzdXBwb3J0aW5nIGEgY29udGludXVtIG9mIGhlYWx0aCBhbmQgc29jaWFsIHNlcnZpY2VzLiBJbiBmdWxmaWxsaW5nIG91ciBtaXNzaW9uLCB3ZSBzZWVrIHRvIHVuaWZ5IGFuZCBlbXBvd2VyIHRoZSB0cmFuc2dlbmRlciwgbGVzYmlhbiwgZ2F5LCBhbmQgYmlzZXh1YWwgY29tbXVuaXRpZXMuIFQuSC5FLiBoYXMgcHJvZ3JhbXMgYW5kIHNlcnZpY2VzIGZvciBUcmVhdG1lbnQgQWRoZXJlbmNlLCBDb21wcmVoZW5zaXZlIFJpc2sgQ291bnNlbGluZyBTZXJ2aWNlcyAoQ1JDUyksIFN1cHBvcnRpdmUgSG91c2luZywgR0xCVFEgWW91dGggSG91c2luZyAoV2FuZGEgQWxzdG9uIEhvdXNlKSwgSElWICYgSGVwIEMgVGVzdGluZyBhbmQgV2VsbG5lc3MgQ2VudGVyIFNlcnZpY2VzLg0KPGJyIC8+DQo8YnIgLz4NClRSRUFUTUVOVCBBREhFUkVOQ0U6DQo8YnIgLz4NClRoaXMgcHJvZ3JhbSBwcm92aWRlcyBpbmRpdmlkdWFsIGNvdW5zZWxpbmcsIHN1cHBvcnQgZ3JvdXBzIGFuZCBoZWFsdGggZWR1Y2F0aW9uIGdyb3Vwcy4NCjxiciAvPg0KPGJyIC8+DQpDUkNTIChDb21wcmVoZW5zaXZlIFJpc2sgQ291bnNlbGluZyBTZXJ2aWNlcyk6DQo8YnIgLz4NClRocm91Z2ggQ1JDUyBULkguRS4gdXRpbGl6ZXMgdG9vbHMgYW5kIGV4cGVyaWVuY2UgdG8gcmVjb2duaXplIHJpc2sgYmVoYXZpb3JzIHRoYXQgY291bGQgcG90ZW50aWFsbHkgbGVhZCB0byB0aGUgdHJhbnNtaXNzaW9uIGFuZCBpbmZlY3Rpb24gb2YgSElWLiBUaHJvdWdoIHRoZSBwcm9ncmFtIGNsaWVudHMgYXJlIHByb3ZpZGVkIHdpdGggcmlzayByZWR1Y3Rpb24gaW50ZXJ2ZW50aW9uIGFuZCBhc3Npc3RhbmNlIHdpdGggZ29hbCBzZXR0aW5nIHRvb2xzIGFuZCBvbmdvaW5nIHN1cHBvcnQgdG8gcmVhY2ggc2V0IGdvYWxzLg0KPGJyIC8+DQo8YnIgLz4NClNVUFBPUlRJVkUgSE9VU0lORzoNCjxiciAvPg0KSG91c2luZyBzZXJ2aWNlcyBhcmUgcHJvdmlkZWQgdG8gbG93LWluY29tZSByZXNpZGVudHMgbGl2aW5nIHdpdGggSElWL0FJRFMgaW4gdGhlIE1ldHJvcG9saXRhbiBXYXNoaW5ndG9uLCBELkMuIHJlZ2lvbi4gDQo8YnIgLz4NCjxiciAvPg0KR0xCVFEgWU9VVEggSE9VU0lORyAoV2FuZGEgQWxzdG9uIEhvdXNlKToNCjxiciAvPg0KWW91dGggYWdlcyAxNi0yNCB5ZWFycyB3aG8gc3VmZmVyIGZyb20gdmFyaW91cyBsaWZlIGlzc3VlcyByZWxhdGVkIHRvIHN1YnN0YW5jZSBhYnVzZSwgbWVudGFsIGhlYWx0aCwgaG9tZWxlc3NuZXNzLCBldGMgYXJlIG9mZmVyZWQgcHJlLWluZGVwZW5kZW50IGxpdmluZy4gIEVhY2ggY2xpZW50IGlzIGFzc2lnbmVkIGEgbGlmZSBza2lsbHMgY291bnNlbG9yIHdobyB3aWxsIHdvcmsgd2l0aCB0aGUgY2xpZW50IGZvciBhIG1pbmltdW0gb2YgNCBob3VycyBhIGRheSBvbiBpc3N1ZXMgcmVsYXRlZCB0byBlbXBsb3ltZW50L3ZvY2F0aW9uYWwgdHJhaW5pbmcsIGhvdXNpbmcgYW5kIG90aGVyIHJlZmVycmFscyBhcyBuZWVkZWQuICBFYWNoIGNsaWVudCB3aWxsIGJlIGhvdXNlZCBpbiB0aGVpciBvd24gcm9vbSBhbmQgcmVzaWRlIGluIGEgaG91c2Ugd2l0aCBhIGNvdW5zZWxvciB3aG9tIHRoZXkgd2lsbCByZXBvcnQgdG8gZGFpbHkgYW5kIHNpZ24taW4gYW5kIG91dCBhcyBuZWVkZWQuICBSZXNpZGVudHMgd2lsbCBiZSBvZmZlcmVkIGdyb3VwIHRoZXJhcHkgYW5kIGJlIHJlZmVycmVkIGZvciBvdGhlciBzZXJ2aWNlcy4NCjxiciAvPg0KPGJyIC8+DQpISVYgJiBIRVAgQyBURVNUSU5HOg0KPGJyIC8+DQpDb3Vuc2VsaW5nIGFuZCBUZXN0aW5nIGlzIHByb3ZpZGVkIGZyZWUsIHNhZmUgYW5kIGNvbmZpZGVudGlhbCB0byB0aGUgZ2VuZXJhbCBwdWJsaWMuIFQuSC5FLiBwcm92aWRlcyBPcmFRdWljayB0ZXN0aW5nLCBhIHJlcHBpZCBISVYgb3IgSGVwIEMgdGVzdCB0aGF0IGRlbGl2ZXJzIHJlc3VsdHMgaW4gbGVzcyB0aGFuIDMwIG1pbnV0ZXMuIFRlc3RpbmcgaXMgYXZhaWxhYmxlIE1vbmRheS1UaHVyc2RheSwgMTE6MDAgYW0tMjowMCBwbSBhbmQgRnJpZGF5IGZyb20gMTI6MDAgcG0gLSAzOjAwIHBtLg0KPGJyIC8+DQo8YnIgLz4NCldFTExORVNTIENFTlRFUiBTRVJWSUNFUzoNCjxiciAvPg0KQnkgcGFydGljaXBhdGluZyBpbiBvbmUgb2YgdGhlIHByb2dyYW1zIGFib3ZlIGNsaWVudHMgYXJlIGVsaWdpYmxlIHRvIHJlY2VpdmUgdGhlIGZvbG93aW5nIHNlcnZpY2VzIHByb3ZpZGVkIGF0IHRoZSBXZWxsbmVzcyBDZW50ZXI6IExhdW5kcnkgc2VydmljZXMgKG9uZSBsb2FkIHBlciB3ZWVrKSwgbGl0ZSBtZWFsLCBjb21wdXRlciBsYWIgYWNjZXNzIGFuZCBhY2Nlc3MgdG8gc2hvd2Vycy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzM5Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkqK6yTdjqMbmMNG4edQ3kPzF65P0=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLM/bbABwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAT9JQEwV1x7eOd0gHAN4/cDwGy2M" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="  DC " id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Transgender Health Empowerment" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel"> , DC </span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.theincdc.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Day programs/Drop-in centers, Transitional housing/Single Room Occupancy<br \><b>Population : </b> Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Persons with HIV/AIDS, Women, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Youth must be between the ages of 16-24; HIV positive and LGBT, 30 days drug free, employed or physically unable to work, updated TB test.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The mission of Transgender Health Empowerment (T.H.E. Inc.) is to enhance the quality of life of the diverse transgender populations served in the District by advocating for and supporting a continuum of health and social services. In fulfilling our mission, we seek to unify and empower the transgender, lesbian, gay, and bisexual communities. T.H.E. has programs and services for Treatment Adherence, Comprehensive Risk Counseling Services (CRCS), Supportive Housing, GLBTQ Youth Housing (Wanda Alston House), HIV & Hep C Testing and Wellness Center Services.
+<br />
+<br />
+TREATMENT ADHERENCE:
+<br />
+This program provides individual counseling, support groups and health education groups.
+<br />
+<br />
+CRCS (Comprehensive Risk Counseling Services):
+<br />
+Through CRCS T.H.E. utilizes tools and experience to recognize risk behaviors that could potentially lead to the transmission and infection of HIV. Through the program clients are provided with risk reduction intervention and assistance with goal setting tools and ongoing support to reach set goals.
+<br />
+<br />
+SUPPORTIVE HOUSING:
+<br />
+Housing services are provided to low-income residents living with HIV/AIDS in the Metropolitan Washington, D.C. region. 
+<br />
+<br />
+GLBTQ YOUTH HOUSING (Wanda Alston House):
+<br />
+Youth ages 16-24 years who suffer from various life issues related to substance abuse, mental health, homelessness, etc are offered pre-independent living.  Each client is assigned a life skills counselor who will work with the client for a minimum of 4 hours a day on issues related to employment/vocational training, housing and other referrals as needed.  Each client will be housed in their own room and reside in a house with a counselor whom they will report to daily and sign-in and out as needed.  Residents will be offered group therapy and be referred for other services.
+<br />
+<br />
+HIV & HEP C TESTING:
+<br />
+Counseling and Testing is provided free, safe and confidential to the general public. T.H.E. provides OraQuick testing, a reppid HIV or Hep C test that delivers results in less than 30 minutes. Testing is available Monday-Thursday, 11:00 am-2:00 pm and Friday from 12:00 pm - 3:00 pm.
+<br />
+<br />
+WELLNESS CENTER SERVICES:
+<br />
+By participating in one of the programs above clients are eligible to receive the folowing services provided at the Wellness Center: Laundry services (one load per week), lite meal, computer lab access and access to showers.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

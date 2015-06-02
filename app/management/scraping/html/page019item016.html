@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSk1MzIxIEZpcnN0IFBsYWNlLCBORSBXYXNoaW5ndG9uICBEQyAyMDAxMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSo1MzIxIEZpcnN0IFBsYWNlLCBORSBXYXNoaW5ndG9uICwgREMgMjAwMTFkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzQyLTE3MjA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPig4ODgpIDI3NS0zODQ1PGJyIC8+ZGQCBQ8PFgIfAgUqPGI+V2Vic2l0ZTogPC9iPnd3dy5saWdodGhvdXNlZGMub3JnPGJyIC8+ZGQCBw8PFgIfAgXNAzxiPkNhdGVnb3J5IDogPC9iPiBNZW50YWwgSGVhbHRoPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEFkdm9jYWN5L091dHJlYWNoIHNlcnZpY2VzLCBDYXNlIG1hbmFnZW1lbnQsIGUuZy4gcmVwcmVzZW50YXRpdmUgcGF5ZWUgc2VydmljZSwgQ3Jpc2lzIGludGVydmVudGlvbiwgTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IE91dHBhdGllbnQ8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBEb21lc3RpYyBWaW9sZW5jZSwgR3JpZWYgJmFtcDsgbG9zcywgVHJhdW1hLS1zZXh1YWwgYWJ1c2UvUFRTRC92aWN0aW1zIG9mIGNyaW1lPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBQZXJzb25zIHdpdGggcGh5c2ljYWwgZGlzYWJpbGl0eSwgVW5kZXIgYWdlIDE4LCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBV48Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlNlcnZpY2UgZWxpZ2liaWxpdHkgdmFyaWVzIHBsZWFzZSBjb250YWN0IGZvciBtb3JlIGRldGFpbHMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBc8HPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgTGlnaHRob3VzZSBDZW50ZXIgZm9yIEhlYWxpbmcgYnJpbmdzIHRvZ2V0aGVyIHNwZWNpYWxpc3RzIGZyb20gYSB2YXJpZXR5IG9mIERDLWFyZWEgb3JnYW5pemF0aW9ucyB0byBhc3Npc3QgdmljdGltcyBvZiBpbnRpbWF0ZSBwYXJ0bmVyIHZpb2xlbmNlLCBzZXh1YWwgdmlvbGVuY2UsIGFnZ3JhdmF0ZWQgYXNzYXVsdCBvciBvdGhlciB0cmF1bWF0aWMgZXZlbnRzLCBhbmQgZmFtaWx5IG1lbWJlcnMgb2YgaG9taWNpZGUgdmljdGltcy4gIFRoZXkgcHJvdmlkZSBpbmRpdmlkdWFsLCBncm91cCBjb3Vuc2VsaW5nLCBncmllZiBjb3Vuc2VsaW5nLCBjYXNlIG1hbmFnZW1lbnQsIHBlZXIgc3VwcG9ydCwgbGVnYWwgYXNzaXN0YW5jZSBhbmQgaG91c2luZy4gVmljdGltcyBjYW4gd2Fsay1pbiwgY2FsbCBvciBlbWFpbCBmb3IgYXNzaXN0YW5jZS4gIA0KPGJyIC8+DQo8YnIgLz4NCkFnZW5jaWVzIGF2YWlsYWJsZSB0byBwcm92aWRlIHNlcnZpY2VzIGluY2x1ZGU6IA0KPGJyIC8+DQpTQU5FIChTZXh1YWwgQXNzYXVsdCBOdXJzZSBFeGFtaW5lcikgLSBOdXJzaW5nIGNhcmUsIG1lZGljYWwgdGVzdGluZyBhbmQgc3VwcG9ydCBzZXJ2aWNlcyB0byBhZHVsdCB2aWN0aW1zIG9mIHJhcGUsIHNleHVhbCBhc3NhdWx0IGFuZCBvdGhlciBzZXggY3JpbWVzOyBEQyBSYXBlIENyaXNpcyBDZW50ZXI7IERlYWYgQWJ1c2VkIFdvbWVu4oCZcyBOZXR3b3JrIChEQVdOKTsgRGlzdHJpY3QgQWxsaWFuY2UgZm9yIFNhZmUgSG91c2luZyAoREFTSCk7IE5ldHdvcmsgZm9yIFZpY3RpbSBSZWNvdmVyeSBvZiBEQyAoTlZSREMpLiAgDQo8YnIgLz4NCjxiciAvPg0KRWFjaCBhZ2VuY3kgaGFzIHRoZWlyIG93biB3ZWJzaXRlcyB3aXRoIGRldGFpbGVkIGluZm9ybWF0aW9uIGFib3V0IHRoZWlyIHNlcnZpY2VzIGFzIHdlbGwuICBTZXJ2aWNlcyBwcm92aWRlZCBmcmVlIG9mIGNoYXJnZS4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzUwMB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZGAE8ym6lMeWgBPsXq6h12+Ozw4n" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKq0vKVBwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVhadh99pmpv0u1+bn/jQvMu0w8I" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="5321 First Place, NE Washington  DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="The Lighthouse Center for Healing" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">5321 First Place, NE Washington , DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 742-1720<br /><b>Phone No2:</b>(888) 275-3845<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.lighthousedc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Advocacy/Outreach services, Case management, e.g. representative payee service, Crisis intervention, Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Domestic Violence, Grief &amp; loss, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Men, Persons with physical disability, Under age 18, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Service eligibility varies please contact for more details.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Lighthouse Center for Healing brings together specialists from a variety of DC-area organizations to assist victims of intimate partner violence, sexual violence, aggravated assault or other traumatic events, and family members of homicide victims.  They provide individual, group counseling, grief counseling, case management, peer support, legal assistance and housing. Victims can walk-in, call or email for assistance.  
+<br />
+<br />
+Agencies available to provide services include: 
+<br />
+SANE (Sexual Assault Nurse Examiner) - Nursing care, medical testing and support services to adult victims of rape, sexual assault and other sex crimes; DC Rape Crisis Center; Deaf Abused Women’s Network (DAWN); District Alliance for Safe Housing (DASH); Network for Victim Recovery of DC (NVRDC).  
+<br />
+<br />
+Each agency has their own websites with detailed information about their services as well.  Services provided free of charge. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

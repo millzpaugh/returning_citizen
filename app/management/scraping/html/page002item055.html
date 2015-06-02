@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkxMzU3IFZhbGxleSBQbGFjZSwgU0UgV2FzaGluZ3RvbiBEQyAyMDAzMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoxMzU3IFZhbGxleSBQbGFjZSwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMzJkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjEwLTU1NjA8YnIgLz5kZAIFDw8WAh8CBSQ8Yj5XZWJzaXRlOiA8L2I+d3d3LmRjY2ZoLm9yZy88YnIgLz5kZAIHDw8WAh8CBc0BPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gRmFtaWxpZXMsIFBlcnNvbnMgaW4gcmVjb3ZlcnksIFBlcnNvbnMgd2l0aCBtZW50YWwgaWxsbmVzcywgV29tZW4gd2l0aCBjaGlsZHJlbjxiciBcPmRkAgkPDxYCHwIFUzxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgV8PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Ib21lbGVzcyBmYW1pbGllczsgcmVmZXJyZWQgYnkgYW4gYWdlbmN5IChpLmUuIFZpcmdpbmlhIFdpbGxpYW1zIEZhbWlseSBSZXNvdXJjZSBDZW50ZXIpLjxiciAvPmRkAhEPDxYCHwIFODxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UmVmZXJyYWwgKGJ5IGFnZW5jeSkuPGJyIC8+ZGQCEw8PFgIfAgWaDjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIENvYWxpdGlvbiBmb3IgdGhlIEhvbWVsZXNzIGlzIGEgbm9uLXByb2ZpdCBvcmdhbml6YXRpb24gdGhhdCBoYXMgc2VydmVkIHRoZSBXYXNoaW5ndG9uIG1ldHJvcG9saXRhbiBhcmVhIHNpbmNlIDE5ODAuIEl0cyBtaXNzaW9uIGlzIHRvIGhlbHAgaG9tZWxlc3MsIGF0LXJpc2sgaW5kaXZpZHVhbHMgYW5kIGZhbWlsaWVzIHJldHVybiB0byBzZWxmLXN1ZmZpY2llbmN5IGFuZCBpbmRlcGVuZGVudCBsaXZpbmcsIHRocm91Z2ggYSByYW5nZSBvZiByZXNpZGVudGlhbCBhbmQgc29jaWFsIHNlcnZpY2VzLg0KPGJyIC8+IA0KPGJyIC8+ICANClZhbGxleSBQbGFjZSBUcmFuc2l0aW9uYWwgQXBhcnRtZW50IFByb2dyYW0gaXMgcGFydCBvZiB0aGUgQ29hbGl0aW9uIGZvciB0aGUgSG9tZWxlc3MsIEZhbWlseSBTZXJ2aWNlcyBwcm9ncmFtLiBUaGUgcHJvZ3JhbSBwcm92aWRlcyBzaGVsdGVyIGFuZCBwcm9ncmFtcyB0aGF0IGhlbHAgaG9tZWxlc3MgZmFtaWxpZXMgcmVnYWluIHN0YWJpbGl0eSBpbiB0aGVpciBsaXZlcyBhbmQgYWRkcmVzcyB0aGUgcm9vdCBjYXVzZSBvZiBwb3ZlcnR5LCBkeXNmdW5jdGlvbiwgYW5kIGhvbWVsZXNzbmVzcy4gVGhlIHByb2dyYW0gZm9jdXNlcyBvbiBzdWJzdGFuY2UgYWJ1c2UsIG1lbnRhbCBoZWFsdGgsIGVtcGxveW1lbnQgYW5kIHRyYWluaW5nLCBob3VzaW5nIGlzc3VlcywgYW5kIHRoZSBkZXZlbG9wbWVudCBhbmQgZWR1Y2F0aW9uYWwgbmVlZHMgb2YgdGhlIGNoaWxkcmVuLg0KPGJyIC8+DQo8YnIgLz4NClZhbGxleSBQbGFjZSBGYW1pbHkgVHJhbnNpdGlvbmFsIEFwYXJ0bWVudCBQcm9ncmFtIGlzIGEgMjQtaG91ciB0cmFuc2l0aW9uYWwgaG91c2luZyBwcm9ncmFtIGZvciBob21lbGVzcyBmYW1pbGllcy4gVmFsbGV5IFBsYWNlIHByb3ZpZGVzIDE4IGZ1bGx5LWVxdWlwcGVkIGFwYXJ0bWVudCB1bml0cyB0byBiZSB1c2VkIGFzIHRyYW5zaXRpb25hbCBob3VzaW5nIGZvciBob21lbGVzcyBmYW1pbGllcyB3aXRoIGNoaWxkcmVuIHdobyBoYXZlIGxpdmVkIGluIGVtZXJnZW5jeSBzaGVsdGVyIGZvciBhdCBsZWFzdCBzaXggbW9udGhzLCBidXQgaGF2ZSBleHBlcmllbmNlZCBkaWZmaWN1bHR5IGluIG9idGFpbmluZyBwZXJtYW5lbnQgbGl2aW5nIHNpdHVhdGlvbnMgZHVlIHRvIGV4dGVudWF0aW5nIGNpcmN1bXN0YW5jZXMuIFZhbGxleSBQbGFjZSBpcyBsb2NhdGVkIGF0IDEzNTUgYW5kIDEzNTcgVmFsbGV5IFBsYWNlLCBTRSBpbiBXYXNoaW5ndG9uLCBEQy4NCjxiciAvPiANCjxiciAvPiAgDQpTZXJ2aWNlcyBwcm92aWRlZCBpbmNsdWRlIGVtcGxveW1lbnQgKGUuZy4sIHJlZmVycmFscyBmb3Igam9iIHJlYWRpbmVzcywgam9iIHRyYWluaW5nLCBhbmQgZW1wbG95bWVudCksIHN1YnN0YW5jZSBhYnVzZSBjb3Vuc2VsaW5nIChlLmcuLCBvbi1zaXRlIHN1YnN0YW5jZSBlZHVjYXRpb24gYW5kIHJlbGFwc2UgcHJldmVudGlvbiBncm91cCwgYW5kIHJlZmVycmFscyBmb3IgZGV0b3ggYW5kIHN1YnN0YW5jZSBhYnVzZSByZXNpZGVudGlhbCBhbmQgb3V0LXBhdGllbnQgdHJlYXRtZW50KSwgbGlmZSBza2lsbHMgdHJhaW5pbmcgKGUuZy4sIHBhcmVudGluZyBza2lsbHMsIGhvbWVtYWtpbmcsIGJ1ZGdldGluZywgdGltZSBtYW5hZ2VtZW50KSwgZ2VuZXJhbCBzb2NpYWwgc2VydmljZXMgKGUuZy4sIHJlZmVycmFscyBmb3IgbWVkaWNhbCBjYXJlLCBtZW50YWwgaGVhbHRoIHRyZWF0bWVudCwgY2hpbGQgY2FyZSBhbmQgcHVibGljIGFzc2lzdGFuY2UpLCBhbmQgcGVybWFuZW50IGhvdXNpbmcgcGxhY2VtZW50LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxMzQeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQIEMRFo6rkwZXFZISBtZgqZzoH0A==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKoyqmhDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAbl1Ui8a8uHhHmTygeoCyN/b4jYc" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1357 Valley Place, SE Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Coalition for the Homeless (Valley Place)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1357 Valley Place, SE Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 610-5560<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dccfh.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Families, Persons in recovery, Persons with mental illness, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless families; referred by an agency (i.e. Virginia Williams Family Resource Center).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Referral (by agency).<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Coalition for the Homeless is a non-profit organization that has served the Washington metropolitan area since 1980. Its mission is to help homeless, at-risk individuals and families return to self-sufficiency and independent living, through a range of residential and social services.
+<br /> 
+<br />  
+Valley Place Transitional Apartment Program is part of the Coalition for the Homeless, Family Services program. The program provides shelter and programs that help homeless families regain stability in their lives and address the root cause of poverty, dysfunction, and homelessness. The program focuses on substance abuse, mental health, employment and training, housing issues, and the development and educational needs of the children.
+<br />
+<br />
+Valley Place Family Transitional Apartment Program is a 24-hour transitional housing program for homeless families. Valley Place provides 18 fully-equipped apartment units to be used as transitional housing for homeless families with children who have lived in emergency shelter for at least six months, but have experienced difficulty in obtaining permanent living situations due to extenuating circumstances. Valley Place is located at 1355 and 1357 Valley Place, SE in Washington, DC.
+<br /> 
+<br />  
+Services provided include employment (e.g., referrals for job readiness, job training, and employment), substance abuse counseling (e.g., on-site substance education and relapse prevention group, and referrals for detox and substance abuse residential and out-patient treatment), life skills training (e.g., parenting skills, homemaking, budgeting, time management), general social services (e.g., referrals for medical care, mental health treatment, child care and public assistance), and permanent housing placement.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

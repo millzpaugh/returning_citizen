@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxNTAwIExvZyBDYWJpbiBSb2FkIEJlYXZlcmRhbSBWQSAyMzAxNWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxNTAwIExvZyBDYWJpbiBSb2FkIEJlYXZlcmRhbSwgVkEgMjMwMTVkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDgwNCkgNDQ4LTI3NTA8YnIgLz48Yj5GYXggTm86PC9iPig4MDQpIDQ0OC00NTExPGJyIC8+ZGQCBQ8PFgIfAgUuPGI+V2Vic2l0ZTogPC9iPnd3dy5uZXdsaWZlZm9yeW91dGguY29tLzxiciAvPmRkAgcPDxYCHwIF9wI8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFJlc2lkZW50aWFsIGxvbmctdGVybSB0cmVhdG1lbnQgKG1vcmUgdGhhbiAzMCBkYXlzKTxiciBcPjxiPlByb2dyYW0gOiA8L2I+IFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgVW5kZXIgYWdlIDIxLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQ8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFcDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+UGVyc29ucyBjaGFyZ2VkIHdpdGggY2VydGFpbiBjcmltZXMgYXJlIGV4Y2x1ZGVkLiAgQ2FsbCBmb3IgbW9yZSBpbmZvcm1hdGlvbi48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF0xc8Yj5EZXNjcmlwdGlvbjogPC9iPk5ldyBMaWZlIGZvciBZb3V0aCBpcyBhIGZhaXRoIGJhc2VkLCBub24tcHJvZml0IG9yZ2FuaXphdGlvbiB0aGF0IHByb3ZpZGVzIGNvbXByZWhlbnNpdmUsIGxvbmctdGVybSBhc3Npc3RhbmNlIGFuZCB0cmFuc2l0aW9uYWwgaG91c2luZyB0byBwZW9wbGUgc3VmZmVyaW5nIGZyb20gbGlmZS1jb250cm9sbGluZyBwcm9ibGVtcy4gVGhlIHByb2dyYW0gaGVscHMgbWVuIGFuZCB3b21lbiBmcm9tIGFsbCBiYWNrZ3JvdW5kcywgbG9jYWxlcyBhbmQgd2Fsa3Mgb2YgbGlmZS4gUGFydGljaXBhbnRzIGFyZSBwcm92aWRlZCB3aXRoIHNwaXJpdHVhbCwgZWR1Y2F0aW9uYWwsIHZvY2F0aW9uYWwsIGFuZCBsZWFkZXJzaGlwIHRyYWluaW5nIGF0IHJlc2lkZW50aWFsIGZhY2lsaXRpZXMgd2l0aCBhbiBlbXBoYXNpcyBvbiBwZXJzb25hbCBjaGFuZ2UgYW5kIGltcHJvdmVtZW50LiBOZXcgTGlmZSBGb3IgWW91dGggb3BlcmF0ZXMgYSBmb3VyLXBoYXNlIENocmlzdGlhbiBncm93dGggcHJvZ3JhbSB3aXRoIGFuIG9wdGlvbmFsIGZpZnRoIHBoYXNlIGZvciB0aG9zZSBpbnRlcmVzdGVkIGluIHB1cnN1aW5nIG1pbmlzdHJ5IHRyYWluaW5nIChNZW7igJlzIHByb2dyYW0pLiANCjxiciAvPg0KPGJyIC8+DQpQaGFzZSAxIOKAkyBPcmllbnRhdGlvbjoNClRoZSBvcmllbnRhdGlvbiBwaGFzZSBpcyBhIG1pbmltdW0gb2YgMyBtb250aHMuICBUaGlzIGluY2x1ZGVzIGEgcHJvYmF0aW9uYXJ5IHBlcmlvZCBvZiBvbmUgbW9udGggZm9yIHRoZSBzdHVkZW50IHRvIGFkanVzdCB0byB0aGUgcmVzaWRlbnRpYWwgYW5kIHN0cnVjdHVyZWQgbmF0dXJlIG9mIHRoZSBwcm9ncmFtLiAgQXQgdGhlIGVuZCBvZiB0aGlzIHRyaWFsIHBlcmlvZCBvZiAzMCBkYXlzLCB0aGVyZSB3aWxsIGJlIGFuIGV2YWx1YXRpb24gYnkgdGhlIFByb2dyYW0gRGVwYXJ0bWVudCBhcyB0byB0aGUgc3R1ZGVudCdzIHByb2dyZXNzLiAgQSBkZWNpc2lvbiB3aWxsIGJlIG1hZGUgYXQgdGhpcyB0aW1lIHdoZXRoZXIgY29udGludWluZyB0aGUgcHJvZ3JhbSBpcyB0aGUgYmVzdCBwbGFuIGZvciB0aGUgaW5kaXZpZHVhbCBhbmQgdGhlIHByb2dyYW0uDQo8YnIgLz4NCjxiciAvPg0KUGhhc2UgMiDigJMgSW5kdWN0aW9uOg0KVGhlIGluZHVjdGlvbiBwaGFzZSBpbnZvbHZlcyBhIG1pbmltdW0gb2YgMyBtb250aHMgd2l0aCBkaXNjaXBsZXNoaXAsIGNvdW5zZWxpbmcsIHRlYWNoaW5nIChpbmRpdmlkdWFsIGFuZCBncm91cCksIHZvY2F0aW9uYWwgdHJhaW5pbmcsIEJpYmxlIHN0dWRpZXMsIENoYXBlbCBzZXJ2aWNlcywgcmVjcmVhdGlvbiwgZXRjLiAgSW4gb3JkZXIgdG8gY29tcGxldGUgdGhpcyBwaGFzZSwgdGhlIHN0dWRlbnQgaXMgZXhwZWN0ZWQgdG8gZm9sbG93IGluc3RydWN0aW9ucywgaGF2ZSBhIHRlYWNoYWJsZSBhdHRpdHVkZSBhbmQgcmVzcGVjdCBmb3IgdGhlIHBlb3BsZSBhcm91bmQgeW91Lg0KPGJyIC8+DQo8YnIgLz4NClBoYXNlIDMg4oCTIFRyYWluaW5nOg0KVGhlIHB1cnBvc2Ugb2YgdGhpcyB0aHJlZS1tb250aCBwaGFzZSBpcyB0byBwcmVwYXJlIHRoZSBzdHVkZW50IGZvciBhIHN1Y2Nlc3NmdWwgcmV0dXJuIHRvIHNvY2lldHkuICBBdCB0aGlzIHBvaW50IGluIHRoZWlyIHByb2dyYW0sIHRoZSBzdHVkZW50cyBtdXN0IGxlYXJuIHRvIGZhY2UgZXZlcnlkYXkgY2lyY3Vtc3RhbmNlIGFuZCBwcm9ibGVtcyBhcHByb3ByaWF0ZWx5LCBhbmQgc2hvdyBjb250aW51ZWQgZ3Jvd3RoIGFuZCBzdGFiaWxpdHkuICBFYWNoIGluZGl2aWR1YWwgcmVjZWl2ZXMgdm9jYXRpb25hbCBhbmQgYWNhZGVtaWMgdHJhaW5pbmcsIGRpc2NpcGxlc2hpcCwgbGlmZS1za2lsbHMgdHJhaW5pbmcsIGFuZCBtdXN0IHBhcnRpY2lwYXRlIGluIGNvbW11bml0eSBpbnZvbHZlbWVudCBhbmQgYXdhcmVuZXNzIGFjdGl2aXRpZXMuDQo8YnIgLz4NCjxiciAvPg0KVG8gY29tcGxldGUgdGhpcyBwaGFzZSB5b3Ugd2lsbCBiZSBzaG93aW5nIHRoYXQgeW91IGNhbjogYWNjZXB0IHBlcnNvbmFsIHJlc3BvbnNpYmlsaXR5LCBtYWtlIHdpc2UgY2hvaWNlcywgYmUgc2VsZi1tb3RpdmF0ZWQsIHNob3cgaW5pdGlhdGl2ZSwgaGF2ZSB0YW5naWJsZSBnb2FscyBmb3IgdGhlIGZ1dHVyZSwgY29tcGxldGUgdGhlIGFjYWRlbWljIGdvYWxzIGZvciB0aGlzIHBoYXNlLCBkZW1vbnN0cmF0ZSB0aGUgYWJpbGl0eSB0byBhcHBseSBhbmQgY2Fycnkgb3V0IHRoZSBwcmluY2lwbGVzIHRoYXQgaGF2ZSBiZWVuIGxlYXJuZWQgaW4gdGhlIHByb2dyYW0uDQo8YnIgLz4NCjxiciAvPg0KUGhhc2UgNCDigJMgUmUtRW50cnk6DQpEdXJpbmcgdGhlIGxhc3QgbW9udGggYW5kIHByaW9yIHRvIHRoZSBjb21wbGV0aW9uIG9mIHBoYXNlIDMsIHRoZSBzdHVkZW50IGlzIGFzc2Vzc2VkIGFuZCBwbGFucyBhcmUgbWFkZSBmb3IgdGhlIHJlLWVudHJ5IHByb2dyYW0gdGhhdCB3aWxsIHByb3ZlIG1vc3QgYmVuZWZpY2lhbCBmb3IgdGhlIHN0dWRlbnQuIEVhY2ggcmUtZW50cnkgcHJvZ3JhbSBpcyB1bmlxdWUgYW5kIGlzIGRlc2lnbmVkIHRvIGZpdCB0aGUgc3R1ZGVudOKAmXMgc3BlY2lmaWMgbmVlZHMuIFRoZSBEZWFuIG9mIFN0dWRlbnRzIGFuZC8gb3IgRGlyZWN0b3Igd2lsbCBhc3Npc3QgaW4gdGhlIHN0dWRlbnQncyByZS1lbnRyeSBwbGFucy4gU29tZSBleGFtcGxlcyBvZiByZS1lbnRyeSBtYXkgYmU6IGVtcGxveW1lbnQsIHNjaG9vbCwgYW5kIGFwcGx5IGZvciBhbiBpbnRlcm5zaGlwIGF0IGEgTmV3IExpZmUgZm9yIFlvdXRoIENlbnRlci4NCjxiciAvPg0KPGJyIC8+DQpSZWZlcnJhbHMgYW5kIHN0dWRlbnRzIGNvbWUgZnJvbSBtYW55IGRpZmZlcmVudCBhZ2VuY2llcyBhbmQgYXZlbnVlcywgZm9yIGV4YW1wbGUgQ2h1cmNoZXMsIENvdW5zZWxpbmcgQ2VudGVycywgdGhlIERlcGFydG1lbnQgb2YgSnVzdGljZSwgaG9zcGl0YWxzIGFuZCBoZWFsdGggY2VudGVycyBhbnl3aGVyZSBpbiB0aGUgVVNBLiBXZSBhcmUgbm90IGxpbWl0ZWQgYnkgZGlzdGFuY2UuDQo8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjk2Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkFboVvyjxzRy7CNzwVDneXClj/3w=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLv3fGXDQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAT7AJRDh9e6AKIALkl3iuU8g50w6" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1500 Log Cabin Road Beaverdam VA 23015" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="New Life for Youth" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1500 Log Cabin Road Beaverdam, VA 23015</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(804) 448-2750<br /><b>Fax No:</b>(804) 448-4511<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.newlifeforyouth.com/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days)<br \><b>Program : </b> Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Men, Under age 21, Women<br \><b>Forms Of Payment : </b> Public funding, Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Persons charged with certain crimes are excluded.  Call for more information.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>New Life for Youth is a faith based, non-profit organization that provides comprehensive, long-term assistance and transitional housing to people suffering from life-controlling problems. The program helps men and women from all backgrounds, locales and walks of life. Participants are provided with spiritual, educational, vocational, and leadership training at residential facilities with an emphasis on personal change and improvement. New Life For Youth operates a four-phase Christian growth program with an optional fifth phase for those interested in pursuing ministry training (Men’s program). 
+<br />
+<br />
+Phase 1 – Orientation:
+The orientation phase is a minimum of 3 months.  This includes a probationary period of one month for the student to adjust to the residential and structured nature of the program.  At the end of this trial period of 30 days, there will be an evaluation by the Program Department as to the student's progress.  A decision will be made at this time whether continuing the program is the best plan for the individual and the program.
+<br />
+<br />
+Phase 2 – Induction:
+The induction phase involves a minimum of 3 months with discipleship, counseling, teaching (individual and group), vocational training, Bible studies, Chapel services, recreation, etc.  In order to complete this phase, the student is expected to follow instructions, have a teachable attitude and respect for the people around you.
+<br />
+<br />
+Phase 3 – Training:
+The purpose of this three-month phase is to prepare the student for a successful return to society.  At this point in their program, the students must learn to face everyday circumstance and problems appropriately, and show continued growth and stability.  Each individual receives vocational and academic training, discipleship, life-skills training, and must participate in community involvement and awareness activities.
+<br />
+<br />
+To complete this phase you will be showing that you can: accept personal responsibility, make wise choices, be self-motivated, show initiative, have tangible goals for the future, complete the academic goals for this phase, demonstrate the ability to apply and carry out the principles that have been learned in the program.
+<br />
+<br />
+Phase 4 – Re-Entry:
+During the last month and prior to the completion of phase 3, the student is assessed and plans are made for the re-entry program that will prove most beneficial for the student. Each re-entry program is unique and is designed to fit the student’s specific needs. The Dean of Students and/ or Director will assist in the student's re-entry plans. Some examples of re-entry may be: employment, school, and apply for an internship at a New Life for Youth Center.
+<br />
+<br />
+Referrals and students come from many different agencies and avenues, for example Churches, Counseling Centers, the Department of Justice, hospitals and health centers anywhere in the USA. We are not limited by distance.
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

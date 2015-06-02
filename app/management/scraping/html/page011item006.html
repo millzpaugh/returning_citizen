@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8xMzMxIEggU3RyZWV0LCBOVyAgU1RFLiAzNTAgV2FzaGluZ3RvbiBEQyAyMDAwNWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAxMzMxIEggU3RyZWV0LCBOVyAgU1RFLiAzNTAgV2FzaGluZ3RvbiwgREMgMjAwMDVkZAIDDw8WAh8CBYABPGI+Q29udGFjdCBQZXJzb246PC9iPkVyaWMgQW5nZWwtIEV4ZWN1dGl2ZSBEaXJlY3RvcjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA2MjgtMTE2MTxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNzI3LTIxMzI8YnIgLz5kZAIFDw8WAh8CBSg8Yj5XZWJzaXRlOiA8L2I+d3d3LmxlZ2FsYWlkZGMub3JnPGJyIC8+ZGQCBw8PFgIfAgWBAjxiPkNhdGVnb3J5IDogPC9iPiBMZWdhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBMZWdhbDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IERvbWVzdGljIFZpb2xlbmNlLCBGYW1pbHkgbGF3LS1jaGlsZCBjdXN0b2R5LCBzdXBwb3J0LCB2aXNpdGF0aW9uLCBndWFyZGlhbnNoaXAsIExhbmRsb3JkL1RlbmFudC9GYWlyIGhvdXNpbmcsIFB1YmxpYyBiZW5lZml0czxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgViPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+SW50YWtlOiBNb25kYXlzIDEyOjMwIHBtIC0gNjowMCBwbTsgVGh1cnNkYXlzIDEyOjMwIHBtIC0gNDowMCBwbS48YnIgLz5kZAIPDw8WAh8CBVM8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlN0cmljdCBpbmNvbWUgZ3VpZGVsaW5lcyBkZXRlcm1pbmUgZWxpZ2liaWxpdHkuIDxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgX0AzxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIExlZ2FsIEFpZCBTb2NpZXR5IG9mIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSBwcm92aWRlcyBzZXJ2aWNlcyBmcmVlIHRvIGluZGlnZW50IERDLCBNRCBhbmQgVkEgcmVzaWRlbnRzIGlmIGNhc2Ugb2NjdXJyZWQgaW4gdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhLiBQb3RlbnRpYWwgY2xpZW50cyBtdXN0IG1lZXQgc3RyaWN0IGluY29tZSBndWlkZWxpbmVzIGZvciBlbGlnaWJpbGl0eS4gTGVnYWwgc2VydmljZXMgYXJlIGF2YWlsYWJsZSBmb3IgTGFuZGxvcmQvdGVuYW50IGRpc3B1dGVzL2lzc3VlcywgZGlzYWJpbGl0eSwgcHVibGljIGJlbmVmaXRzLCBhbmQgZmFtaWx5IGxhdyAoY3VzdG9keSwgdmlzaXRhdGlvbiwgZ3VhcmRpYW5zaGlwKS4gQWRkaXRpb25hbGx5IHRoZXJlIGlzIGEgRG9tZXN0aWMgVmlvbGVuY2UgSW50YWtlIFVuaXQgd2hpY2ggY2FuIGJlIHJlYWNoZWQgYnkgY2FsbGluZyAoMjAyKSA1NjEtMzAwMC4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzIwMh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZLhxmNTfey9Qcghgm6NUPmNVaX5x" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK4r5OlBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZlDkL28INSsdKYf4K9mHStQTL2F" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1331 H Street, NW  STE. 350 Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Legal Aid Society of the District of Columbia" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1331 H Street, NW  STE. 350 Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Eric Angel- Executive Director<br /><b>Phone No:</b>(202) 628-1161<br /><b>Fax No:</b>(202) 727-2132<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.legalaiddc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Domestic Violence, Family law--child custody, support, visitation, guardianship, Landlord/Tenant/Fair housing, Public benefits<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Intake: Mondays 12:30 pm - 6:00 pm; Thursdays 12:30 pm - 4:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Strict income guidelines determine eligibility. <br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Legal Aid Society of the District of Columbia provides services free to indigent DC, MD and VA residents if case occurred in the District of Columbia. Potential clients must meet strict income guidelines for eligibility. Legal services are available for Landlord/tenant disputes/issues, disability, public benefits, and family law (custody, visitation, guardianship). Additionally there is a Domestic Violence Intake Unit which can be reached by calling (202) 561-3000. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

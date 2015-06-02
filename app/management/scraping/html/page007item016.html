@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSg3NDI2IDEzdGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDEyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTc0MjYgMTN0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDEyZGQCAw8PFgIfAgV5PGI+Q29udGFjdCBQZXJzb246PC9iPkJldHR5IEpvaG5zb24tIERpcmVjdG9yPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDI5MS02Njk2PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1MjUtMTI0MzxiciAvPmRkAgUPDxYCHwJlZGQCBw8PFgIfAgWlATxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFRyYW5zaXRpb25hbCBob3VzaW5nL1NpbmdsZSBSb29tIE9jY3VwYW5jeTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyB3aXRoIG1lbnRhbCBpbGxuZXNzLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgWLATxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+U2luZ2xlIG1lbiBhbmQgc2luZ2xlIHdvbWVuIHdpdGggbWVudGFsIGlsbG5lc3Mgd2hvIHJlY2VpdmUgYmVuZWZpdHMgdGhyb3VnaCB0aGUgRGVwdC4gb2YgTWVudGFsIEhlYWx0aC48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF0QM8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBIb2xseSBIb3VzZSBpcyBhIGxvbmctdGVybSByZXNpZGVudGlhbCBwcm9ncmFtLCBmb3IgbWVudGFsbHkgaWxsIGFuZCBob21lbGVzcywgdW5hdHRhY2hlZCBhZHVsdHMuIFRoZSBwcm9ncmFtIHByb3ZpZGVzIHJlc2lkZW50cyB3aXRoIDI0IGhvdXIgc3VwZXJ2aXNpb24uIEFsbCBhcHBsaWNhbnRzIG11c3QgcmVjZWl2ZSBTb2NpYWwgU2VjdXJpdHkgRGlzYWJpbGl0eSBJbnN1cmFuY2UgKFNTREkpIG9yIFNvY2lhbCBTZWN1cml0eSBJbnN1cmFuY2UgKFNTSSkgYW5kIGJlIGNvbm5lY3RlZCB3aXRoIGEgQ29tbXVuaXR5IFNlcnZpY2UgQWdlbmN5IChDU0EpLiBFbGlnaWJsZSByZXNpZGVudHMgd2hvIHJlY2VpdmUgYmVuZWZpdHMgdGhyb3VnaCB0aGUgRGVwYXJ0bWVudCBvZiBNZW50YWwgSGVhbHRoIChETUgpLiANCjxiciAvPg0KPGJyIC8+DQpNZXRyb2J1czogUzI8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTU2Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkqgrDc1p/Ol2k/iuwiq0XdOp0Cuo=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKzxanUCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQ6Y46Pmp0vMGMl+bbuWB6GKViLE" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="7426 13th Street, NW Washington DC 20012" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Holly House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">7426 13th Street, NW Washington, DC 20012</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Betty Johnson- Director<br /><b>Phone No:</b>(202) 291-6696<br /><b>Fax No:</b>(202) 525-1243<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Persons with mental illness, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Single men and single women with mental illness who receive benefits through the Dept. of Mental Health.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Holly House is a long-term residential program, for mentally ill and homeless, unattached adults. The program provides residents with 24 hour supervision. All applicants must receive Social Security Disability Insurance (SSDI) or Social Security Insurance (SSI) and be connected with a Community Service Agency (CSA). Eligible residents who receive benefits through the Department of Mental Health (DMH). 
+<br />
+<br />
+Metrobus: S2<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

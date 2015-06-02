@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs5MjAgQmVsbGV2dWUgU3RyZWV0LCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDkyMCBCZWxsZXZ1ZSBTdHJlZXQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVyPGI+Q29udGFjdCBQZXJzb246PC9iPkhlbnJ5IFBpZXJjZSBJSUk8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTYyLTQ5Mzk8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDU2Mi01NjAyPGJyIC8+ZGQCBQ8PFgIfAgUxPGI+V2Vic2l0ZTogPC9iPnd3dy5mZWRlcmFsY2l0eXJlY292ZXJ5Lm9yZzxiciAvPmRkAgcPDxYCHwIF1wI8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFJlc2lkZW50aWFsIHNob3J0LXRlcm0gdHJlYXRtZW50ICgzMCBkYXlzIG9yIGxlc3MpPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudDxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgUGVyc29ucyB3aXRoIEhJVi9BSURTLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBV08Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk1lbiBhbmQgd29tZW4gaW4gcmVjb3ZlcnkgYW5kIHRoZSBjcmltaW5hbCBqdXN0aWNlIHN5c3RlbS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF1Qc8Yj5EZXNjcmlwdGlvbjogPC9iPkZlZGVyYWwgQ2l0eSBSZWNvdmVyeSBTZXJ2aWNlcyAoRkNSUykgY3VycmVudGx5IHByb3ZpZGVzIHRyYW5zaXRpb25hbCBob3VzaW5nIGZvciBtZW4gYW5kICB3b21lbiBpbiBzaXRlcyB0aHJvdWdob3V0IFdhc2hpbmd0b24sIERDLiBXaGVuIEZDUlMgd2FzIGVzdGFibGlzaGVkLCBpdCB3YXMgaW5jb3Jwb3JhdGVkIHRvIHByb3ZpZGUgdHJhbnNpdGlvbmFsIGhvdXNpbmcgIGFuZCB0byBmdXJ0aGVyIGFkZHJlc3MgdGhlIHN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQgbmVlZHMgb2YgdGhvc2Ugd2hvIGhhdmUgaXNzdWVzIHdpdGggdGhlIGNyaW1pbmFsIGp1c3RpY2Ugc3lzdGVtLiBXaXRoIHRoZSBBY2Nlc3MgdG8gUmVjb3ZlcnkgKEFUUikgUHJvZ3JhbSwgRkNSUyB3b3JrcyB3aXRoIERDIFByZXRyaWFsIFNlcnZpY2VzIGFuZCB0aGUgRGVwYXJ0bWVudCBvZiBKdXN0aWNlIHRvIHByb3ZpZGUgYSBjb21wbGV0ZSBjb250aW51dW0gb2YgY2FyZSBmb3IgbWVuLCB3b21lbiBhbmQgZmFtaWxpZXMgaW4gUHJldHJpYWwgc3RhdHVzLCBhbmQvb3Igb24gUGFyb2xlIG9yIFByb2JhdGlvbi4gRkNSUyBhbHNvIHByb3ZpZGVzIHRyYW5zaXRpb25hbCByZWNvdmVyeSBjYXJlIGhvdXNpbmcgZm9yIG1lbiBhbmQgd29tZW4gaW4gdGhyZWUgc2l0ZXMgdGhyb3VnaG91dCB0aGUgV2FzaGluZ3RvbiwgREMgYXJlYSB3aXRoIGEgY3VycmVudCBjYXBhY2l0eSBmb3IgODYgcGVvcGxlLg0KPGJyIC8+DQo8YnIgLz4NCkZDUlMgYWxzbyB3b3JrcyBjbG9zZWx5IHdpdGggdGhlIERDIERlcGFydG1lbnQgb2YgSGVhbHRoLS1BUFJBIHByb2dyYW0gdG8gcHJvdmlkZSBzdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50IGFmdGVyY2FyZSwgZW1wbG95bWVudCBzZXJ2aWNlcywgY2FzZSBtYW5hZ2VtZW50LCByZWNvdmVyeSBjb3Vuc2VsaW5nLCBlZHVjYXRpb24gaW4gdGhyZWUgb3V0cGF0aWVudCBjZW50ZXJzLiA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUBMh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZKKa65r8aiSfSw/G5DZlJJFEcGWe" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL/xJH0BAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAetPxnlCViRObFhyLAyHBjBPCQVM" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="920 Bellevue Street, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Federal City Recovery Services (Bellevue)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">920 Bellevue Street, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Henry Pierce III<br /><b>Phone No:</b>(202) 562-4939<br /><b>Fax No:</b>(202) 562-5602<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.federalcityrecovery.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential short-term treatment (30 days or less)<br \><b>Program : </b> Anger management<br \><b>Population : </b> Criminal justice involved, Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and women in recovery and the criminal justice system.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Federal City Recovery Services (FCRS) currently provides transitional housing for men and  women in sites throughout Washington, DC. When FCRS was established, it was incorporated to provide transitional housing  and to further address the substance abuse treatment needs of those who have issues with the criminal justice system. With the Access to Recovery (ATR) Program, FCRS works with DC Pretrial Services and the Department of Justice to provide a complete continuum of care for men, women and families in Pretrial status, and/or on Parole or Probation. FCRS also provides transitional recovery care housing for men and women in three sites throughout the Washington, DC area with a current capacity for 86 people.
+<br />
+<br />
+FCRS also works closely with the DC Department of Health--APRA program to provide substance abuse treatment aftercare, employment services, case management, recovery counseling, education in three outpatient centers. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

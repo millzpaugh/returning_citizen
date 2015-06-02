@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxOTMzIE1vbnRhbmEgQXZlbnVlLCBORSBXYXNoaW5ndG9uIERDIDIwMDAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDE5MzMgTW9udGFuYSBBdmVudWUsIE5FIFdhc2hpbmd0b24sIERDIDIwMDAyZGQCAw8PFgIfAgVcPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDg0Mi0yMDE2IDxiPkV4dDo8L2I+MTI5ODxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgODQ2LTA2MDQ8YnIgLz5kZAIFDw8WAh8CBTM8Yj5XZWJzaXRlOiA8L2I+d3d3LnBsY250dS5vcmcvd2FzaGluZ3Rvbi5waHA8YnIgLz5kZAIHDw8WAh8CBZkBPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBVA8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPigxOCAtIDIxIHlycyk7IFJlZmVycmFscyBmcm9tIERZUlMgYW5kIENGU0EuIDxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXqCzxiPkRlc2NyaXB0aW9uOiA8L2I+UHJvZ3Jlc3NpdmUgTGlmZSBDZW50ZXIncyAoUExDKSBzY2F0dGVyZWQgc2l0ZSBzZW1pLWluZGVwZW5kZW50IGxpdmluZyBwcm9ncmFtIHByb3ZpZGVzIGVsaWdpYmxlIHJlZmVycmVkIGFuZCBhc3Nlc3NlZCB5b3V0aCwgMTgtMjEgeWVhcnMgb2YgYWdlLCBieSB0aGUgV2FzaGluZ3RvbiwgREMgRGVwYXJ0bWVudCBvZiBZb3V0aCBSZWhhYmlsaXRhdGlvbiBTZXJ2aWNlcyAoRFlSUykgdGhlIHNraWxscyB0bzogIm1vdmUgb3V0IGFuZCBtYWtlIGl0LiIgDQo8YnIgLz4NCjxiciAvPg0KVGhlIFN1YmlyYSAoUGF0aWVuY2UgUmV3YXJkZWQpIHByb2dyYW0ncyByZXNpZGVudHMgYXJlIGNvbW1pdHRlZCBEQyB5b3V0aCBjdXJyZW50bHkgb24gdGhlaXIgd2F5IG91dCBmcm9tIGRldGVudGlvbiBmYWNpbGl0aWVzIG9yIHN0ZXBwaW5nIGRvd24gZnJvbSB0aGUganV2ZW5pbGUganVzdGljZSBzeXN0ZW0uIFN1YmlyYSBwcm92aWRlcyBpbmRlcGVuZGVudCBsaXZpbmcgcHJvZ3JhbW1pbmcgdG8gYm90aCBmZW1hbGUgYW5kIG1hbGUgeW91dGggZm9yIGEgcGVyaW9kIG9mIHVwIHRvIDE4IG1vbnRocyBvciBhZ2UgMjEgd2hpY2hldmVyIGNvbWVzIGZpcnN0LiBBbGwgU3ViaXJhIHlvdXRoIGFyZSBpbiBzb21lIHBoYXNlIG9mIGFnaW5nIG9yIHRyYW5zaXRpb25pbmcgb3V0IG9mIGp1dmVuaWxlIGp1c3RpY2Ugb3IgZm9zdGVyIGNhcmUsIHRodXMgc2VydmljZXMgYXJlIHByb3ZpZGVkIHdpdGggYSBoaWdoIGxldmVsIG9mIHN1cHBvcnQgY29tbW9uIHRvIHlvdXRoIGZyb20gaW50YWN0IGZhbWlsaWVzLiBUaGUgc2VydmljZXMgYXJlIGZhY2lsaXRhdGVkIHdoaWxlIHRoZSB5b3V0aCBhcmUgbGVhcm5pbmcgaG93IHRvIGJlY29tZSBhbiBpbmRlcGVuZGVudCBjaXRpemVuIGNhcGFibGUgb2YgbWFpbnRhaW5pbmcgYSBob21lLWxpa2UgZW52aXJvbm1lbnQgYW5kIHN1cHBvcnRpbmcgdGhlbXNlbHZlcy4NCjxiciAvPg0KPGJyIC8+DQpFYWNoIHlvdXRoIHdpbGwgaGF2ZSB0byBzaWduIGFuZCBiZSBoZWxkIHRvIGEgIlN0YXRlbWVudCBvZiBDb21taXRtZW50IiBjb250cmFjdCB0aGF0IG91dGxpbmVzIGhpcy9oZXIgcmVzcG9uc2liaWxpdGllcyBpbmNsdWRpbmc6IHByb2R1Y3RpdmUgYWN0aXZpdHkgKHdvcmssIHNjaG9vbCBvciB0cmFpbmluZyksIGN1cmZld3MsIGhvdXNla2VlcGluZyByZXNwb25zaWJpbGl0aWVzLCBhbmQgdG8gdGhlIHByb2hpYml0aW9uIG9mIG92ZXJuaWdodCBndWVzdHMgZXRjLiBBbHNvIGVhY2ggeW91dGggaXMgcmVxdWlyZWQgdG8gYmUgYXBwcmlzZWQgKHJlYWQgJiBzaWduKSBvZiB0aGUgU3ViaXJhICJQcm9ncmFtIERpc2NoYXJnZSAvIFRlcm1pbmF0aW9uIE9yZGVyIiB3aGljaCBvdXRsaW5lcyB3aGF0IGlzIGFuZCBpcyBub3QgZHVlIHRvIGVsaWdpYmxlIHlvdXRoIHVwb24gZWl0aGVyIHRoZWlyIHN1Y2Nlc3NmdWwgZGlzY2hhcmdlIG9yIGVhcmx5IHRlcm1pbmF0aW9uIGZyb20gdGhlIHByb2dyYW0uPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzI0Mx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZH8zxOIvHZ29nPnMLx4EyPIUpZwf" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLD/e4xApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBdgiW5c5I/LkH7ajwwLw1GLgwqEg=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1933 Montana Avenue, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Subira (Progressive Life Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1933 Montana Avenue, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 842-2016 <b>Ext:</b>1298<br /><b>Fax No:</b>(202) 846-0604<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.plcntu.org/washington.php<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Women, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>(18 - 21 yrs); Referrals from DYRS and CFSA. <br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Progressive Life Center's (PLC) scattered site semi-independent living program provides eligible referred and assessed youth, 18-21 years of age, by the Washington, DC Department of Youth Rehabilitation Services (DYRS) the skills to: "move out and make it." 
+<br />
+<br />
+The Subira (Patience Rewarded) program's residents are committed DC youth currently on their way out from detention facilities or stepping down from the juvenile justice system. Subira provides independent living programming to both female and male youth for a period of up to 18 months or age 21 whichever comes first. All Subira youth are in some phase of aging or transitioning out of juvenile justice or foster care, thus services are provided with a high level of support common to youth from intact families. The services are facilitated while the youth are learning how to become an independent citizen capable of maintaining a home-like environment and supporting themselves.
+<br />
+<br />
+Each youth will have to sign and be held to a "Statement of Commitment" contract that outlines his/her responsibilities including: productive activity (work, school or training), curfews, housekeeping responsibilities, and to the prohibition of overnight guests etc. Also each youth is required to be apprised (read & sign) of the Subira "Program Discharge / Termination Order" which outlines what is and is not due to eligible youth upon either their successful discharge or early termination from the program.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

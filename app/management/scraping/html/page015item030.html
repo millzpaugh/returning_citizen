@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs0MjI4IFdpc2NvbnNpbiBBdmUsIE5XIFdhc2hpbmd0b24gIERDIDIwMDE2ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDQyMjggV2lzY29uc2luIEF2ZSwgTlcgV2FzaGluZ3RvbiAsIERDIDIwMDE2ZGQCAw8PFgIfAgVQPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDg4NS01NjAwPGJyIC8+PGI+VG9sbCBGcmVlOiA8L2I+KDgwMCkgMzY5LTIyNzM8YnIgLz5kZAIFDw8WAh8CBS08Yj5XZWJzaXRlOiA8L2I+d3d3LnBzeWNoaW5zdGl0dXRlLmNvbS88YnIgLz5kZAIHDw8WAh8CBfwFPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lbnRhbCBIZWFsdGgsIFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBEZXRveGlmaWNhdGlvbiwgTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEFjdXRlL1Nob3J0LXRlcm0gaG9zcGl0YWxpemF0aW9uLCBPdXRwYXRpZW50LCBQYXJ0aWFsIGhvc3BpdGFsaXphdGlvbi9kYXkgcHJvZ3JhbTxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQsIENvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzLCBEb21lc3RpYyBWaW9sZW5jZSwgRmFtaWx5IGlzc3Vlcy0tY291bnNlbGluZywgbWFycmlhZ2UsIHBhcmVudGluZywgR3JpZWYgJmFtcDsgbG9zcywgVHJhdW1hLS1zZXh1YWwgYWJ1c2UvUFRTRC92aWN0aW1zIG9mIGNyaW1lPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTGVzYmlhbiwgR2F5LCBCaXNleHVhbCwgVHJhbnNnZW5kZXIgJmFtcDsgU2V4dWFsIE1pbm9yaXRpZXMsIE1lbiwgUGVyc29ucyB3aXRoIHBoeXNpY2FsIGRpc2FiaWxpdHksIFNlbmlvcnMgKDU1KyksIFVuZGVyIGFnZSAxOCwgVmV0ZXJhbnMsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIE1lZGljYXJlLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQ8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBSU8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj4yNC83PGJyIC8+ZGQCDw8PFgIfAgVrPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5DaGlsZHJlbiwgQWRvbGVzY2VudHMsIEFkdWx0cywgYW5kIFNlbmlvcnM7IERldG94IHByb2dyYW06IDE4LTY1KyB5ZWFycy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFvQw8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBQc3ljaGlhdHJpYyBJbnN0aXR1dGUgb2YgV2FzaGluZ3RvbiAoUElXKSBwcm92aWRlcyBjb21wcmVoZW5zaXZlIGJlaGF2aW9yYWwgaGVhbHRoY2FyZSBmb3IgY2hpbGRyZW4sIGFkb2xlc2NlbnRzLCBhZHVsdHMgYW5kIHNlbmlvciBhZHVsdHMgc3VmZmVyaW5nIGZyb20gbWVudGFsIGhlYWx0aCBhbmQgYWRkaWN0aXZlIGlsbG5lc3Nlcy4gUElXIGlzIGEgc2hvcnQtdGVybSwgYWN1dGUgY2FyZSBob3NwaXRhbCBvZmZlcmluZyBpbnBhdGllbnQsIHBhcnRpYWwgYW5kIGludGVuc2l2ZSBvdXRwYXRpZW50IGhvc3BpdGFsaXphdGlvbiwgYXMgd2VsbCBhcyBzcGVjaWFsaXplZCB0cmVhdG1lbnQgcHJvZ3JhbXMgZm9yIGNoZW1pY2FsIGRlcGVuZGVuY3kuIFBJVyBhbHNvIHJ1bnMgc2V2ZXJhbCBwcm9ncmFtcyB0aGF0IGFpZCB0aG9zZSBpbiBuZWVkIG9mIHNlcnZpY2VzIGZvciBtZW50YWwgaGVhbHRoIG9yIGFkZGljdGl2ZSBpbGxuZXNzZXMgYW5kIHRob3NlIHByb2dyYW0gc2VydmljZXMgaW5jbHVkZSB0aGUgZm9sbG93aW5nOiBBZG9sZXNjZW50IHNlcnZpY2VzLCBDaGlsZCBzZXJ2aWNlcywgT3V0cGF0aWVudCBzZXJ2aWNlcyAoRGF5IENlbnRlciBhbmQgVXJnZW50IENhcmUgQ2xpbmljKSwgUHN5Y2hpYXRyaWMgc2VydmljZXMsIGFuZCB0aGUgU2Nob29sLg0KPGJyLyA+DQo8YnIvID4NClRoZSBBZHVsdCBQc3ljaGlhdHJpYyBTZXJ2aWNlcyBTdWJzdGFuY2UgQWJ1c2UgVW5pdCBpcyBhIDI2IGJlZCwgc2hvcnQtdGVybSBzdGFiaWxpemF0aW9uIHByb2dyYW0gZm9yIGFkdWx0cywgYWdlcyAxOC02NSssIHdpdGggYSBwcmltYXJ5IGRpYWdub3NpcyBvZiBjaGVtaWNhbCBkZXBlbmRlbmN5IGFuZCBkdWFsIGRpYWdub3Npcy9jby1vY2N1cnJpbmcgZGlzb3JkZXIuIFBhdGllbnRzIGFyZSBhc3NpZ25lZCB0byBvbmUgb2Ygb3VyIGZ1bGwtdGltZSBwc3ljaGlhdHJpc3RzIGFuZCBwc3ljaGlhdHJpYyBzb2NpYWwgd29ya2Vycy4gQWxsIHBhdGllbnRzIGFyZSBleHBlY3RlZCB0byBmdWxseSBlbmdhZ2UgaW4gdGhlIHByb2dyYW0gc2NoZWR1bGUsIHdoaWNoIGluY2x1ZGVzIHBzeWNoby1lZHVjYXRpb24sIHRoZXJhcHkgZ3JvdXBzLCBjb21tdW5pdHkgbWVldGluZ3MgYW5kIGdvYWxzIGdyb3Vwcy4gVGhlIGF2ZXJhZ2UgbGVuZ3RoIG9mIHN0YXkgaXMgNSB0byAxNCBkYXlzLCBkZXBlbmRpbmcgb24gdGhlIHBhdGllbnQncyBpbmRpdmlkdWFsIG5lZWRzIGFuZCB0cmVhdG1lbnQgcGxhbi4gQWxsIHBhdGllbnRzIGFyZSBkaXNjaGFyZ2VkIHdpdGggYSBwbGFuIGZvciB0aGUgbmV4dCBsZXZlbCBvZiBjYXJlLCBpbmNsdWRpbmcgYWZ0ZXJjYXJlIGFwcG9pbnRtZW50cyBhbmQgaG91c2luZyByZWZlcnJhbCwgaWYgbmVlZGVkLiANCjxici8gPg0KPGJyLyA+DQpQSVcgYWxzbyBhY2NlcHRzIGFuIEFkZGljdGlvbiBQcmV2ZW50aW9uIGFuZCBSZWNvdmVyeSBBZG1pbmlzdHJhdGlvbiAoQVBSQSkgdm91Y2hlciBwcm9ncmFtIGZvciBkZXRveCwgTWVkaWNhcmUsIEQuQy4gTWVkaWNhaWQgKHVuZGVyIDE4IG9yIG92ZXIgNjUpLCBhbmQgcHJpdmF0ZSBpbnN1cmFuY2UuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzE4NR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZI0n4mp2DMfN0vRYe5NKY1bapaOJ" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKA/9S1AwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAfZbrbLExPeDiRJSXmFIoSC6N2nK" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4228 Wisconsin Ave, NW Washington  DC 20016" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Psychiatric Institute of Washington (PIW)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4228 Wisconsin Ave, NW Washington , DC 20016</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 885-5600<br /><b>Toll Free: </b>(800) 369-2273<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.psychinstitute.com/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health, Substance Abuse<br \><b>Services : </b> Detoxification, Mental health treatment<br \><b>Type Of Care : </b> Acute/Short-term hospitalization, Outpatient, Partial hospitalization/day program<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Domestic Violence, Family issues--counseling, marriage, parenting, Grief &amp; loss, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Persons with physical disability, Seniors (55+), Under age 18, Veterans, Women<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24/7<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Children, Adolescents, Adults, and Seniors; Detox program: 18-65+ years.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Psychiatric Institute of Washington (PIW) provides comprehensive behavioral healthcare for children, adolescents, adults and senior adults suffering from mental health and addictive illnesses. PIW is a short-term, acute care hospital offering inpatient, partial and intensive outpatient hospitalization, as well as specialized treatment programs for chemical dependency. PIW also runs several programs that aid those in need of services for mental health or addictive illnesses and those program services include the following: Adolescent services, Child services, Outpatient services (Day Center and Urgent Care Clinic), Psychiatric services, and the School.
+<br/ >
+<br/ >
+The Adult Psychiatric Services Substance Abuse Unit is a 26 bed, short-term stabilization program for adults, ages 18-65+, with a primary diagnosis of chemical dependency and dual diagnosis/co-occurring disorder. Patients are assigned to one of our full-time psychiatrists and psychiatric social workers. All patients are expected to fully engage in the program schedule, which includes psycho-education, therapy groups, community meetings and goals groups. The average length of stay is 5 to 14 days, depending on the patient's individual needs and treatment plan. All patients are discharged with a plan for the next level of care, including aftercare appointments and housing referral, if needed. 
+<br/ >
+<br/ >
+PIW also accepts an Addiction Prevention and Recovery Administration (APRA) voucher program for detox, Medicare, D.C. Medicaid (under 18 or over 65), and private insurance.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxNjAwIEsgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA2ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjE2MDAgSyBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA2ZGQCAw8PFgIfAgWWATxiPkNvbnRhY3QgUGVyc29uOjwvYj5NeXJvbiBEZWFuIFF1b248YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzkzLTM1NzI8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigzMDEpIDk0Mi0yMjIzPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAzOTMtMDk5NTxiciAvPmRkAgUPDxYCHwIFJDxiPldlYnNpdGU6IDwvYj53d3cuYXBhbHJjLm9yZzxiciAvPmRkAgcPDxYCHwIF8gE8Yj5DYXRlZ29yeSA6IDwvYj4gTGVnYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTGVnYWw8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBEb21lc3RpYyBWaW9sZW5jZSwgRW1wbG95bWVudCBMYXctLWRpc3B1dGVzICZhbXA7IHdvcmtlcidzIHJpZ2h0czxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEltbWlncmFudHMvUmVmdWdlZXM8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFhQE8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaCwgQ2hpbmVzZSwgSGluZGkvVXJkdSwgVmlldG5hbWVzZSwgS29yZWFuPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFtgc8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBBc2lhbiBQYWNpZmljIEFtZXJpY2FuIExlZ2FsIFJlc291cmNlIENlbnRlciAoQVBBTFJDKSBhZHZvY2F0ZXMgZm9yIHRoZSBsZWdhbCBhbmQgY2l2aWwgcmlnaHRzIG9mIEFzaWFuIFBhY2lmaWMgQW1lcmljYW5zIGluIHRoZSBELkMuIG1ldHJvcG9saXRhbiByZWdpb24gdGhyb3VnaCBhY3Rpdml0aWVzIGluIHR3byBwcm9ncmFtIGFyZWFzOiBEaXJlY3QgTGVnYWwgU2VydmljZXMgYW5kIEFkdm9jYWN5Lg0KPGJyIC8+DQo8YnIgLz4NCkRJUkVDVCBMRUdBTCBTRVJWSUNFUzoNCjxiciAvPg0KQVBBTFJDIGN1cnJlbnRseSBwcm92aWRlcyBsZWdhbCBhZHZpY2UgYW5kIHJlcHJlc2VudGF0aW9uIG9uIHZhcmlvdXMgbGVnYWwgbWF0dGVycywgaW5jbHVkaW5nIGRvbWVzdGljIHZpb2xlbmNlIGFuZCBmYW1pbHkgbGF3LCBpbW1pZ3JhdGlvbiwgaG91c2luZywgYW5kIGVtcGxveW1lbnQsIHRvIGxvdy1pbmNvbWUsIGxpbWl0ZWQtRW5nbGlzaCBwcm9maWNpZW50IEFzaWFuIEFtZXJpY2FucyBpbiB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEsIE1hcnlsYW5kLCBhbmQgTm9ydGhlcm4gVmlyZ2luaWEuIA0KPGJyIC8+DQo8YnIgLz4NCkFEVk9DQUNZOg0KPGJyIC8+DQpBUEFMUkMgYWR2b2NhdGVzIGZvciBmdWxsIGFuZCBlcXVhbCBhY2Nlc3MgdG8gdGhlIEQuQy4gZ292ZXJubWVudCBwcm9ncmFtcyBhbmQgc2VydmljZXMsIHBhcnRpY3VsYXJseSBpbiB0aGUgYXJlYXMgb2YgaGVhbHRoLCB3ZWxmYXJlLCBlZHVjYXRpb24sIGhvdXNpbmcgYW5kIGVtcGxveW1lbnQgYmVuZWZpdHMsIG5vbi1FbmdsaXNoIHNwZWFrZXJzLCBpbmNsdWRpbmcgQXNpYW4gQW1lcmljYW5zLg0KPGJyIC8+DQo8YnIgLz4NCk11bHRpLWxpbmd1YWwgbGVnYWwgcmVmZXJyYWwgSG90bGluZSBjYW4gYmUgcmVhY2hlZCBhdCAoMjAyKSAzOTMtMzU3Mi4NCjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxODgeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWT5tSX7ZvZx0d1DfEKb8G3lrUqGCw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKOqN62BAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAej74OXxPQqzGfnEcvLniR0bVmrI" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1600 K Street, NW Washington DC 20006" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Asian Pacific American Legal Resource Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1600 K Street, NW Washington, DC 20006</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Myron Dean Quon<br /><b>Phone No:</b>(202) 393-3572<br /><b>Phone No2:</b>(301) 942-2223<br /><b>Fax No:</b>(202) 393-0995<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.apalrc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Domestic Violence, Employment Law--disputes &amp; worker's rights<br \><b>Population : </b> Immigrants/Refugees<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Chinese, Hindi/Urdu, Vietnamese, Korean<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Asian Pacific American Legal Resource Center (APALRC) advocates for the legal and civil rights of Asian Pacific Americans in the D.C. metropolitan region through activities in two program areas: Direct Legal Services and Advocacy.
+<br />
+<br />
+DIRECT LEGAL SERVICES:
+<br />
+APALRC currently provides legal advice and representation on various legal matters, including domestic violence and family law, immigration, housing, and employment, to low-income, limited-English proficient Asian Americans in the District of Columbia, Maryland, and Northern Virginia. 
+<br />
+<br />
+ADVOCACY:
+<br />
+APALRC advocates for full and equal access to the D.C. government programs and services, particularly in the areas of health, welfare, education, housing and employment benefits, non-English speakers, including Asian Americans.
+<br />
+<br />
+Multi-lingual legal referral Hotline can be reached at (202) 393-3572.
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS82NTEgUGVubnN5bHZhbmlhIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiBEQyAyMDAwM2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTA2NTEgUGVubnN5bHZhbmlhIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMDNkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTQzLTgzNDY8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDU0My04MjQ5PGJyIC8+ZGQCBQ8PFgIfAgUrPGI+V2Vic2l0ZTogPC9iPnd3dy5tZXRyb3RlZW5haWRzLm9yZzxiciAvPmRkAgcPDxYCHwIFzgI8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZywgTWVkaWNhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBDb21tdW5pdHkgaGVhbHRoLCBEYXkgcHJvZ3JhbXMvRHJvcC1pbiBjZW50ZXJzPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBISVYvQUlEUzxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IExlc2JpYW4sIEdheSwgQmlzZXh1YWwsIFRyYW5zZ2VuZGVyICZhbXA7IFNleHVhbCBNaW5vcml0aWVzLCBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgV29tZW4sIFlvdXRoICgxMiAtIDI0KTxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVVPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IOKAkyBGcmlkYXkgZnJvbSAxMjowMCBwbSB0byA4OjAwIHBtIChUZXN0aW5nKTxiciAvPmRkAg8PDxYCHwIFWDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+WW91dGggYWdlcyAxMy0yNCB5cnMgYXQgcmlzayBvciBhZmZlY3RlZCBieSBISVYvQUlEUy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF0BI8Yj5EZXNjcmlwdGlvbjogPC9iPk1ldHJvIFRlZW5BSURTIChNVEEpIHByb3ZpZGVzIHJlc291cmNlcyB0byBoZWxwIHlvdW5nIHBlb3BsZSBmaWdodCBBSURTIGFuZCBzdXBwb3J0IGVhY2ggb3RoZXIuIE1UQSBpcyB0aGUgb25seSBvcmdhbml6YXRpb24gaW4gdGhlIFdhc2hpbmd0b24gREMtbWV0cm8gYXJlYSBmb2N1c2luZyBhbGwgb2YgaXRzIGVmZm9ydHMgb24gdGhlIHVuaXF1ZSBwcmV2ZW50aW9uLCBlZHVjYXRpb24sIGFuZCB0cmVhdG1lbnQgbmVlZHMgb2YgeW91bmcgcGVvcGxlLg0KPGJyIC8+DQo8YnIgLz4NCk1ldHJvIFRlZW5BSURTIGFkdmFuY2VzIGNvbW11bml0eSBwcmV2ZW50aW9uIGVmZm9ydHMgYnk6IG1vYmlsaXppbmcgeW91bmcgcGVvcGxlIGluIHN1cHBvcnQgb2YgdGhlaXIgcGVlcnM7IGJhdHRsaW5nIHN0aWdtYSBhbmQgaW5kaWZmZXJlbmNlIGJ5IHJhaXNpbmcgY29tbXVuaXR5IGF3YXJlbmVzcyBhYm91dCB0aGUgdGhyZWF0IEhJVi9BSURTIHBvc2VzIHRvIHlvdW5nIHBlb3BsZTsgcHJvdmlkaW5nIEhJViBpbmZvcm1hdGlvbiBhbmQgaW5ub3ZhdGl2ZSBwcmV2ZW50aW9uIHN0cmF0ZWdpZXMgdG8geW91bmcgcGVvcGxlIGFuZCB0aGUgYWR1bHRzIGluIGNvbnRhY3Qgd2l0aCB0aGVtOyB1bml0aW5nIHdpdGggb3RoZXIgb3JnYW5pemF0aW9ucyB0byBlbnN1cmUgdGhhdCB0ZWVuYWdlcnMgcmVjZWl2ZSBhZG9sZXNjZW50LWFwcHJvcHJpYXRlIGFuZCBlYXNpbHkgYWNjZXNzaWJsZSBwcmV2ZW50aW9uLCBoZWFsdGggY2FyZSwgYW5kIGNvdW5zZWxpbmcgc2VydmljZXMgYXMgd2VsbCBhcyBzYWZlIHJlY3JlYXRpb25hbCBvcHBvcnR1bml0aWVzOyBhbmQsIGRldmVsb3BpbmcgY29tcHJlaGVuc2l2ZSBwcm9ncmFtcyB3aGljaCBhZGRyZXNzIHRoZSBtYW55IGNvLWZhY3RvcnMgb2YgYWRvbGVzY2VudCBISVYgaW5mZWN0aW9uIOKAlCBpbmNsdWRpbmcgbG93IHNlbGYtZXN0ZWVtLCBkcnVnIGFuZCBhbGNvaG9sIGFidXNlLCBkYW5nZXJvdXNseSB1bnByb2R1Y3RpdmUgZnJlZSB0aW1lLCBhbmQgZXhwb3N1cmUgdG8gcGVlciBncm91cHMgd2hpY2ggZW5jb3VyYWdlIHVuaGVhbHRoeSBhbmQgcmlza3kgYmVoYXZpb3IuDQo8YnIgLz4NCjxiciAvPg0KUHJldmVudGlvbiBlZmZvcnRzIGFyZSBzZXJ2ZWQgdGhyb3VnaCBvdXRyZWFjaCBhbmQgZWR1Y2F0aW9uIHByb2dyYW1zLCBvbmUgb2YgdGhvc2UgcHJvZ3JhbXMgaXMgdGhlIOKAnFJlYWwgQUlEUyBQcmV2ZW50aW9uIFByb2plY3TigJ0gKFJBUFApLiBXaXRoIHRoaXMgcHJvZ3JhbSBNVEEgdGFyZ2V0cyB5b3V0aCAxMy0yNCB0aGF0IGFyZSBlaXRoZXIgSElWIHBvc2l0aXZlIG9yIGF0IHJpc2sgZm9yIGNvbnRyYWN0aW5nIEhJVi4gLg0KPGJyIC8+DQo8YnIgLz4NCk1ldHJvIFRlZW5BSURT4oCZIFBlZXIgRWR1Y2F0aW9uIFByb2dyYW0gZm9jdXNlcyBvbiBsZWFkZXJzaGlwIGRldmVsb3BtZW50IGFuZCBwZWVyIGVkdWNhdGlvbiBmb3IgeW91dGggYmV0d2VlbiB0aGUgYWdlcyBvZiAxMy0yNC4gUGVlcnMgZ28gdGhyb3VnaCByaWdvcm91cyB0cmFpbmluZyBvbiBob3cgdG8gdGFsayB3aXRoIHRoZWlyIHBlZXJzIGFib3V0IEhJViwgc2V4dWFsbHkgdHJhbnNtaXR0ZWQgZGlzZWFzZXMsIHByZWduYW5jeSBhbmQgbXVjaCBtb3JlLiBUaGUgUGVlciBFZHVjYXRpb24gUHJvZ3JhbSBjb25zaXN0cyBvZiA2IGdyb3VwczogU3RyZWV0IFRlYW0sIFlvdW5nIFdvbWVuIG9mIENvbG9yIExlYWRlcnNoaXBDb3VuY2lsIChZV09DKSwgUmVhbFRhbGsgUmVwcywgVmlzaW9uYXJ5IFlvdXRoIEJlY29taW5nIEVtcG93ZXJlZCAoVllCRSkgUGVlcnMsIGFuZCBTcHJlYWRpbmcgVHJ1dGggaXMgR2FpbmluZyBNYXNzIEFwcGVhbCAoUy5ULkkuRy5NLkEuKSBQZWVycy4NCjxiciAvPg0KPGJyIC8+DQpBRERJVElPTkFMIFNFUlZJQ0VTIElOQ0xVREU6DQo8YnIgLz4NClRlc3RpbmcsIHJlZmVycmFscyBhbmQgY291bnNlbGluZyBzZXJ2aWNlcywgdGVzdGluZyBzZXJ2aWNlcyBhcmUgYXZhaWxhYmxlIGFzIHRvIHRoZSBzY2hlZHVsZSBiZWxvdy4NCjxiciAvPg0KPGJyIC8+DQpISVYgdGVzdGluZyBpcyBoZWxkIE1vbmRheSDigJMgRnJpZGF5IGZyb20gMTI6MDBwbSB0byA4OjAwMHBtIChPcmFRdWljayBBZHZhbmNlZCBISVYgVGVzdDogMjAgbWludXRlIG9yYWwgZXhhbSB3aXRoIDk5JSBhY2N1cmFjeSByYXRlKS4NCjxiciAvPg0KPGJyIC8+DQpTVEkgVGVzdGluZyAoR29ub3JyaGVhIGFuZCBDaGxhbXlkaWEtdXJpbmUgYmFzZWQgc2NyZWVuaW5nKSwgYW5kIHByZWduYW5jeSB0ZXN0aW5nDQo8YnIgLz4NCjxiciAvPg0KQ29udGFjdCAoMjAyKSA1NDMtOTM1NSBmb3IgVGVzdGluZywgQ291bnNlbGluZyBhbmQvb3IgcmVmZXJyYWxzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2NDUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSbfiOf+1p2CzpFwO1NuFhGVoKTFw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLZxqTeCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAWAIwAxbs2vmkKHgWnNpycuWHlno" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="651 Pennsylvania Avenue, SE Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Metro Teen Aids" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">651 Pennsylvania Avenue, SE Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 543-8346<br /><b>Fax No:</b>(202) 543-8249<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.metroteenaids.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Medical<br \><b>Services : </b> Community health, Day programs/Drop-in centers<br \><b>Type Of Care : </b> HIV/AIDS<br \><b>Population : </b> Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Persons with HIV/AIDS, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday – Friday from 12:00 pm to 8:00 pm (Testing)<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Youth ages 13-24 yrs at risk or affected by HIV/AIDS.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Metro TeenAIDS (MTA) provides resources to help young people fight AIDS and support each other. MTA is the only organization in the Washington DC-metro area focusing all of its efforts on the unique prevention, education, and treatment needs of young people.
+<br />
+<br />
+Metro TeenAIDS advances community prevention efforts by: mobilizing young people in support of their peers; battling stigma and indifference by raising community awareness about the threat HIV/AIDS poses to young people; providing HIV information and innovative prevention strategies to young people and the adults in contact with them; uniting with other organizations to ensure that teenagers receive adolescent-appropriate and easily accessible prevention, health care, and counseling services as well as safe recreational opportunities; and, developing comprehensive programs which address the many co-factors of adolescent HIV infection — including low self-esteem, drug and alcohol abuse, dangerously unproductive free time, and exposure to peer groups which encourage unhealthy and risky behavior.
+<br />
+<br />
+Prevention efforts are served through outreach and education programs, one of those programs is the “Real AIDS Prevention Project” (RAPP). With this program MTA targets youth 13-24 that are either HIV positive or at risk for contracting HIV. .
+<br />
+<br />
+Metro TeenAIDS’ Peer Education Program focuses on leadership development and peer education for youth between the ages of 13-24. Peers go through rigorous training on how to talk with their peers about HIV, sexually transmitted diseases, pregnancy and much more. The Peer Education Program consists of 6 groups: Street Team, Young Women of Color LeadershipCouncil (YWOC), RealTalk Reps, Visionary Youth Becoming Empowered (VYBE) Peers, and Spreading Truth is Gaining Mass Appeal (S.T.I.G.M.A.) Peers.
+<br />
+<br />
+ADDITIONAL SERVICES INCLUDE:
+<br />
+Testing, referrals and counseling services, testing services are available as to the schedule below.
+<br />
+<br />
+HIV testing is held Monday – Friday from 12:00pm to 8:000pm (OraQuick Advanced HIV Test: 20 minute oral exam with 99% accuracy rate).
+<br />
+<br />
+STI Testing (Gonorrhea and Chlamydia-urine based screening), and pregnancy testing
+<br />
+<br />
+Contact (202) 543-9355 for Testing, Counseling and/or referrals.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

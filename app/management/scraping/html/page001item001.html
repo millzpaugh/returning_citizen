@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BScxMTAxIFcuIFByYXR0IFN0cmVldCBCYWx0aW1vcmUgTUQgMjEyMjNkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUoMTEwMSBXLiBQcmF0dCBTdHJlZXQgQmFsdGltb3JlLCBNRCAyMTIyM2RkAgMPDxYCHwIFTDxiciAvPjxiPlBob25lIE5vOjwvYj4oNDEwKSA5NjItNzE4MDxiciAvPjxiPkZheCBObzo8L2I+KDQxMCkgOTYyLTcxOTQ8YnIgLz5kZAIFDw8WAh8CBR88Yj5XZWJzaXRlOiA8L2I+YmJodHgub3JnPGJyIC8+ZGQCBw8PFgIfAgXSBTxiPkNhdGVnb3J5IDogPC9iPiBNZW50YWwgSGVhbHRoLCBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ3Jpc2lzIGludGVydmVudGlvbiwgRGV0b3hpZmljYXRpb24sIE1lbnRhbCBoZWFsdGggdHJlYXRtZW50LCBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50LCBVcmdlbnQgY2FyZS9XYWxrLWluIHNlcnZpY2U8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEludGVuc2l2ZSBvdXRwYXRpZW50LCBPdXRwYXRpZW50LCBQYXJ0aWFsIGhvc3BpdGFsaXphdGlvbi9kYXkgcHJvZ3JhbTxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQsIENvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzLCBGYW1pbHkgaXNzdWVzLS1jb3Vuc2VsaW5nLCBtYXJyaWFnZSwgcGFyZW50aW5nPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVePGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+MjQvNyAgKE91dHBhdGllbnQgUHJvZ3JhbSBNb25kYXktRnJpZGF5IGZyb20gODowMCBhbS02OjAwIHBtKTxiciAvPmRkAg8PDxYCHwIFcjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+UGVyc29ucyBzZWVraW5nIGFpZCBmb3IgbWVudGFsIGhlYWx0aCwgY2hlbWljYWwgZGVwZW5kZW5jeSwgYW5kIGR1YWwgZGlhZ25vc2lzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXABzxiPkRlc2NyaXB0aW9uOiA8L2I+QmFsdGltb3JlIEJlaGF2aW9yIEhlYWx0aCAoQkJIKSBpcyBhbiBhY2NyZWRpdGVkIGhlYWx0aCBjYXJlIHRyZWF0bWVudCBwcm92aWRlciBzZXJ2aW5nIGFtYnVsYXRvcnkgYWR1bHRzIHdpdGggbWVudGFsIGhlYWx0aCwgYWRkaWN0aW9ucywgYW5kIGNvLW9jY3VycmluZyBkaXNvcmRlcnMuIEJCSCBvZmZlcnMgaW5kaXZpZHVhbGl6ZWQgdHJlYXRtZW50IGluIGEgc2V0dGluZyB3aGljaCBwcm92aWRlcyBhIGZ1bGwgY29udGludXVtIG9mIGNhcmUuIEluIHRoaXMgZm9ybWF0LCBwYXRpZW50cyBhcmUgYWJsZSB0byBhY2hpZXZlIHRoZWlyIHNwZWNpZmljIHRyZWF0bWVudCBnb2FscyBlZmZpY2llbnRseSBhbmQgcmVhbGl6ZSBhIGhpZ2ggcmF0ZSBvZiBzdWNjZXNzLg0KPGJyIC8+DQo8YnIgLz4NCkFkZGl0aW9uYWxseSwgQkJIIG9mZmVycyBzaGVsdGVyIGhvdXNpbmcgZm9yIGhvbWVsZXNzIGluZGl2aWR1YWxzIHNlZWtpbmcgc3Vic3RhbmNlIGFidXNlIHNlcnZpY2VzLiAgSG91c2luZyBpcyBzY2F0dGVyZWQgdGhyb3VnaG91dCB0aGUgY2l0eS4gIFRoaXMgaXMgbm90IGEgcmVzaWRlbnRpYWwgcHJvZ3JhbS4gIEJCSCBwcm92aWRlcyBjcmlzaXMgaW50ZXJ2ZW50aW9uIHNlcnZpY2VzLCBwYXJ0aWFsIGhvc3BpdGFsaXphdGlvbiAvIGRheSBwcm9ncmFtLCB1cmdlbnQgY2FyZSAvIHdhbGstaW4gc2VydmljZTsgQ28tb2NjdXJyaW5nIGRpc29yZGVycyB0cmVhdG1lbnQ7IEFuZ2VyIE1hbmFnZW1lbnQ7IE1lbnRhbCBIZWFsdGggUmVoYWJpbGl0YXRpb247IEZhbWlseSBQcm9ncmFtLiAgTWVkaWNhaWQsIFBBQywgcHJpdmF0ZSBpbnN1cmFuY2UsIHNsaWRpbmcgc2NhbGUgZmVlcywgcHVibGljIGZ1bmRpbmcsIGFjY2VwdGVkLiAgQkJIIHByb3ZpZGVzIDI0IGhvdXIgY2FyZSAocmVzaWRlbnRpYWwpIGFuZCBvdXRwYXRpZW50IHNlcnZpY2VzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0NTYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSHfQyD8XGWmzULDMVeWJFQWq9Dsg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLhvLkpApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oB0tzDmi6OEP4qUxS/2NKia10gOgE=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1101 W. Pratt Street Baltimore MD 21223" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Baltimore Behavior Health" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1101 W. Pratt Street Baltimore, MD 21223</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(410) 962-7180<br /><b>Fax No:</b>(410) 962-7194<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>bbhtx.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health, Substance Abuse<br \><b>Services : </b> Crisis intervention, Detoxification, Mental health treatment, Substance abuse treatment, Urgent care/Walk-in service<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient, Partial hospitalization/day program<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Family issues--counseling, marriage, parenting<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Medicaid, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24/7  (Outpatient Program Monday-Friday from 8:00 am-6:00 pm)<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Persons seeking aid for mental health, chemical dependency, and dual diagnosis.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Baltimore Behavior Health (BBH) is an accredited health care treatment provider serving ambulatory adults with mental health, addictions, and co-occurring disorders. BBH offers individualized treatment in a setting which provides a full continuum of care. In this format, patients are able to achieve their specific treatment goals efficiently and realize a high rate of success.
+<br />
+<br />
+Additionally, BBH offers shelter housing for homeless individuals seeking substance abuse services.  Housing is scattered throughout the city.  This is not a residential program.  BBH provides crisis intervention services, partial hospitalization / day program, urgent care / walk-in service; Co-occurring disorders treatment; Anger Management; Mental Health Rehabilitation; Family Program.  Medicaid, PAC, private insurance, sliding scale fees, public funding, accepted.  BBH provides 24 hour care (residential) and outpatient services.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

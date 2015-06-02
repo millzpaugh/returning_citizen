@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSw2MDEgRSBTdHJlZXQsIE5XICA0dGggRkwgV2FzaGluZ3RvbiBEQyAyMDA0OWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS02MDEgRSBTdHJlZXQsIE5XICA0dGggRkwgV2FzaGluZ3RvbiwgREMgMjAwNDlkZAIDDw8WAh8CBXk8Yj5Db250YWN0IFBlcnNvbjo8L2I+SmF5IEFsbGVuIE1heS0gRGlyZWN0b3I8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNDM0LTIxNzA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDQzNC02NDY0PGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBdgBPGI+Q2F0ZWdvcnkgOiA8L2I+IExlZ2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IExlZ2FsPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gTGFuZGxvcmQvVGVuYW50L0ZhaXIgaG91c2luZywgUHVibGljIGJlbmVmaXRzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gU2VuaW9ycyAoNTUrKTxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgU7PGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+Q29udGFjdCBmb3Igc2VydmljZSBob3Vycy48YnIgLz5kZAIPDw8WAh8CBUo8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlNlbmlvciBjaXRpemVucyBhZ2UgNTUgeWVhcnMgYW5kIG9sZGVyLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWjAzxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIExlZ2FsIENvdW5zZWwgZm9yIHRoZSBFbGRlcmx5IHByb3ZpZGVzIHNlcnZpY2VzIGZvciBwZXJzb25zIDYwIHllYXJzIG9mIGFnZSBhbmQgb2xkZXIgYW5kIGRpc2FiaWxpdHkgY2xhaW1zIGZvciBwZXJzb25zIDU1IHllYXJzIG9mIGFnZSBhbmQgb2xkZXIuIEFyZWFzIG9mIHNlcnZpY2UgaW5jbHVkZTogcHVibGljIGJlbmVmaXRzLCB3aWxscywgcGVuc2lvbiBwcm9ibGVtcywgZXZpY3Rpb25zLCBsYW5kbG9yZC10ZW5hbnQgZGlzcHV0ZXMsIGNvbnN1bWVyIGxpdGlnYXRpb24sIGNvbW11bml0eSBlZHVjYXRpb24sIHByb3RlY3RpdmUgc2VydmljZXMsIGhvdXNpbmcsIGZvcmVjbG9zdXJlcywgbnVyc2luZyBob21lcywgY2l2aWwgbWF0dGVycyBhbmQgbW9uZXkgbWFuYWdlbWVudC4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzIwMx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZNsuYPGT5VNuTjOtoHRCI4bqcJ8W" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKllfrrCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdl+67x7zfdKHjZa0L7E+JluulkM" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="601 E Street, NW  4th FL Washington DC 20049" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Legal Counsel for the Elderly" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">601 E Street, NW  4th FL Washington, DC 20049</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Jay Allen May- Director<br /><b>Phone No:</b>(202) 434-2170<br /><b>Fax No:</b>(202) 434-6464<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Landlord/Tenant/Fair housing, Public benefits<br \><b>Population : </b> Seniors (55+)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Contact for service hours.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Senior citizens age 55 years and older.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Legal Counsel for the Elderly provides services for persons 60 years of age and older and disability claims for persons 55 years of age and older. Areas of service include: public benefits, wills, pension problems, evictions, landlord-tenant disputes, consumer litigation, community education, protective services, housing, foreclosures, nursing homes, civil matters and money management. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

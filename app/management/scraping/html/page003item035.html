@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8xNzIyMSBJIFN0cmVldCwgTlcgUm9vbSAzMzUgV2FzaGluZ3RvbiBEQyAyMDAwNmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAxNzIyMSBJIFN0cmVldCwgTlcgUm9vbSAzMzUgV2FzaGluZ3RvbiwgREMgMjAwMDZkZAIDDw8WAh8CBaEBPGI+Q29udGFjdCBQZXJzb246PC9iPkRlYm9yYWggTmVsc29uLCBTdXBlcnZpc29yPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDUzMC05NTU5PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA1MzAtOTM3MTxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNTMwLTkzNzc8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIF/AE8Yj5DYXRlZ29yeSA6IDwvYj4gRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVtcGxveW1lbnQgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBKb2Igc2tpbGxzIGFzc2Vzc21lbnQgJmFtcDsgcmVhZGluZXNzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBWZXRlcmFucywgV29tZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBTk8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb24tRnJpIDg6MzBhbSB0byAzOjMwcG08YnIgLz5kZAIPDw8WAh8CBTE8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlZldGVyYW5zIG9ubHkuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBcAGPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgRGVwYXJ0bWVudCBvZiBFbXBsb3ltZW50IG9mIFNlcnZpY2VzIChET0VTKSBvZmZlcnMgdmV0ZXJhbnMgYSB3aWRlIHZhcmlldHkgb2Ygam9iIHNlYXJjaCBhbmQgdHJhaW5pbmcgc2VydmljZXMuICBTcGVjaWFsIHZldGVyYW5zJyByZXByZXNlbnRhdGl2ZXMgYXJlIGVtcGxveWVkIGF0IG1vc3QgQW1lcmljYW4gSm9iIENlbnRlcnMsIHdoZXJlIGNhc2UgbWFuYWdlcnMgZW5zdXJlIGNvbXBsZXRlIHNlcnZpY2VzIGZvciB2ZXRlcmFucywgZXNwZWNpYWxseSB0aG9zZSB3aG8gYXJlIGRpc2FibGVkLiBTcGVjaWFsaXplZCBmZWRlcmFsIHNlcnZpY2VzIGFyZSBhbHNvIGF2YWlsYWJsZSB0byBhbGwgdmV0ZXJhbnMgYnkgY29udGFjdGluZyBIaXJlIFZldHMgRmlyc3QsIGF0ICgyMDIpIDUzMC05MzcxLg0KPGJyIC8+DQo8YnIgLz4NClZldGVyYW4gQmVuZWZpdHMgb2ZmZXJlZCBpbmNsdWRlIHRoZSBmb2xsb3dpbmc6DQo8YnIgLz4NCi1SZWdpc3RyYXRpb24gYXQgYW4gQW1lcmljYW4gSm9iIENlbnRlcg0KPGJyIC8+DQotQXNzZXNzbWVudCBvZiBpbmRpdmlkdWFsIGludGVyZXN0LCBza2lsbHMgYW4gYWJpbGl0aWVzLCBhcyB3ZWxsIGFzIGNvdW5zZWxpbmcsIHRvIGFzc2lzdCB3aXRoIGFuIGVmZmVjdGl2ZSBqb2Igc2VhcmNoDQo8YnIgLz4NCi1Gb2xsb3ctdXAgc2VydmljZXMNCkFzc2lzdGFuY2UgaW4gc2VjdXJpbmcgbWVkaWNhbCBzZXJ2aWNlcyBvciBjb3Vuc2VsaW5nDQo8YnIgLz4NCi1Qcmlvcml0eSBzdGF0dXMgYWNjb3JkZWQgdG8gYWxsIHZldGVyYW5zIGZvciBhbGwgZW1wbG95bWVudCBzZXJ2aWNlczxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQIxMh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZA7+8x8s2SvjXNa1GtfTUeiZZhO1" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK0kvTrAQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASKVV03uiaI4turwKXenwFSIhPlP" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="17221 I Street, NW Room 335 Washington DC 20006" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Department of Employment Services--American Job Center (US Veterans Affairs)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">17221 I Street, NW Room 335 Washington, DC 20006</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Deborah Nelson, Supervisor<br /><b>Phone No:</b>(202) 530-9559<br /><b>Phone No2:</b>(202) 530-9371<br /><b>Fax No:</b>(202) 530-9377<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness<br \><b>Population : </b> Men, Veterans, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Mon-Fri 8:30am to 3:30pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Veterans only.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Department of Employment of Services (DOES) offers veterans a wide variety of job search and training services.  Special veterans' representatives are employed at most American Job Centers, where case managers ensure complete services for veterans, especially those who are disabled. Specialized federal services are also available to all veterans by contacting Hire Vets First, at (202) 530-9371.
+<br />
+<br />
+Veteran Benefits offered include the following:
+<br />
+-Registration at an American Job Center
+<br />
+-Assessment of individual interest, skills an abilities, as well as counseling, to assist with an effective job search
+<br />
+-Follow-up services
+Assistance in securing medical services or counseling
+<br />
+-Priority status accorded to all veterans for all employment services<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

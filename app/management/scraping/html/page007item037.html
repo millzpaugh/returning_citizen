@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYyNSA1M3JkIFN0cmVldCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAxOWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScyNSA1M3JkIFN0cmVldCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMTlkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzk4LTM0MTE8YnIgLz5kZAIFDw8WAh8CBSw8Yj5XZWJzaXRlOiA8L2I+d3d3Lmh1Z2hlc21lbW9yaWFsLm9yZzxiciAvPmRkAgcPDxYCHwIFrwE8Yj5DYXRlZ29yeSA6IDwvYj4gRW1lcmdlbmN5IEZvb2QsIFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNYXRlcmlhbCBuZWVkcywgTnV0cml0aW9uYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBDbG90aGluZywgRW1lcmdlbmN5IGZvb2QvZ3JvY2VyaWVzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgWCATxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPkZvb2QgcGFudHJ5IEZyaWRheSAxMDowMCBhbSB0byAxMjowMCBwbSAoc2lnbiB1cCByZXF1aXJlZCkuIFNlZSBkZXRhaWxzIGZvciBTb2NpYWwgU2VydmljZSBob3Vycy48YnIgLz5kZAIPDw8WAh8CBUs8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlBob3RvIElEIGFuZCBwcm9vZiBvZiByZXNpZGVuY3kgcmVxdWlyZWQ8YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF3Qk8Yj5EZXNjcmlwdGlvbjogPC9iPkh1Z2hlcyBNZW1vcmlhbCBVbml0ZWQgTWV0aG9kaXN0IENodXJjaCB3b3JrcyBoYXJkIHRvIGNvbm5lY3Qgd2l0aCB0aGUgY29tbXVuaXR5IHRocm91Z2ggbWluaXN0cmllcyBvZiBzZXJ2aWNlLCB0ZWFjaGluZywgb3V0cmVhY2ggYW5kIGNvbXBhc3Npb24gdG8gbWFrZSBhbmQgZ3JvdyBkaXNjaXBsZXMgaW4gQ2hyaXN0LiBTb21lIG9mIHRoZSBvdXRyZWFjaCBzZXJ2aWNlcyBvZmZlcmVkIGluY2x1ZGU6IHRoZSBmb29kIHBhbnRyeSwgY2xvdGhpbmcgY2xvc2V0LCB0aGUgU0hBUkUgcHJvZ3JhbSBhbmQgbWVhbHMgb24gd2hlZWxzLg0KPGJyIC8+DQo8YnIgLz4NCkVNRVJHRU5DWSBGT09EDQo8YnIgLz4NClRocm91Z2ggdGhlIFNIQVJFIHByb2dyYW0gSHVnaGVzIE1lbW9yaWFsIGlzIGFibGUgdG8gcHJvdmlkZSBpbmRpdmlkdWFscyBvciBmYW1pbGllcyB3aXRoIGEgYmFza2V0IG9mIGdyb2NlcmllcyBmb3IgbXVjaCBsb3dlciBwcmljZSB0aGFuIHRoZSBhY3R1YWwgcmV0YWlsIHZhbHVlIG9mIHRoZSBiYXNrZXQgb2YgZm9vZC4gVGhlIFNIQVJFIHByb2dyYW0gaXMgb3BlcmF0ZXMgb25jZSBtb250aGx5ICh1c3VhbGx5IG9uIGV2ZXJ5IDR0aCBTYXR1cmRheSkuU2lnbi11cCBpcyByZXF1aXJlZC4gTWV0cm8gYnVzOiA5NyAmIFU2Lg0KPGJyIC8+DQo8YnIgLz4NClRocm91Z2ggdGhlIGZvb2QgcGFudHJ5IERDIHJlc2lkZW50cyBhcmUgYWJsZSB0byBvYnRhaW4gc2VydmljZXMgbW9zdCBGcmlkYXlzIG9mIGV2ZXJ5IG1vbnRoLCBidXQgc2lnbi11cCBpcyByZXF1aXJlZCBmb3Igc2VydmljZXMuIEFkZGl0aW9uYWxseSwgdGhyb3VnaCB0aGUgTWVhbHMgb24gV2hlZWxzIHByb2dyYW0gSHVnaGVzIE1lbW9yaWFsIFVNQyBpcyBhYmxlIHRvIGJlIGEgcGFydGljaXBhbnQgaW4gdGhlIGNpdHl3aWRlIHByb2dyYW0gd2hlcmVieSBtZWFscyBhcmUgZGVsaXZlcmVkIGRhaWx5IHRvIHRoZSBzaWNrIGFuZCBzaHV0LWluLiANCjxiciAvPg0KPGJyIC8+DQpTT0NJQUwgU0VSVklDRVMNCjxiciAvPg0KVGhlIGNsb3RoZXMgY2xvc2V0IGlzIGF2YWlsYWJsZSBvbiB0aGUgMm5kIFNhdHVyZGF5IG9mIGV2ZXJ5IG1vbnRoIChleGNlcHQgSnVseSBhbmQgQXVndXN0KSBmcm9tIDExOjAwIGFtIHRvIDE6MDAgcG0gYW5kIHRoZXJlIGlzIG5vIHNpZ24tdXAgcmVxdWlyZWQgZm9yIERDIHJlc2lkZW50cyB0byBwYXJ0aWNpcGF0ZSBpbiB0aGVzZSBzZXJ2aWNlcy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNTk3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkF7Ae51PKAu1Ok7aM7mZTG3mk8Hs=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLZyK3uDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARN9pHfq2TSr7utlaQh0Oobdi4QO" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="25 53rd Street, NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Hughes Memorial United Methodist Church" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">25 53rd Street, NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 398-3411<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.hughesmemorial.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Social Services<br \><b>Services : </b> Material needs, Nutritional services<br \><b>Program : </b> Clothing, Emergency food/groceries<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Food pantry Friday 10:00 am to 12:00 pm (sign up required). See details for Social Service hours.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Photo ID and proof of residency required<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Hughes Memorial United Methodist Church works hard to connect with the community through ministries of service, teaching, outreach and compassion to make and grow disciples in Christ. Some of the outreach services offered include: the food pantry, clothing closet, the SHARE program and meals on wheels.
+<br />
+<br />
+EMERGENCY FOOD
+<br />
+Through the SHARE program Hughes Memorial is able to provide individuals or families with a basket of groceries for much lower price than the actual retail value of the basket of food. The SHARE program is operates once monthly (usually on every 4th Saturday).Sign-up is required. Metro bus: 97 & U6.
+<br />
+<br />
+Through the food pantry DC residents are able to obtain services most Fridays of every month, but sign-up is required for services. Additionally, through the Meals on Wheels program Hughes Memorial UMC is able to be a participant in the citywide program whereby meals are delivered daily to the sick and shut-in. 
+<br />
+<br />
+SOCIAL SERVICES
+<br />
+The clothes closet is available on the 2nd Saturday of every month (except July and August) from 11:00 am to 1:00 pm and there is no sign-up required for DC residents to participate in these services.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

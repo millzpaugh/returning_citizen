@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTo1MTQwIE5hbm5pZSBIZWxlbiBCdXJyb3VnaHMgQXZlbnVlLCBORSBXYXNoaW5ndG9uIERDIDIwMDE5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFOzUxNDAgTmFubmllIEhlbGVuIEJ1cnJvdWdocyBBdmVudWUsIE5FIFdhc2hpbmd0b24sIERDIDIwMDE5ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDM5Ni05MzMwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAzOTYtOTM0MDxiciAvPmRkAgUPDxYCHwIFKDxiPldlYnNpdGU6IDwvYj53d3cubmNjZi1jYXJlcy5vcmc8YnIgLz5kZAIHDw8WAh8CBawEPGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbiwgRW1lcmdlbmN5IEZvb2QsIFBhcmVudGluZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVkdWNhdGlvbmFsIHNlcnZpY2VzLCBGYW1pbHkgc3VwcG9ydCBzZXJ2aWNlcywgTWF0ZXJpYWwgbmVlZHMsIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBY2FkZW1pYyBlbnJpY2htZW50L0FmdGVyIHNjaG9vbCBwcm9ncmFtcywgQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBDYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIHBhcmVudGFsIHJldW5pZmljYXRpb24sIENsb3RoaW5nLCBFbWVyZ2VuY3kgZm9vZC9ncm9jZXJpZXMsIEZ1cm5pdHVyZSwgTWVudG9yaW5nLCBQYXJlbnRpbmcgc3VwcG9ydCwgZS5nLiBjbGFzc2VzLCBncm91cHMsIFN1cHBvcnQgZ3JvdXBzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gRmFtaWxpZXMsIEluZmFudHMsIFlvdXRoICgxMiAtIDI0KTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFuhI8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBOYXRpb25hbCBDZW50ZXIgZm9yIENoaWxkcmVuIGFuZCBGYW1pbGllcyAoTkNDRikgc3RyaXZlcyB0byBjcmVhdGUgdG90YWwsIGhlYWx0aHkgbGl2aW5nIGVudmlyb25tZW50cyBmb3IgdnVsbmVyYWJsZSBjaGlsZHJlbiwgeW91dGggYW5kIGZhbWlsaWVzLCBhbmQgdGhlIHF1YWxpdHkgb2YgbGlmZSB3aGljaCBlbXBvd2VycyB0aGVpciBhYmlsaXR5IHRvIHRocml2ZSBhbmQgZGVtb25zdHJhdGUgcmVzcG9uc2liaWxpdHkuIE9uZSBvZiB0aGUgb3JnYW5pemF0aW9ucyBwcm9ncmFtcyBpcyB0aGUgQ0FSQSBIb3VzZSwgYSBjb21tdW5pdHktYmFzZWQsIGNvbGxhYm9yYXRpdmUsIHRoZXJhcGV1dGljIHBhcmVudGluZyBlZHVjYXRpb24gY2VudGVyIGluIFdhcmQgNyBvZiB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEuIENBUkEgSG91c2UgcHJvZ3JhbXMgaGVscCBmYW1pbGllcyBhdm9pZCB1bm5lY2Vzc2FyeSBpbnZvbHZlbWVudCBpbiB0aGUgY2hpbGQgd2VsZmFyZSBzeXN0ZW0gYnkgcHJvbW90aW5nIGZhbWlseSBwZXJtYW5lbmN5IGFuZCBjaGlsZCBzYWZldHkuIFRoZSBzdGFmZiBwcm92aWRlcyBjb25jcmV0ZSByZXNvdXJjZXMgYW5kIHJhaXNlcyBjb21tdW5pdHkgc3RhbmRhcmRzIGZvciBwYXJlbnRpbmcuIFRoZSBwcm9ncmFtIGNvbXBvbmVudHMgb2YgdGhlIENBUkEgSG91c2luZyBpbmNsdWRpbmcgdGhlIGZvbGxvd2luZzoNCg0KVGhlIFJlc291cmNlIEV4Y2hhbmdlIFByb2dyYW0gKFJFUCkgYXNzaXN0cyBmYW1pbGllcyB3aXRoIGVtZXJnZW5jeSBuZWVkcyBpbmNsdWRpbmcgY2xvdGhpbmcsIGZvb2QsIGhvdXNlaG9sZCBpdGVtcywgY3JpYnMsIHN0cm9sbGVycywgZm9ybXVsYSwgYmFieSBmb29kLCBhbmQgc2Nob29sIHN1cHBsaWVzLiBBbGwgZ29vZHMgYW5kIGluLWtpbmQgZG9uYXRpb25zIGNvbWUgZnJvbSB0aGUgY29tbXVuaXR5Lg0KDQpDb21tdW5pdHkgUGFyZW50IEFkdm9jYXRlcyBhbmQgTWVudG9ycyBhcmUgdHJhaW5lZCB0byBwcm9tb3RlIGVmZmVjdGl2ZSBwYXJlbnRpbmcgYmVoYXZpb3JzLiBUaGVzZSBjb21tdW5pdHkgdm9sdW50ZWVycyBhbHNvIGRpc3NlbWluYXRlIGFwcHJvcHJpYXRlIGFuZCBjdWx0dXJhbGx5LXJlbGV2YW50IHBhcmVudGluZyBhbmQgZmFtaWx5IHNlcnZpY2UgaW5mb3JtYXRpb24sIHZlcmJhbGx5IGFuZCB0aHJvdWdoIGxpdGVyYXR1cmUsIHRvIGFkdWx0cyBhbmQgY2hpbGRyZW4uDQoNClRoZSBEQ1BTIFBhcmVudCBSZXNvdXJjZSBDZW50ZXIgKFBSQykgcHJvdmlkZXMgd29ya3Nob3BzLCB0cmFpbmluZywgYW5kIG90aGVyIGxlYXJuaW5nIG9wcG9ydHVuaXRpZXMgZm9yIHBhcmVudHMgc28gdGhhdCB0aGV5IGNhbiBiZWNvbWUgc3Ryb25nIGFkdm9jYXRlcyBmb3IgdGhlaXIgY2hpbGRyZW4gYW5kIHN1cHBvcnQgdGhlbSBpbiB0aGVpciBlZHVjYXRpb25hbCBqb3VybmV5Lg0KDQpUaGUgTWVuLUluLU1vdGlvbiBNYWxlIFN1cHBvcnQgR3JvdXAgaGVscHMgZmF0aGVycyBleHBsb3JlIHRoZSBpbXBvcnRhbmNlIG9mIGVtb3Rpb25hbCBzdXBwb3J0IGFuZCBsZWFybiB0byByb2xlIG1vZGVsIHJlc3BvbnNpYmxlIGFkdWx0IGJlaGF2aW9yIGZvciB0aGVpciBjaGlsZHJlbi4NCg0KVGhlIEtpbk5ldCBQcm9ncmFtIGlzIGEgc3VwcG9ydCBncm91cCBmb3IgZ3JlYXQtZ3JhbmRwYXJlbnRzLCBncmFuZHBhcmVudHMsIGF1bnRzLCB1bmNsZXMsIGFuZCBvdGhlciByZWxhdGl2ZXMgd2hvIGFyZSByYWlzaW5nIGNoaWxkcmVuLiBUaHJvdWdob3V0IHRoZSB5ZWFyLCBncm91cCBtZW1iZXJzIGdvIG9uIG91dGluZ3MgYW5kIGVuam95IHByZXNlbnRhdGlvbnMgZnJvbSBndWVzdCBzcGVha2Vycy4NCg0KVGhlIE51cnR1cmluZyBQYXJlbnQgUHJvZ3JhbSBwcm92aWRlcyBib3RoIGluZGl2aWR1YWwgYW5kIGdyb3VwIHBhcmVudGluZyBlZHVjYXRpb24uIEEgUGFyZW50IEVkdWNhdG9yIGZhY2lsaXRhdGVzIGEgOS13ZWVrIHBhcmVudGluZyBlZHVjYXRpb24gY2xhc3MgdG8gcmVpbmZvcmNlIHBhcmVudGFsIHN0cmVuZ3RocywgcHJvdmlkZSBpbmZvcm1hdGlvbiBvbiBlZmZlY3RpdmUgYXBwcm9hY2hlcyB0byBzdXBwb3J0aW5nIGFuZCBkaXNjaXBsaW5pbmcgY2hpbGRyZW4sIGNyZWF0ZSBwZWVyIHN1cHBvcnRzIGFuZCBvcHBvcnR1bml0aWVzLCBhbmQgaWRlbnRpZnkgdGhyZWF0cyBhbmQgYXNzYXVsdHMgb24gaGVhbHRoeSBjaGlsZCBkZXZlbG9wbWVudC4NCg0KRm9yIG1vcmUgaW5mb3JtYXRpb24sIHBsZWFzZSBjb250YWN0IHRoZSBGYW1pbHkgYW5kIENvbW11bml0eSBTZXJ2aWNlcyBEaXZpc2lvbiBNYW5hZ2VyIGF0ICgyMDIpIDM5Ni05MzMwLCBleHQuIDE4Lg0KPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzU4MR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZI8nFvgCQwlPccjhQTzteNks8Etf" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL0qpmvCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAc2mBmGE0wl/pMEU8HKgj849c6Gd" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="5140 Nannie Helen Burroughs Avenue, NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="National Center for Children and Families (NCCF) (CARA House)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">5140 Nannie Helen Burroughs Avenue, NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 396-9330<br /><b>Fax No:</b>(202) 396-9340<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.nccf-cares.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Emergency Food, Parenting, Social Services<br \><b>Services : </b> Educational services, Family support services, Material needs, Nutritional services, Social services<br \><b>Program : </b> Academic enrichment/After school programs, Advocacy, case management, counseling, emergency services, Case management, counseling, parental reunification, Clothing, Emergency food/groceries, Furniture, Mentoring, Parenting support, e.g. classes, groups, Support groups<br \><b>Population : </b> Families, Infants, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The National Center for Children and Families (NCCF) strives to create total, healthy living environments for vulnerable children, youth and families, and the quality of life which empowers their ability to thrive and demonstrate responsibility. One of the organizations programs is the CARA House, a community-based, collaborative, therapeutic parenting education center in Ward 7 of the District of Columbia. CARA House programs help families avoid unnecessary involvement in the child welfare system by promoting family permanency and child safety. The staff provides concrete resources and raises community standards for parenting. The program components of the CARA Housing including the following:
+
+The Resource Exchange Program (REP) assists families with emergency needs including clothing, food, household items, cribs, strollers, formula, baby food, and school supplies. All goods and in-kind donations come from the community.
+
+Community Parent Advocates and Mentors are trained to promote effective parenting behaviors. These community volunteers also disseminate appropriate and culturally-relevant parenting and family service information, verbally and through literature, to adults and children.
+
+The DCPS Parent Resource Center (PRC) provides workshops, training, and other learning opportunities for parents so that they can become strong advocates for their children and support them in their educational journey.
+
+The Men-In-Motion Male Support Group helps fathers explore the importance of emotional support and learn to role model responsible adult behavior for their children.
+
+The KinNet Program is a support group for great-grandparents, grandparents, aunts, uncles, and other relatives who are raising children. Throughout the year, group members go on outings and enjoy presentations from guest speakers.
+
+The Nurturing Parent Program provides both individual and group parenting education. A Parent Educator facilitates a 9-week parenting education class to reinforce parental strengths, provide information on effective approaches to supporting and disciplining children, create peer supports and opportunities, and identify threats and assaults on healthy child development.
+
+For more information, please contact the Family and Community Services Division Manager at (202) 396-9330, ext. 18.
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

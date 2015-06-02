@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTc1MDAgSW5kaWFuYSBBdmVudWUsIE5XIChSb29tIEMtMjU1KSBXYXNoaW5ndG9uIERDIDIwMDAxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFODUwMCBJbmRpYW5hIEF2ZW51ZSwgTlcgKFJvb20gQy0yNTUpIFdhc2hpbmd0b24sIERDIDIwMDAxZGQCAw8PFgIfAgVOPGI+Q29udGFjdCBQZXJzb246PC9iPkphbmljZSBDb2xiZXJ0PGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDg3OS0xNzMyPGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBY4BPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQWR2b2NhY3kvT3V0cmVhY2ggc2VydmljZXMsIEFzc2Vzc21lbnQgJmFtcDsgcmVmZXJyYWwgdG8gbWVudGFsIGhlYWx0aCBzZXJ2aWNlczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFlAM8Yj5EZXNjcmlwdGlvbjogPC9iPkRDIERlcGFydG1lbnQgb2YgTWVudGFsIEhlYWx0aCBoYXMgYSBsaWFpc29uIHNpdHVhdGVkIGluIHRoZSBEQyBTdXBlcmlvciBDb3VydCAoTW91bHRyaWUgQ291cnRob3VzZSkgd2hvIGlzIHJlc3BvbnNpYmxlIGZvciBhc3Nlc3NpbmcgYW5kIGxpbmtpbmcgdG8gc2VydmljZXMgZGVmZW5kYW50cyB3aG8gbWF5IGJlIGluIG5lZWQgb2YgbWVudGFsIGhlYWx0aCBzZXJ2aWNlcywgb3IgaGF2ZSBhIHByZXZpb3VzbHkgcmVwb3J0ZWQgaGlzdG9yeSBvZiBtZW50YWwgaWxsbmVzcy4gVGhlc2UgZGVmZW5kYW50cyBhcmUgdHlwaWNhbGx5IHJlZmVycmVkIGZvciBhIG1lbnRhbCBoZWFsdGggc2NyZWVuaW5nIGJ5IEp1ZGljaWFsIE9mZmljZXJzIG9mIHRoZSBDb3VydC4gIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0NzceDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQCPWu541lpVT1dqTXofve4DxnvXA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK25t6OBQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYSHBB/WCeTTmAjjQJA5xugWX0gy" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="500 Indiana Avenue, NW (Room C-255) Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Department of Mental Health/Court Liason" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">500 Indiana Avenue, NW (Room C-255) Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Janice Colbert<br /><b>Phone No:</b>(202) 879-1732<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Advocacy/Outreach services, Assessment &amp; referral to mental health services<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>DC Department of Mental Health has a liaison situated in the DC Superior Court (Moultrie Courthouse) who is responsible for assessing and linking to services defendants who may be in need of mental health services, or have a previously reported history of mental illness. These defendants are typically referred for a mental health screening by Judicial Officers of the Court.  <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTszNzIwIE1hcnRpbiBMdXRoZXIgS2luZywgSnIuIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiBEQyAyMDAzMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTwzNzIwIE1hcnRpbiBMdXRoZXIgS2luZywgSnIuIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMzJkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjc5LTE4MDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDY0NS0wMjk0PGJyIC8+ZGQCBQ8PFgIfAgVQPGI+V2Vic2l0ZTogPC9iPnd3dy51bml0eWhlYWx0aGNhcmUub3JnL0hlYWx0aENlbnRlcnMvU2VydmljZUNvbmdyZXNzLmh0bWw8YnIgLz5kZAIHDw8WAh8CBb0DPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lZGljYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ29tbXVuaXR5IGhlYWx0aDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gRGVudGFsLCBGYW1pbHkgcGxhbm5pbmcsIEhJVi9BSURTLCBPYi1HeW4sIFByaW1hcnkgKEFkdWx0LCBGYW1pbHkgJmFtcDsgUGVkaWF0cmljcyksIFZpc2lvbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBNZWRpY2FyZSwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50LCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBTbGlkaW5nIGZlZSBzY2FsZSAoRmVlIGlzIGJhc2VkIG9uIGluY29tZSAmYW1wOyBvdGhlciBmYWN0b3JzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFPzxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheS1GcmlkYXkgODoxNSBhbS00OjMwIHBtLjxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBfIJPGI+RGVzY3JpcHRpb246IDwvYj5Vbml0eSBIZWFsdGggQ2FyZSBIZWFsdGggQ2VudGVycyBoYXZlIHNlcnZpY2Ugc2l0ZXMgbG9jYXRlZCBpbiBldmVyeSB3YXJkIG9mIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYS4gVGhlIENlbnRlcnMgcHJvdmlkZSBxdWFsaXR5LCBjb21wYXNzaW9uYXRlIGFuZCBjb21wcmVoZW5zaXZlIHByaW1hcnkgaGVhbHRoIGNhcmUgc2VydmljZXMuIERDIHJlc2lkZW50cyBjYW4gYWNjZXNzIFVuaXR5IEhlYWx0aCBDYXJlIHNlcnZpY2VzIHJlZ2FyZGxlc3Mgb2YgYWJpbGl0eSB0byBwYXkuIEZvciB0aG9zZSB3aG8gY2FuIHBheSwgYSBzbGlkaW5nIHNjYWxlIGJhc2VkIG9uIGZhbWlseSBzaXplIGFuZCBpbmNvbWUgaXMgdXNlZCB0byBkZXRlcm1pbmUgdGhlIGFwcHJvcHJpYXRlIGFtb3VudC4gVW5pdHkgSGVhbHRoIENhcmUgYWNjZXB0cyBNZWRpY2FpZCwgTWVkaWNhcmUsIE1hbmFnZWQgQ2FyZSBPcmdhbml6YXRpb25zLCBEQyBIZWFsdGhjYXJlIEFsbGlhbmNlIChEQyBDaGFydGVyZWQgSGVhbHRoIENhcmUgQWxsaWFuY2UgYW5kIFVuaXRlZCBIZWFsdGggQ2FyZSBDb21tdW5pdHkgUGxhbiksIGFuZCBvdGhlciBwcml2YXRlIGluc3VyYW5jZSBwbGFucy4NCjxiciAvPg0KPGJyIC8+DQpUaGUgbWVkaWNhbCBzZXJ2aWNlcyBwcm92aWRlZCBhdCB0aGUgQ29uZ3Jlc3MgSGVpZ2h0cyBzaXRlIGluY2x1ZGUgdGhlIGZvbGxvd2luZzogQWR1bHQgTWVkaWNpbmUsIFBlZGlhdHJpY3MsIE9waHRoYWxtb2xvZ3ksIERlcm1hdG9sb2d5LCBISVYvQUlEUyBTZXJ2aWNlcywgUG9kaWF0cnksIE9CLUdZTiwgUmhldW1hdG9sb2d5LCBTb2NpYWwgU2VydmljZSwgTGFib3JhdG9yeSBzZXJ2aWNlcywgQ2FzZSBNYW5hZ2VtZW50LCBTdXJnZXJ5IFNlcnZpY2VzLCBEZW50aXN0cnksIFBzeWNoaWF0cnksIEZhbWlseSBQbGFubmluZywgV0lDIChNb25kYXktVGh1cnNkYXkpLCBhbmQgSU1BIFNlcnZpY2UgKE1vbmRheS1XZWRuZXNkYXkpDQo8YnIgLz4NCjxiciAvPg0KQWxsIHBvdGVudGlhbCBwYXRpZW50cyBzaG91bGQgY2FsbCBpbnRvIHRoZSBQYXRpZW50IFNjaGVkdWxpbmcgQ2VudGVyIHRvIHNjaGVkdWxlIG1vc3QgYXBwb2ludG1lbnRzLg0KPGJyIC8+DQpQYXRpZW50IFNjaGVkdWxpbmcgQ2VudGVyOiAyMDIuNDY5LjQ2OTkNCjxiciAvPg0KPGJyIC8+DQpUaGUgaG91cnMgb2Ygb3BlcmF0aW9uIGF0IHRoaXMgc2l0ZSBhcmUgYXMgZm9sbG93czoNCk1vbmRheS1GcmlkYXkgODoxNSBBTS00OjMwIFBNPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzM4MB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZN4/aMR+Mebpt6m3dB0kNH/y/mzq" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLk65WBAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATorVmX+bqPJWfDeUo5ici+BzYGR" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3720 Martin Luther King, Jr. Avenue, SE Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care (Congress Heights Health Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3720 Martin Luther King, Jr. Avenue, SE Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 279-1800<br /><b>Fax No:</b>(202) 645-0294<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceCongress.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Dental, Family planning, HIV/AIDS, Ob-Gyn, Primary (Adult, Family &amp; Pediatrics), Vision<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday-Friday 8:15 am-4:30 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Health Centers have service sites located in every ward of the District of Columbia. The Centers provide quality, compassionate and comprehensive primary health care services. DC residents can access Unity Health Care services regardless of ability to pay. For those who can pay, a sliding scale based on family size and income is used to determine the appropriate amount. Unity Health Care accepts Medicaid, Medicare, Managed Care Organizations, DC Healthcare Alliance (DC Chartered Health Care Alliance and United Health Care Community Plan), and other private insurance plans.
+<br />
+<br />
+The medical services provided at the Congress Heights site include the following: Adult Medicine, Pediatrics, Ophthalmology, Dermatology, HIV/AIDS Services, Podiatry, OB-GYN, Rheumatology, Social Service, Laboratory services, Case Management, Surgery Services, Dentistry, Psychiatry, Family Planning, WIC (Monday-Thursday), and IMA Service (Monday-Wednesday)
+<br />
+<br />
+All potential patients should call into the Patient Scheduling Center to schedule most appointments.
+<br />
+Patient Scheduling Center: 202.469.4699
+<br />
+<br />
+The hours of operation at this site are as follows:
+Monday-Friday 8:15 AM-4:30 PM<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

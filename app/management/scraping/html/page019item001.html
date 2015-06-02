@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTU2NDAyIEFybGluZ3RvbiBCbHZkLiwgIFNURS4gMzAwIEZhbGxzIENodXJjaCBWQSAyMjA0MmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTY2NDAyIEFybGluZ3RvbiBCbHZkLiwgIFNURS4gMzAwIEZhbGxzIENodXJjaCwgVkEgMjIwNDJkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDU3MSkgMjgyLTYxNjE8YnIgLz48Yj5GYXggTm86PC9iPig1NzEpIDI4Mi02MTYyPGJyIC8+ZGQCBQ8PFgIfAgUlPGI+V2Vic2l0ZTogPC9iPnd3dy50YWhpcmloLm9yZzxiciAvPmRkAgcPDxYCHwIFrQM8Yj5DYXRlZ29yeSA6IDwvYj4gTGVnYWwsIFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBBYnVzZSAmYW1wOyBuZWdsZWN0IHNlcnZpY2VzLCBMZWdhbCwgU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBEb21lc3RpYyBWaW9sZW5jZSwgRmFtaWx5IGxhdy0tY2hpbGQgY3VzdG9keSwgc3VwcG9ydCwgdmlzaXRhdGlvbiwgZ3VhcmRpYW5zaGlwLCBIdW1hbiB0cmFmZmlja2luZywgUmVmZXJyYWxzIGZvciBzb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBJbW1pZ3JhbnRzL1JlZnVnZWVzPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBb8BPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2gsIExhbmd1YWdlIHRyYW5zbGF0aW9ucyBhdmFpbGFibGUuIChDZW50ZXIgc3RhZmYgYXZhaWxhYmxlIHRvIHNwZWFrIHNldmVyYWwgbGFuZ3VhZ2UgYW5kIGRpYWxlY3RzLik8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgV+PGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDk6MDAgYW0gLSA1OjMwIHBtOyBJbnRha2UgU2NyZWVuaW5nczogVHVlc2RheSBhbmQgVGh1cnNkYXkgMTA6MDAgYW0gLSA0OjAwIHBtPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFsgU8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBUYWhpcmloIEp1c3RpY2UgQ2VudGVyIHdvcmtzIHRvIHByb3RlY3QgaW1taWdyYW50IHdvbWVuIGFuZCBnaXJscyBzZWVraW5nIGp1c3RpY2UgaW4gdGhlIFVuaXRlZCBTdGF0ZXMgZnJvbSBnZW5kZXItYmFzZWQgdmlvbGVuY2UuIFRhaGlyaWjigJlzIGlubm92YXRpdmUgYW5kIGNvbXByZWhlbnNpdmUgYXBwcm9hY2ggbGV2ZXJhZ2VzIHBybyBib25vIHJlc291cmNlcyB0byBwcm92aWRlIGEgY29tYmluYXRpb24gb2YgbGVnYWwgc2VydmljZXMsIGFkdm9jYWN5LCBhbmQgcHVibGljIGVkdWNhdGlvbiBwcm9ncmFtcyB0byBhc3Npc3QgaW1taWdyYW50IHdvbWVuIGFuZCBnaXJscyBzZWVraW5nIHByb3RlY3Rpb24gYWdhaW5zdCBnZW5kZXItYmFzZWQgdmlvbGVuY2UgKHJhcGUsIGRvbWVzdGljIHZpb2xlbmNlLCBnZW5pdGFsIG1vdGl2YXRpb24pLiBBZGRpdGlvbmFsbHksIHRoZSBDZW50ZXIgcHJvdmlkZXMgZGlyZWN0IGFzc2lzdGFuY2Ugd2l0aCBhc3lsdW0gcHJvY2VzczsgaG91c2luZyBhbmQgZmluYW5jaWFsIHN1cHBvcnQuIFNlcnZpY2VzIGFyZSBhdmFpbGFibGUgZm9yIGluZGl2aWR1YWwgYW5kIGdyb3VwIGNvdW5zZWxpbmcsIGFzIHdlbGwgYXMgbWVudG9yaW5nLiBUaGVyZSBpcyBhIHNsaWRpbmcgZmVlIGFzc29jaWF0ZWQgd2l0aCBzZXJ2aWNlcy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzQwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkbM3SKn7I2nIq/mO9DyQxBFWN1uI=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLn16W3DAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASfPqXpgUCYJeZvkkD+EmE/l6YGQ" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="6402 Arlington Blvd.,  STE. 300 Falls Church VA 22042" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Tahirih Justice Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">6402 Arlington Blvd.,  STE. 300 Falls Church, VA 22042</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(571) 282-6161<br /><b>Fax No:</b>(571) 282-6162<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.tahirih.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal, Social Services<br \><b>Services : </b> Abuse &amp; neglect services, Legal, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Domestic Violence, Family law--child custody, support, visitation, guardianship, Human trafficking, Referrals for social services<br \><b>Population : </b> Immigrants/Refugees<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Language translations available. (Center staff available to speak several language and dialects.)<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am - 5:30 pm; Intake Screenings: Tuesday and Thursday 10:00 am - 4:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Tahirih Justice Center works to protect immigrant women and girls seeking justice in the United States from gender-based violence. Tahirih’s innovative and comprehensive approach leverages pro bono resources to provide a combination of legal services, advocacy, and public education programs to assist immigrant women and girls seeking protection against gender-based violence (rape, domestic violence, genital motivation). Additionally, the Center provides direct assistance with asylum process; housing and financial support. Services are available for individual and group counseling, as well as mentoring. There is a sliding fee associated with services.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

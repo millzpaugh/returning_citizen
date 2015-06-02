@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMzMzIE4gU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA1ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjEzMzMgTiBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA1ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDkzOS0yMDU3PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAzMTktMTUwODxiciAvPmRkAgUPDxYCHwIFPTxiPldlYnNpdGU6IDwvYj53d3cubnN0cmVldHZpbGxhZ2Uub3JnL3Byb2dyYW1zL2hlYWx0aC88YnIgLz5kZAIHDw8WAh8CBc0BPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gUGVyc29ucyB3aXRoIGNvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFoAE8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaCwgQVNMIGFuZCBwaG9uZSBiYXNlZCBpbnRlcnByZXRhdGlvbiBzZXJ2aWNlcyBmb3Igb3ZlciAyMCBsYW5ndWFnZXMgPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVkPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbjsgUGxlYXNlIGNvbnRhY3QgQmV0aGFueSBXb21lbuKAmXMgQ2VudGVyIGF0ICgyMDIpIDkzOS0yMDYwLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgX6CTxiPkRlc2NyaXB0aW9uOiA8L2I+TiBTdHJlZXQgVmlsbGFnZSBwcm92aWRlcyB0aGVyYXBldXRpYyBjb21tdW5pdHkgcmVzaWRlbmNlcyBmb3Igd29tZW4gd2l0aCBjby1vY2N1cnJpbmcgYWRkaWN0aW9ucyBhbmQgbWVudGFsIGlsbG5lc3Nlcy4gTiBTdHJlZXQgVmlsbGFnZSBvZmZlcnMgaW5kaXZpZHVhbCBhbmQgZ3JvdXAgY291bnNlbGluZy4gU3VwcG9ydGl2ZSBob3VzaW5nIGlzIHByb3ZpZGVkIGZvciBhbiBhdmVyYWdlIG9mIDktMTggbW9udGhzIGR1cmluZyBlYXJseSByZWNvdmVyLg0KPGJyIC8+DQo8YnIgLz4NCuKAoiBMb25nLXRlcm0gc3VwcG9ydGl2ZSBob3VzaW5nIGZvciB3b21lbiB3aG8gaGF2ZSBtZW50YWwgaWxsbmVzcyBhbmQgYXJlIGVhcmx5IGluIHRoZWlyIHJlY292ZXIgZnJvbSBzdWJzdGFuY2UgYWJ1c2U7DQo8YnIgLz4NCuKAoiBQcmlvcml0eSBlbnRyeSBpcyBnaXZlbiB0byB3b21lbiB3aG8gYXJlIGV4aXRpbmcgamFpbCBhbmQvb3IgbGlua2VkIHRvIHRoZSBjcmltaW5hbCBqdXN0aWNlIHN5c3RlbTsNCjxiciAvPg0K4oCiIFJlcXVpcmVkIHBhcnRpY2lwYXRpb24gaW4gY2FzZSBtYW5hZ2VtZW50LCBkYWlseSBjb21tdW5pdHkgbWVldGluZywgYWN0aXZpdGllcywgYW5kIGNob3JlczsNCjxiciAvPg0K4oCiIFJlc2lkZW50cyBtdXN0IGFsc28gd29yayB3aXRoIG9uZSBvZiBELkMu4oCZcyBDb3JlIFNlcnZpY2UgQWdlbmNpZXMgKENTQSk7DQo8YnIgLz4NCuKAoiBBdmVyYWdlIHN0YXkgcmFuZ2VzIGZyb20gNi0xOCBtb250aHM7DQo8YnIgLz4NCjxiciAvPg0KQXJlIHlvdSBhIGNhc2UgbWFuYWdlciB3b3JraW5nIHdpdGggYSBjbGllbnQgbGlua2VkIHRvIHRoZSBjcmltaW5hbCBqdXN0aWNlIHN5c3RlbT8gUGxlYXNlIGNhbGwgS3Jpc3RpbiBZYXRlcyBhdCAoMjAyKSA5MzktMjA5OCBmb3IgcmVmZXJyYWwgYW5kIGludGFrZSB0aW1lcy4NCjxiciAvPg0KPGJyIC8+DQpPdXIgc2hlbHRlciBhbmQgaG91c2luZyBwcm9ncmFtcyByZXF1aXJlIGFuIGludGFrZSwgYSByZWNlbnQgVEIgdGVzdCwgc3RhZmYgYXBwcm92YWwsIGFuZCBhIHNpZ25lZCByZXNpZGVudGlhbCBhZ3JlZW1lbnQuIFdlIG9ubHkgY29tcGxldGUgaW50YWtlcyB3aGVuIHdlIGhhdmUgc3BhY2VzIG9wZW4gaW4gb3VyIHByb2dyYW1zLiBBcmUgeW91IGEgcG90ZW50aWFsIGNsaWVudCBpbnRlcmVzdCBpbiBsZWFybmluZyBtb3JlPyBQbGVhc2UgY29udGFjdCBCZXRoYW55IFdvbWVu4oCZcyBDZW50ZXIgYXQgKDIwMikgOTM5LTIwNjAuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzIzMh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZDq19Bc71FL8PquBFFFS1HhhvXHx" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKTupWHAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQHRIh20YileDlrvinAZGxGuqlVP" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1333 N Street, NW Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="N Street Village (Recovery Housing)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1333 N Street, NW Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 939-2057<br /><b>Fax No:</b>(202) 319-1508<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.nstreetvillage.org/programs/health/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Persons with co-occurring mental illness &amp; substance abuse disorders, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, ASL and phone based interpretation services for over 20 languages <br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women; Please contact Bethany Women’s Center at (202) 939-2060.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>N Street Village provides therapeutic community residences for women with co-occurring addictions and mental illnesses. N Street Village offers individual and group counseling. Supportive housing is provided for an average of 9-18 months during early recover.
+<br />
+<br />
+• Long-term supportive housing for women who have mental illness and are early in their recover from substance abuse;
+<br />
+• Priority entry is given to women who are exiting jail and/or linked to the criminal justice system;
+<br />
+• Required participation in case management, daily community meeting, activities, and chores;
+<br />
+• Residents must also work with one of D.C.’s Core Service Agencies (CSA);
+<br />
+• Average stay ranges from 6-18 months;
+<br />
+<br />
+Are you a case manager working with a client linked to the criminal justice system? Please call Kristin Yates at (202) 939-2098 for referral and intake times.
+<br />
+<br />
+Our shelter and housing programs require an intake, a recent TB test, staff approval, and a signed residential agreement. We only complete intakes when we have spaces open in our programs. Are you a potential client interest in learning more? Please contact Bethany Women’s Center at (202) 939-2060.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

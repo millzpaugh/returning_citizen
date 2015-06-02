@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSk3MTYgUml0Y2hpZSBSb2FkIENhcGl0b2wgSGVpZ2h0cyBNRCAyMDc0M2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSo3MTYgUml0Y2hpZSBSb2FkIENhcGl0b2wgSGVpZ2h0cywgTUQgMjA3NDNkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgMzM2LTYyMDA8YnIgLz5kZAIFDw8WAh8CBTA8Yj5XZWJzaXRlOiA8L2I+d3d3LnJlc2N1ZWRjLm9yZy9pbmRleC5waHA8YnIgLz5kZAIHDw8WAh8CBXQ8Yj5DYXRlZ29yeSA6IDwvYj4gU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1hdGVyaWFsIG5lZWRzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gVGhyaWZ0IHN0b3JlczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFWzxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk0tRiA5YW0gLSA1cG0gKHdvcmsgcHJvZ3JhbSk7IDI0IGhvdXIgcmVzaWRlbnRpYWwgc2VydmljZXM8YnIgLz5kZAIPDw8WAh8CBWQ8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk1lbiB3aXRoIGFsY29ob2wgYWJ1c2UgaXNzdWVzOyBoZWFsdGh5IGFuZCBhYmxlIHRvIGxpZnQgMjUgcG91bmRzPGJyIC8+ZGQCEQ8PFgIfAgVzPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5QaG90byBJRCBhbmQgJDIwIGZvciB1cmluYWx5c2lzICh1bmxlc3MgZGlyZWN0bHkgcmVmZXJyZWQgZnJvbSBhIGRldG94IHByb2dyYW0pLjxiciAvPmRkAhMPDxYCHwIFgQY8Yj5EZXNjcmlwdGlvbjogPC9iPkFtZXJpY2FuIFJlc2N1ZSBXb3JrZXJzIChBUlcpIHJ1bnMgdGhlIERDIENvcnBzIDktTW9udGggQ2hyaXN0aWFuIEFkZGljdGlvbiBwcm9ncmFtLiBUaGUgcHJvZ3JhbSBpcyBvcGVuIHRvIG1lbiBhbmQgaXMgYSA5LW1vbnRoLCBzcGlyaXR1YWxseS1iYXNlZCwgcmVzaWRlbnRpYWwgdHJlYXRtZW50IGNvdW5zZWxpbmcgYW5kIHdvcmsgdGhlcmFweSBwcm9ncmFtLiBBbGNvaG9sIGFidXNlIG11c3QgYmUgdGhlIHByaW1hcnkgdHJlYXRtZW50IGlzc3VlLiANCjxiciAvPg0KPGJyIC8+DQpUaGUgaW5pdGlhbCBwaGFzZSBpcyBhIDQ1IGRheSBib290IGNhbXAsIHdoaWNoIG1hbmRhdGVzIHBhcnRpY2lwYW50cyB0byBoYXZlIG5vIG91dHNpZGUgY29udGFjdC4gVGhyb3VnaCB0aGUgSW5kdXN0cmlhbCBwcm9ncmFtIHBhcnRpY2lwYW50cyBtdXN0IHdvcmsgZWl0aGVyIG9uLXNpdGUgb3IgYXQgb25lIG9mIEFSV+KAmXMgdGhyaWZ0IHN0b3Jlcy4gQXNzaWdubWVudHMgYXJlIGJhc2VkIG9uIGV4cGVydGlzZSBhbmQgcHJvZ3JhbSBuZWVkcy4gT24tc2l0ZSBpbnRlcnZpZXdzIGFyZSByZXF1aXJlZC4gTGFzdGx5LCBhcHBsaWNhbnRzIG11c3QgaGF2ZSBwaWN0dXJlIElEIGFuZCAkMjAgZm9yIHVyaW5hbHlzaXMsIHVubGVzcyBkaXJlY3RseSByZWZlcnJlZCBmcm9tIGEgZGV0b3ggcHJvZ3JhbS4gVGhleSBtdXN0IGFsc28gYmUgcGh5c2ljYWxseSBoZWFsdGh5IGFuZCBhYmxlIHRvIGxpZnQgMjUgcG91bmRzLiAgPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzUzMB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZBqfAO5sp1aBlmJCyp5Nb1gV7GjG" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLR9rgrApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBOVB5xKXPFR5pq9Yn7cV3CTp7jMM=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="716 Ritchie Road Capitol Heights MD 20743" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="American Rescue Workers" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">716 Ritchie Road Capitol Heights, MD 20743</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 336-6200<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.rescuedc.org/index.php<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Material needs<br \><b>Program : </b> Thrift stores<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>M-F 9am - 5pm (work program); 24 hour residential services<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men with alcohol abuse issues; healthy and able to lift 25 pounds<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID and $20 for urinalysis (unless directly referred from a detox program).<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>American Rescue Workers (ARW) runs the DC Corps 9-Month Christian Addiction program. The program is open to men and is a 9-month, spiritually-based, residential treatment counseling and work therapy program. Alcohol abuse must be the primary treatment issue. 
+<br />
+<br />
+The initial phase is a 45 day boot camp, which mandates participants to have no outside contact. Through the Industrial program participants must work either on-site or at one of ARW’s thrift stores. Assignments are based on expertise and program needs. On-site interviews are required. Lastly, applicants must have picture ID and $20 for urinalysis, unless directly referred from a detox program. They must also be physically healthy and able to lift 25 pounds.  <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

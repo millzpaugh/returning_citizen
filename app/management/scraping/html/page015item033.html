@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSwxMzI1IE1hcnlsYW5kIEF2ZW51ZSwgTkUgV2FzaGluZ3RvbiBEQyAyMDAwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS0xMzI1IE1hcnlsYW5kIEF2ZW51ZSwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMDJkZAIDDw8WAh8CBXE8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzk3LTQzMzM8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDM5Ni05NjM5PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAzODgtMTc5NzxiciAvPmRkAgUPDxYCHwIFOjxiPldlYnNpdGU6IDwvYj53d3cuZmFjZWJvb2suY29tL1B1cml0eUJhcHRpc3RDaHVyY2g8YnIgLz5kZAIHDw8WAh8CBacBPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE51dHJpdGlvbmFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRW1lcmdlbmN5IGZvb2QvZ3JvY2VyaWVzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gRmFtaWxpZXM8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBWE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5FbWVyZ2VuY3kgRm9vZDogTW9uZGF5cywgVGh1cnNkYXlzLCBhbmQgRnJpZGF5cyAxMDowMCBhbS0xOjAwIHBtPGJyIC8+ZGQCDw8PFgIfAgVMPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5ORSBEQyBSZXNpZGVudHMuIFNvY2lhbCBXb3JrZXIgUmVmZXJyYWxzLjxiciAvPmRkAhEPDxYCHwIFNDxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UGhvdG8gSUQgcmVxdWlyZWQ8YnIgLz5kZAITDw8WAh8CBZYEPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgUHVyaXR5IEJhcHRpc3QgQ2h1cmNoIGFuZCBVcmJhbiBDZW50ZXIgcHJvdmlkZXMgZW1lcmdlbmN5IGZvb2Qgb25jZSBhIG1vbnRoIGZvciBXYXJkIDYgZmFtaWxpZXMgaW4gbmVlZCBvbiBNb25kYXlzLCBUaHVyc2RheXMsIGFuZCBGcmlkYXlzIGZyb20gMTA6MDAgYW0gdG8gMTowMCBwbS4gUmVmZXJyYWxzIGFyZSBuZWNlc3NhcnkgZnJvbSBzb2NpYWwgd29ya2VycywgYW5kIHRoZSByZWZlcnJhbHMgY2FuIGVpdGhlciBiZSBmYXhlZCBvciBoYW5kIGRlbGl2ZXJlZC4gQ291bnNlbGluZyBzZXJ2aWNlcyBhcmUgYWxzbyBwcm92aWRlZC4gVGhlaXIgIk1lYWxzIG9uIFdoZWVscyIgZm9vZCB0cnVjayB0cmF2ZWxzIHRocm91Z2hvdXQgdGhlIERpc3RyaWN0IG9uIE1vbmRheXMsIFdlZG5lc2RheXMsIGFuZCBGcmlkYXlzLiBQbGVhc2UgY2FsbCBmb3IgIk1lYWxzIG9uIFdoZWVscyIgc2VydmljZSBsb2NhdGlvbnMuIA0KPGJyLyA+DQo8YnIvID4NCk1ldHJvIGJ1czogWDEsIFgyICYgWDguPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzYwMh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZDsuNc0qTbVyraW/APAhOjGEUkvb" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK/r+PPDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAW5P7Z08zZx1oiHCJUdWxnJbPE2e" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1325 Maryland Avenue, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Purity Baptist Church and Urban Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1325 Maryland Avenue, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 397-4333<br /><b>Phone No2:</b>(202) 396-9639<br /><b>Fax No:</b>(202) 388-1797<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.facebook.com/PurityBaptistChurch<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food<br \><b>Services : </b> Nutritional services<br \><b>Program : </b> Emergency food/groceries<br \><b>Population : </b> Families<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Emergency Food: Mondays, Thursdays, and Fridays 10:00 am-1:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>NE DC Residents. Social Worker Referrals.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID required<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Purity Baptist Church and Urban Center provides emergency food once a month for Ward 6 families in need on Mondays, Thursdays, and Fridays from 10:00 am to 1:00 pm. Referrals are necessary from social workers, and the referrals can either be faxed or hand delivered. Counseling services are also provided. Their "Meals on Wheels" food truck travels throughout the District on Mondays, Wednesdays, and Fridays. Please call for "Meals on Wheels" service locations. 
+<br/ >
+<br/ >
+Metro bus: X1, X2 & X8.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSY0MjUgMm5kIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSc0MjUgMm5kIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjM5LTgwOTM8YnIgLz5kZAIFDw8WAh8CBSQ8Yj5XZWJzaXRlOiA8L2I+d3d3LmljaC5kYy5nb3Y8YnIgLz5kZAIHDw8WAh8CBYUCPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEh5cG90aGVybWlhICZhbXA7IGh5cGVydGhlcm1pYSBzZXJ2aWNlcyAobW9iaWxlIHZhbi90cmFuc3BvcnRhdGlvbi9zaGVsdGVycyksIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTaGVsdGVyczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEZyZWUgbWVhbHMvU291cCBraXRjaGVuczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IFdvbWVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgUwPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+MjQgaG91ciBzaGVsdGVyPGJyIC8+ZGQCDw8PFgIfAgVAPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbiAxOCB5ZWFycyBvbGQgYW5kIG9sZGVyLjxiciAvPmRkAhEPDxYCHwIFLDxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UGhvdG8gSUQuPGJyIC8+ZGQCEw8PFgIfAgWkBDxiPkRlc2NyaXB0aW9uOiA8L2I+REMgKDE4KykgcmVzaWRlbnRzIHNlZWtpbmcgZW1lcmdlbmN5IG92ZXJuaWdodCBzaGVsdGVyIGNhbiBjb250YWN0IGFueSBvZiB0aGUgc2hlbHRlcnMuIFNoZWx0ZXJzIGdlbmVyYWxseSByZXF1aXJlIHRoYXQgcmVzaWRlbnRzIGFncmVlIHRvIHJlY2VpdmUgY2FzZSBtYW5hZ2VtZW50IHNlcnZpY2VzIGkuZS4gbWVkaWNhbCwgbWVudGFsIGhlYWx0aCwgc3Vic3RhbmNlIGFidXNlIGFzIGEgY29uZGl0aW9uIHRvIGxpdmluZyBhdCB0aGUgc2hlbHRlci4NCjxiciAvPg0KPGJyIC8+DQpPcGVuIERvb3Igc2hlbHRlciBpcyBhIGhpZ2ggYmFycmllciBzaGVsdGVyLiBBIGhpZ2ggYmFycmllciBzaGVsdGVyIHJlcXVpcmVzIHJlc2lkZW50cyB0byBwYXJ0aWNpcGF0ZSBpbiBjYXNlIG1hbmFnZW1lbnQgYW5kIHNvbWUgaG91c2UgbWFpbnRlbmFuY2UgY2hvcmVzLiBPcGVuIERvb3Igc2hlbHRlciBwcm92aWRlcyAzIG1lYWxzIHBlciBkYXkgKDEgaG90IG1lYWwpLCBzaG93ZXJzLCBsYXVuZHJ5LCBhbmQgaGVhbHRoIGNhcmUuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzMxMB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZLtd6kiJ9BaXwKUIzwRvjuY9r0W1" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK8v7O0BQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQQiWnl+j1kxDodCUr6qUnLU4ApY" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="425 2nd Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Open Door" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">425 2nd Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 639-8093<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ich.dc.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing<br \><b>Services : </b> Hypothermia &amp; hyperthermia services (mobile van/transportation/shelters), Nutritional services, Shelters<br \><b>Program : </b> Free meals/Soup kitchens<br \><b>Population : </b> Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24 hour shelter<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women 18 years old and older.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>DC (18+) residents seeking emergency overnight shelter can contact any of the shelters. Shelters generally require that residents agree to receive case management services i.e. medical, mental health, substance abuse as a condition to living at the shelter.
+<br />
+<br />
+Open Door shelter is a high barrier shelter. A high barrier shelter requires residents to participate in case management and some house maintenance chores. Open Door shelter provides 3 meals per day (1 hot meal), showers, laundry, and health care.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

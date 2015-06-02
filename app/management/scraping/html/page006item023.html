@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSQ5MDEgRyBTdHJlZXQsIE5XIFdhc2hpbmd0b24gREMgMjAwMDFkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUlOTAxIEcgU3RyZWV0LCBOVyBXYXNoaW5ndG9uLCBEQyAyMDAwMWRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAzOTMtMTEwMDxiciAvPmRkAgUPDxYCHwIFKTxiPldlYnNpdGU6IDwvYj53d3cuY29sbGVnZWluZm8ub3JnPGJyIC8+ZGQCBw8PFgIfAgV8PGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbjxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBQb3N0IEstMTI8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBDb2xsZWdlIGFkbWlzc2lvbnMvRmluYW5jaWFsIGFpZDxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFrwE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXksIFRodXJzZGF5IDE6MDAgcG0tNzowMHBtOyBUdWVzZGF5IDE6MDAgcG0tOTowMCBwbTsgV2VkbmVzZGF5IDEwOjAwIGFtLTc6MDAgcG07ICBGcmlkYXkgMTE6MDAgcG0tMzowMCBwbTsgYW5kIFNhdHVyZGF5IDEwOjAwIGFtLTU6MzAgcG0uPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFuAY8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBHcmVhdGVyIFdhc2hpbmd0b24gQ29sbGVnZSBJbmZvIENlbnRlciAoQ0lDKSBpcyBhIHByb2dyYW0gb2YgdGhlIENvbnNvcnRpdW0gb2YgVW5pdmVyc2l0aWVzIG9mIHRoZSBXYXNoaW5ndG9uIE1ldHJvcG9saXRhbiBBcmVhIGRlc2lnbmVkIHRvIGhlbHAgc3R1ZGVudHMgb2YgYWxsIGFnZXMgcmVhY2ggdGhlaXIgZWR1Y2F0aW9uYWwgYW5kIGNhcmVlciBnb2Fscy4NCjxiciAvPg0KPGJyIC8+DQpDSUMgcHJvdmlkZXMgc3R1ZGVudHMgd2l0aCB0aGUgaW5mb3JtYXRpb24gdGhleSBuZWVkIHRvIGVudGVyIHBvc3Qtc2Vjb25kYXJ5IGVkdWNhdGlvbi4gQWR2aXNvcnMgYXNzaXN0IHN0dWRlbnRzIGFuZCBmYW1pbGllcyBuYXZpZ2F0ZSBhbmQgbmVnb3RpYXRlIHRoZSBjb2xsZWdlIGFkbWlzc2lvbiBhbmQgZmluYW5jaWFsIGFpZCBwcm9jZXNzLiBTZXJ2aWNlcyBhcmUgYXZhaWxhYmxlIG9uIHdhbGstaW4gYmFzaXMgZHVyaW5nIG5vcm1hbCBsaWJyYXJ5IGhvdXJzLiBDSUMgaXMgbG9jYXRlZCBhdCB0aGUgTWFydGluIEx1dGhlciBLaW5nLCBKci4gTGlicmFyeS4NCjxiciAvPg0KPGJyIC8+DQpDbG9zZXN0IE1ldHJvIFN0YXRpb246IEdhbGxlcnkgUGxhY2UvQ2hpbmF0b3duDQo8YnIgLz4NCjxiciAvPg0KSE9VUlMNCjxiciAvPg0KTW9uZGF5IDE6MDAgcG0tNzowMCBwbSwgVHVlc2RheSAxOjAwIHBtLTk6MDAgcG0sIFdlZG5lc2RheSAxMDowMGFtLTc6MDBwbSwgVGh1cnNkYXkgMTowMCBwbS03OjAwIHBtLCBGcmlkYXkgMTE6MDAgcG0tMzowMCBwbSwgU2F0dXJkYXkgMTA6MDAgYW0tNTozMCBwbTxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxMDgeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWR2HDdpD5bvKJYkPMQPfo2mGOcR9Q==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKK8ODeBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYqJA8XYOpwBbLzzZC26eXVrNc+1" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="901 G Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Greater Washington College Information Center (CIC)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">901 G Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 393-1100<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.collegeinfo.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education<br \><b>Services : </b> Post K-12<br \><b>Program : </b> College admissions/Financial aid<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday, Thursday 1:00 pm-7:00pm; Tuesday 1:00 pm-9:00 pm; Wednesday 10:00 am-7:00 pm;  Friday 11:00 pm-3:00 pm; and Saturday 10:00 am-5:30 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Greater Washington College Info Center (CIC) is a program of the Consortium of Universities of the Washington Metropolitan Area designed to help students of all ages reach their educational and career goals.
+<br />
+<br />
+CIC provides students with the information they need to enter post-secondary education. Advisors assist students and families navigate and negotiate the college admission and financial aid process. Services are available on walk-in basis during normal library hours. CIC is located at the Martin Luther King, Jr. Library.
+<br />
+<br />
+Closest Metro Station: Gallery Place/Chinatown
+<br />
+<br />
+HOURS
+<br />
+Monday 1:00 pm-7:00 pm, Tuesday 1:00 pm-9:00 pm, Wednesday 10:00am-7:00pm, Thursday 1:00 pm-7:00 pm, Friday 11:00 pm-3:00 pm, Saturday 10:00 am-5:30 pm<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

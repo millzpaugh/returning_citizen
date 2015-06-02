@@ -1,0 +1,178 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSk4MDYgTGl0dGxlc3Rvd24gUGlrZSBXZXN0bWluc3RlciBNRCAyMTE1N2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSo4MDYgTGl0dGxlc3Rvd24gUGlrZSBXZXN0bWluc3RlciwgTUQgMjExNTdkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDQxMCkgODQ4LTEzNjA8YnIgLz48Yj5GYXggTm86PC9iPig0MTApIDg0OC0xMzYxPGJyIC8+ZGQCBQ8PFgIfAgUuPGI+V2Vic2l0ZTogPC9iPnd3dy5uZXdsaWZlZm9yZ2lybHMub3JnLzxiciAvPmRkAgcPDxYCHwIFiwQ8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFJlc2lkZW50aWFsIGxvbmctdGVybSB0cmVhdG1lbnQgKG1vcmUgdGhhbiAzMCBkYXlzKTxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQsIFJlc2lkZW50aWFsIGJlZHMgZm9yIGNsaWVudCdzIGNoaWxkcmVuLCBUcmF1bWEtLXNleHVhbCBhYnVzZS9QVFNEL3ZpY3RpbXMgb2YgY3JpbWU8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBQZXJzb25zIHdpdGggSElWL0FJRFMsIFBlcnNvbnMgd2l0aCBpbnRlbGxlY3R1YWwgZGlzYWJpbGl0eSwgUGVyc29ucyB3aXRoIHBoeXNpY2FsIGRpc2FiaWxpdHksIFByZWduYW50L3Bvc3RwYXJ0dW0gd29tZW4sIFVuZGVyIGFnZSAyMSwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50PGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBWQ8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkludGFrZSAoV29tZW4pIDEzLW1vbnRoIHJlc2lkZW50aWFsLCBhZ2VzIDE4IHlycyAtIDQ1IHlycyBvZiBhZ2UuPGJyIC8+ZGQCEQ8PFgIfAgVEPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5QaG90byBJRCwgQmlydGggQ2VydGlmaWNhdGUsIFNTTi48YnIgLz5kZAITDw8WAh8CBeYNPGI+RGVzY3JpcHRpb246IDwvYj5OZXcgTGlmZSBmb3IgR2lybHMgcHJvdmlkZXMgYSBjb21wcmVoZW5zaXZlIHByb2dyYW0gdG8gYWRkcmVzcyB0aGUgc3BlY2lhbCBuZWVkcyBvZiB3b21lbiB0bzogZnJlZSBoZXIgZnJvbSBoZXIgYWRkaWN0aW9uLCByZXN0b3JlIGhlciBzZW5zZSBvZiBzZWxmLXdvcnRoIGFuZCB0cmFpbiBoZXIgdG8gcmUtZW50ZXIgc29jaWV0eSBpbiBhIHByb2R1Y3RpdmUgcm9sZS4gVGhlIHByb2dyYW0gd29ya3MgaW4gMyBwaGFzZXMuDQo8YnIgLz4NCjxiciAvPg0KUGhhc2UgMTogSW50cm9kdWN0aW9uDQpGb3IgdGhyZWUgdG8gZml2ZSBtb250aHMsIHRoZSBzdHVkZW50IGxpdmVzIGluIGEgaG9tZS1saWtlIOKAnGludHJvIGNlbnRlcuKAnSBhd2F5IGZyb20gaGVyIGxvY2FsIGNvbW11bml0eS4gRHVyaW5nIHRoaXMgdGltZSwgc2hlIGlzIGdpdmVuIHRoZSBtYXhpbXVtIGFtb3VudCBvZiBwZXJzb25hbCBhdHRlbnRpb24gYW5kIGd1aWRhbmNlIGZyb20gTmV3IExpZmUgZm9yIEdpcmxzJyBzdGFmZi4gU2hlIGltbWVkaWF0ZWx5IGJlZ2lucyBCaWJsZSBzdHVkeSBhbmQgaXMgZ2l2ZW4gdGhlIG9wcG9ydHVuaXR5IHRvIGFjY2VwdCBKZXN1cyBDaHJpc3QgYXMgaGVyIHBlcnNvbmFsIFNhdmlvci4gDQo8YnIgLz4NCjxiciAvPg0KUGhhc2UgMjogVHJhaW5pbmcNClVwb24gY29tcGxldGlvbiBvZiBwaGFzZSBvbmUsIHN0dWRlbnRzIG1vdmUgdG8gdGhlIDI3LWFjcmUgdHJhaW5pbmcgY2VudGVyIGluIERvdmVyLCBQZW5uc3lsdmFuaWEuIEluIHRoaXMgcGhhc2UsIHRoZSBCaWJsZSBjbGFzc2VzIGFyZSBtb3JlIGludGVuc2UuIEVtcGhhc2lzIGlzIHBsYWNlZCBvbiByZS1lbnRlcmluZyBzb2NpZXR5IHRocm91Z2ggc2VsZi1kaXNjaXBsaW5lLCBhY2FkZW1pYyBhbmQgdm9jYXRpb25hbCB0cmFpbmluZywgYW5kIGludGVuc2l2ZSBjb3Vuc2VsaW5nLg0KPGJyIC8+DQo8YnIgLz4NCkFub3RoZXIgdHJhaW5pbmcgY2VudGVyIGluIEdsZW4gUm9jaywgUGVubnN5bHZhbmlhLCBpcyBnZWFyZWQgc3BlY2lmaWNhbGx5IHRvIG1vdGhlcnMuIFRoZSB3b21lbiBtYXkgcmVtYWluIHdpdGggdGhlaXIgY2hpbGRyZW4sIGFuZCB0b2dldGhlciB0aGV5IGFyZSBsb3ZlZCBhbmQgdGF1Z2h0IGFuZCBndWlkZWQgaW4gdGhlIHdheXMgb2YgdGhlIExvcmQuIEluIGFkZGl0aW9uIHRvIHJlZ3VsYXIgcGhhc2UgdHdvIGNsYXNzZXMsIHRoZXNlIHdvbWVuIGFsc28gdGFrZSBwYXJlbnRpbmcgY2xhc3NlcyB0byBlbnN1cmUgYSBzYWZlIGFuZCBoZWFsdGh5IGxpZmUgZm9yIHRoZW1zZWx2ZXMgYW5kIHRoZWlyIGNoaWxkcmVuLg0KPGJyIC8+DQo8YnIgLz4NClBoYXNlIDM6IFJlLUVudHJ5DQpEdXJpbmcgaGVyIGZpbmFsIG1vbnRocyBhdCB0aGUgdHJhaW5pbmcgY2VudGVyLCBhIHN0dWRlbnTigJlzIHJlYWRpbmVzcyB0byByZS1lbnRlciBzb2NpZXR5IGlzIGV2YWx1YXRlZC4gU2hlIGlzIGFzc2lzdGVkIGluIG1ha2luZyBmdXR1cmUgcGxhbnMgYnkgaGVyIGd1aWRhbmNlIGNvdW5zZWxvciBhbmQgdGhlIERlYW4gb2YgV29tZW4uIEFmdGVyIGdyYWR1YXRpb24gZnJvbSB0aGUgcHJvZ3JhbSwgc2hlIG1heSBjaG9vc2UgdG8gcmV0dXJuIHRvIGhlciBob21lIG9yIHRvIHN0YXkgYW5kIGFzc2lzdCBpbiB0aGUgTmV3IExpZmUgZm9yIEdpcmxzIG1pbmlzdHJ5Lg0KPGJyIC8+DQo8YnIgLz4NClRoZXJlIGlzIGEgJDE2NSBhcHBsaWNhdGlvbiBmZWUuICBFdmVyeXRoaW5nIGVsc2UgaXMgZnJlZS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjg3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk0PRS2IpjnLSk2OlYBUq1eFx3scE=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKGzbeYBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARMRTfDaWpWUTu6z+YuxsUazRhG/" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="806 Littlestown Pike Westminster MD 21157" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="New Life for Girls" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">806 Littlestown Pike Westminster, MD 21157</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(410) 848-1360<br /><b>Fax No:</b>(410) 848-1361<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.newlifeforgirls.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days)<br \><b>Program : </b> Anger management, Residential beds for client's children, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Persons with HIV/AIDS, Persons with intellectual disability, Persons with physical disability, Pregnant/postpartum women, Under age 21, Women<br \><b>Forms Of Payment : </b> Public funding, Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Intake (Women) 13-month residential, ages 18 yrs - 45 yrs of age.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID, Birth Certificate, SSN.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>New Life for Girls provides a comprehensive program to address the special needs of women to: free her from her addiction, restore her sense of self-worth and train her to re-enter society in a productive role. The program works in 3 phases.
+<br />
+<br />
+Phase 1: Introduction
+For three to five months, the student lives in a home-like “intro center” away from her local community. During this time, she is given the maximum amount of personal attention and guidance from New Life for Girls' staff. She immediately begins Bible study and is given the opportunity to accept Jesus Christ as her personal Savior. 
+<br />
+<br />
+Phase 2: Training
+Upon completion of phase one, students move to the 27-acre training center in Dover, Pennsylvania. In this phase, the Bible classes are more intense. Emphasis is placed on re-entering society through self-discipline, academic and vocational training, and intensive counseling.
+<br />
+<br />
+Another training center in Glen Rock, Pennsylvania, is geared specifically to mothers. The women may remain with their children, and together they are loved and taught and guided in the ways of the Lord. In addition to regular phase two classes, these women also take parenting classes to ensure a safe and healthy life for themselves and their children.
+<br />
+<br />
+Phase 3: Re-Entry
+During her final months at the training center, a student’s readiness to re-enter society is evaluated. She is assisted in making future plans by her guidance counselor and the Dean of Women. After graduation from the program, she may choose to return to her home or to stay and assist in the New Life for Girls ministry.
+<br />
+<br />
+There is a $165 application fee.  Everything else is free.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

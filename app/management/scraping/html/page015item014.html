@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgxMTA4IDE2dGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDM2ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTExMDggMTZ0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDM2ZGQCAw8PFgIfAgVxPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDM0Ny04NTEyPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSAzNDctODUwMDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgMzQ3LTAyODE8YnIgLz5kZAIFDw8WAh8CBWg8Yj5XZWJzaXRlOiA8L2I+d3d3LnBsYW5uZWRwYXJlbnRob29kLm9yZy9oZWFsdGgtY2VudGVyL2NlbnRlckRldGFpbHMuYXNwP2Y9MzI3MyZhPTkwMjMwJnY9ZGV0YWlsczxiciAvPmRkAgcPDxYCHwIF6QI8Yj5DYXRlZ29yeSA6IDwvYj4gTWVkaWNhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBDb21tdW5pdHkgaGVhbHRoPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBGYW1pbHkgcGxhbm5pbmcsIEhJVi9BSURTLCBPYi1HeW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBNZWRpY2FpZCwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgWQATxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSA5OjAwIGFtLTQ6MzAgcG0sIFR1ZXNkYXkgMTE6MDAgYW0tNjozMCBwbSwgV2VkbmVzZGF5IC0gRnJpZGF5LCA5OjAwIGFtLTQ6MzAgcG0sIFNhdHVyZGF5IDk6MDAgYW0tMzowMCBwbTxiciAvPmRkAg8PDxYCHwIFSjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+RnVsbCBGZWUgbG9jYXRpb24gYW5kIGFjY2VwdHMgbWVkaWNhaWQuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBbEHPGI+RGVzY3JpcHRpb246IDwvYj4NClBsYW5uZWQgUGFyZW50aG9vZCBjb250aW51ZXMgdG8gaW1wcm92ZSB3b21lbuKAmXMgaGVhbHRoIGFuZCBzYWZldHksIHByZXZlbnQgdW5pbnRlbmRlZCBwcmVnbmFuY2llcywgYW5kIGFkdmFuY2UgdGhlIHJpZ2h0IGFuZCBhYmlsaXR5IG9mIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcyB0byBtYWtlIGluZm9ybWVkIGFuZCByZXNwb25zaWJsZSBjaG9pY2VzLg0KPGJyLyA+DQo8YnIvID4NClBsYW5uZWQgUGFyZW50aG9vZCBvZiBNZXRyb3BvbGl0YW4gV2FzaGluZ3RvbiBEQyAoUFBNVykgb3BlcmF0ZXMgZml2ZSBoZWFsdGggY2VudGVycyBpbiB0aGUgV2FzaGluZ3RvbiBEQyBtZXRyb3BvbGl0YW4gYXJlYSwgb2Ygd2hpY2ggMiBhcmUgaW4gdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhLiBUaGUgRG93bnRvd24gY2VudGVyIG9mZmVycyBzZXJ2aWNlcyB0aGF0IGluY2x1ZGUgdGhlIGZvbGxvd2luZzogYWJvcnRpb24gc2VydmljZXMsIGJpcnRoIGNvbnRyb2wsIEhJViB0ZXN0aW5nLCBNZW7igJlzIEhlYWx0aCBDYXJlLCBNb3JuaW5nLUFmdGVyIFBpbGwgKGVtZXJnZW5jeSBjb250cmFjZXB0aW9uKSwgcHJlZ25hbmN5IHRlc3RpbmcgJiBzZXJ2aWNlcywgU1REIHRlc3RpbmcsIHRyZWF0bWVudCAmIHZhY2NpbmVzLCBhbmQgV29tZW7igJlzIEhlYWx0aCBDYXJlLiBUaGlzIGxvY2F0aW9uIGFjY2VwdHMgd2Fsay1pbnMgZm9yIGNlcnRhaW4gc2VydmljZXMgYW5kIGlzIGEgZnVsbCBmZWUgY2xpbmljIChhbHNvIGFjY2VwdHMgTWVkaWNhaWQpLiANCjxici8gPg0KPGJyLyA+DQpIb3VyczoNCk1vbmRheSA5OjAwIGFtIOKAkyA0OjMwIHBtDQpUdWVzZGF5IDExOjAwIGFtIOKAkyA2OjMwIHBtDQpXZWRuZXNkYXkg4oCTIEZyaWRheSA5OjAwIGFtIOKAkyA0OjMwIHBtDQpTYXR1cmRheSA5OjAwIGFtIOKAkyAzOjAwIHBtPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQzMB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZPTFln5Ec4KaIzW3EbQf/LsoRiVb" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKpwYqlAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQOhT9DGbEKIlsCWoTa2lepQoWxZ" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1108 16th Street, NW Washington DC 20036" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Planned Parenthood Downtown Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1108 16th Street, NW Washington, DC 20036</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 347-8512<br /><b>Phone No2:</b>(202) 347-8500<br /><b>Fax No:</b>(202) 347-0281<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.plannedparenthood.org/health-center/centerDetails.asp?f=3273&a=90230&v=details<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Family planning, HIV/AIDS, Ob-Gyn<br \><b>Forms Of Payment : </b> Medicaid, Private health insurance, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday 9:00 am-4:30 pm, Tuesday 11:00 am-6:30 pm, Wednesday - Friday, 9:00 am-4:30 pm, Saturday 9:00 am-3:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Full Fee location and accepts medicaid.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>
+Planned Parenthood continues to improve women’s health and safety, prevent unintended pregnancies, and advance the right and ability of individuals and families to make informed and responsible choices.
+<br/ >
+<br/ >
+Planned Parenthood of Metropolitan Washington DC (PPMW) operates five health centers in the Washington DC metropolitan area, of which 2 are in the District of Columbia. The Downtown center offers services that include the following: abortion services, birth control, HIV testing, Men’s Health Care, Morning-After Pill (emergency contraception), pregnancy testing & services, STD testing, treatment & vaccines, and Women’s Health Care. This location accepts walk-ins for certain services and is a full fee clinic (also accepts Medicaid). 
+<br/ >
+<br/ >
+Hours:
+Monday 9:00 am – 4:30 pm
+Tuesday 11:00 am – 6:30 pm
+Wednesday – Friday 9:00 am – 4:30 pm
+Saturday 9:00 am – 3:00 pm<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

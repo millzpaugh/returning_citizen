@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSg3MTMgTWFyeWxhbmQgQXZlLCBORSBXYXNoaW5ndG9uIERDIDIwMDAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTcxMyBNYXJ5bGFuZCBBdmUsIE5FIFdhc2hpbmd0b24sIERDIDIwMDAyZGQCAw8PFgIfAgVyPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU0Ni0xMDE4PGJyIC8+PGI+VG9sbCBGcmVlOiA8L2I+KDgwMCkgMzk1LTQzNTk8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDU0Ni04MTQ1PGJyIC8+ZGQCBQ8PFgIfAgU4PGI+V2Vic2l0ZTogPC9iPnd3dy5jYXBpdG9saGlsbHByZWduYW5jeWNlbnRlci5vcmc8YnIgLz5kZAIHDw8WAh8CBcICPGI+Q2F0ZWdvcnkgOiA8L2I+IFBhcmVudGluZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzLCBNYXRlcmlhbCBuZWVkczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IENhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgcGFyZW50YWwgcmV1bmlmaWNhdGlvbiwgQ2xvdGhpbmcsIFBhcmVudGluZyBzdXBwb3J0LCBlLmcuIGNsYXNzZXMsIGdyb3VwcywgUHJlZ25hbmN5IHRlc3RpbmcsIFByZW5hdGFsL1Bvc3RuYXRhbCBjbGFzc2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gSW5mYW50czxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFaDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA5OjAwIGFtIHRvIDk6MDAgcG0gYW5kIFNhdHVyZGF5IDEwOjAwIGFtIHRvIDEyOjAwIG5vb24uPGJyIC8+ZGQCDw8PFgIfAgVfPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbiwgbWVuIGFuZCB0aGVpciBmYW1pbGllcyB3aG8gYXJlIGluIGEgY3Jpc2lzIHByZWduYW5jeS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFkQk8Yj5EZXNjcmlwdGlvbjogPC9iPkNhcGl0b2wgSGlsbCBQcmVnbmFuY3kgQ2VudGVyIGlzIGEgZmFpdGggYmFzZWQgNTAxKGMpMyBub24tcHJvZml0IG9yZ2FuaXphdGlvbiBvZmZlcmluZyBoZWxwIGFuZCBzdXBwb3J0IHRvIHdvbWVuLCBtZW4gYW5kIHRoZWlyIGZhbWlsaWVzIHdobyBhcmUgaW4gYSBjcmlzaXMgcHJlZ25hbmN5LiBUaGUgQ2VudGVyIG9mZmVycyBmcmVlIHByZWduYW5jeSB0ZXN0aW5nOyBwcm92aWRlIGNvdW5zZWxpbmcsIG1lbnRvcmluZywgY2hpbGRiaXJ0aCBjbGFzc2VzIGFuZCBwYXJlbnRpbmcgY2xhc3NlcyAod2hpY2ggaW5jbHVkZXMgYSBmYXRoZXJob29kIGluaXRpYXRpdmUgcHJvZ3JhbSkuIEFsc28gcHJvdmlkZXMgc3VwcG9ydCB0byBmYW1pbGllcyBhbmQgdGhlaXIgYmFiaWVzIGJ5IG9mZmVyaW5nIGZyZWUgbWF0ZXJpYWwgcmVzb3VyY2VzLiBUaGUgQ2VudGVyIGRvZXMgbm90IHBlcmZvcm0gb3IgcmVmZXIgZm9yIGFib3J0aW9ucywgQnV0IHdpbGwgcHJvdmlkZSB3b21lbiBhbmQgbWVuIHdpdGggY29tcGxldGUsIG1lZGljYWxseS1hY2N1cmF0ZSBpbmZvcm1hdGlvbiBhYm91dCBhYm9ydGlvbi4gQWxsIG9mIG91ciBzZXJ2aWNlcyBhcmUgZnJlZSBhbmQgY29uZmlkZW50aWFsLg0KPGJyIC8+IA0KPGJyIC8+ICANClByYWN0aWNhbCBTdXBwb3J0IHNlcnZpY2VzIGluY2x1ZGUgdGhlIGZvbGxvd2luZzoNCjxiciAvPiANCk9uZ29pbmcgcHJlZ25hbmN5IHN1cHBvcnQgKGNvdW5zZWxpbmcgYW5kIG1lbnRvcmluZyksIENoaWxkYmlydGggY2xhc3NlcywgUGFyZW50aW5nIENsYXNzZXMgKGlQb0REKSwgTWF0ZXJuaXR5IGFuZCBiYWJ5IGNsb3RoaW5nIGFuZCBzdXBwbGllcywgUG9zdCBhYm9ydGlvbiBwZWVyIHN1cHBvcnQgLyBCaWJsZSBzdHVkaWVzIChQQVRIKSwgTWVkaWNhbCwgbGVnYWwsIGFkb3B0aW9uLCBhbmQgaG91c2luZyByZWZlcnJhbHMuDQo8YnIgLz4gDQo8YnIgLz4gIA0KQ2FsbCB0b2RheSBmb3IgYW4gYXBwb2ludG1lbnQgLSAyMDItNTQ2LTEwMTggb3IgMS04MDAtMzk1LUhFTFANCjxiciAvPiANCkJ1c2luZXNzOiBNb24gLSBGcmkgMTBhbSAtIDRwbQ0KPGJyIC8+IA0KQ291bnNlbGluZzogQnkgYXBwb2ludG1lbnQNCjxiciAvPiAgDQpQbGVhc2UgYWxsb3cgNDUgbWludXRlcyB0byBiZSBzZWVuLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1NzgeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQ5TeRxPpUyRGZ7GARhD/qLxCTqGA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLMkunrBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUQXu8vW7WOumNltkg8KLy56laBs" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="713 Maryland Ave, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Capitol Hill Pregnancy Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">713 Maryland Ave, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 546-1018<br /><b>Toll Free: </b>(800) 395-4359<br /><b>Fax No:</b>(202) 546-8145<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.capitolhillpregnancycenter.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Parenting, Social Services<br \><b>Services : </b> Family support services, Material needs<br \><b>Program : </b> Case management, counseling, parental reunification, Clothing, Parenting support, e.g. classes, groups, Pregnancy testing, Prenatal/Postnatal classes<br \><b>Population : </b> Infants<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am to 9:00 pm and Saturday 10:00 am to 12:00 noon.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women, men and their families who are in a crisis pregnancy.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Capitol Hill Pregnancy Center is a faith based 501(c)3 non-profit organization offering help and support to women, men and their families who are in a crisis pregnancy. The Center offers free pregnancy testing; provide counseling, mentoring, childbirth classes and parenting classes (which includes a fatherhood initiative program). Also provides support to families and their babies by offering free material resources. The Center does not perform or refer for abortions, But will provide women and men with complete, medically-accurate information about abortion. All of our services are free and confidential.
+<br /> 
+<br />  
+Practical Support services include the following:
+<br /> 
+Ongoing pregnancy support (counseling and mentoring), Childbirth classes, Parenting Classes (iPoDD), Maternity and baby clothing and supplies, Post abortion peer support / Bible studies (PATH), Medical, legal, adoption, and housing referrals.
+<br /> 
+<br />  
+Call today for an appointment - 202-546-1018 or 1-800-395-HELP
+<br /> 
+Business: Mon - Fri 10am - 4pm
+<br /> 
+Counseling: By appointment
+<br />  
+Please allow 45 minutes to be seen.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

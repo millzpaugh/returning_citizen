@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSwyMDAxIE1pc3Npc3NpcHBpIEF2ZS4gU0UgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS0yMDAxIE1pc3Npc3NpcHBpIEF2ZS4gU0UgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBYoBPGI+Q29udGFjdCBQZXJzb246PC9iPlNpcy4gUm9zZXR0YSBCcm93biwgRWR1Y2F0aW9uIFNwZWNpYWxpc3Q8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjEwLTk2NDY8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDYxMC05NjQwPGJyIC8+ZGQCBQ8PFgIfAgUtPGI+V2Vic2l0ZTogPC9iPnd3dy5jb3ZlbmFudGhvdXNlZGMub3JnPGJyIC8+ZGQCBw8PFgIfAgWnBTxiPkNhdGVnb3J5IDogPC9iPiBFZHVjYXRpb24sIEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZywgUGFyZW50aW5nLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRWR1Y2F0aW9uYWwgc2VydmljZXMsIEVtcGxveW1lbnQgc2VydmljZXMsIEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHVsdCBCYXNpYyBFZHVjYXRpb24vTGl0ZXJhY3kvVHV0b3JpbmcsIEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgRmluYW5jaWFsIGNvdW5zZWxpbmcgKG1vbmV5IG1hbmFnZW1lbnQsIGhvdXNpbmcgJmFtcDsgY3JlZGl0KSwgR0VEIHByb2dyYW1zLCBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBKb2Igc2tpbGxzIGFzc2Vzc21lbnQgJmFtcDsgcmVhZGluZXNzLCBNZW50b3JpbmcsIFBhcmVudGluZyBzdXBwb3J0LCBlLmcuIGNsYXNzZXMsIGdyb3VwcywgUmVmZXJyYWxzIGZvciBzb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBIb21lbGVzcywgTWVuLCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUw8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5DbGFzc2VzOiBNb25kYXkgLSBGcmlkYXksIDk6MzAgYW0gLSAzOjAwIHBtPGJyIC8+ZGQCDw8PFgIfAgVBPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Zb3VuZyBwZW9wbGUgYWdlcyAxOC0yNCB5ZWFycy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFjg48Yj5EZXNjcmlwdGlvbjogPC9iPkNvdmVuYW50IEhvdXNlIFdhc2hpbmd0b24gaXMgdGhlIGxhcmdlc3QgcHJvdmlkZXIgc2VydmluZyBob21lbGVzcywgcnVuYXdheSBhbmQgYXQtcmlzayB5b3VuZyBwZW9wbGUgYmV0d2VlbiB0aGUgYWdlcyBvZiAxOCBhbmQgMjQuIFByb2dyYW1taW5nIG9mZmVyZWQgaW5jbHVkZXMgc29jaWFsIHNlcnZpY2VzLCBlbXBsb3ltZW50IGFuZCB2b2NhdGlvbmFsIHRyYWluaW5nLCBhbmQgZWR1Y2F0aW9uIHNlcnZpY2VzLg0KPGJyIC8+DQo8YnIgLz4NClNPQ0lBTCBTRVJWSUNFUzoNCjxiciAvPg0KQ2FzZSBtYW5hZ2VtZW50IGlzIGFuIGVzc2VudGlhbCBjb21wb25lbnQgb2Ygb3VyIHJlc2lkZW50aWFsIGFuZCBXb3JrZm9yY2UgUmVhZGluZXNzIEVkdWNhdGlvbiBhbmQgVHJhaW5pbmcgKFdSRVQpIHByb2dyYW1taW5nLiBZb3VuZyBwZW9wbGUgd29yayB3aXRoIGNhc2UgbWFuYWdlcnMgdG8gaWRlbnRpZnkgdGhlaXIgc3RyZW5ndGhzIGFuZCBjaGFsbGVuZ2VzIGFuZCB0aGVuIGRldmVsb3AgYW5kIGltcGxlbWVudCBpbmRpdmlkdWFsIHNlcnZpY2UgcGxhbnMuIFdoZW4gQ292ZW5hbnQgSG91c2UgV2FzaGluZ3RvbiBkb2VzIG5vdCBvZmZlciBhIHNlcnZpY2UgdGhhdCBhIHBhcnRpY3VsYXIgeW91bmcgcGVyc29uIHdhbnRzIG9yIG5lZWRzLCB0aGUgY2FzZSBtYW5hZ2VyIGNhbiBkcmF3IHVwb24gYW4gZXh0cmVtZWx5IGNvbXByZWhlbnNpdmUgbGlzdCBvZiBleHRlcm5hbCBzZXJ2aWNlIHByb3ZpZGVycyB3aXRoIHdob20gd2UgaGF2ZSBwYXJ0bmVyZWQgaW4gdGhlIHBhc3QuDQo8YnIgLz4NCjxiciAvPg0KRU1QTE9ZTUVOVCAmIFZPQ0FUSU9OQUwgVFJBSU5JTkc6DQo8YnIgLz4NClRocm91Z2ggdGhlIGpvYiB0cmFpbmluZyBhbmQgcmVhZGluZXNzIHByb2dyYW1zLCBob21lbGVzcyB0ZWVucyBjYW4gZ2FpbiBza2lsbHMgaW4gYSBzcGVjaWZpYyB2b2NhdGlvbiBhbmQgYWJvdXQgam9iIGh1bnRpbmcgYW5kIHRoZSBwcm9mZXNzaW9uYWwgd29ybGQuIFJlc2lkZW50cyBhcmUgZ2l2ZW4gaW50ZXJ2aWV3IGNsb3RoZXMsIHBhcnRpY2lwYXRlIGluIG1vY2sgaW50ZXJ2aWV3cyB0byBjb2FjaCB0aGVtIG9uIGhvdyB0byBsYW5kIGEgam9iLCBoZWxwIHdpdGggcsOpc3Vtw6kgcHJlcGFyYXRpb24sIGFuZCBza2lsbHMgdG8gY3VsdGl2YXRlIHJlbGF0aW9uc2hpcHMgd2l0aCBsb2NhbCBlbXBsb3llcnMgZm9yIGZ1dHVyZSBqb2IgcGxhY2VtZW50IG9wcG9ydHVuaXRpZXMuIEpvYiB0cmFpbmluZyBwcm9ncmFtcyBpbmNsdWRlIGNlcnRpZmljYXRpb24gY291cnNlcyBpbjogQ3VsaW5hcnkgYXJ0czsgRGVza3RvcCBwdWJsaXNoaW5nOyBNZWRpY2FsIGFzc2lzdGFudCBwcm9mZXNzaW9uczsgUHVibGljIHNhZmV0eTsgQ29tcHV0ZXIgc2tpbGxzOyBXb29kd29ya2luZyBhbmQgbW9yZS4NCjxiciAvPg0KPGJyIC8+DQpFRFVDQVRJT046DQo8YnIgLz4NClRoZSBDb3ZlbmFudCBIb3VzZSBwcm92aWRlcyBlZHVjYXRpb24gYW5kIHdvcmstcmVhZGluZXNzIHRyYWluaW5nLiBZb3VuZyBwZW9wbGUgY2FuIGNvbm5lY3Qgd2l0aCBBZHVsdCBCYXNpYyBFZHVjYXRpb24gKEFCRSkgYW5kIEdlbmVyYWwgRWR1Y2F0aW9uIERldmVsb3BtZW50IChHRUQpIHNlcnZpY2VzIHRocm91Z2ggdGhlIFdvcmsgUmVhZGluZXNzIEVkdWNhdGlvbiBhbmQgVHJhaW5pbmcgKFdSRVQpIENlbnRlci4gRm9yIG1vcmUgaW5mb3JtYXRpb24gcmVnYXJkaW5nIFdSRVQgY29udGFjdCBSb2JlcnQgSm9obnMsIFdSRVQgY29vcmRpbmF0b3IsIGF0IHJqb2huc0BjaGRjLm9yZy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUCNDAeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQuKcuYyyWE1tvIHvbPhV7rs/InKQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKb4eGZCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVtOdtw8GAJiugkg/4ns+twQibt7" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2001 Mississippi Ave. SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Covenant House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2001 Mississippi Ave. SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Sis. Rosetta Brown, Education Specialist<br /><b>Phone No:</b>(202) 610-9646<br /><b>Fax No:</b>(202) 610-9640<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.covenanthousedc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Employment &amp; Vocational Training, Parenting, Social Services<br \><b>Services : </b> Educational services, Employment services, Family support services, Social services<br \><b>Program : </b> Adult Basic Education/Literacy/Tutoring, Advocacy, case management, counseling, emergency services, Financial counseling (money management, housing &amp; credit), GED programs, Job search &amp; placement assistance, Job skills assessment &amp; readiness, Mentoring, Parenting support, e.g. classes, groups, Referrals for social services<br \><b>Population : </b> Homeless, Men, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Classes: Monday - Friday, 9:30 am - 3:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Young people ages 18-24 years.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Covenant House Washington is the largest provider serving homeless, runaway and at-risk young people between the ages of 18 and 24. Programming offered includes social services, employment and vocational training, and education services.
+<br />
+<br />
+SOCIAL SERVICES:
+<br />
+Case management is an essential component of our residential and Workforce Readiness Education and Training (WRET) programming. Young people work with case managers to identify their strengths and challenges and then develop and implement individual service plans. When Covenant House Washington does not offer a service that a particular young person wants or needs, the case manager can draw upon an extremely comprehensive list of external service providers with whom we have partnered in the past.
+<br />
+<br />
+EMPLOYMENT & VOCATIONAL TRAINING:
+<br />
+Through the job training and readiness programs, homeless teens can gain skills in a specific vocation and about job hunting and the professional world. Residents are given interview clothes, participate in mock interviews to coach them on how to land a job, help with résumé preparation, and skills to cultivate relationships with local employers for future job placement opportunities. Job training programs include certification courses in: Culinary arts; Desktop publishing; Medical assistant professions; Public safety; Computer skills; Woodworking and more.
+<br />
+<br />
+EDUCATION:
+<br />
+The Covenant House provides education and work-readiness training. Young people can connect with Adult Basic Education (ABE) and General Education Development (GED) services through the Work Readiness Education and Training (WRET) Center. For more information regarding WRET contact Robert Johns, WRET coordinator, at rjohns@chdc.org.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSw0NDEgNHRoIFN0cmVldCwgTlcgICMzMDUgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS00NDEgNHRoIFN0cmVldCwgTlcgICMzMDUgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBXU8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzI3LTI4MjQ8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDcyNy02NDM2PGJyIC8+PGI+VG9sbCBGcmVlOiA8L2I+KDg3NykgNDg1LTY3NTE8YnIgLz5kZAIFDw8WAh8CBUM8Yj5XZWJzaXRlOiA8L2I+b3NzZS5kYy5nb3Yvc2VydmljZS9kY3RhZy1nZXQtZnVuZGluZy1jb2xsZWdlPGJyIC8+ZGQCBw8PFgIfAgV8PGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbjxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBQb3N0IEstMTI8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBDb2xsZWdlIGFkbWlzc2lvbnMvRmluYW5jaWFsIGFpZDxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA4OjMwIGFtIC0gNTowMCBwbTxiciAvPmRkAg8PDxYCHwIFlAE8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlVuZGVyIGFnZSAyNDsgREMgcmVzaWRlbnQgZm9yIGF0IGxlYXN0IDEyIG1vbnRocyBwcmlvciB0byBlbnJvbGxpbmc7IGFjY2VwdGFuY2UgaW4gYW4gZWxpZ2libGUgY29sbGVnZS91bml2ZXJzaXR5PGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBboDPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgREMgVEFHIHByb2dyYW0gY292ZXJzIHRoZSBmaW5hbmNpYWwgZGlmZmVyZW5jZSAodXAgdG8gJDEwLDAwMCkgYmV0d2VlbiBpbi1zdGF0ZSBhbmQgb3V0LW9mLXN0YXRlIHR1aXRpb24gYXQgcHVibGljIGNvbGxlZ2VzIGFuZCB1bml2ZXJzaXRpZXMgdGhyb3VnaG91dCB0aGUgVW5pdGVkIFN0YXRlcy4gVGhlIHByb2dyYW0gYWxzbyBmdW5kcyB1cCB0byAkMiw1MDAgZm9yIHR1aXRpb24gYXQgREMgYXJlYSBwcml2YXRlIGNvbGxlZ2VzIGFuZCBoaXN0b3JpY2FsbHkgYmxhY2sgY29sbGVnZXMgYW5kIHVuaXZlcnNpdGllcy4gDQo8YnIgLz4NCjxiciAvPg0KTk9URTogSW5jYXJjZXJhdGVkIHBlcnNvbnMgd2hvIGFyZSBlbGlnaWJsZSB0byBsZWF2ZSB0aGUgaW5zdGl0dXRpb24gYW5kIGF0dGVuZCBjbGFzcyBtYXkgYXBwbHkuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxMDkeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRsnP/PtiFIphnPlJi4dZdaRO6dAA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKk+bX4BgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYpbXC++9Qyf+JEitjkblTOTDfdt" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="441 4th Street, NW  #305 Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="DC TAG (DC Tuition Assistance Grant)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">441 4th Street, NW  #305 Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 727-2824<br /><b>Phone No2:</b>(202) 727-6436<br /><b>Toll Free: </b>(877) 485-6751<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>osse.dc.gov/service/dctag-get-funding-college<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education<br \><b>Services : </b> Post K-12<br \><b>Program : </b> College admissions/Financial aid<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:30 am - 5:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Under age 24; DC resident for at least 12 months prior to enrolling; acceptance in an eligible college/university<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The DC TAG program covers the financial difference (up to $10,000) between in-state and out-of-state tuition at public colleges and universities throughout the United States. The program also funds up to $2,500 for tuition at DC area private colleges and historically black colleges and universities. 
+<br />
+<br />
+NOTE: Incarcerated persons who are eligible to leave the institution and attend class may apply. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTIzNDAxIDR0aCBTdHJlZXQsIFNFICBSb29tOiAxMTQgV2FzaGluZ3RvbiBEQyAyMDAzMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTMzNDAxIDR0aCBTdHJlZXQsIFNFICBSb29tOiAxMTQgV2FzaGluZ3RvbiwgREMgMjAwMzJkZAIDDw8WAh8CBXI8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjQ1LTM4NDM8YnIgLz48Yj5Ub2xsIEZyZWU6IDwvYj4oODAwKSA1MzUtNzI1MjxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNjQ1LTM2NzU8YnIgLz5kZAIFDw8WAh8CBU48Yj5XZWJzaXRlOiA8L2I+d3d3LnVuaXR5aGVhbHRoY2FyZS5vcmcvSGVhbHRoQ2VudGVycy9TZXJ2aWNlQmFsbG91Lmh0bWw8YnIgLz5kZAIHDw8WAh8CBaUDPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lZGljYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ29tbXVuaXR5IGhlYWx0aDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gRmFtaWx5IHBsYW5uaW5nLCBISVYvQUlEUywgUHJpbWFyeSAoQWR1bHQsIEZhbWlseSAmYW1wOyBQZWRpYXRyaWNzKTxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBNZWRpY2FyZSwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50LCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBTbGlkaW5nIGZlZSBzY2FsZSAoRmVlIGlzIGJhc2VkIG9uIGluY29tZSAmYW1wOyBvdGhlciBmYWN0b3JzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFNDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjg6MDAgYW0g4oCTIDQ6MzAgcG08YnIgLz5kZAIPDw8WAh8CBTg8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk9ubHkgQmFsbG91IFN0dWRlbnRzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgW8DTxiPkRlc2NyaXB0aW9uOiA8L2I+VW5pdHkgSGVhbHRoIENhcmUgSGVhbHRoIENlbnRlcnMgaGF2ZSBzZXJ2aWNlIHNpdGVzIGxvY2F0ZWQgaW4gZXZlcnkgd2FyZCBvZiB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEuIFRoZSBTdHVkZW50IENlbnRlcnMgcHJvdmlkZSBxdWFsaXR5LCBjb21wYXNzaW9uYXRlIGFuZCBjb21wcmVoZW5zaXZlIHByaW1hcnkgaGVhbHRoIGNhcmUgc2VydmljZXMgdG8gc3R1ZGVudHMgYXR0ZW5kaW5nIHRoZSBwZXJzcGVjdGl2ZSBIUyB3aGVyZSB0aGUgY2VudGVycyBhcmUgbG9jYXRlZC4gU3R1ZGVudHMgY2FuIGFjY2VzcyBVbml0eSBIZWFsdGggQ2FyZSBzZXJ2aWNlcyByZWdhcmRsZXNzIG9mIGFiaWxpdHkgdG8gcGF5LiBGb3IgdGhvc2Ugd2hvIGNhbiBwYXksIGEgc2xpZGluZyBzY2FsZSBiYXNlZCBvbiBmYW1pbHkgc2l6ZSBhbmQgaW5jb21lIGlzIHVzZWQgdG8gZGV0ZXJtaW5lIHRoZSBhcHByb3ByaWF0ZSBhbW91bnQuIFVuaXR5IEhlYWx0aCBDYXJlIGFjY2VwdHMgTWVkaWNhaWQsIE1lZGljYXJlLCBNYW5hZ2VkIENhcmUgT3JnYW5pemF0aW9ucywgREMgSGVhbHRoY2FyZSBBbGxpYW5jZSAoREMgQ2hhcnRlcmVkIEhlYWx0aCBDYXJlIEFsbGlhbmNlIGFuZCBVbml0ZWQgSGVhbHRoIENhcmUgQ29tbXVuaXR5IFBsYW4pLCBhbmQgb3RoZXIgcHJpdmF0ZSBpbnN1cmFuY2UgcGxhbnMuDQo8YnIgLz4NCjxiciAvPg0KVGhlIEJhbGxvdSBTdHVkZW50IEhlYWx0aCBDZW50ZXIsIG9wZXJhdGVkIGJ5IFVuaXR5IEhlYWx0aCBDYXJlLCBpcyBsb2NhdGVkIG9uIHRoZSBjYW1wdXMgb2YgQmFsbG91IFNlbmlvciBIaWdoIFNjaG9vbCB0byBzZXJ2aWNlIHRoZSBzdHVkZW50IHBvcHVsYXRpb24gb2YgdGhlIHNjaG9vbC4gSXQgb2ZmZXJzIGEgZnVsbCByYW5nZSBvZiBoZWFsdGggY2FyZSBhbmQgc3VwcG9ydGl2ZSBzZXJ2aWNlcyB5ZWFyLXJvdW5kLiAgU2VydmljZXMgaW5jbHVkZToNCjxiciAvPg0KUGh5c2ljYWwgZXhhbWluYXRpb25zLCBTcG9ydHMgcGh5c2ljYWxzLCBJbW11bml6YXRpb25zLCBDaHJvbmljIGRpc2Vhc2UgbWFuYWdlbWVudCwgQWN1dGUgaWxsbmVzcyBkaWFnbm9zaXMsIFByZWduYW5jeSBUZXN0aW5nLCBGYW1pbHkgUGxhbm5pbmcsIFNleHVhbGx5IHRyYW5zbWl0dGVkIGRpc2Vhc2UgdGVzdGluZywgU3Vic3RhbmNlIGFidXNlIGNvdW5zZWxpbmcsIE1lbnRhbCBoZWFsdGggcmVmZXJyYWxzLCBhbmQgQ2FzZSBtYW5hZ2VtZW50IHNlcnZpY2VzLg0KPGJyIC8+DQo8YnIgLz4NClRoaXMgc2l0ZSBsb2NhdGlvbiBhbHNvIG9mZmVycyBhIGZ1bGwgcmFuZ2Ugb2YgZGVudGFsIHNlcnZpY2VzIGluIGEgc3RhdGUgb2YgdGhlIGFydCBvcGVyYXRvcnkuDQo8YnIgLz4NCjxiciAvPg0KVGVlbnMgd2hvIGFyZSBpbnRlcmVzdGVkIGluIHNlcnZpY2VzIHByb3ZpZGVkIGJ5IFVuaXR5IEhlYWx0aCBDYXJlIENlbnRlcnMgY2FuIGNhbGwgdGhlIFRlZW4gQXBwb2ludG1lbnQgbGluZSBhdCAoMjAyKSA0NjktNDY5OS4gQWxsIHRlZW5zIGNhbGxpbmcgaW4gZm9yIGFuIGFwcG9pbnRtZW50IG11c3QgcHJvdmlkZSB0aGUgZm9sbG93aW5nIGluZm9ybWF0aW9uIGZvciBlbWVyZ2VuY3kgcHVycG9zZXM6IGFkZHJlc3MsIHBob25lIG51bWJlciwgZGF0ZSBvZiBiaXJ0aCBhbmQgcGFyZW50L2d1YXJkaWFuIGNvbnRhY3QgaW5mb3JtYXRpb24gKHBhcmVudHMgd2lsbCBub3QgYmUgY29udGFjdGVkKS4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQwNR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZIdhQ5SekoA1G+Aj2OYH2l6YGvTA" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL81O2eCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUJiWaYDB4nCW8RW0OGv5nAHThV4" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3401 4th Street, SE  Room: 114 Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care (Ballou Student Health Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3401 4th Street, SE  Room: 114 Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 645-3843<br /><b>Toll Free: </b>(800) 535-7252<br /><b>Fax No:</b>(202) 645-3675<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceBallou.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Family planning, HIV/AIDS, Primary (Adult, Family &amp; Pediatrics)<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>8:00 am – 4:30 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Only Ballou Students.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Health Centers have service sites located in every ward of the District of Columbia. The Student Centers provide quality, compassionate and comprehensive primary health care services to students attending the perspective HS where the centers are located. Students can access Unity Health Care services regardless of ability to pay. For those who can pay, a sliding scale based on family size and income is used to determine the appropriate amount. Unity Health Care accepts Medicaid, Medicare, Managed Care Organizations, DC Healthcare Alliance (DC Chartered Health Care Alliance and United Health Care Community Plan), and other private insurance plans.
+<br />
+<br />
+The Ballou Student Health Center, operated by Unity Health Care, is located on the campus of Ballou Senior High School to service the student population of the school. It offers a full range of health care and supportive services year-round.  Services include:
+<br />
+Physical examinations, Sports physicals, Immunizations, Chronic disease management, Acute illness diagnosis, Pregnancy Testing, Family Planning, Sexually transmitted disease testing, Substance abuse counseling, Mental health referrals, and Case management services.
+<br />
+<br />
+This site location also offers a full range of dental services in a state of the art operatory.
+<br />
+<br />
+Teens who are interested in services provided by Unity Health Care Centers can call the Teen Appointment line at (202) 469-4699. All teens calling in for an appointment must provide the following information for emergency purposes: address, phone number, date of birth and parent/guardian contact information (parents will not be contacted). <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

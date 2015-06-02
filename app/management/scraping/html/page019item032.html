@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxNDM0IEhhcnZhcmQgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDEwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDE0MzQgSGFydmFyZCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDEwZGQCAw8PFgIfAgWAATxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAyNTAtNzcyMCA8Yj5FeHQ6PC9iPjEyMzxiciAvPjxiPlBob25lIE5vMjo8L2I+KDIwMikgMjUwLTc3MjQ8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDMzMi01MTU2PGJyIC8+ZGQCBQ8PFgIfAgU9PGI+V2Vic2l0ZTogPC9iPnd3dy5zYWx2YXRpb25hcm15bmNhLm9yZy90dXJuaW5nLXBvaW50LzxiciAvPmRkAgcPDxYCHwIFkQE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBXb21lbiB3aXRoIGNoaWxkcmVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBUk8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPldvbWVuICgxOC0zMCB5ZWFycyBvbGQpIHdpdGggY2hpbGRyZW4uPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBegIPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgU2FsdmF0aW9uIEFybXkgb2ZmZXJzIHRoZXNlIHdvbWVuIGEgcGFydG5lciB0aHJvdWdoIFR1cm5pbmcgUG9pbnQsIGEgdHdvLXllYXIgdHJhbnNpdGlvbmFsIGhvdXNpbmcgcHJvZ3JhbSB0aGF0IGdpdmVzIHRoZW0gYSBzYWZlIGhhdmVuIHRvIGxlYXJuIGhvdyB0byBsaXZlIGluZGVwZW5kZW50bHkgYW5kIHByZXBhcmVzIHRoZW0gZm9yIHRoZSByb2FkIGFoZWFkLiBDYXNlIG1hbmFnZW1lbnQgYW5kIGNvdW5zZWxpbmcgc2VydmljZXMgaGVscCBrZWVwIHRoZW0gb24gY291cnNlLCBidXQgaW50ZW5zaXZlIGNsYXNzZXPigJRpbiBidWRnZXRpbmcsIHBhcmVudGluZywgYW5kIGhvdXNla2VlcGluZywgYXMgd2VsbCBhcyBidWlsZGluZyBoZWFsdGh5IHJlbGF0aW9uc2hpcHMgYW5kIHByZXBhcmluZyBmb3Igam9ic+KAlGhlbHAgdGhlbSBtb3ZlIGFoZWFkLiBTdGFmZiBtZW1iZXJzIHdvcmsgd2l0aCB0aGUgbW90aGVycyB0byBoZWxwIHRoZW0gc3RheSBpbiBzY2hvb2wgb3IgZW1wbG95ZWQgYW5kIHRvIG1ha2UgZGVjaXNpb25zIGFib3V0IHRoZWlyIGZ1dHVyZSwgYW5kIHRoZSBtb3RoZXJzIGJ1aWxkIGEgZ3JvdXAgc3VwcG9ydCBzeXN0ZW0gYXMgdGhlaXIgZmFtaWxpZXMgbW92ZSB0b2dldGhlciB0aHJvdWdoIHRoZSBwcm9ncmFtLg0KPGJyIC8+DQo8YnIgLz4NCkluIGEgdGVzdGFtZW50IHRvIHRoZSBuZWVkIGZvcuKAlGFuZCBzdWNjZXNzIG9m4oCUdGhlIHByb2dyYW0sIG1vcmUgdGhhbiB0aHJlZSB0aW1lcyBhcyBtYW55IG1vdGhlcnMgYXBwbHkgYXMgdGhlIDI2IHVuaXRzIGF0IFR1cm5pbmcgUG9pbnQgY2FuIGhvbGQuIFRob3NlIHdobyBncmFkdWF0ZSBjcmVkaXQgdGhlIGxpZmUtc2tpbGxzIHRyYWluaW5nIGFib3ZlIGFsbCB3aXRoIHByZXBhcmluZyB0aGVtIGZvciBpbmRlcGVuZGVudCBsaXZpbmcuIFJlc2lkZW50cyBtdXN0IHdvcmsgb3IgcmVjZWl2ZSBmaXhlZCBpbmNvbWUsIGFuZCBhZGhlcmUgdG8gYWxsIHByb2dyYW0gcmVndWxhdGlvbnMuIEFmdGVyIGFwcGxpY2F0aW9uIGlzIGFjY2VwdGVkLCBlbnRyeSBpbnRvIHRoZSBwcm9ncmFtIHVzdWFsbHkgdGFrZXMgNCB0byA1IHdlZWtzLiBObyB3YWxrLWlucy4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzI1OB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZOWeoMp/f2NR7+qXSUqDILFwYrUc" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLOpfusCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdqSbbuVxGVwlajTFK/UdU4RCVEq" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1434 Harvard Street, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Turning Point (Salvation Army)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1434 Harvard Street, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 250-7720 <b>Ext:</b>123<br /><b>Phone No2:</b>(202) 250-7724<br /><b>Fax No:</b>(202) 332-5156<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.salvationarmynca.org/turning-point/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women (18-30 years old) with children.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Salvation Army offers these women a partner through Turning Point, a two-year transitional housing program that gives them a safe haven to learn how to live independently and prepares them for the road ahead. Case management and counseling services help keep them on course, but intensive classes—in budgeting, parenting, and housekeeping, as well as building healthy relationships and preparing for jobs—help them move ahead. Staff members work with the mothers to help them stay in school or employed and to make decisions about their future, and the mothers build a group support system as their families move together through the program.
+<br />
+<br />
+In a testament to the need for—and success of—the program, more than three times as many mothers apply as the 26 units at Turning Point can hold. Those who graduate credit the life-skills training above all with preparing them for independent living. Residents must work or receive fixed income, and adhere to all program regulations. After application is accepted, entry into the program usually takes 4 to 5 weeks. No walk-ins. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

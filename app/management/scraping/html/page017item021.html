@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BScxMzAwIE1hY1RhdmlzaCBTdHJlZXQgUmljaG1vbmQgVkEgMjMyMzBkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUoMTMwMCBNYWNUYXZpc2ggU3RyZWV0IFJpY2htb25kLCBWQSAyMzIzMGRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oODA0KSAzNTktMzI1NTxiciAvPmRkAgUPDxYCHwIFKzxiPldlYnNpdGU6IDwvYj53d3cucnViaWNvbnJlaGFiLm9yZy88YnIgLz5kZAIHDw8WAh8CBdAFPGI+Q2F0ZWdvcnkgOiA8L2I+IFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBEZXRveGlmaWNhdGlvbiwgU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gSW50ZW5zaXZlIG91dHBhdGllbnQsIE91dHBhdGllbnQsIFJlc2lkZW50aWFsIGxvbmctdGVybSB0cmVhdG1lbnQgKG1vcmUgdGhhbiAzMCBkYXlzKSwgUmVzaWRlbnRpYWwgc2hvcnQtdGVybSB0cmVhdG1lbnQgKDMwIGRheXMgb3IgbGVzcyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgUmVzaWRlbnRpYWwgYmVkcyBmb3IgY2xpZW50J3MgY2hpbGRyZW4sIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgUHJlZ25hbnQvcG9zdHBhcnR1bSB3b21lbiwgVW5kZXIgYWdlIDIxLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQ8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgWJGjxiPkRlc2NyaXB0aW9uOiA8L2I+UnViaWNvbiwgSW5jLiBpcyBhIGNvbXByZWhlbnNpdmUgY2hlbWljYWwgZGVwZW5kZW5jeSB0cmVhdG1lbnQgcHJvZ3JhbS4gVGhlIHByb2dyYW1zIG9mZmVyZWQgYXJlIGEgZnVsbCBjb250aW51dW0gb2Ygc2VydmljZXMgcmFuZ2luZyBmcm9tIGRldG94aWZpY2F0aW9uIHRvIGFmdGVyY2FyZS4gVGhlc2UgbW9kYWxpdGllcyBhcmUgZGVzaWduZWQgdG8gYWRkcmVzcyBpbmRpdmlkdWFsIG5lZWRzIG9mIHByb2dyYW0gcGFydGljaXBhbnRzIGFuZCB2YXJ5IGluIHRyZWF0bWVudCBjdXJyaWN1bHVtLCBsZXZlbCBvZiBpbnRlbnNpdHksIGxlbmd0aCBvZiBzdGF5IGFuZCBmb2N1cyBvbiBjb21tdW5pdHkgcmUtZW50cnkgcHJvZ3JhbW1pbmcuIFJ1Ymljb24gYWxzbyBzZXJ2aWNlcyB0aGUgZm9sbG93aW5nIHByb2dyYW1zOiBSdWJpY29ucyBILk8uUC5FLiwgTWVuJ3MgVHJlYXRtZW50IENvbW11bml0eSwgV29tZW4gYW5kIENoaWxkcmVuJ3MgVHJlYXRtZW50IENvbW11bml0eSwgT3V0cGF0aWVudCBTZXJ2aWNlcywgRmFtaWx5IGFuZCBGcmllbmRzIEVkdWNhdGlvbiBHcm91cHMsIEN1bGluYXJ5IEFydHMgUHJvZ3JhbSBhbmQgdGhlIGludGVybnNoaXAgcHJvZ3JhbS4NCjxiciAvPg0KPGJyIC8+DQpSdWJpY29ucyBILk8uUC5FLg0KPGJyIC8+DQpUaGlzIGlzIGEgMjgtZGF5IHJlc2lkZW50aWFsIHByb2dyYW0gb2ZmZXJpbmcgaW50ZWdyYXRlZCB0cmVhdG1lbnQgZm9yIGNsaWVudHMgd2l0aCBjby1vY2N1cnJpbmcgKER1YWwgRGlhZ25vc2lzKSBzdWJzdGFuY2UgdXNlIGFuZCBtZW50YWwgaGVhbHRoIGRpc29yZGVycy4NCjxiciAvPg0KPGJyIC8+DQpUaGUgRGV0b3hpZmljYXRpb24gUHJvZ3JhbSBvZmZlcnMgY29tbXVuaXR5IGJhc2VkIG1lZGljYWwgYW5kIHNvY2lhbCBkZXRveGlmaWNhdGlvbiBzZXJ2aWNlcyBpbiBhIHR3ZW50eS1mb3VyIGhvdXIgbWVkaWNhbGx5IHN1cGVydmlzZWQgdW5pdCB0byBhc3Npc3QgY2hlbWljYWxseSBkZXBlbmRlbnQgaW5kaXZpZHVhbHMgd2hvIGhhdmUgY2hvc2VuIGFuIGFic3RpbmVuY2UtYmFzZWQgcmVjb3ZlcnkgbW9kZWwgYXMgdGhleSB3aXRoZHJhdyBmcm9tIGFjdGl2ZSB1c2Ugb2YgYWxjb2hvbCBhbmQvb3Igb3RoZXIgZHJ1Z3MgdW5kZXIgdGhlIHN1cGVydmlzaW9uIG9mIGEgbGljZW5zZWQgcGh5c2ljaWFuIHdobyBlc3RhYmxpc2hlcyB0aGUgYXBwcm9wcmlhdGUgbWVkaWNhdGlvbiBwcm90b2NvbC4NCjxiciAvPg0KPGJyIC8+DQpUaGUgTWVu4oCZcyBUcmVhdG1lbnQgQ29tbXVuaXR5IHNlcnZlcyB1cCB0byAxMzQgbWVuIGFuZCBpcyBhbiBpbnRlbnNpdmUsIGhpZ2hseSBpbmRpdmlkdWFsaXplZCwgbW9kaWZpZWQgVGhlcmFwZXV0aWMgQ29tbXVuaXR5IHRyZWF0bWVudCBtb2RlbCB3aGljaCBmb3N0ZXJzIHBlcnNvbmFsIHJlc3BvbnNpYmlsaXR5IGFuZCBvZmZlcnMgZGFpbHkgc3RydWN0dXJlIHdoZXJlIHRoZSBjb21tdW5pdHkgaXMgc2VlbiBhcyB0aGUgYWdlbnQgb2YgY2hhbmdlLg0KPGJyIC8+DQo8YnIgLz4NClRoZSBXb21lbuKAmXMgVHJlYXRtZW50IENvbW11bml0eSBpcyBkZXNpZ25lZCB0byBhZGRyZXNzIHRoZSB2YXJpb3VzIGFuZCBjb21wbGV4IG5lZWRzIG9mIGNoZW1pY2FsbHkgZGVwZW5kZW50IHdvbWVuIHJlY29nbml6aW5nIHRoYXQgd29tZW4gYnJpbmcgdW5pcXVlIGFuZCBjb21wbGljYXRlZCBsaWZlIGV4cGVyaWVuY2VzIHRvIHRoZSB0cmVhdG1lbnQgZW52aXJvbm1lbnQ7IHRoZSBQcm9ncmFtIGhvbm9ycyBlYWNoIHdvbWFu4oCZcyBpbmRpdmlkdWFsaXR5IGFuZCBhZGRyZXNzZXMgaGVyIG5lZWRzIGFuZCBjb25jZXJucyB0aHJvdWdoIGEgZmVtYWxlIHNwZWNpZmljIGN1cnJpY3VsdW0uDQo8YnIgLz4NCjxiciAvPg0KVGhlIFdvbWVuIGFuZCBDaGlsZHJlbuKAmXMgVHJlYXRtZW50IENvbW11bml0eSBvZmZlcnMgZW5oYW5jZWQgc2VydmljZXMgdGhhdCBpbmNsdWRlIHRoZSBtb3RoZXLigJlzIGFiaWxpdHkgdG8gYnJpbmcgdXAgdG8gdGhyZWUgY2hpbGRyZW4gd2l0aCBoZXIgZm9yIDMgdG8gNiBtb250aHMgc28gZmFtaWxpZXMgYXJlIGFibGUgdG8gcmVtYWluIGludGFjdCBhcyB0aGUgbW90aGVyIHBhcnRpY2lwYXRlcyBpbiB0aGUgdHJlYXRtZW50IHByb2Nlc3MuDQo8YnIgLz4NCjxiciAvPg0KT1VUUEFUSUVOVCBTRVJWSUNFUzoNCjxiciAvPg0KVGhpcyBub24gcmVzaWRlbnRpYWwgcHJvZ3JhbSBwcm92aWRlcyBpbmRpdmlkdWFsIHRyZWF0bWVudCBwbGFubmluZyBhbmQgYXNzZXNzbWVudHMgYmFzZWQgb24gdGhlIGNsaWVudCdzIG5lZWRzLCBpbmRpdmlkdWFsIGNvdW5zZWxpbmcgYW5kIGNhc2UgbWFuYWdlbWVudCwgYW5kIGdyb3VwIGNvdW5zZWxpbmcgdG8gaW5jbHVkZSBzdWJzdGFuY2UgdXNlIGRpc29yZGVyIGVkdWNhdGlvbiwgcmVsYXBzZSBwcmV2ZW50aW9uLCBhbmQgZ3Jvd3RoIGFuZCByZWNvdmVyeSBzZXJpZXMuDQo8YnIgLz4NCjxiciAvPg0KRkFNSUxZIEFORCBGUklFTkRTIEVEVUNBVElPTiBHUk9VUFM6DQo8YnIgLz4NClRoaXMgaXMgYSA2IHdlZWsgZWR1Y2F0aW9uYWwgc2VyaWVzIG9mZmVyZWQgdG8gZmFtaWx5IGFuZCBmcmllbmRzIG9mIGFkZGljdGVkIGFuZCByZWNvdmVyaW5nIHBlb3BsZSwgYm90aCBvZiBSdWJpY29uIGNsaWVudHMgYW5kIGluIHRoZSBjb21tdW5pdHkuDQo8YnIgLz4NCjxiciAvPg0KQ1VMSU5BUlkgQVJUUyBQUk9HUkFNOg0KPGJyIC8+DQpSdWJpY29uIGhhcyBwYXJ0bmVyZWQgd2l0aCBIZWFsdGh5IEhlYXJ0IFBsdXMsIExMQyB0byBzdGFydCBhIGN1bGluYXJ5IGFydHMgcHJvZ3JhbSBmb3IgdGhvc2UgY2xpZW50cyBpbnRlcmVzdGVkIGluIGRldmVsb3BpbmcgdGhlaXIgY29va2luZyBza2lsbHMgd2hpbGUgaW4gdHJlYXRtZW50LiBUaGUgQ3VsaW5hcnkgQXJ0cyBQcm9ncmFtIGNvbnNpc3RzIG9mIGZvdXIgdG8gc2l4IHdlZWtzIG9mIGNsYXNzcm9vbSB0cmFpbmluZyBhbmQgYSBoYW5kcyBvbiBhcHByZW50aWNlc2hpcCBpbiBvdXIga2l0Y2hlbiBhbmQvb3IgYW4gb3Bwb3J0dW5pdHkgdG8gaGVscCB3aXRoIG91ciBjYXRlcmluZyBqb2JzLg0KPGJyIC8+DQo8YnIgLz4NCklOVEVSTlNISVAgUFJPR1JBTToNCjxiciAvPg0KUnViaWNvbiBoYXMgYmVlbiBhcHByb3ZlZCBhcyBhbiBpbnRlcm5zaGlwIHNpdGUgZm9yIHNldmVyYWwgY29sbGVnZXMgJiB1bml2ZXJzaXRpZXMgaW4gdGhlIHN1cnJvdW5kaW5nIGFyZWFzIGZvciBzdHVkZW50cyBpbiB0aGUgSHVtYW4gU2VydmljZXMgZmllbGQgc3VjaCBhcyBTb2NpYWwgV29yaywgUHN5Y2hvbG9neSBhbmQgU3Vic3RhbmNlIEFidXNlIFRyZWF0bWVudC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzAwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkFjD+6J5p37j3TcLABZsey1WOE4E=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLCgfGvCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAflC7+hD/8Tv37QYJM+ThXQnFzAZ" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1300 MacTavish Street Richmond VA 23230" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Rubicon" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1300 MacTavish Street Richmond, VA 23230</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(804) 359-3255<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.rubiconrehab.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Detoxification, Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient, Residential long-term treatment (more than 30 days), Residential short-term treatment (30 days or less)<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Residential beds for client's children, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Men, Pregnant/postpartum women, Under age 21, Women<br \><b>Forms Of Payment : </b> Public funding, Self-payment<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Rubicon, Inc. is a comprehensive chemical dependency treatment program. The programs offered are a full continuum of services ranging from detoxification to aftercare. These modalities are designed to address individual needs of program participants and vary in treatment curriculum, level of intensity, length of stay and focus on community re-entry programming. Rubicon also services the following programs: Rubicons H.O.P.E., Men's Treatment Community, Women and Children's Treatment Community, Outpatient Services, Family and Friends Education Groups, Culinary Arts Program and the internship program.
+<br />
+<br />
+Rubicons H.O.P.E.
+<br />
+This is a 28-day residential program offering integrated treatment for clients with co-occurring (Dual Diagnosis) substance use and mental health disorders.
+<br />
+<br />
+The Detoxification Program offers community based medical and social detoxification services in a twenty-four hour medically supervised unit to assist chemically dependent individuals who have chosen an abstinence-based recovery model as they withdraw from active use of alcohol and/or other drugs under the supervision of a licensed physician who establishes the appropriate medication protocol.
+<br />
+<br />
+The Men’s Treatment Community serves up to 134 men and is an intensive, highly individualized, modified Therapeutic Community treatment model which fosters personal responsibility and offers daily structure where the community is seen as the agent of change.
+<br />
+<br />
+The Women’s Treatment Community is designed to address the various and complex needs of chemically dependent women recognizing that women bring unique and complicated life experiences to the treatment environment; the Program honors each woman’s individuality and addresses her needs and concerns through a female specific curriculum.
+<br />
+<br />
+The Women and Children’s Treatment Community offers enhanced services that include the mother’s ability to bring up to three children with her for 3 to 6 months so families are able to remain intact as the mother participates in the treatment process.
+<br />
+<br />
+OUTPATIENT SERVICES:
+<br />
+This non residential program provides individual treatment planning and assessments based on the client's needs, individual counseling and case management, and group counseling to include substance use disorder education, relapse prevention, and growth and recovery series.
+<br />
+<br />
+FAMILY AND FRIENDS EDUCATION GROUPS:
+<br />
+This is a 6 week educational series offered to family and friends of addicted and recovering people, both of Rubicon clients and in the community.
+<br />
+<br />
+CULINARY ARTS PROGRAM:
+<br />
+Rubicon has partnered with Healthy Heart Plus, LLC to start a culinary arts program for those clients interested in developing their cooking skills while in treatment. The Culinary Arts Program consists of four to six weeks of classroom training and a hands on apprenticeship in our kitchen and/or an opportunity to help with our catering jobs.
+<br />
+<br />
+INTERNSHIP PROGRAM:
+<br />
+Rubicon has been approved as an internship site for several colleges & universities in the surrounding areas for students in the Human Services field such as Social Work, Psychology and Substance Abuse Treatment.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

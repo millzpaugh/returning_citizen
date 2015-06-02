@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUyMjAxIFAgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDM3ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjIyMDEgUCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDM3ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDM4Ny02NjEyPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAzODctNjYxNDxiciAvPmRkAgUPDxYCHwIFMTxiPldlYnNpdGU6IDwvYj53d3cuY2h1cmNob2Z0aGVwaWxncmltcy5vcmc8YnIgLz5kZAIHDw8WAh8CBYQBPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE51dHJpdGlvbmFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRnJlZSBtZWFscy9Tb3VwIGtpdGNoZW5zPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVOPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+U3VuZGF5IDE6MDAgcG0gdG8gMTozMCBwbSBsaWdodCBsdW5jaCBzZXJ2aWNlPGJyIC8+ZGQCDw8PFgIfAgVRPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Ib21lbGVzcyBhbmQgcG9vciBpbmRpdmlkdWFscyBpbiB0aGUgRGlzdHJpY3QuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBf0JPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgQ2h1cmNoIG9mIHRoZSBQaWxncmltcyBiZWxpZXZlcyB0aGF0IEdvZCBnYXRoZXJzIHVzIHRvZ2V0aGVyIGFzIGEgY29tbXVuaXR5IG9mIGZhaXRoIGluIG9yZGVyIHRvIHNlbmQgdXMgYmFjayBvdXQgaW50byB0aGUgd29ybGQgYXMgdGhlIEJvZHkgb2YgQ2hyaXN0LCBlbmdhZ2luZyBpbiBhY3RzIG9mIGNvbXBhc3Npb24sIGFuZCBqb2luaW5nIG90aGVycyBpbiB0aGUgc3RydWdnbGUgZm9yIGp1c3RpY2UgYW5kIHBlYWNlLiBHb2Qgbm90IG9ubHkgY2FsbHMgdXMgYXMgaW5kaXZpZHVhbHMsIGJ1dCBhcyBhbiBlbnRpcmUgY29tbXVuaXR5LCB0byBiZSBwYXJ0IG9mIHNvbWV0aGluZyBiaWdnZXIgdGhhbiB3ZSBhcmUuIEluIHBhcnQgb2YgdGhpcyBiZWxpZWYgdGhlIENodXJjaCBvZiB0aGUgUGlsZ3JpbXMgcnVucyBhbiBPcGVuIFRhYmxlIHByb2dyYW0gdG8gZmVlZCB0aGUgaG9tZWxlc3MgYW5kIHBvb3Igb25jZSBhIHdlZWsuDQo8YnIgLz4gDQo8YnIgLz4gIA0KT3BlbiBUYWJsZSBoYXMgb2ZmZXJlZCBsdW5jaCB0byB0aGUgRHVwb250IENpcmNsZSBhcmVhIGhvbWVsZXNzIGFuZCBwb29yIG9uIFN1bmRheSBhZnRlcm5vb25zLiBGcm9tIDE6MDAtMTozMCBQTSwgd2Ugc2VydmUgYSBzaW1wbGUgbWVhbCBhbmQgcHJvdmlkZSBhIHNhY2sgbHVuY2guIEluIGFkZGl0aW9uIHRvIHNpbXBseSBnaXZpbmcgYSBtZWFsLCB3ZSBwcm92aWRlIG91ciBndWVzdHMgd2l0aCB3ZWxjb21lLCByZXNwZWN0LCBhbmQgYSBzYWZlIHNwYWNlLiBPcGVuIFRhYmxlIGlzIGEgY29tbXVuaXR5IGVmZm9ydC4gV2UgcmVjZWl2ZSBmdW5kaW5nIGZyb20gQ29tbXVuaXR5IENvdW5jaWwgZm9yIHRoZSBIb21lbGVzcyBhdCBGcmllbmRzaGlwIFBsYWNlIChDQ0gvRlApIGFuZCBwYXJ0bmVyIHdpdGggdGhlIEZyaWVuZHMgTWVldGluZyBIb3VzZSB3aGljaCBzZXJ2ZXMsIGNvb2tzLCBhbmQgZXZlbiBwcm92aWRlcyBoYWlyY3V0cyBvbmNlIGEgbW9udGguIE91ciB2b2x1bnRlZXIgY29va3MgYW5kIHNlcnZlcnMgYXJlIGEgYmxlbmQgb2YgQ2h1cmNoIG9mIHRoZSBQaWxncmltcyBtZW1iZXJzLCBpbmNsdWRpbmcgZmFtaWxpZXMgd2l0aCB5b3VuZyBjaGlsZHJlbiwgYW5kIG90aGVyIHNlcnZpY2UtbWluZGVkIGluZGl2aWR1YWxzIGluIHRoZSBjb21tdW5pdHkuDQo8YnIgLz4gDQo8YnIgLz4gIA0KTmVhcmVzdCBNZXRybyBTdGF0aW9uOiBEdXBvbnQgQ2lyY2xlIE1ldHJvIFN0YXRpb24uIE1ldHJvIEJ1cyBsaW5lOiBENi48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjE4Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkd4VwvQPC/8AdZjBOTgxwruI0Fkg=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKY8PfVDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAV0aJHFiBWNLqXe+Vkj15zQLZeLP" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2201 P Street, NW Washington DC 20037" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Church of the Pilgrims" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2201 P Street, NW Washington, DC 20037</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 387-6612<br /><b>Fax No:</b>(202) 387-6614<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.churchofthepilgrims.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food<br \><b>Services : </b> Nutritional services<br \><b>Program : </b> Free meals/Soup kitchens<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Sunday 1:00 pm to 1:30 pm light lunch service<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless and poor individuals in the District.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Church of the Pilgrims believes that God gathers us together as a community of faith in order to send us back out into the world as the Body of Christ, engaging in acts of compassion, and joining others in the struggle for justice and peace. God not only calls us as individuals, but as an entire community, to be part of something bigger than we are. In part of this belief the Church of the Pilgrims runs an Open Table program to feed the homeless and poor once a week.
+<br /> 
+<br />  
+Open Table has offered lunch to the Dupont Circle area homeless and poor on Sunday afternoons. From 1:00-1:30 PM, we serve a simple meal and provide a sack lunch. In addition to simply giving a meal, we provide our guests with welcome, respect, and a safe space. Open Table is a community effort. We receive funding from Community Council for the Homeless at Friendship Place (CCH/FP) and partner with the Friends Meeting House which serves, cooks, and even provides haircuts once a month. Our volunteer cooks and servers are a blend of Church of the Pilgrims members, including families with young children, and other service-minded individuals in the community.
+<br /> 
+<br />  
+Nearest Metro Station: Dupont Circle Metro Station. Metro Bus line: D6.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

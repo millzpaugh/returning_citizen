@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs1ODUwIEVhc3Rlcm4gQXZlbnVlLCBORSBXYXNoaW5ndG9uIERDIDIwMDExZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDU4NTAgRWFzdGVybiBBdmVudWUsIE5FIFdhc2hpbmd0b24sIERDIDIwMDExZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDQ1MC0zNDY4PGJyIC8+ZGQCBQ8PFgIfAgUpPGI+V2Vic2l0ZTogPC9iPnd3dy5veGZvcmRob3VzZS5vcmc8YnIgLz5kZAIHDw8WAh8CBZgBPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gUGVyc29ucyBpbiByZWNvdmVyeSwgV29tZW48YnIgXD5kZAIJDw8WAh8CZWRkAgsPDxYCHwJlZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBTU8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPldvbWVuIGluIHJlY292ZXJ5LjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWOBzxiPkRlc2NyaXB0aW9uOiA8L2I+T3hmb3JkIEhvdXNlIGlzIGEgY29uY2VwdCBpbiByZWNvdmVyeSBmcm9tIGRydWcgYW5kIGFsY29ob2wgYWRkaWN0aW9uLiBJbiBpdHMgc2ltcGxlc3QgZm9ybSwgYW4gT3hmb3JkIEhvdXNlIGRlc2NyaWJlcyBhIGRlbW9jcmF0aWNhbGx5IHJ1biwgc2VsZi1zdXBwb3J0aW5nIGFuZCBkcnVnIGZyZWUgaG9tZS4gT3hmb3JkIEhvdXNlcyBhbGxvd3MgcmVjb3ZlcmluZyBzdWJzdGFuY2UgYWJ1c2VycyB0byByZXNpZGUgYW5kIHN1cHBvcnQgZWFjaCBvdGhlcuKAmXMgcmVjb3ZlcnkgdGhyb3VnaCBtZW50b3JpbmcsIGVuY291cmFnZW1lbnQgYW5kIGVkdWNhdGlvbi4gUmVzaWRlbnRzIG11c3QgaGF2ZSBpbmNvbWUgYW5kIHNoYXJlIGV4cGVuc2VzIGluIHRoZSBob3VzZS4gSG91c2Ugb2ZmaWNpYWxzIGFyZSBlbGVjdGVkIGJ5IHRoZSByZXNwZWN0aXZlIHRlbmFudHMuIA0KPGJyIC8+DQo8YnIgLz4NCkVhY2ggSG91c2UgcmVwcmVzZW50cyBhIHJlbWFya2FibHkgZWZmZWN0aXZlIGFuZCBsb3cgY29zdCBtZXRob2Qgb2YgcHJldmVudGluZyByZWxhcHNlLiBUaGlzIHdhcyB0aGUgcHVycG9zZSBvZiB0aGUgZmlyc3QgT3hmb3JkIEhvdXNlIGVzdGFibGlzaGVkIGluIDE5NzUsIGFuZCB0aGlzIHB1cnBvc2UgaXMgc2VydmVkLCBkYXkgYnkgZGF5LCBob3VzZSBhZnRlciBob3VzZSwgaW4gZWFjaCBvZiBvdmVyIDEsMjAwIGhvdXNlcyBpbiB0aGUgVW5pdGVkIFN0YXRlcyB0b2RheS4gVGhlIEVhc3Rlcm4gSG91c2UgaXMgZm9yIHdvbWVuIGluIHJlY292ZXJ5OyBhIHBlcnNvbmFsIGludGVydmlldyBpcyByZXF1aXJlZCAod2l0aCByZXNwZWN0aXZlIGhvdXNlIHJlcHJlc2VudGF0aXZlcykgYW5kIHJlbnQgcmFuZ2VzIGZyb20gJDUwIHRvICQ4NSBwZXIgd2Vlay48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzYwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk5Erzk4WjuGxRxhAANtjrjIak/U0=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL/4oSACgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATq0mP0fXlGxYUBpJaDlr6boTkZT" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="5850 Eastern Avenue, NE Washington DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Eastern - Oxford House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">5850 Eastern Avenue, NE Washington, DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 450-3468<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.oxfordhouse.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Persons in recovery, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women in recovery.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Oxford House is a concept in recovery from drug and alcohol addiction. In its simplest form, an Oxford House describes a democratically run, self-supporting and drug free home. Oxford Houses allows recovering substance abusers to reside and support each other’s recovery through mentoring, encouragement and education. Residents must have income and share expenses in the house. House officials are elected by the respective tenants. 
+<br />
+<br />
+Each House represents a remarkably effective and low cost method of preventing relapse. This was the purpose of the first Oxford House established in 1975, and this purpose is served, day by day, house after house, in each of over 1,200 houses in the United States today. The Eastern House is for women in recovery; a personal interview is required (with respective house representatives) and rent ranges from $50 to $85 per week.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

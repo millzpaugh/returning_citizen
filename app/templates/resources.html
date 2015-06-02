@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block container %}
+{% load i18n %}
+
+<main class="resource-form container-fluid">
+    <div class="row">
+        <div class="resource-form--filter-panel col-sm-6">
+            <div class="resource-form--panel">
+            <form class="form-horizontal" role="form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="page" value="resources.html">
+                <input type="hidden" name="type" value="{{ type }}">
+
+                <div class="btn-group btn-group-lg btn-group-justified">
+                  <a href="/resources" class="btn btn-default js-link-search">{% trans "I am looking for:" %}</a>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="resource">{% trans "Resources" %}</label>
+                    <div class="col-sm-9">
+                        <select class="resource-form--need form-control" required data-placeholder="
+                        {% trans "What do you need help with?" %}" name="resource">
+                            <option></option>
+                            <option value="Education" {% ifequal "Education" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Education" %}</option>
+                            <option value="Employment and Vocational Training" {% ifequal "Employment and Vocational Training" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Employment and Vocational Training" %}</option>
+                            <option value="Social Services" {% ifequal "Social Services" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Social Services" %}</option>
+                            <option value="Housing" {% ifequal "Housing" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Housing" %}</option>
+                            <option value="Mental Health" {% ifequal "Mental Health" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Mental Health" %}</option>
+                            <option value="Medical" {% ifequal "Medical" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Medical" %}</option>
+                            <option value="Parenting" {% ifequal "Parenting" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Parenting" %}</option>
+                            <option value="Legal" {% ifequal "Legal" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Legal" %}</option>
+                            <option value="Emergency Food" {% ifequal "Emergency Food" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Emergency Food" %}</option>
+                            <option value="Volunteer Opportunities" {% ifequal "Volunteer Opportunities" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Volunteer Opportunities" %}</option>
+                             <option value="Self-Help/Support Groups" {% ifequal "Self-Help/Support Groups" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Self-Help/Support Groups" %}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="zipcode">Location</label>
+                    <div class="col-sm-9">
+                        <input id="location" class="form-control" type="text" required placeholder="{% trans "Where are you?" %}" name="location" value="{{ location }}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Address, City or ZIP Code" %}">
+                    </div>
+                </div>
+
+                {% ifequal resource null %}
+                <div class="col-xs-offset-3">
+                    <button type="submit" class="btn btn-primary">Find available resources</button>
+                </div>
+                {% endifequal %}
+            </form>
+            {% if messages %}
+              {% for message in messages %}
+                    <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                    </div>
+              {% endfor %}
+            {% endif %}
+
+            {% if resource %} {# here, resource is a proxy for the form being submitted #}
+            <div class="resource-form--results-label">
+                {% if within_radius|length > 0 %}
+                    {{ within_radius | length }} {% trans "locations found within " %} {{radius}} {% trans " miles"%}
+                {% else %}
+                    {% trans "No results found within " %} {{radius}} {% trans " miles, but you can sign up as a volunteer." %}
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <section class="resource-form--results">
+            {% for location_tuple in within_radius %}
+
+                {% with location=location_tuple.0 distance=location_tuple.1 %}
+
+                    <div class="resource-form--result {% if location.provider.preferred %}preferred-org{% endif %}">
+                    {% if location.provider.preferred %}
+                        <span class="preferred-marker glyphicon glyphicon-bookmark"></span>
+                    {% endif %}
+
+                    <h3>{{ location.provider.name }}</h3>
+                    <small class="distance">{{ distance }} {% trans " miles from you" %}</small>
+                    <p><span class="glyphicon glyphicon-map-marker"></span>{{ location.address }}</p>
+                    {% if location.phone %}
+                        <p><span class="glyphicon glyphicon-earphone"></span><a href="tel:{{ location.phone }}">{{ location.phone }}</a></p>
+                    {% endif %}
+                    {% if location.hours_open %}
+                        <p>{{ location.hours_open }}</p>
+                    {% endif %}
+                    {% if location.provider.programs %}
+                        <p>Programs: {{ location.provider.programs }}</p>
+                    {% endif %}
+                    {% if location.provider.url %}
+                        <p><a href="{{ location.provider.url }}" target="_blank">{{ location.provider.url }}</a></p>
+                    {% endif %}
+
+{#                        <ul style='font-weight:bold;margin-left:-15px;'>Resources Available#}
+                        <h5 style='font-weight:bold;'>Resources Available</h5>
+                    {% for available in location.resources_available.all %}
+                            <li style='font-size:14px;'>{{ available.name }}</li>
+                        {% if forloop.last %}
+                            </ul>
+                        {% endif %}
+
+                    {% endfor %}
+                    </div>
+                {% endwith %}
+            {% endfor %}
+
+            </section>
+            </div>
+        </div>
+
+
+        <div class="resource-form--map-panel col-sm-6 hidden-xs" style="height: 100%;">
+            <div id="map-canvas" class="img-responsive"></div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+    var pathArray = window.location.pathname.split('/');
+    var searchType = pathArray[2];
+    if(searchType == 'volunteer'){
+        $('.js-link-volunteer').addClass('toggle-on');
+    } else {
+        $('.js-link-search').addClass('toggle-on');
+    }
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwAJNgrVKvQmN_oHe6TxNx0nFdxLdUZag{% if LANGUAGE_CODE = "es" %}&language=es{% endif %}"></script>
+
+{% if search_from.latitude and search_from.longitude %}
+<script>
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng({{ search_from.latitude }}, {{ search_from.longitude }}),
+      zoom: 11
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+
+    {% for location_tuple in within_radius %}
+        {% with location=location_tuple.0 %}
+            var marker{{ forloop.counter0 }} = new google.maps.Marker({
+                position: new google.maps.LatLng({{ location.latitude }}, {{ location.longitude }}),
+                map: map,
+                title: "{{ location.provider.name }}"
+            });
+
+            var contentString{{ forloop.counter0 }} = '<b>{{ location.provider.name }}</b> <br>' +
+            '{{ location.address }} <br>' +
+            {% if location.phone %} 'Phone: <a href="tel:{{ location.phone }}">{{ location.phone }}</a><br>' + {% endif %}
+            {% if location.hours %} 'Hours: {{ location.hours_open }} <br>' + {% endif %}
+            '<a href="{{ location.provider.url }}">{{ location.provider.url }}</a><br>' +
+                {% for available in location.resources_available.all %}
+
+                    {% if forloop.first %}
+                        '<b>Resources available</b><br> <ul>' +
+                    {% endif %}
+
+                    '<li>{{ available.name|title }}</li>' +
+
+                    {% if forloop.last %}
+                        '</ul>' +
+                    {% endif %}
+
+                {% endfor %}
+            '';
+
+            var infowindow{{ forloop.counter0 }} = new google.maps.InfoWindow({
+                  content: contentString{{ forloop.counter0 }}
+              });
+
+            google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function() {
+                infowindow{{ forloop.counter0 }}.open(map,marker{{ forloop.counter0 }});
+              });
+          {% endwith %}
+    {% endfor %}
+
+    }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+{% else %}
+
+<script type="text/javascript">
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(39.045753, -76.641273),
+      zoom: 7
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+
+    }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+{% endif %}
+
+{% endblock %}

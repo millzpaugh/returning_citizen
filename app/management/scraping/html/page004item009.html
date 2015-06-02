@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS4zMzA0IE5vcnRoIFdhc2hpbmd0b24gQmx2ZC4gQXJsaW5ndG9uIFZBIDIyMjAxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLzMzMDQgTm9ydGggV2FzaGluZ3RvbiBCbHZkLiBBcmxpbmd0b24sIFZBIDIyMjAxZGQCAw8PFgIfAgV/PGI+Q29udGFjdCBQZXJzb246PC9iPkpveSBNeWVycy0gRXhlY3V0aXZlIERpcmVjdG9yPGJyIC8+PGI+UGhvbmUgTm86PC9iPig3MDMpIDg0MS0wMTM5PGJyIC8+PGI+RmF4IE5vOjwvYj4oNzAzKSA1MjgtNzYwNzxiciAvPmRkAgUPDxYCHwIFLTxiPldlYnNpdGU6IDwvYj53d3cuYm9ycm9tZW9ob3VzaW5nLm9yZzxiciAvPmRkAgcPDxYCHwIF+gE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1hdGVyaWFsIG5lZWRzLCBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBJbmZhbnRzLCBQcmVnbmFudC9wb3N0cGFydHVtIGFkb2xlc2NlbnRzLCBQcmVnbmFudC9wb3N0cGFydHVtIHdvbWVuLCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBXs8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkhvbWVsZXNzIGFkb2xlc2NlbnQgbW90aGVycyAoYWdlcyAxNiB0byAyMSkgd2l0aCBvbmUgY2hpbGQgb3IgcHJlZ25hbnQgd2l0aCBmaXJzdCBjaGlsZC48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF0Qo8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBFbGl6YWJldGggSG91c2Ugb3BlcmF0ZXMgdW5kZXIgQm9ycm9tZW8gSG91c2UsIEluYy4gKEJISSkgYW5kIHRocm91Z2ggQkhJIHRoZSBFbGl6YWJldGggSG91c2UgaXMgYWJsZSB0byBvZmZlciBzZXJ2aWNlcyB0aHJvdWdoIGEgcmVzaWRlbnRpYWwgcHJvZ3JhbSwgd2hpY2ggaW5jbHVkZXMgc29jaWFsIHNlcnZpY2VzIGFuZCB0aGUgSW5mYW50IENhcmUgU3VwcGx5IENlbnRlci4gVGhlIHRyYW5zaXRpb25hbCBob3VzaW5nIGlzIGZvciBob21lbGVzcyBhZG9sZXNjZW50IG1vdGhlcnMgKGFnZXMgMTYgdG8gMjEpIHdpdGggb25lIGNoaWxkIG9yIHByZWduYW50IHdpdGggZmlyc3QgY2hpbGQuIFByb2dyYW0gcGFydGljaXBhbnRzIHdpbGwgYmUgcHJvdmlkZWQgd2l0aCBzdXBlcnZpc2VkIGxpdmluZyBhcnJhbmdlbWVudHMgdGhhdCByZXF1aXJlIHBhcnRpY2lwYXRpb24gaW4gcHJvZ3JhbSBhY3Rpdml0aWVzIGFuZCBzdXBwb3J0aXZlIHNlcnZpY2VzOyBwYXJlbnRpbmcgc2tpbGxzIHRyYWluaW5nOyBmaW5hbmNlIGFuZCBidWRnZXRpbmcgc2VtaW5hcnM7IG1lbnRhbCBoZWFsdGggY291bnNlbGluZzsgdm9jYXRpb25hbCBhbmQgZWR1Y2F0aW9uYWwgYXNzZXNzbWVudC9haWQ7IGFuZCBjYXNlIG1hbmFnZW1lbnQuIERDIHJlc2lkZW50cyBjb25zaWRlcmVkLg0KPGJyIC8+DQo8YnIgLz4NClJFU0lERU5USUFMIFBST0dSQU06DQo8YnIgLz4NCkJISeKAmXMgc2lnbmF0dXJlIHByb2dyYW0gZW1wb3dlcnMgeW91bmcgc2luZ2xlIG1vdGhlcnMgdG8gY3JlYXRlIGEgc2VsZi1zdXN0YWluaW5nIGZ1dHVyZSB0aHJvdWdoIGVkdWNhdGlvbiwgY291bnNlbGluZyBhbmQgc3VwcG9ydCwgd2hpbGUgcmVzaWRpbmcgaW4gb3VyIHNhZmUgaG9tZS4gQkhJIGNsb3NlbHkgbW9uaXRvcnMgdGhlIGluZmFudHMgb2YgeW91bmcgbW90aGVycyB0byBhc3N1cmUgdGhlIGNoaWxkcmVuIGFyZSBwYXJlbnRlZCByZXNwb25zaWJseSwgcmVjZWl2ZSBhcHByb3ByaWF0ZSBtZWRpY2FsIGNhcmUsIGFuZCBtZWV0IGluZGl2aWR1YWwgZGV2ZWxvcG1lbnRhbCBiZW5jaG1hcmtzLg0KPGJyIC8+DQo8YnIgLz4NCklORkFOVCBDQVJFIFNVUFBMWSBDRU5URVI6DQo8YnIgLz4NClRoZSBJbmZhbnQgQ2FyZSBTdXBwbHkgQ2VudGVyIHByb3ZpZGVzIGFwcGxpY2FudHMsIHdobyBhcmUgbm90IGVsaWdpYmxlIGZvciB0aGUgUmVzaWRlbnRpYWwgcHJvZ3JhbSB3aXRoIGluZmFudCBzdXBwbGllcyB3aGljaCBtYXkgaW5jbHVkZSBkaWFwZXJzLCBjYXIgc2VhdHMsIGNsb3RoaW5nLCBhbmQgb3RoZXIgaW5mYW50IGNhcmUgc3VwcGxpZXMgZWFjaCBtb250aCwgZnJlZSBvZiBjb3N0LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxNDYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQOvbNEvD6WPvAqJPMMB1mxtiiIiA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKUv4SGAQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXpaia0E7prAvsIFmqybZ6yj0e5e" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3304 North Washington Blvd. Arlington VA 22201" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Elizabeth House (Borromeo Housing, Inc.)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3304 North Washington Blvd. Arlington, VA 22201</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Joy Myers- Executive Director<br /><b>Phone No:</b>(703) 841-0139<br /><b>Fax No:</b>(703) 528-7607<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.borromeohousing.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Social Services<br \><b>Services : </b> Material needs, Transitional housing/Single Room Occupancy<br \><b>Population : </b> Infants, Pregnant/postpartum adolescents, Pregnant/postpartum women, Women, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless adolescent mothers (ages 16 to 21) with one child or pregnant with first child.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Elizabeth House operates under Borromeo House, Inc. (BHI) and through BHI the Elizabeth House is able to offer services through a residential program, which includes social services and the Infant Care Supply Center. The transitional housing is for homeless adolescent mothers (ages 16 to 21) with one child or pregnant with first child. Program participants will be provided with supervised living arrangements that require participation in program activities and supportive services; parenting skills training; finance and budgeting seminars; mental health counseling; vocational and educational assessment/aid; and case management. DC residents considered.
+<br />
+<br />
+RESIDENTIAL PROGRAM:
+<br />
+BHI’s signature program empowers young single mothers to create a self-sustaining future through education, counseling and support, while residing in our safe home. BHI closely monitors the infants of young mothers to assure the children are parented responsibly, receive appropriate medical care, and meet individual developmental benchmarks.
+<br />
+<br />
+INFANT CARE SUPPLY CENTER:
+<br />
+The Infant Care Supply Center provides applicants, who are not eligible for the Residential program with infant supplies which may include diapers, car seats, clothing, and other infant care supplies each month, free of cost.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTszNzA3IE1hcnRpbiBMdXRoZXIgS2luZywgSnIuIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTwzNzA3IE1hcnRpbiBMdXRoZXIgS2luZywgSnIuIEF2ZW51ZSwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBcYBPGI+Q29udGFjdCBQZXJzb246PC9iPkYuIEFsZXhpcyBSb2JlcnNvbi0gQ0VPLCBMYXRlc3NlIEJhcmtzZGFsZS0gRXhlY3V0aXZlIEFzc2lzdGFudDxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAzNzMtMDA1MDxiciAvPjxiPlBob25lIE5vMjo8L2I+KDIwMikgMzczLTAzMzA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDM3My0wMzM2PGJyIC8+ZGQCBQ8PFgIfAgUjPGI+V2Vic2l0ZTogPC9iPnd3dy5vaWNkYy5vcmc8YnIgLz5kZAIHDw8WAh8CBZQCPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFbXBsb3ltZW50IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gVm9jYXRpb25hbCB0cmFpbmluZyAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgV29tZW4sIFlvdXRoICgxMiAtIDI0KTxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAmVkZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBUg8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPllvdXRoIG1lbiBhbmQgd29tZW4gYWdlcyAxNiAtIDI2IHlycy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF2wI8Yj5EZXNjcmlwdGlvbjogPC9iPk9wcG9ydHVuaXRpZXMgSW5kdXN0cmlhbGl6YXRpb24gQ2VudGVyIG9mZmVycywgeW91dGggYWdlcyAxNi0yNiB5cnMsIG9jY3VwYXRpb25hbCBza2lsbHMgdHJhaW5pbmcuIE9jY3VwYXRpb25hbCBza2lsbHMgdHJhaW5pbmcgbWF5IGJlIGluIGNvbnN0cnVjdGlvbiwgQSsgY29tcHV0ZXIgdHJhaW5pbmcsIG9yIG1lZGljYWwgb2ZmaWNlIGFzc2lzdGFuY2U7IHRoZSBwcm9ncmFtIGFsc28gb2ZmZXJzIGFjYWRlbWljIGVucmljaG1lbnQgYW5kIGpvYiBwbGFjZW1lbnQuIENsYXNzZXMgYXJlIGhlbGQgZXZlcnkgU2F0dXJkYXkgYXQgQmFsbG91IEhpZ2ggU2Nob29sLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQI2OR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZA/sF9EdqcJIpTwEu18B1ltnfWs9" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLg96iYDQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdsudmgCy3VebrwG97hDgzVvygiw" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3707 Martin Luther King, Jr. Avenue, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Opportunities Industrialization Center (OIC)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3707 Martin Luther King, Jr. Avenue, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>F. Alexis Roberson- CEO, Latesse Barksdale- Executive Assistant<br /><b>Phone No:</b>(202) 373-0050<br /><b>Phone No2:</b>(202) 373-0330<br /><b>Fax No:</b>(202) 373-0336<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.oicdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Vocational training &amp; placement assistance<br \><b>Population : </b> Men, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Youth men and women ages 16 - 26 yrs.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Opportunities Industrialization Center offers, youth ages 16-26 yrs, occupational skills training. Occupational skills training may be in construction, A+ computer training, or medical office assistance; the program also offers academic enrichment and job placement. Classes are held every Saturday at Ballou High School.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

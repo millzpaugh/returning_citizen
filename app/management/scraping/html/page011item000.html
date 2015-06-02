@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgyODMxIDE1dGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTI4MzEgMTV0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA5ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDQ2Mi00Nzg4PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAzMzItMDA4NTxiciAvPmRkAgUPDxYCHwIFIjxiPldlYnNpdGU6IDwvYj53d3cubGNkcC5vcmc8YnIgLz5kZAIHDw8WAh8CBYUHPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lZGljYWwsIE1lbnRhbCBIZWFsdGgsIFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBDb21tdW5pdHkgaGVhbHRoLCBNZW50YWwgaGVhbHRoIHRyZWF0bWVudCwgU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gRmFtaWx5IHBsYW5uaW5nLCBISVYvQUlEUywgSW50ZW5zaXZlIG91dHBhdGllbnQsIE91dHBhdGllbnQsIFByaW1hcnkgKEFkdWx0LCBGYW1pbHkgJmFtcDsgUGVkaWF0cmljcyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgRmFtaWx5IGlzc3Vlcy0tY291bnNlbGluZywgbWFycmlhZ2UsIHBhcmVudGluZywgVHJhdW1hLS1zZXh1YWwgYWJ1c2UvUFRTRC92aWN0aW1zIG9mIGNyaW1lPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTWVuLCBQZXJzb25zIHdpdGggSElWL0FJRFMsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gQWNjZXNzIHRvIHJlY292ZXJ5IHZvdWNoZXIsIE1lZGljYWlkLCBNZWRpY2FyZSwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50LCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBQYXltZW50IGFzc2lzdGFuY2UgKENoZWNrIHdpdGggZmFjaWxpdHkgZm9yIGRldGFpbHMpLCBTbGlkaW5nIGZlZSBzY2FsZSAoRmVlIGlzIGJhc2VkIG9uIGluY29tZSAmYW1wOyBvdGhlciBmYWN0b3JzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFWTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA5OjAwIGFtIC0gNTowMCBwbS4gQ2FsbCBmb3IgYXBwb2ludG1lbnQuPGJyIC8+ZGQCDw8PFgIfAgVOPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Mb3ctaW5jb21lIHBlcnNvbnMgb2YgdGhlIExhdGlubyBjb21tdW5pdHkuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBcEMPGI+RGVzY3JpcHRpb246IDwvYj5MYSBDbGluaWNhIGRlbCBQdWVibG8gaXMgYSBtZWRpY2FsIGZhY2lsaXR5IHNlcnZpbmcgcHJpbWFyaWx5IGxvdy1pbmNvbWUsIExhdGlubyBwZXJzb25zIG9mIGFsbCBhZ2VzLiBTZXJ2aWNlcyByYW5nZSBmcm9tIGdlbmVyYWwgaGVhbHRoIGNhcmUsIGhlYWx0aCBwcm9tb3Rpb24gYW5kIGVkdWNhdGlvbiBjb3Vyc2VzLCBtZW50YWwgaGVhbHRoIHByb2dyYW1zIChpbmRpdmlkdWFsIGFuZCBncm91cCkgYW5kIEhJViBjb3Vuc2VsaW5nIGFuZCB0ZXN0aW5nLg0KPGJyIC8+DQo8YnIgLz4NClNVQlNUQU5DRSBBQlVTRSBQUk9HUkFNOg0KPGJyIC8+DQpWb2x2aWVuZG8gYSBWaXZpciBpcyBhbiBpbnRlbnNpdmUgb3V0cGF0aWVudCBzdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50IGFuZCBISVYgY291bnNlbGluZyBhbmQgdGVzdGluZyBzZXJ2aWNlcyBwcm9ncmFtLiBWb2x2aWVuZG8gYSBWaXZpciAoQmFjayB0byBMaWZlKSB0YXJnZXRzIHJlY2VudCBleC1vZmZlbmRlcnMgYW5kIHRob3NlIGF3YWl0aW5nIHRyaWFsIGluIHRoZSBMYXRpbm8gY29tbXVuaXR5LiBUaGUgY29tcHJlaGVuc2l2ZSBwcm9ncmFtIGFwcGxpZXMgZ3JvdXAgaW50ZXJ2ZW50aW9uIG1vZGVscyBhbmQgaW5kaXZpZHVhbCB0aGVyYXB5IHNlc3Npb25zLiBDbGllbnRzIHByb2dyZXNzIHRvIGRpZmZlcmVudCBzdGFnZXMgb2YgdHJlYXRtZW50IGFzIHRoZXkgc3VjY2Vzc2Z1bGx5IG1lZXQgdGhlaXIgaW5kaXZpZHVhbCBhbmQgcHJvZ3JhbW1hdGljIHN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQgZ29hbHMuIExhIENsw61uaWNhIGlzIGEgTGV2ZWwgSSBhbmQgQWNjZXNzIHRvIFJlY292ZXJ5IChBVFIpIHByb3ZpZGVyIHRocm91Z2ggdGhlIERDIEFkZGljdGlvbiBQcmV2ZW50aW9uIGFuZCBSZWNvdmVyeSBBZG1pbmlzdHJhdGlvbiBhbmQgb25lIG9mIHRoZSBvbmx5IGJpbGluZ3VhbCBzdWJzdGFuY2UgYWJ1c2UgcHJvZ3JhbXMgc2VydmluZyB0aGUgTGF0aW5vIHBvcHVsYXRpb24gaW4gdGhlIERDIEFyZWEuIA0KPGJyIC8+DQo8YnIgLz4NCk1FTlRBTCBIRUFMVEggUFJPR1JBTToNCjxiciAvPg0KDQpNaSBGYW1pbGlhIChNeSBGYW1pbHkpIGlzIGEgY291bnNlbGluZyBwcm9ncmFtIHRoYXQgd29ya3MgdG8gcmVkdWNlIHRoZSBuZWdhdGl2ZSBpbXBhY3Qgb2YgdHJhdW1hdGljIHN0cmVzcyBhbmQgdG8gaW1wcm92ZSBvdmVyYWxsIHN0YWJpbGl0eSB3aXRoaW4gdGhlIGZhbWlseSB1bml0LiBNZW50YWwgaGVhbHRoIHN0YWZmIGNvbmR1Y3RzIG1lbnRhbCBoZWFsdGggc2NyZWVuaW5ncywgaW5kaXZpZHVhbCBhbmQgZmFtaWx5IGNvdW5zZWxpbmcgYW5kIHRyZWF0bWVudCwgYW5kIGxlYWQgd2Vla2x5IHBzeWNoby1lZHVjYXRpb25hbCBncm91cCBpbnRlcnZlbnRpb25zLiBJbiB0aGUgMTYgd2Vlay0gbG9uZyBwcm9ncmFtLCBmYW1pbGllcyBtZWV0IGZvciB3ZWVrbHkgc2Vzc2lvbnMgaW4gd2hpY2ggdGhleSBicmVhayB1cCBpbnRvIHNtYWxsIGdyb3VwcywgYWNjb3JkaW5nIHRvIHRoZWlyIGFnZSBhbmQgcm9sZSBwbGF5ZWQgd2l0aGluIHRoZSBmYW1pbHksIGFuZCBkaXNjdXNzIHJlbGV2YW50IHRvcGljcy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNDUyHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkr7B5VpXkyXMnQjDCbZQMuNd6oM4=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLDoImcCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAaQx5tsZCZJzz7xModSSfLg0r/n/" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2831 15th Street, NW Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="La Clinica del Pueblo" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2831 15th Street, NW Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 462-4788<br /><b>Fax No:</b>(202) 332-0085<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.lcdp.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical, Mental Health, Substance Abuse<br \><b>Services : </b> Community health, Mental health treatment, Substance abuse treatment<br \><b>Type Of Care : </b> Family planning, HIV/AIDS, Intensive outpatient, Outpatient, Primary (Adult, Family &amp; Pediatrics)<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Family issues--counseling, marriage, parenting, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Access to recovery voucher, Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details), Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am - 5:00 pm. Call for appointment.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low-income persons of the Latino community.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>La Clinica del Pueblo is a medical facility serving primarily low-income, Latino persons of all ages. Services range from general health care, health promotion and education courses, mental health programs (individual and group) and HIV counseling and testing.
+<br />
+<br />
+SUBSTANCE ABUSE PROGRAM:
+<br />
+Volviendo a Vivir is an intensive outpatient substance abuse treatment and HIV counseling and testing services program. Volviendo a Vivir (Back to Life) targets recent ex-offenders and those awaiting trial in the Latino community. The comprehensive program applies group intervention models and individual therapy sessions. Clients progress to different stages of treatment as they successfully meet their individual and programmatic substance abuse treatment goals. La Clínica is a Level I and Access to Recovery (ATR) provider through the DC Addiction Prevention and Recovery Administration and one of the only bilingual substance abuse programs serving the Latino population in the DC Area. 
+<br />
+<br />
+MENTAL HEALTH PROGRAM:
+<br />
+
+Mi Familia (My Family) is a counseling program that works to reduce the negative impact of traumatic stress and to improve overall stability within the family unit. Mental health staff conducts mental health screenings, individual and family counseling and treatment, and lead weekly psycho-educational group interventions. In the 16 week- long program, families meet for weekly sessions in which they break up into small groups, according to their age and role played within the family, and discuss relevant topics.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

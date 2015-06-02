@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTAxOTE4IDE4dGggU3RyZWV0LCBOVyBTVEUuIEIyIFdhc2hpbmd0b24gREMgMjAwMDlkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUxMTkxOCAxOHRoIFN0cmVldCwgTlcgU1RFLiBCMiBXYXNoaW5ndG9uLCBEQyAyMDAwOWRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAzODctOTAyOTxiciAvPmRkAgUPDxYCHwIFVTxiPldlYnNpdGU6IDwvYj53d3cubGl0ZXJhY3ljb25uZWN0aW9ucy5jb20vbGlua3Mvd2FzaGluZ3Rvbi1saXRlcmFjeS1jb3VuY2lsLTA8YnIgLz5kZAIHDw8WAh8CBZICPGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbjxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFZHVjYXRpb25hbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdWx0IEJhc2ljIEVkdWNhdGlvbi9MaXRlcmFjeS9UdXRvcmluZzxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFNlbGYtcGF5bWVudDxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gUGF5bWVudCBhc3Npc3RhbmNlIChDaGVjayB3aXRoIGZhY2lsaXR5IGZvciBkZXRhaWxzKTxiciBcPmRkAgkPDxYCHwIFLjxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPlNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgUyPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+Q2FsbCBmb3IgY2xhc3Nlcy48YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgW8BDxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIG1pc3Npb24gb2YgdGhlIFdhc2hpbmd0b24gTGl0ZXJhY3kgQ291bmNpbCAoV0xDKSBpcyB0byByYWlzZSB0aGUgbGl0ZXJhY3kgbGV2ZWwgb2YgYWR1bHRzIGFuZCBjaGlsZHJlbiBpbiB0aGUgbmF0aW9u4oCZcyBjYXBpdGFsLiBXTEMgdHJhaW5zIHZvbHVudGVlcnMgdG8gdXNlIGEgc3RydWN0dXJlZCByZWFkaW5nIHByb2dyYW0gYmFzZWQgb24gdGhlIGxhdGVzdCByZXNlYXJjaCBpbiBsYW5ndWFnZSBhY3F1aXNpdGlvbi4gV0xD4oCZcyB2b2x1bnRlZXJzIGFyZSB0aGUgaGVhcnRiZWF0IG9mIG91ciBwcm9ncmFtIGFuZCBhbGxvdyB1cyB0byBmdWxmaWxsIG91ciBtaXNzaW9uIHdpdGggbGltaXRlZCBzdGFmZi4gVm9sdW50ZWVycyBjb21lIHRvIHVzIGZyb20gbWFueSBzb3VyY2VzIGluIHRoZSBjb21tdW5pdHkuICBUaGUgV2FzaGluZ3RvbiBMaXRlcmFjeSBDb3VuY2lsIG9mZmVycyBjb3Vyc2VzIGluIGJhc2ljIGFuZCBpbnRlcm1lZGlhdGUgbGl0ZXJhY3kuIFRoZSBjb3N0IGlzICQyMCBwZXIgc2VtZXN0ZXIgb3IgJDEwMCBmb3IgdGhlIHllYXIuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzEwNh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZB80BI9ht7H+Sb/RDWvMcTKq04bo" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLBxufXBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZqktbkLlWph2pmdk7nAHmCvPuB2" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1918 18th Street, NW STE. B2 Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Washington Literacy Council" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1918 18th Street, NW STE. B2 Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 387-9029<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.literacyconnections.com/links/washington-literacy-council-0<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education<br \><b>Services : </b> Educational services<br \><b>Program : </b> Adult Basic Education/Literacy/Tutoring<br \><b>Forms Of Payment : </b> Self-payment<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Call for classes.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The mission of the Washington Literacy Council (WLC) is to raise the literacy level of adults and children in the nation’s capital. WLC trains volunteers to use a structured reading program based on the latest research in language acquisition. WLC’s volunteers are the heartbeat of our program and allow us to fulfill our mission with limited staff. Volunteers come to us from many sources in the community.  The Washington Literacy Council offers courses in basic and intermediate literacy. The cost is $20 per semester or $100 for the year.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

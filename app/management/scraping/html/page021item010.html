@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTExNDIyIE1hc3NhY2h1c2V0dHMgQXZlbnVlLCBTRSBXYXNoaW5ndG9uIERDIDIwMDAzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjE0MjIgTWFzc2FjaHVzZXR0cyBBdmVudWUsIFNFIFdhc2hpbmd0b24sIERDIDIwMDAzZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU0NC0yMTMxPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1NDMtMTU3MjxiciAvPmRkAgUPDxYCHwIFIzxiPldlYnNpdGU6IDwvYj53d3cudnNjZGMub3JnPGJyIC8+ZGQCBw8PFgIfAgWCBDxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nLCBQYXJlbnRpbmcsIFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBEYXkgcHJvZ3JhbXMvRHJvcC1pbiBjZW50ZXJzLCBGYW1pbHkgc3VwcG9ydCBzZXJ2aWNlcywgTW9uZXRhcnkgYXNzaXN0YW5jZSwgU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBNYWlsICZhbXA7IHBob25lIHNlcnZpY2VzLCBPdGhlciBhc3Npc3RhbmNlLCBlLmcuIHRyYW5zcG9ydGF0aW9uLCBQYXJlbnRpbmcgc3VwcG9ydCwgZS5nLiBjbGFzc2VzLCBncm91cHMsIFBob3RvIElEJ3MsIHNvY2lhbCBzZWN1cml0eSBjYXJkcywgYmlydGggY2VydGlmaWNhdGVzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgV29tZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwJlZGQCDQ8PFgIfAgVFPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5ICA5OjMwIGFtIHRvIDM6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgVSPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NdXN0IGJlIHJlY2VudGx5IHJlbGVhc2VkIG9yIGN1cnJlbnRseSBpbiBqYWlsLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXyETxiPkRlc2NyaXB0aW9uOiA8L2I+Vm9pY2VzIGZvciBTZWNvbmQgQ2hhbmNlIChWU0MpIGlzIGFuIGVzc2VudGlhbCBzYWZldHkgbmV0IGZvciBvZmZlbmRlcnMgYW5kIHRoZWlyIGZhbWlsaWVzLCB3aG8gYXJlIG1vc3QgbGlrZWx5IHRvIGJlIGFtb25nIHRoZSBtb3N0IG1hcmdpbmFsaXplZCBtZW1iZXJzIG9mIG91ciBzb2NpZXR5LiBWU0PigJlzIGdvYWwgaXMgdG8gcmVkdWNlIHRoZSByZWNpZGl2aXNtIHJhdGUgaW4gdGhlIERpc3RyaWN0IGJ5IHByb3ZpZGluZyBhc3Npc3RhbmNlIHRvIHNvbWUgb2YgdGhlIE5hdGlvbuKAmXMgbmVlZGllc3QgcmVzaWRlbnRzLCBhcyByZXR1cm5pbmcgY2l0aXplbnMgd2hvIGFyZSBnaXZlbiBzZXJ2aWNlcyBwcmUtYW5kLXBvc3QgcmVsZWFzZSBmcm9tIGluY2FyY2VyYXRpb24gbWFrZSBhIHN1Y2Nlc3NmdWwgdHJhbnNpdGlvbiB0byBiZWNvbWUgcG9zaXRpdmUgY29udHJpYnV0aW5nIGNpdGl6ZW5zIHRvIG91ciBlY29ub215IGFuZCBjb21tdW5pdHkuIFZTQyBpcyBjb21taXR0ZWQgdG8gYSBsb25nIGhpc3Rvcnkgb2YgcHJvdmlkaW5nIGJhc2ljIGh1bWFuIHNlcnZpY2VzIHRvIG1lZXQgYmFzaWMgaHVtYW4gbmVlZHMuDQo8YnIgLz4NCjxiciAvPg0KU2VydmljZXMgaW5jbHVkZSB0aGUgZm9sbG93aW5nOiBGaXJzdCBSZXNwb25kZXIgU2VydmljZXMsIERyb3AtaW4vUmUtRW50cnksIENhc2V3b3JrLCBGb29kIFN0YW1wcywgRmFtaWx5IFN1cHBvcnQgYW5kIFZTQyBCcmlkZ2VzIHRoZSBHYXAuDQo8YnIgLz4NCjxiciAvPg0KRmlyc3QgUmVzcG9uZGVycyBTZXJ2aWNlcyBpcyBhbiBpbnRha2UgcHJvZ3JhbSB0aGF0IHByb3ZpZGVzLCBhdCB0aGUgdGltZSBvZiBpbmNhcmNlcmF0aW9uLCBhIHZhcmlldHkgb2YgYmFzaWMgZnVuY3Rpb25zIGxpa2UgY2FsbGluZyBmYW1pbHkgbWVtYmVyKHMpLCBwaWNraW5nIHVwIHByb3BlcnR5IHRoYXQgd2FzIGxlZnQgYXQgYSBzaGVsdGVyIG9yIHdpdGggdGhlIHBvbGljZSwgZXRjLiBTdWNoIGNhc2V3b3JrIHNlcnZpY2VzIGNvbnRpbnVlIHRocm91Z2ggdGhlIGluY2FyY2VyYXRpb24gcGVyaW9kLg0KPGJyIC8+DQo8YnIgLz4NClRoZSBWU0MgRHJvcC1JbiBQcm9ncmFtIHdlbGNvbWVzIG5ld2x5IHJlbGVhc2VkIGlubWF0ZXMgZGFpbHkgd2hvIHZpc2l0IG91ciBvZmZpY2UgZm9yIGJhc2ljIGh1bWFuIG5lZWRzLiBTdGFmZiBlbXBvd2VycyBjbGllbnRzIHRvIHRha2UgY29udHJvbCBvZiB0aGVpciBuZXcgcmVsZWFzZSBieSBwcm92aWRpbmcgdG9vbHMgdG8gc3VwcG9ydCByZWVudHJ5IGJhY2sgaW50byB0aGUgY29tbXVuaXR5IGZyb20gQ0RGIGFuZCBDVEYgcHJvdmlkaW5nIGFzc2lzdGFuY2Ugd2l0aDogSWRlbnRpZmljYXRpb24gUmV0cmlldmFsLCBSZXN1bWUgUHJlcGFyYXRpb24sIEVtcGxveW1lbnQgU2VhcmNoLCBFZHVjYXRpb24gJiBUcmFpbmluZyBQcm9zcGVjdHMsIFRyYW5zcG9ydGF0aW9uIFN1cHBvcnQsIEhvdXNpbmcgYW5kIEVtZXJnZW5jeSBTaGVsdGVyLCBhbmQgQ2xvdGhpbmcgTmVlZHMuDQo8YnIgLz4NCjxiciAvPg0KSW4gdGhlIFZTQyBEcm9wLUluIFByb2dyYW0gY2xpZW50cyBhcmUgb2ZmZXJlZCBiYXNpYyBodW1hbiBuZWVkcyBzdWNoIGFzIHRlbGVwaG9uZSBjYWxscyB0byBsb3ZlZCBvbmVzIGFuZCBzaWduaWZpY2FudCBvdGhlcnMsIHVzZSBvZiB0aGUgaW50ZXJuZXQsIGJ1cyB0b2tlbnMgdG8gZ2V0IGhvbWUsIGZ1bmRzIGZvciBhIGJpcnRoIGNlcnRpZmljYXRlIG9yIHBvbGljZSBjbGVhcmFuY2UgdG8gZ2FpbiBpZGVudGlmaWNhdGlvbiwgYSBzbmFjaywgdG9pbGV0cmllcyAoc29hcC90b290aGJydXNoL3Rvb3RocGFzdGUpLCBvciBhIGhhaXJjdXQgY2VydGlmaWNhdGUuIFZTQyBzdGFmZiBhbHNvIGNvb3JkaW5hdGVzIGRydWcsIGFsY29ob2wsIGFuZ2VyIG1hbmFnZW1lbnQsIGJhdHRlcmVycycgaW50ZXJ2ZW50aW9uLCBtb25leSBtYW5hZ2VtZW50LCBhbmQgb3RoZXIgbGlmZSBza2lsbHMgZWR1Y2F0aW9uYWwgc2Vzc2lvbnMuIA0KPGJyIC8+DQo8YnIgLz4NClRocm91Z2ggdGhlIFZTQ+KAmXMgQnJpZGdlIHRoZSBHYXAgcHJvZ3JhbSBzZXJ2aWNlcyBvZmZlcmVkIGluY2x1ZGU6IEZhbWlseSBDb25uZWN0aW9uOiBCZWR0aW1lIFN0b3JpZXMgZm9yIENoaWxkcmVuLCBCaXJ0aCBDZXJ0aWZpY2F0ZXMvU29jaWFsIFNlY3VyaXR5IGNhcmRzLCBWb3RlciByZWdpc3RyYXRpb24sIGluY29tZSB0YXggcHJlcGFyYXRpb24sIHBvbGljZSBjbGVhcmFuY2VzLCBhbmQgdGVtcG9yYXJ5IG1haWxpbmcgcHJvZ3JhbS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzE1Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkZk0TjkZhkp6N0mABZB2IepjW8ak=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKAhfSODwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAaHpogkOeF9MJDHpiByd3D77V1Jv" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1422 Massachusetts Avenue, SE Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Voices for Second Chance (VSC)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1422 Massachusetts Avenue, SE Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 544-2131<br /><b>Fax No:</b>(202) 543-1572<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.vscdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Parenting, Social Services<br \><b>Services : </b> Day programs/Drop-in centers, Family support services, Monetary assistance, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Mail &amp; phone services, Other assistance, e.g. transportation, Parenting support, e.g. classes, groups, Photo ID's, social security cards, birth certificates, Referrals for social services<br \><b>Population : </b> Criminal justice involved, Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday  9:30 am to 3:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Must be recently released or currently in jail.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Voices for Second Chance (VSC) is an essential safety net for offenders and their families, who are most likely to be among the most marginalized members of our society. VSC’s goal is to reduce the recidivism rate in the District by providing assistance to some of the Nation’s neediest residents, as returning citizens who are given services pre-and-post release from incarceration make a successful transition to become positive contributing citizens to our economy and community. VSC is committed to a long history of providing basic human services to meet basic human needs.
+<br />
+<br />
+Services include the following: First Responder Services, Drop-in/Re-Entry, Casework, Food Stamps, Family Support and VSC Bridges the Gap.
+<br />
+<br />
+First Responders Services is an intake program that provides, at the time of incarceration, a variety of basic functions like calling family member(s), picking up property that was left at a shelter or with the police, etc. Such casework services continue through the incarceration period.
+<br />
+<br />
+The VSC Drop-In Program welcomes newly released inmates daily who visit our office for basic human needs. Staff empowers clients to take control of their new release by providing tools to support reentry back into the community from CDF and CTF providing assistance with: Identification Retrieval, Resume Preparation, Employment Search, Education & Training Prospects, Transportation Support, Housing and Emergency Shelter, and Clothing Needs.
+<br />
+<br />
+In the VSC Drop-In Program clients are offered basic human needs such as telephone calls to loved ones and significant others, use of the internet, bus tokens to get home, funds for a birth certificate or police clearance to gain identification, a snack, toiletries (soap/toothbrush/toothpaste), or a haircut certificate. VSC staff also coordinates drug, alcohol, anger management, batterers' intervention, money management, and other life skills educational sessions. 
+<br />
+<br />
+Through the VSC’s Bridge the Gap program services offered include: Family Connection: Bedtime Stories for Children, Birth Certificates/Social Security cards, Voter registration, income tax preparation, police clearances, and temporary mailing program.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

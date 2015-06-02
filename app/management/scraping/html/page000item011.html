@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSQ2NDUgSCBTdHJlZXQsIE5FIFdhc2hpbmd0b24gREMgMjAwMDJkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUlNjQ1IEggU3RyZWV0LCBORSBXYXNoaW5ndG9uLCBEQyAyMDAwMmRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA1NDEtMzk1MDxiciAvPmRkAgUPDxYCHwIFQjxiPldlYnNpdGU6IDwvYj5kaHMuZGMuZ292L3NlcnZpY2UvYWR1bHQtcHJvdGVjdGl2ZS1zZXJ2aWNlczxiciAvPmRkAgcPDxYCHwIFzQE8Yj5DYXRlZ29yeSA6IDwvYj4gU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEFidXNlICZhbXA7IG5lZ2xlY3Qgc2VydmljZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBQZXJzb25zIHdpdGggaW50ZWxsZWN0dWFsIGRpc2FiaWxpdHksIFBlcnNvbnMgd2l0aCBwaHlzaWNhbCBkaXNhYmlsaXR5LCBTZW5pb3JzICg1NSspPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBYgBPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EQyBSZXNpZGVudCwgYWdlIDE4IHlycyBvciBvbGRlciB3aXRoIHBoeXNpY2FsL21lbnRhbCBpbXBhaXJtZW50IGFuZCBzdWZmZXJpbmcgZnJvbSBhYnVzZSBvciBuZWdsZWN0LjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWdCDxiPkRlc2NyaXB0aW9uOiA8L2I+QWR1bHQgUHJvdGVjdGl2ZSBTZXJ2aWNlcyAoQVBTKSBpbnZlc3RpZ2F0ZXMgcmVwb3J0cyBhbGxlZ2luZyBhYnVzZSwgbmVnbGVjdCBhbmQgZXhwbG9pdGF0aW9uIG9mIGZyYWlsIGVsZGVybHkgYW5kIGRpc2FibGVkIGFkdWx0cyBhbmQgaW50ZXJ2ZW5lcyB0byBwcm90ZWN0IHZ1bG5lcmFibGUgYWR1bHRzIHdobyBhcmUgYXQgcmlzay4NCjxiciAvPg0KPGJyIC8+DQpTZXJ2aWNlcyB0byB2dWxuZXJhYmxlIGFkdWx0cyBpbmNsdWRlOiBhc3Nlc3NtZW50LCBjb3Vuc2VsaW5nLCBjYXNlIG1hbmFnZW1lbnQsIGVtZXJnZW5jeSBhc3Npc3RhbmNlIHdpdGggYmFzaWMgbmVlZHM7IHNob3J0LXRlcm0gaG9tZW1ha2VyIHNlcnZpY2VzOyBjb29yZGluYXRpb24gb2YgbGVnYWwgc2VydmljZXMgdG8gb2J0YWluIGVtZXJnZW5jeSBvcmRlcnMgb3IgZ3VhcmRpYW5zL2NvbnNlcnZhdG9yczsgcGxhY2VtZW50IGludG8gbG9uZy10ZXJtIGNhcmUgZmFjaWxpdGllcyBvciBhc3Npc3RlZCBsaXZpbmcgaG9tZXM7IGFuZCBjb29yZGluYXRpb24gb2Ygc29jaWFsLCBhc3Nlc3NtZW50IGFuZCBtZWRpY2FsIHNlcnZpY2VzIHdpdGggb3RoZXIgYWdlbmNpZXMgYW5kIHByb3ZpZGVycy4NCjxiciAvPg0KPGJyIC8+DQpUbyBiZSBlbGlnaWJsZSBmb3IgQWR1bHQgUHJvdGVjdGl2ZSBTZXJ2aWNlLCB5b3UgbXVzdCBiZSBhIERpc3RyaWN0IG9mIENvbHVtYmlhIHJlc2lkZW50LCBhZ2UgMTggb3Igb2xkZXIgYW5kLCBoYXZlIGEgcGh5c2ljYWwgb3IgbWVudGFsIGltcGFpcm1lbnQgYW5kIHN1ZmZlcmluZyBmcm9tIGFidXNlIG9yIG5lZ2xlY3QuDQo8YnIgLz4NCjxiciAvPg0KRm9yIG1vcmUgaW5mb3JtYXRpb24gb3IgdG8gcmVwb3J0IHN1c3BlY3RlZCBhYnVzZSwgbmVnbGVjdCwgb3IgZXhwbG9pdGF0aW9uIG9mIHZ1bG5lcmFibGUgYWR1bHRzLCBjYWxsIHRoZSBBZHVsdCBQcm90ZWN0aXZlIFNlcnZpY2VzIEhvdGxpbmUgYXQgKDIwMikgNTQxLTM5NTAsIG9yIHZpc2l0IDY0NSBIIFN0cmVldCwgTkUsIFdhc2hpbmd0b24sIERDLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1NzceDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRcqxfrrf2q1RNEg/P77cFLuVuArA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLCqLa8CAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUyS+MmslgyV7Ne+xTepk3dvMAjD" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="645 H Street, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Adult Protective Services (DC Department of Human Services, Family Services Admin)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">645 H Street, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 541-3950<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>dhs.dc.gov/service/adult-protective-services<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Abuse &amp; neglect services<br \><b>Population : </b> Persons with intellectual disability, Persons with physical disability, Seniors (55+)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC Resident, age 18 yrs or older with physical/mental impairment and suffering from abuse or neglect.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Adult Protective Services (APS) investigates reports alleging abuse, neglect and exploitation of frail elderly and disabled adults and intervenes to protect vulnerable adults who are at risk.
+<br />
+<br />
+Services to vulnerable adults include: assessment, counseling, case management, emergency assistance with basic needs; short-term homemaker services; coordination of legal services to obtain emergency orders or guardians/conservators; placement into long-term care facilities or assisted living homes; and coordination of social, assessment and medical services with other agencies and providers.
+<br />
+<br />
+To be eligible for Adult Protective Service, you must be a District of Columbia resident, age 18 or older and, have a physical or mental impairment and suffering from abuse or neglect.
+<br />
+<br />
+For more information or to report suspected abuse, neglect, or exploitation of vulnerable adults, call the Adult Protective Services Hotline at (202) 541-3950, or visit 645 H Street, NE, Washington, DC.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

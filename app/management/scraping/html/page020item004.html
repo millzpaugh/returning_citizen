@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgzMTM1IDh0aCBTdHJlZXQsIE5FIFdhc2hpbmd0b24gIERDIDIwMDE3ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTMxMzUgOHRoIFN0cmVldCwgTkUgV2FzaGluZ3RvbiAsIERDIDIwMDE3ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDI2OS0xNTAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1MjYtMDUxOTxiciAvPmRkAgUPDxYCHwIFKDxiPldlYnNpdGU6IDwvYj53d3cudWNwZGMub3JnL0hvbWU8YnIgLz5kZAIHDw8WAh8CBfkBPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFbXBsb3ltZW50IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gUmVoYWJpbGl0YXRpdmUgc2VydmljZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBQZXJzb25zIHdpdGggaW50ZWxsZWN0dWFsIGRpc2FiaWxpdHksIFBlcnNvbnMgd2l0aCBwaHlzaWNhbCBkaXNhYmlsaXR5PGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBVU8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkFkdWx0cyB3aXRoIGNlcmVicmFsIHBhbHN5IGFuZCBvdGhlciBkaXNhYmlsaXRpZXMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBYsFPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgVW5pdGVkIENlcmVicmFsIFBhbHN5IG9mIFdhc2hpbmd0b24gb2ZmZXJzIHNlcnZpY2VzIHRvIGFkdWx0cyB3aXRoIGNlcmVicmFsIHBhbHN5IGFuZCBvdGhlciBkaXNhYmlsaXRpZXMuIFRoZSBwcm9ncmFtIGZvY3VzIGlzIHRvIGFkdmFuY2UgdGhlIGluZGVwZW5kZW5jZSwgcHJvZHVjdGl2aXR5IGFuZCBxdWFsaXR5IG9mIGxpZmUgZm9yIGluZGl2aWR1YWxzIHdpdGggZGlzYWJpbGl0aWVzIGFuZCB0aGVpciBmYW1pbGllcy4gVUNQ4oCZcyBhZHVsdCBzZXJ2aWNlcyBpbmNsdWRlIEV4cGVyaWVuY2VzIFVubGltaXRlZCwgYSBkYXkgcHJvZ3JhbSB0aGF0IHByb3ZpZGVzIGluZGl2aWR1YWxzIHdpdGggbWVhbmluZ2Z1bCBjb21tdW5pdHkgcGFydGljaXBhdGlvbi4gQWRkaXRpb25hbCBzZXJ2aWNlcyBpbmNsdWRlLCBhIEhlYWx0aCBTZXJ2aWNlLCB3aGljaCBpcyBhIGN1cnJpY3VsdW0gZGVzaWduZWQgdG8gaGVscCBtYWludGFpbiBpbmRpdmlkdWFscyBhdCBhbiBvcHRpbXVtIGxldmVsIG9mIGZ1bmN0aW9uaW5nOyBTYXR1cmRheSBsZWlzdXJlIHNlcnZpY2UsIE1lZGljYWlkIFdhaXZlciBwcm9ncmFtIChmb3IgU2F0dXJkYXkpLCBhbmQgQXNzaXN0aXZlIFRlY2hub2xvZ3kgc2VydmljZXMuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQ5MB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZJ9XOToNmfPq55LMeE+Y+dVBfc2B" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKMpP6BAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAe9x200WUjWGFLB8BgOce1ReCh5k" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3135 8th Street, NE Washington  DC 20017" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="United Cerebral Palsy of Washington" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3135 8th Street, NE Washington , DC 20017</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 269-1500<br /><b>Fax No:</b>(202) 526-0519<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ucpdc.org/Home<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Rehabilitative services<br \><b>Population : </b> Persons with intellectual disability, Persons with physical disability<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Adults with cerebral palsy and other disabilities.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The United Cerebral Palsy of Washington offers services to adults with cerebral palsy and other disabilities. The program focus is to advance the independence, productivity and quality of life for individuals with disabilities and their families. UCP’s adult services include Experiences Unlimited, a day program that provides individuals with meaningful community participation. Additional services include, a Health Service, which is a curriculum designed to help maintain individuals at an optimum level of functioning; Saturday leisure service, Medicaid Waiver program (for Saturday), and Assistive Technology services.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

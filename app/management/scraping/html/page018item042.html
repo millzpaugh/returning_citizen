@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxMjI0NyBHZW9yZ2lhIEF2ZW51ZSBTaWx2ZXIgU3ByaW5nIE1EIDIwOTAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDEyMjQ3IEdlb3JnaWEgQXZlbnVlIFNpbHZlciBTcHJpbmcsIE1EIDIwOTAyZGQCAw8PFgIfAgVPPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDQzNC04OTg1PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMzAxKSA5MzMtMDg2ODxiciAvPmRkAgUPDxYCHwIFMTxiPldlYnNpdGU6IDwvYj53d3cuY2F0aG9saWNjaGFyaXRpZXNkYy5vcmc8YnIgLz5kZAIHDw8WAh8CBfcBPGI+Q2F0ZWdvcnkgOiA8L2I+IExlZ2FsLCBNZWRpY2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGgsIExlZ2FsLCBSZWZlcnJhbHMgdG8gc3BlY2lhbHR5IGNhcmU8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IERlbnRhbCwgT2ItR3luLCBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gSW1taWdyYW50cy9SZWZ1Z2VlczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFwAE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5EZW50YWwgQ2xpbmljOiBieSBhcHBvaW50bWVudCBNb25kYXlzIGFuZCBXZWRuZXNkYXlzIGZyb20gMTI6MDAgcG0gdG8gODowMCBwbSwgYW5kIFR1ZXNkYXlzLCBUaHVyc2RheXMgYW5kIEZyaWRheXMgZnJvbSA4OjMwIGFtIHRvIDU6MDAgcG0uIE1lZGljYWw6IEhvdXJzIHZhcnk8YnIgLz5kZAIPDw8WAh8CBVU8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk1lbiwgd29tZW4gYW5kIGNoaWxkcmVuOyBsb3cgaW5jb21lIGFuZCB1bmluc3VyZWQuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBeMVPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgU3BhbmlzaCBDYXRob2xpYyBDZW50ZXIgb2ZmZXJzIG1hbnkgcHJvZ3JhbXMgdGhhdCBtZWV0IHRoZSBlbWVyZ2VuY3kgYW5kIGxvbmcgdGVybSBuZWVkcy4gVGhlIGNlbnRlciBoYXMgNCBsb2NhdGlvbnMgYW5kIG9mZmVycyBob2xpc3RpYyBzZXJ2aWNlcyB0byBpbW1pZ3JhbnRzIGFyb3VuZCB0aGUgd29ybGQgdGhyb3VnaCBzZXJ2aWNlcyB0aGF0IGluY2x1ZGU6IG1lZGljYWwgYW5kIGRlbnRhbCBjbGluaWNzLCBqb2IgdHJhaW5pbmcgcHJvZ3JhbXMsIEVuZ2xpc2ggY2xhc3NlcywgYSBmb29kIHBhbnRyeSBhbmQgY2FzZSBtYW5hZ2VtZW50IHNlcnZpY2VzLiANCjxiciAvPg0KPGJyIC8+DQpNRURJQ0FMIENMSU5JQ1M6DQo8YnIgLz4NClRoZSBTcGFuaXNoIENhdGhvbGljIENlbnRlciBvZmZlcnMgYWNjZXNzIHRvIHByaW1hcnkgY2FyZSBmb3IgYWR1bHRzIGFuZCBjaGlsZHJlbi4gVGhyb3VnaCB0aGUgcHJvZ3JhbXMsIEdlbmVyYWwgTWVkaWNhbCBTZXJ2aWNlcywgcGVvcGxlIG9mIGFsbCBhZ2VzIHdobyBhcmUgbG93LWluY29tZSBhbmQgdW5pbnN1cmVkLCBvciBjb3ZlcmVkIGJ5IEFsbGlhbmNlIERDIGFyZSB3ZWxjb21lLiBUaGUgY2VudGVyIHByb3ZpZGVzIGxvdy1jb3N0LCBwYXRpZW50LWNlbnRlcmVkIHByaW1hcnkgY2FyZSBzZXJ2aWNlcyBhbmQgc3BlY2lhbHR5IHNlcnZpY2VzIG9uLXNpdGUsIGluY2x1ZGluZyBtaW5vciBzdXJnZXJ5LCBHeW5lY29sb2d5LCBDYXJkaW9sb2d5LCBQdWxtb25vbG9neSwgTmVwaHJvbG9neSwgRGVybWF0b2xvZ3ksIE9ydGhvcGVkaWNzLCBBY3VwdW5jdHVyZSBhbmQgcmVmZXJyYWxzIHRvIG90aGVyIHNwZWNpYWx0eSBzZXJ2aWNlcyBpbmNsdWRpbmcgUGh5c2ljYWwgVGhlcmFweS4NCjxiciAvPg0KQWRkaXRpb25hbCBzZXJ2aWNlcyBvZmZlcmVkIGFsc28gaW5jbHVkZSBhZGRpdGlvbmFsIHByb2dyYW0gdG8gZW5oYW5jZSBoZWFsdGggY2FyZSwgd2hpY2ggaW5jbHVkZTogY2hyb25pYyBjYXJlIGluaXRpYXRpdmUsIGRpYWJldGVzIGZvY3VzIGdyb3VwcywgUGFzb3MgU2FsdWRhYmxlcyAoaGVhbHRoeSBzdGVwcyksIG1lZGljYXRpb24gYXNzaXN0YW5jZSBwcm9ncmFtcywgwqFjZWxicmVtb3MgbGEgdmlkYSEgKGNhbmNlciBwcmV2ZW50aW9uKSwgcHJvamVjdCB3aXNoLCBjb2xvcmVjdGFsIGNhbmNlciBlZHVjYXRpb24sIGRpYWJldGljIGV5ZSBleGFtcyBhbmQgY291bnNlbGluZyBzZXJ2aWNlcy4NCjxiciAvPg0KQXBwb2ludG1lbnRzIGNhbiBiZSBtYWRlIGJ5IGNhbGxpbmcgKDMwMSkgNDM0LTg5ODUgYW5kIHdhbGstaW5zIGFyZSBhbHNvIGFjY2VwdGVkLg0KPGJyIC8+DQo8YnIgLz4NCkRFTlRBTCBDTElOSUNTOg0KPGJyIC8+DQpUaGUgU3BhbmlzaCBDYXRob2xpYyBDZW50ZXIgdW5kZXJzdGFuZHMgdGhlIG5lZWQgZm9yIHByZXZlbnRhdGl2ZSwgcXVhbGl0eSBkZW50YWwgY2FyZSBpbiBXYXNoaW5ndG9uLCBEQydzIEhpc3BhbmljIGNvbW11bml0eSBhcyBwZXJ2YXNpdmUgYW5kIGxhcmdlbHkgdW5tZXQuIFRoZSBjZW50ZXIgb3BlcmF0ZXMgdHdvIGNsaW5pY3MgdGhhdCBzZXJ2ZSB1bmluc3VyZWQgcGF0aWVudHMsIHByb3ZpZGluZyBwcmV2ZW50aXZlIGFuZCBhY3V0ZSBkZW50YWwgc2VydmljZXMgd2l0aCB0aGUgaGVscCBvZiBzdGFmZiBkZW50aXN0cywgaHlnaWVuaXN0cyBhbmQgcHJvIGJvbm8gdm9sdW50ZWVycy4gICANCjxiciAvPg0KQ2xpbmljcyBwcm92aWRlIHByZXZlbnRpdmUsIGRpYWdub3N0aWMsIGVtZXJnZW5jeSBhbmQgcmVzdG9yYXRpdmUgb3JhbCBoZWFsdGggY2FyZSB0byBhZHVsdHMgYW5kIGNoaWxkcmVuIHdobyBhcmUgdW5pbnN1cmVkLiBUaGUgZGVudGFsIHNlcnZpY2VzIGFyZSBhdmFpbGFibGUgYnkgYXBwb2ludG1lbnQsIHRob3VnaCBhIGxpbWl0ZWQgbnVtYmVyIG9mIGVtZXJnZW5jaWVzIGFyZSBhY2NlcHRlZCBmcm9tIDg6MzAgYW0gdG8gMTI6MzAgcG0gZWFjaCBkYXkuIEEgbW9kZXJhdGUgZmVlIGlzIHJlcXVlc3RlZCBmb3IgYW55IGVtZXJnZW5jeSBzZXJ2aWNlcw0KPGJyIC8+DQpUaGUgcHJldmVudGl2ZSBhbmQgcmVzdG9yYXRpdmUgc2VydmljZXMgb2ZmZXJlZCBhdCBib3RoIGNsaW5pY3MgaW5jbHVkZTogT3JhbCBFeGFtczsgWC1SYXlzOyBQcm9waHlsYXhpczsgUm9vdCBDYW5hbCBUcmVhdG1lbnRzOyBGaWxsaW5nczsgYW5kIFBhcnRpYWwgRGVudHVyZXMuDQo8YnIgLz4NClRoZSBjbGluaWMgaXMgb3BlbiB0byBhbGwgdGhvc2UgaW4gbmVlZCwgcmVnYXJkbGVzcyBvZiByYWNlLCBhZ2UsIG5hdGlvbmFsaXR5LCBnZW5kZXIsIHNleHVhbCBvcmllbnRhdGlvbiwgcmVzaWRlbmNlIG9yIGJlbGllZi4gUGF0aWVudHMgbXVzdCBiZSAxOCBvciBvbGRlciwgb3IgYWNjb21wYW5pZWQgYnkgYSBsZWdhbCBndWFyZGlhbi4gVGhlIGNsaW5pY3Mgd29yayB3aXRoIGxvdy1pbmNvbWUsIHVuaW5zdXJlZCBmYW1pbGllcy4gRm9yIE1hcnlsYW5kIHBhdGllbnRzLCBzZXJ2aWNlIHVwb24gcmVmZXJyYWwgb25seS4NCjxiciAvPg0KSE9VUlM6DQo8YnIgLz4NClRoZSBTaWx2ZXIgU3ByaW5nLCBNRCwgRGVudGFsIENsaW5pYyBpcyBvcGVuIE1vbmRheXMgYW5kIFdlZG5lc2RheXMgZnJvbSAxMjowMCBwbSB0byA4OjAwIHBtLCBhbmQgVHVlc2RheXMsIFRodXJzZGF5cyBhbmQgRnJpZGF5cyBmcm9tIDg6MzAgYW0gdG8gNTowMCBwbS4NCjxiciAvPg0KTWVkaWNhbCBDbGluaWM6ICgzMDEpIDQzNC04OTg1DQo8YnIgLz4NCkRlbnRhbCBDbGluaWM6ICgzMDEpIDkzMy0wODY4PGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzYyNx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZIJwOOHPQtCS4XrxjbfXqhZEnLGW" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKskJ/ADAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAfgns0LhyWK6MkRalTMH70kuU1xl" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="12247 Georgia Avenue Silver Spring MD 20902" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Spanish Catholic Center (Medical/Dental Clinic)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">12247 Georgia Avenue Silver Spring, MD 20902</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 434-8985<br /><b>Phone No2:</b>(301) 933-0868<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.catholiccharitiesdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal, Medical<br \><b>Services : </b> Community health, Legal, Referrals to specialty care<br \><b>Type Of Care : </b> Dental, Ob-Gyn, Primary (Adult, Family &amp; Pediatrics)<br \><b>Population : </b> Immigrants/Refugees<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Dental Clinic: by appointment Mondays and Wednesdays from 12:00 pm to 8:00 pm, and Tuesdays, Thursdays and Fridays from 8:30 am to 5:00 pm. Medical: Hours vary<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men, women and children; low income and uninsured.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Spanish Catholic Center offers many programs that meet the emergency and long term needs. The center has 4 locations and offers holistic services to immigrants around the world through services that include: medical and dental clinics, job training programs, English classes, a food pantry and case management services. 
+<br />
+<br />
+MEDICAL CLINICS:
+<br />
+The Spanish Catholic Center offers access to primary care for adults and children. Through the programs, General Medical Services, people of all ages who are low-income and uninsured, or covered by Alliance DC are welcome. The center provides low-cost, patient-centered primary care services and specialty services on-site, including minor surgery, Gynecology, Cardiology, Pulmonology, Nephrology, Dermatology, Orthopedics, Acupuncture and referrals to other specialty services including Physical Therapy.
+<br />
+Additional services offered also include additional program to enhance health care, which include: chronic care initiative, diabetes focus groups, Pasos Saludables (healthy steps), medication assistance programs, ¡celbremos la vida! (cancer prevention), project wish, colorectal cancer education, diabetic eye exams and counseling services.
+<br />
+Appointments can be made by calling (301) 434-8985 and walk-ins are also accepted.
+<br />
+<br />
+DENTAL CLINICS:
+<br />
+The Spanish Catholic Center understands the need for preventative, quality dental care in Washington, DC's Hispanic community as pervasive and largely unmet. The center operates two clinics that serve uninsured patients, providing preventive and acute dental services with the help of staff dentists, hygienists and pro bono volunteers.   
+<br />
+Clinics provide preventive, diagnostic, emergency and restorative oral health care to adults and children who are uninsured. The dental services are available by appointment, though a limited number of emergencies are accepted from 8:30 am to 12:30 pm each day. A moderate fee is requested for any emergency services
+<br />
+The preventive and restorative services offered at both clinics include: Oral Exams; X-Rays; Prophylaxis; Root Canal Treatments; Fillings; and Partial Dentures.
+<br />
+The clinic is open to all those in need, regardless of race, age, nationality, gender, sexual orientation, residence or belief. Patients must be 18 or older, or accompanied by a legal guardian. The clinics work with low-income, uninsured families. For Maryland patients, service upon referral only.
+<br />
+HOURS:
+<br />
+The Silver Spring, MD, Dental Clinic is open Mondays and Wednesdays from 12:00 pm to 8:00 pm, and Tuesdays, Thursdays and Fridays from 8:30 am to 5:00 pm.
+<br />
+Medical Clinic: (301) 434-8985
+<br />
+Dental Clinic: (301) 933-0868<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

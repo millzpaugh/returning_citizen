@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BUM1MDAgSW5kaWFuYSBBdmUsIE5XLCBSb29tIDExNCwgU3VwZXJpb3IgQ291cnQgZm9yIERDIFdhc2hpbmd0b24gREMgZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFRDUwMCBJbmRpYW5hIEF2ZSwgTlcsIFJvb20gMTE0LCBTdXBlcmlvciBDb3VydCBmb3IgREMgV2FzaGluZ3RvbiwgREMgZGQCAw8PFgIfAgVPPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDg3OS0xOTcyPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA4NzktMTk3NDxiciAvPmRkAgUPDxYCHwIFKTxiPldlYnNpdGU6IDwvYj53d3cuZG9oLmRjLmdvdi9hcHJhPGJyIC8+ZGQCBw8PFgIfAgV2PGI+Q2F0ZWdvcnkgOiA8L2I+IFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBBc3Nlc3NtZW50ICZhbXA7IHJlZmVycmFsIHRvIHN1YnN0YW5jZSBhYnVzZSBzZXJ2aWNlczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQzxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA4OjQ1IGFtIC0gNDo0NSBwbS48YnIgLz5kZAIPDw8WAh8CBaQBPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EaXN0cmljdCByZXNpZGVudCB3aXRob3V0IHByaXZhdGUgbWVkaWNhbCBpbnN1cmFuY2Ugb3Igd2hvc2UgbWVkaWNhbCBpbnN1cmFuY2UgZG9lcyBub3QgY292ZXIgc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCBzZXJ2aWNlcy48YnIgLz5kZAIRDw8WAh8CBTU8Yj5Eb2N1bWVudGF0aW9uIE5lZWRlZDogPC9iPlByb29mIG9mIHJlc2lkZW5jeTxiciAvPmRkAhMPDxYCHwIFgAo8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBBc3Nlc3NtZW50IGFuZCBSZWZlcnJhbCBDZW50ZXIgKEFSQykgaXMgdGhlIHNpbmdsZSBzdGF0ZSBhdXRob3JpdHkgZm9yIHN1YnN0YW5jZSBhYnVzZSBzZXJ2aWNlcyBmb3IgdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhIGZvciByZXNpZGVudHMgd2hvIGRvIG5vdCBoYXZlIGluc3VyYW5jZSwgaGF2ZSBEQyBNZWRpY2FpZCwgb3Igd2hvc2UgaW5zdXJhbmNlIGRvZXMgbm90IGNvdmVyIHN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQgc2VydmljZXMuIEFSQyBhZG1pbmlzdGVycyB0aGUgRHJ1ZyBUcmVhdG1lbnQgQ2hvaWNlIFByb2dyYW0gd2hpY2ggY29udHJhY3RzIHdpdGggYXBwcm94aW1hdGVseSAzMCB0cmVhdG1lbnQgcHJvZ3JhbXMgdGhhdCBwcm92aWRlIHNlcnZpY2VzIHN1Y2ggYXMgZGV0b3hpZmljYXRpb24sIG91dHBhdGllbnQsIGludGVuc2l2ZSBvdXRwYXRpZW50LCBhbmQgcmVzaWRlbnRpYWwgZHJ1ZyB0cmVhdG1lbnQuIA0KPGJyIC8+DQo8YnIgLz4NCkFkdWx0cyAoMjErKSBhY2Nlc3MgdHJlYXRtZW50IHRocm91Z2ggdGhlIEFzc2Vzc21lbnQgYW5kIFJlZmVycmFsIENlbnRlciAoVGhlIEFSQykgYXQgNzAgTiBTdHJlZXQsIE5FIG9yIHRoZSBzYXRlbGxpdGUgb2ZmaWNlIGF0IDUwMCBJbmRpYW5hIEF2ZS4sIE5XLiAgWW91dGggKHVuZGVyIGFnZSAyMSkgYWNjZXNzIHRyZWF0bWVudCBmcm9tIDQgZGlmZmVyZW50IGxvY2F0aW9uczogRmVkZXJhbCBDaXR5IFJlY292ZXJ5IFNlcnZpY2VzLCBIaWxsY3Jlc3QgQ2hpbGRyZW7igJlzIENlbnRlciwgTGF0aW4gQW1lcmljYW4gWW91dGggQ2VudGVyLCBvciBSaXZlcnNpZGUgVHJlYXRtZW50IENlbnRlci4gDQo8YnIgLz4NCjxiciAvPg0KWW91dGggY2FuIGNvbnRhY3QgdGhlc2UgY2VudGVycyBkaXJlY3RseSBmb3Igc2VydmljZXMuIEFSQyBhbHNvIHJlY2VpdmVzIHNwZWNpYWwgZnVuZGluZyAoQWNjZXNzIHRvIFJlY292ZXJ5IC8gQVRSKSB0byBwcm92aWRlIGFuIGV4dGVuZGVkIGNvbnRpbnV1bSBvZiBSZWNvdmVyeSBTdXBwb3J0IFNlcnZpY2VzLiAgVGhlc2Ugc2VydmljZXMgaW5jbHVkZTogUmVjb3Zlcnkgc3VwcG9ydCBldmFsdWF0aW9uLCBDYXJlIGNvb3JkaW5hdGlvbiBzZXJ2aWNlcywgUmVjb3ZlcnkgY29hY2hpbmcgJiBtZW50b3JpbmcsIEVkdWNhdGlvbiBzdXBwb3J0IHNlcnZpY2VzIChpbmRpdmlkdWFsICYgZ3JvdXApLCBUcmFuc3BvcnRhdGlvbiAocHVibGljIG9ubHkpLCBhbmQgRW52aXJvbm1lbnRhbCBzdGFiaWxpdHkuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2NDIeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTqNvcX8jP/UdwUSfJ+AxA4Uowddw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK3t8n4BAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXo8fuhjvkx1tEfhUTkiS5pDhBao" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="500 Indiana Ave, NW, Room 114, Superior Court for DC Washington DC " id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Assessment and Referral Center (ARC) - Satellite Office" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">500 Indiana Ave, NW, Room 114, Superior Court for DC Washington, DC </span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 879-1972<br /><b>Phone No2:</b>(202) 879-1974<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.doh.dc.gov/apra<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Assessment &amp; referral to substance abuse services<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:45 am - 4:45 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>District resident without private medical insurance or whose medical insurance does not cover substance abuse treatment services.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Proof of residency<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Assessment and Referral Center (ARC) is the single state authority for substance abuse services for the District of Columbia for residents who do not have insurance, have DC Medicaid, or whose insurance does not cover substance abuse treatment services. ARC administers the Drug Treatment Choice Program which contracts with approximately 30 treatment programs that provide services such as detoxification, outpatient, intensive outpatient, and residential drug treatment. 
+<br />
+<br />
+Adults (21+) access treatment through the Assessment and Referral Center (The ARC) at 70 N Street, NE or the satellite office at 500 Indiana Ave., NW.  Youth (under age 21) access treatment from 4 different locations: Federal City Recovery Services, Hillcrest Children’s Center, Latin American Youth Center, or Riverside Treatment Center. 
+<br />
+<br />
+Youth can contact these centers directly for services. ARC also receives special funding (Access to Recovery / ATR) to provide an extended continuum of Recovery Support Services.  These services include: Recovery support evaluation, Care coordination services, Recovery coaching & mentoring, Education support services (individual & group), Transportation (public only), and Environmental stability. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

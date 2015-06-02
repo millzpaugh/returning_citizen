@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgzNTIxIDEydGggU3RyZWV0LCBORSBXYXNoaW5ndG9uIERDIDIwMDE4ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTM1MjEgMTJ0aCBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDE4ZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDgzMi02NjgxPGJyIC8+ZGQCBQ8PFgIfAgUoPGI+V2Vic2l0ZTogPC9iPnd3dy5kZWFmLXJlYWNoLm9yZzxiciAvPmRkAgcPDxYCHwIFYDxiPkNhdGVnb3J5IDogPC9iPiBWb2x1bnRlZXIgT3Bwb3J0dW5pdGllczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBWb2x1bnRlZXIgb3Bwb3J0dW5pdGllczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFOzxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPlZpZGVvIFBob25lICgyMDIpIDU1OS01MzMxPGJyIC8+ZGQCDw8PFgIfAgVEPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EZWFmIHBlcnNvbnMgd2l0aCBtZW50YWwgaWxsbmVzcy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFkgw8Yj5EZXNjcmlwdGlvbjogPC9iPkRlYWYtUkVBQ0ggcHJvdmlkZXMgZGVhZiBhZHVsdHMgbmVlZGluZyBzcGVjaWFsIHNlcnZpY2VzIHdpdGggZWR1Y2F0aW9uYWwsIGFkdm9jYWN5LCBjb3Vuc2VsaW5nIGFuZCBob3VzaW5nIGFzc2lzdGFuY2UuDQo8YnIgLz4NCjxiciAvPg0KRGVhZi1SRUFDSOKAmXMgcHJvZ3JhbXMgaW5jbHVkZToNCjxiciAvPg0KPGJyIC8+DQpERUFGIEhPUklaT05TIA0KPGJyIC8+DQpEZWFmIEhvcml6b25zIGlzIGEgZGF5IHByb2dyYW0sIHBzeWNob3NvY2lhbCBjbHViaG91c2UsIGZvciBkZWFmIGFkdWx0cyB3aG8gaGF2ZSBtZW50YWwgaWxsbmVzcyBvciB3aG8gYXJlIGVjb25vbWljYWxseSBvciBlZHVjYXRpb25hbGx5IGRpc2FkdmFudGFnZWQuDQo8YnIgLz4NCjxiciAvPg0KREVBRi1SRUFDSCDigJMgYWR1bHQgREMgcmVzaWRlbnRzIOKAkyAoMjAyKSA4MzItNjY4MQ0KPGJyIC8+DQpEZWFmLVJFQUNIIGlzIGEgMjUtdW5pdCBjb21wbGV4LCBsb2NhdGVkIGluIEFuYWNvc3RpYSwgU0UgV2FzaGluZ3RvbiwgREMgKE90dG8gQmVyZyBBcGFydG1lbnRzKS4gU2VydmljZXMgaW5jbHVkZTogY291bnNlbGluZzsgY2FzZSByZWZlcnJhbDsgaW5kZXBlbmRlbnQgbGl2aW5nIGNsYXNzZXMgKGluY2x1ZGluZyBqb2Igc2tpbGxzIGFuZCBiYXNpYyBlZHVjYXRpb24pOyBjbGFzc3Jvb20gZm9yIGRldmVsb3BtZW50YWxseSBkaXNhYmxlZCAoaW5jbHVkaW5nIHNoZWx0ZXIgd29ya3Nob3ApLiBBcGFydG1lbnQgcmVudHMgYXJlIEhvdXNpbmcgQ2hvaWNlIFZvdWNoZXIgYXNzaXN0ZWQuDQo8YnIgLz4NCjxiciAvPg0KT1RJUyBIT1VTRSDigJMxMjAzIE90aXMgU3QsIE5FIDIwMDE3ICgyMDIpIDgzMi0yNjYwICh2b2ljZS9UVFkpDQo8YnIgLz4NCkNvbW11bml0eSByZXNpZGVuY2UgZm9yIGRlYWYgYWR1bHRzIHdpdGggbWVudGFsIGlsbG5lc3Mgd2hvIG5lZWQgdG8gZGV2ZWxvcCBpbmRlcGVuZGVudCBsaXZpbmcgc2tpbGxzLiBTa2lsbHMgaW5jbHVkZTogbWVudSBhbmQgZm9vZCBwcmVwYXJhdGlvbjsgcGVyc29uYWwgaHlnaWVuZTsgbW9uZXkgbWFuYWdlbWVudDsgdXNpbmcgdGVsZXBob25lIGFuZCBUVFkgc3lzdGVtOyB0cmF2ZWxpbmcgdmlhIGJ1cyBhbmQgc3Vid2F5Lg0KPGJyIC8+DQo8YnIgLz4NCkNISEktQ09NTVVOSVRZIEhPVVNJTkcgRk9SIEhFQVJJTkcgSU1QQUlSRUQNCjxiciAvPg0KbG9jYXRpb246IDEyMDMgT3RpcyBTdCwgTkUgMjAwMTcgQ29udGFjdDogKDIwMikgODMyLTQzNDggKHZvaWNlL1RUWSkNCkNvbW11bml0eSByZXNpZGVuY2UgZm9yIGRlYWYgYWR1bHRzIHdpdGggbWVudGFsIGlsbG5lc3Mgd2hvIG5lZWQgdG8gZGV2ZWxvcCBpbmRlcGVuZGVudCBsaXZpbmcgc2tpbGxzLiBTa2lsbHMgaW5jbHVkZTogbWVudSBhbmQgZm9vZCBwcmVwYXJhdGlvbjsgcGVyc29uYWwgaHlnaWVuZTsgbW9uZXkgbWFuYWdlbWVudDsgdXNpbmcgdGVsZXBob25lIGFuZCBUVFkgc3lzdGVtOyBhbmQgdHJhdmVsaW5nIHZpYSBidXMgYW5kIHN1YndheS4gIENISEkgaGFzIGEgMTMgYmVkcyBpbiB0b3RhbC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzYwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkeKflOxHMFn4WtrX5vAW08lqYlQA=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLRkPiMDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVZJMrYfOjv5lbBAUUUHIGM7bgGC" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3521 12th Street, NE Washington DC 20018" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Deaf - REACH" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3521 12th Street, NE Washington, DC 20018</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 832-6681<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.deaf-reach.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Volunteer Opportunities<br \><b>Services : </b> Volunteer opportunities<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Video Phone (202) 559-5331<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Deaf persons with mental illness.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Deaf-REACH provides deaf adults needing special services with educational, advocacy, counseling and housing assistance.
+<br />
+<br />
+Deaf-REACH’s programs include:
+<br />
+<br />
+DEAF HORIZONS 
+<br />
+Deaf Horizons is a day program, psychosocial clubhouse, for deaf adults who have mental illness or who are economically or educationally disadvantaged.
+<br />
+<br />
+DEAF-REACH – adult DC residents – (202) 832-6681
+<br />
+Deaf-REACH is a 25-unit complex, located in Anacostia, SE Washington, DC (Otto Berg Apartments). Services include: counseling; case referral; independent living classes (including job skills and basic education); classroom for developmentally disabled (including shelter workshop). Apartment rents are Housing Choice Voucher assisted.
+<br />
+<br />
+OTIS HOUSE –1203 Otis St, NE 20017 (202) 832-2660 (voice/TTY)
+<br />
+Community residence for deaf adults with mental illness who need to develop independent living skills. Skills include: menu and food preparation; personal hygiene; money management; using telephone and TTY system; traveling via bus and subway.
+<br />
+<br />
+CHHI-COMMUNITY HOUSING FOR HEARING IMPAIRED
+<br />
+location: 1203 Otis St, NE 20017 Contact: (202) 832-4348 (voice/TTY)
+Community residence for deaf adults with mental illness who need to develop independent living skills. Skills include: menu and food preparation; personal hygiene; money management; using telephone and TTY system; and traveling via bus and subway.  CHHI has a 13 beds in total.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

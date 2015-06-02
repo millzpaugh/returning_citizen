@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkxMTMxIFNwcmluZyBSb2FkLCBOVyAgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoxMTMxIFNwcmluZyBSb2FkLCBOVyAgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODgyLTEyMzc8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDQ2Mi0yNTQ2PGJyIC8+ZGQCBQ8PFgIfAgUjPGI+V2Vic2l0ZTogPC9iPnd3dy5kY2NmaC5vcmc8YnIgLz5kZAIHDw8WAh8CBYEDPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmcsIFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTaGVsdGVycywgU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCwgVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBSZXNpZGVudGlhbCBsb25nLXRlcm0gdHJlYXRtZW50IChtb3JlIHRoYW4gMzAgZGF5cyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBQZXJzb25zIGluIHJlY292ZXJ5LCBVbmRlciBhZ2UgMjE8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFKTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjI0IGhvdXJzPGJyIC8+ZGQCDw8PFgIfAgU6PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Ib21lbGVzcyBtZW4gYW5kIHdvbWVuLjxiciAvPmRkAhEPDxYCHwIFQjxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UmVmZXJyYWwgbGV0dGVyIChBUFJBIHZvdWNoZXIpLjxiciAvPmRkAhMPDxYCHwIF3Qc8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBDb2FsaXRpb24gZm9yIHRoZSBIb21lbGVzcyBpcyBhIG5vbi1wcm9maXQgb3JnYW5pemF0aW9uIHRoYXQgaGFzIHNlcnZlZCB0aGUgV2FzaGluZ3RvbiBtZXRyb3BvbGl0YW4gYXJlYSBzaW5jZSAxOTgwLiBJdHMgbWlzc2lvbiBpcyB0byBoZWxwIGhvbWVsZXNzLCBhdC1yaXNrIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcyByZXR1cm4gdG8gc2VsZi1zdWZmaWNpZW5jeSBhbmQgaW5kZXBlbmRlbnQgbGl2aW5nLCB0aHJvdWdoIGEgcmFuZ2Ugb2YgcmVzaWRlbnRpYWwgYW5kIHNvY2lhbCBzZXJ2aWNlcy4gU2luY2UgaXRzIGVzdGFibGlzaG1lbnQgdGhlIENvYWxpdGlvbiBoYXMgZXZvbHZlZCBpbnRvIGEgZGlyZWN0IHByb3ZpZGVyIG9mIHNlcnZpY2VzIHRvIHRoZSBob21lbGVzcywgYW5kIGl0IGN1cnJlbnRseSBvcGVyYXRlcyAxMyBwcm9ncmFtIGZhY2lsaXRpZXMgYWNyb3NzIFdhc2hpbmd0b24sIEQuQy4NCjxiciAvPg0KPGJyIC8+DQpIT1VTSU5HDQo8YnIgLz4NClRoZSBMYSBDYXNhIFNoZWx0ZXIgaXMgbG9jYXRlZCBhdCAxNDM2IElydmluZyBTdHJlZXQsIE5XLiBUaGUgc2hlbHRlciBvZmZlcnMgcmVjcmVhdGlvbmFsIGFjdGl2aXRpZXMgYW5kIHByb3ZpZGVzIHNvdXAgZGlubmVyIGF0IDc6MDAgcG0uIA0KPGJyIC8+DQo8YnIgLz4NClNVQlNUQU5DRSBBQlVTRQ0KPGJyIC8+DQpUaGUgTGEgQ2FzYSBUcmFuc2l0aW9uYWwgUmVoYWJpbGl0YXRpb24gQ2VudGVyICgiVFJQIikgcHJvdmlkZXMgc3Vic3RhbmNlIGFidXNlIGNvdW5zZWxpbmcsIGVtcGxveW1lbnQgc2VydmljZXMsIGhvdXNpbmcsIGFuZCBzb2NpYWwgc2VydmljZSBjb3Vuc2Vsb3JzIGZvciBFbmdsaXNoIGFuZCBTcGFuaXNoIHNwZWFraW5nIHBlcnNvbnMuIFRoZSBUUlAgYWxzbyBvZmZlcnMgYSAiSGVhbHRoIENhcmUgZm9yIEhvbWVsZXNzIiB0cmFpbGVyLiBUaGVyZSBpcyBhIDYgbW9udGggbWF4aW11bSBzdGF5LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMyMjAeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWR1Y0a9x8raoYom4d7oyC0m+UC74A==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKX16DJDQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAaMVwQkwm0NTicMCI6tUWZJ8lqek" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1131 Spring Road, NW  Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Coalition for the Homeless (Lacasa Transitional Program-TRP)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1131 Spring Road, NW  Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 882-1237<br /><b>Fax No:</b>(202) 462-2546<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dccfh.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Substance Abuse<br \><b>Services : </b> Shelters, Substance abuse treatment, Transitional housing/Single Room Occupancy<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days)<br \><b>Program : </b> Anger management<br \><b>Population : </b> Men, Persons in recovery, Under age 21<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24 hours<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless men and women.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Referral letter (APRA voucher).<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Coalition for the Homeless is a non-profit organization that has served the Washington metropolitan area since 1980. Its mission is to help homeless, at-risk individuals and families return to self-sufficiency and independent living, through a range of residential and social services. Since its establishment the Coalition has evolved into a direct provider of services to the homeless, and it currently operates 13 program facilities across Washington, D.C.
+<br />
+<br />
+HOUSING
+<br />
+The La Casa Shelter is located at 1436 Irving Street, NW. The shelter offers recreational activities and provides soup dinner at 7:00 pm. 
+<br />
+<br />
+SUBSTANCE ABUSE
+<br />
+The La Casa Transitional Rehabilitation Center ("TRP") provides substance abuse counseling, employment services, housing, and social service counselors for English and Spanish speaking persons. The TRP also offers a "Health Care for Homeless" trailer. There is a 6 month maximum stay.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

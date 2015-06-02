@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSwxMDAxIExhd3JlbmNlIFN0cmVldCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAxN2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS0xMDAxIExhd3JlbmNlIFN0cmVldCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMTdkZAIDDw8WAh8CBXE8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjM1LTU5MDA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDYzNS01OTc4PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA4MzItODIxNjxiciAvPmRkAgUPDxYCHwIFQzxiPldlYnNpdGU6IDwvYj53d3cuY2F0aG9saWNjaGFyaXRpZXNkYy5vcmcvcGFnZS5hc3B4P3BpZD0zNTQ8YnIgLz5kZAIHDw8WAh8CBcYFPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEFzc2VydGl2ZSBDb21tdW5pdHkgVHJlYXRtZW50LCBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIENvbW11bml0eSBTZXJ2aWNlIEFnZW5jeSAoQ1NBKSwgRG9tZXN0aWMgVmlvbGVuY2UsIEZhbWlseSBpc3N1ZXMtLWNvdW5zZWxpbmcsIG1hcnJpYWdlLCBwYXJlbnRpbmcsIEdyaWVmICZhbXA7IGxvc3MsIFN1cHBvcnRlZCBlbXBsb3ltZW50LCBTdXBwb3J0ZWQgaG91c2luZywgVHJhdW1hLS1zZXh1YWwgYWJ1c2UvUFRTRC92aWN0aW1zIG9mIGNyaW1lPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTWVuLCBQZXJzb25zIHdpdGggaW50ZWxsZWN0dWFsIGRpc2FiaWxpdHksIFBlcnNvbnMgd2l0aCBwaHlzaWNhbCBkaXNhYmlsaXR5LCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBNZWRpY2FyZSwgUHVibGljIGZ1bmRpbmcsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUM8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgOTowMCBhbSAtIDU6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgVfPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5SZXNpZGVudHMgb2YgdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhICh3aXRoIG1lbnRhbCBpbGxuZXNzKS48YnIgLz5kZAIRDw8WAh8CBWo8Yj5Eb2N1bWVudGF0aW9uIE5lZWRlZDogPC9iPklkZW50aWZpY2F0aW9uOyBhZGRyZXNzOyBNZWRpY2FpZCwgTWVkaWNhcmUsIG9yIHByaXZhdGUgaW5zdXJhbmNlIGNhcmQuPGJyIC8+ZGQCEw8PFgIfAgXSDzxiPkRlc2NyaXB0aW9uOiA8L2I+Q2F0aG9saWMgQ2hhcml0aWVzIGlzIHRoZSBzb2NpYWwgbWluaXN0cnkgb3V0cmVhY2ggb2YgdGhlIEFyY2hkaW9jZXNlIG9mIFdhc2hpbmd0b24uIE1vdGl2YXRlZCBieSB0aGUgR29zcGVsIG1lc3NhZ2Ugb2YgSmVzdXMgQ2hyaXN0LCBhbmQgZ3VpZGVkIGJ5IENhdGhvbGljIHNvY2lhbCBhbmQgbW9yYWwgdGVhY2hpbmcsIENhdGhvbGljIENoYXJpdGllcyBzdHJlbmd0aGVucyB0aGUgbGl2ZXMgb2YgYWxsIGluIG5lZWQgYnkgZ2l2aW5nIGhlbHAgdGhhdCBlbXBvd2VycyBhbmQgaG9wZSB0aGF0IGxhc3RzLiBUbyB0aGlzIGVuZCB3ZSBhZmZpcm0gYW5kIHN1cHBvcnQgdGhlIGRpZ25pdHkgb2YgYWxsIGh1bWFuIGxpZmUsIHN0cmVuZ3RoZW4gZmFtaWxpZXMgYW5kIHNlcnZlIHRoZSBwb29yIGFuZCBtb3N0IHZ1bG5lcmFibGUuDQo8YnIgLz4NCjxiciAvPg0KQW5jaG9yIE1lbnRhbCBIZWFsdGggQXNzb2NpYXRpb24gcHJvdmlkZXMgbWVudGFsIGhlYWx0aCB0cmVhdG1lbnQgYW5kIGNvbW11bml0eSBzdXBwb3J0IHRvIGFkdWx0cyB3aXRoIG1lbnRhbCBpbGxuZXNzLiAgQm9hcmQgY2VydGlmaWVkIHBzeWNoaWF0cmlzdHMsIEFkdmFuY2VkIFByYWN0aWNlIFJlZ2lzdGVyZWQgTnVyc2VzIChBUFJO4oCZcyksIGFuZCBSZWdpc3RlcmVkIE51cnNlcyAoUk7igJlzKSBwcm92aWRlIHBzeWNoaWF0cmljIGV2YWx1YXRpb25zIGFuZCBtZWRpY2F0aW9uIG1hbmFnZW1lbnQuICAgSW5kaXZpZHVhbCBhbmQgZ3JvdXAgY291bnNlbGluZyBwcm92aWRlZCBmb3IgYW5nZXIgbWFuYWdlbWVudCwgZ3JpZWYgYW5kIGxvc3MsIGFuZCB0cmF1bWEgaXNzdWVzLiAgQ29tbXVuaXR5IHN1cHBvcnQgc2VydmljZXMgaW5jbHVkZTogbWVudGFsIGhlYWx0aCBlZHVjYXRpb24sIGNvcGluZyBza2lsbHMsIGNvLW9jY3VycmluZyBkaXNvcmRlcnMgY291bnNlbGluZywgcmVsYXBzZSBwcmV2ZW50aW9uIHN0cmF0ZWdpZXMsIGFzc2lzdGFuY2Ugb2J0YWluaW5nIGJlbmVmaXRzIGFuZCBhZmZvcmRhYmxlIGhvdXNpbmcsIGZhbWlseSBzdXBwb3J0IGFuZCBlZHVjYXRpb24sIGhlYWx0aCBlZHVjYXRpb24sIGFuZCBjcmlzaXMgaW50ZXJ2ZW50aW9uLiAgIEFuY2hvciBhbHNvIGhhcyBhbiBBc3NlcnRpdmUgQ29tbXVuaXR5IFRyZWF0bWVudCAoQUNUKSBUZWFtIGZvciBhZHVsdHMgd2l0aCBzZXZlcmUgbWVudGFsIGlsbG5lc3Mgd2hvIGV4cGVyaWVuY2UgY2hhbGxlbmdlcyB3aXRoIG1vYmlsaXR5IGFuZCBpc29sYXRpb24uICBBbmNob3IgaGFzIHN1cHBvcnRlZCBob3VzaW5nIGFuZCBpbmRlcGVuZGVudCBsaXZpbmcgYW5kIGlzIGNlcnRpZmllZCB0byBwcm92aWRlIG1lbnRhbCBoZWFsdGggc2VydmljZXMgZm9yIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSBEZXBhcnRtZW50IG9mIE1lbnRhbCBIZWFsdGggYXMgYSBDb3JlIFNlcnZpY2UgQWdlbmN5IChDU0EpLiAgIEFuY2hvciBhY2NlcHRzIHB1YmxpYyBmdW5kaW5nLCBNZWRpY2FpZCwgTWVkaWNhcmUsIGFuZCBzdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UuICANCjxiciAvPg0KPGJyIC8+DQpEb3VibGUgVHJvdWJsZSBpbiBSZWNvdmVyeSBQcm9ncmFtLTEyLXN0ZXAgTkEvQUEgc3Vic3RhbmNlcyBhYnVzZSByZWNvdmVyeSBwcm9ncmFtIGZvciBwZXJzb25zIHdpdGggbWVudGFsIGlsbG5lc3MgYW5kIHN1YnN0YW5jZSBhYnVzZSBjaGFsbGVuZ2VzLiBNZWV0aW5ncyBvZmZlciBhIHNhZmUgZm9ydW0gdG8gZGlzY3VzcyB0aGVpciBwc3ljaGlhdHJpYyBkaXNhYmlsaXRpZXMsIG1lZGljYXRpb24sIGFuZCBzdWJzdGFuY2UgYWJ1c2UuIE1lZXRpbmdzIFdlZG5lc2RheSAxcG0gdG8gMnBtIChBdHRlbmRhbmNlIGxpbWl0ZWQgdG8gcGFydGljaXBhbnRzIGluIHRoZSBBbmNob3IgUHJvZ3JhbSkuDQo8YnIgLz4NCjxiciAvPg0KTm90ZTogRGVhZi9IYXJkIG9mIGhlYXJpbmcgY2xpZW50cyByZWZlcnJlZCB0byBEZWFmIFJFQUNIIGZvciBBU0wgYXNzaXN0YW5jZS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTY0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkqj6m/pgL3qZim2auIvDt79XXSRE=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLxrcCmDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARKuIdlEPyk0uofV+pmITbOk0WZw" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1001 Lawrence Street, NE Washington DC 20017" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Anchor Mental Health Association" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1001 Lawrence Street, NE Washington, DC 20017</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 635-5900<br /><b>Phone No2:</b>(202) 635-5978<br /><b>Fax No:</b>(202) 832-8216<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.catholiccharitiesdc.org/page.aspx?pid=354<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Assertive Community Treatment, Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Community Service Agency (CSA), Domestic Violence, Family issues--counseling, marriage, parenting, Grief &amp; loss, Supported employment, Supported housing, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Men, Persons with intellectual disability, Persons with physical disability, Women<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Public funding, State financed insurance (other than Medicaid)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am - 5:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Residents of the District of Columbia (with mental illness).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Identification; address; Medicaid, Medicare, or private insurance card.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Catholic Charities is the social ministry outreach of the Archdiocese of Washington. Motivated by the Gospel message of Jesus Christ, and guided by Catholic social and moral teaching, Catholic Charities strengthens the lives of all in need by giving help that empowers and hope that lasts. To this end we affirm and support the dignity of all human life, strengthen families and serve the poor and most vulnerable.
+<br />
+<br />
+Anchor Mental Health Association provides mental health treatment and community support to adults with mental illness.  Board certified psychiatrists, Advanced Practice Registered Nurses (APRN’s), and Registered Nurses (RN’s) provide psychiatric evaluations and medication management.   Individual and group counseling provided for anger management, grief and loss, and trauma issues.  Community support services include: mental health education, coping skills, co-occurring disorders counseling, relapse prevention strategies, assistance obtaining benefits and affordable housing, family support and education, health education, and crisis intervention.   Anchor also has an Assertive Community Treatment (ACT) Team for adults with severe mental illness who experience challenges with mobility and isolation.  Anchor has supported housing and independent living and is certified to provide mental health services for the District of Columbia Department of Mental Health as a Core Service Agency (CSA).   Anchor accepts public funding, Medicaid, Medicare, and state financed insurance.  
+<br />
+<br />
+Double Trouble in Recovery Program-12-step NA/AA substances abuse recovery program for persons with mental illness and substance abuse challenges. Meetings offer a safe forum to discuss their psychiatric disabilities, medication, and substance abuse. Meetings Wednesday 1pm to 2pm (Attendance limited to participants in the Anchor Program).
+<br />
+<br />
+Note: Deaf/Hard of hearing clients referred to Deaf REACH for ASL assistance.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTIxNDE1MCBQYXJrZWFzdCBDaXJjbGUsIFNURS4gMjAwIENoYW50aWxseSBWQSAyMDE1MWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTMxNDE1MCBQYXJrZWFzdCBDaXJjbGUsIFNURS4gMjAwIENoYW50aWxseSwgVkEgMjAxNTFkZAIDDw8WAh8CBXE8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDcwMykgOTY4LTQwMDA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPig3MDMpIDcwNC02MzU1PGJyIC8+PGI+RmF4IE5vOjwvYj4oNzAzKSAyNjMtMTcyNDxiciAvPmRkAgUPDxYCHwIFMzxiPldlYnNpdGU6IDwvYj5hZGFwdC5jYXJlcGF0aHMuY29tL3BhZ2VzLzI5NjxiciAvPmRkAgcPDxYCHwIF/AI8Yj5DYXRlZ29yeSA6IDwvYj4gTWVudGFsIEhlYWx0aDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNZW50YWwgaGVhbHRoIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQsIERvbWVzdGljIFZpb2xlbmNlPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTWVuLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFNlbGYtcGF5bWVudDxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gUGF5bWVudCBhc3Npc3RhbmNlIChDaGVjayB3aXRoIGZhY2lsaXR5IGZvciBkZXRhaWxzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFYTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPkRheSBncm91cDogMTE6MzAgYW0gLSAxOjMwIHBtOyBFdmVuaW5nIGdyb3VwOiA3OjAwIHBtIC0gOTowMCBwbS48YnIgLz5kZAIPDw8WAh8CBUY8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkNhbiBiZSBjb3VydC1yZWZlcnJlZCBvciB2b2x1bnRhcnkuPGJyIC8+ZGQCEQ8PFgIfAgVuPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5GZWVzIGluY2x1ZGU6ICQxNTAgZm9yIGludGFrZSBhbmQgYSAkMzAwIHByb2dyYW0gZmVlIGZvciBGYWlyZmF4IHJlc2lkZW50cy48YnIgLz5kZAITDw8WAh8CBfoEPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgQW5nZXIgYW5kIERvbWVzdGljIEFidXNlIFByZXZlbnRpb24gYW5kIFRyZWF0bWVudCBwcm9ncmFtIChBREFQVCkgb2ZmZXJzIGFuIDE4LXdlZWsgcHJvZ3JhbSB0aGF0IG1lZXRzIGZvciAxIGRheS9ldmVuaW5nIHBlciB3ZWVrLiBEYXkgZ3JvdXAgaXMgb2ZmZXJlZCBmcm9tIDExOjMwIGFtIOKAkyAxOjMwIHBtIGFuZCBldmVuaW5nIGdyb3VwIGlzIG9mZmVyZWQgZnJvbSA3OjAwIHBtIOKAkyA5OjAwIHBtLiBQYXJ0aWNpcGF0aW9uIGNhbiBiZSBjb3VydC1vcmRlcmVkIG9yIHZvbHVudGFyeS4gVGhlIHByb2dyYW0gaXMgYSBWaXJnaW5pYSBTdGF0ZSBjZXJ0aWZpZWQgVmlvbGVuY2UgSW50ZXJ2ZW50aW9uIFByb2dyYW0gKFZJUCkuIEZlZXMgaW5jbHVkZTogJDE1MCBmb3IgaW50YWtlIGFuZCBhICQzMDAgcHJvZ3JhbSBmZWUgZm9yIEZhaXJmYXggcmVzaWRlbnRzLiBGZWUgaXMgc2xpZ2h0bHkgaGlnaGVyIGZvciBub24tcmVzaWRlbnRzLiAgUGF5bWVudCBhc3Npc3RhbmNlIGF2YWlsYWJsZSBvbiBhIGNhc2UtYnktY2FzZSBiYXNpcy4gR3JvdXBzIGFyZSBhdmFpbGFibGUgaW4gUmVzdG9uLCBDaGFudGlsbHksIEFubmFuZGFsZSwgYW5kIEFsZXhhbmRyaWEuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1MDEeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTmHUbG0cBhAkrmyffKs1R2L/T+XQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLxxqKWAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAa/63TWYlUAzufWnfai6b7XmSyGC" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="14150 Parkeast Circle, STE. 200 Chantilly VA 20151" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Northwest Center for Community Mental Health - ADAPT Program" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">14150 Parkeast Circle, STE. 200 Chantilly, VA 20151</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(703) 968-4000<br /><b>Phone No2:</b>(703) 704-6355<br /><b>Fax No:</b>(703) 263-1724<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>adapt.carepaths.com/pages/296<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management, Domestic Violence<br \><b>Population : </b> Criminal justice involved, Men, Women<br \><b>Forms Of Payment : </b> Self-payment<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Day group: 11:30 am - 1:30 pm; Evening group: 7:00 pm - 9:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Can be court-referred or voluntary.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Fees include: $150 for intake and a $300 program fee for Fairfax residents.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Anger and Domestic Abuse Prevention and Treatment program (ADAPT) offers an 18-week program that meets for 1 day/evening per week. Day group is offered from 11:30 am – 1:30 pm and evening group is offered from 7:00 pm – 9:00 pm. Participation can be court-ordered or voluntary. The program is a Virginia State certified Violence Intervention Program (VIP). Fees include: $150 for intake and a $300 program fee for Fairfax residents. Fee is slightly higher for non-residents.  Payment assistance available on a case-by-case basis. Groups are available in Reston, Chantilly, Annandale, and Alexandria. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

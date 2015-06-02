@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BToyOTA3IE1hcnRpbiBMdXRoZXIgS2luZyBKci4gQXZlbnVlLCBTRSBXYXNoaW5ndG9uIERDIDIwMDMyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFOzI5MDcgTWFydGluIEx1dGhlciBLaW5nIEpyLiBBdmVudWUsIFNFIFdhc2hpbmd0b24sIERDIDIwMDMyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU2Mi0zODAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1NjItMjkzNzxiciAvPmRkAgUPDxYCHwIFLjxiPldlYnNpdGU6IDwvYj53d3cudXBvLm9yZy9BVTQtU0NQRy5waHA8YnIgLz5kZAIHDw8WAh8CBbQEPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZywgUGFyZW50aW5nLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRW1wbG95bWVudCBzZXJ2aWNlcywgRmFtaWx5IHN1cHBvcnQgc2VydmljZXMsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgRmluYW5jaWFsIGNvdW5zZWxpbmcgKG1vbmV5IG1hbmFnZW1lbnQsIGhvdXNpbmcgJmFtcDsgY3JlZGl0KSwgSm9iIHNlYXJjaCAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZSwgSm9iIHNraWxscyBhc3Nlc3NtZW50ICZhbXA7IHJlYWRpbmVzcywgUGFyZW50aW5nIHN1cHBvcnQsIGUuZy4gY2xhc3NlcywgZ3JvdXBzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlcywgVm9jYXRpb25hbCB0cmFpbmluZyAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBNZW4sIFdvbWVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgUzPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+OTowMCBhbSAtIDU6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgWXATxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+REMgUmVzaWRlbnRzIGluIHRoZSBuZWlnaGJvcmhvb2RzIG9mIENvbmdyZXNzIEhlaWdodHMsIFdhc2hpbmd0b24gSGlnaGxhbmRzLCBIZW5zb24ncyBDcmVlayBhbmQgQmFycnkgRmFybXMgKFNFIERDKS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF2gk8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBSYWxwaCBXYWxkbyAiUGV0ZXkiIEdyZWVuZSBDb21tdW5pdHkgU2VydmljZSBDZW50ZXIgYXNzaXN0cyBEQyByZXNpZGVudHMgaW4gcmVhY2hpbmcgdGhlaXIgZGVzaXJlZCBsZXZlbCBvZiBzZWxmLXN1ZmZpY2llbmN5IGJ5IHBsYWNpbmcgYW4gZW1waGFzaXMgb24gZmFtaWx5IHN0cmVuZ3RoZW5pbmcuIFRoZSBjZW50ZXIgc2VydmVzIHRoZSBuZWlnaGJvcmhvb2RzIG9mIENvbmdyZXNzIEhlaWdodHMsIFdhc2hpbmd0b24gSGlnaGxhbmRzOyBIZW5zb24ncyBDcmVlazsgYW5kIEJhcnJ5IEZhcm1zIGluIHNvdXRoZWFzdCBXYXNoaW5ndG9uLCBEQy4NCjxiciAvPg0KPGJyIC8+DQpFTVBMT1lNRU5UIEFORCBWT0NBVElPTkFMIFRSQUlOSU5HDQo8YnIgLz4NClRoZWlyIHN0YWZmIGhlbHBzIGxvdy1pbmNvbWUgREMgcmVzaWRlbnRzIHdpdGggdmFsdWFibGUgd29ya2ZvcmNlIHNraWxscyBwbGFjaW5nIHRoZW0gb24gYSBwYXRod2F5IHRvIGVtcGxveW1lbnQuIEN1c3RvbWVycyBjYW4gZW5yb2xsIGluIHRoZSBmb2xsb3dpbmcgdHJhaW5pbmcvY2VydGlmaWNhdGlvbiBwcm9ncmFtczogKDEpIGJhc2ljIGNvbXB1dGVyIHRyYWluaW5nLCAoMikgTWljcm9zb2Z0IE9mZmljZSBTcGVjaWFsaXN0IChNT1MpIENlcnRpZmljYXRpb24sIGFuZCAoMykgRm9vZCBTZXJ2aWNlIEhhbmRsZXIgVHJhaW5pbmcgYW5kIENlcnRpZmljYXRpb24uIA0KPGJyIC8+DQo8YnIgLz4NClNPQ0lBTCBTRVJWSUNFUw0KPGJyIC8+DQpBc3Npc3RzIERDIHJlc2lkZW50cyBpbiByZWFjaGluZyB0aGVpciBkZXNpcmVkIGxldmVsIG9mIHN1ZmZpY2llbmN5IGJ5IHBsYWNpbmcgYW4gZW1waGFzaXMgb24gZmFtaWx5IHN0cmVuZ3RoZW5pbmcuIFRoaXMgQ29tbXVuaXR5IFNlcnZpY2UgQ2VudGVyIGhlbHBzIGVsaWdpYmxlIHJlc2lkZW50cyB3aXRoIHJlbnQvbW9ydGdhZ2UgYW5kIHV0aWxpdHkgYXNzaXN0YW5jZSB3aGVuIGF2YWlsYWJsZS4gVGhleSBhbHNvIG9mZmVyIGVtcGxveW1lbnQgYXNzaXN0YW5jZSwgY2FzZSBtYW5hZ2VtZW50LCBhbmQgZmluYW5jaWFsIGNvdW5zZWxpbmcuIA0KPGJyIC8+DQo8YnIgLz4NCkludGFrZSBpcyBNb25kYXlzIGFuZCBUaHVyc2RheXMsIDk6MDAgYW0gLSAxOjAwIHBtLiBQb3RlbnRpYWxseSBlbGlnaWJsZSByZXNpZGVudHMgY2FuIHRha2UgTWV0cm8gYnVzIGxpbmVzLCBXNCBhbmQgQTgsIHRvIGdldCB0byB0aGUgY2VudGVyLiA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUCNDYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRwWqTKgEa0S0432JtXDEB1OEZ0gw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKEqIWyCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZWGkluimzY2Qxg8sd36c/nCXcSE" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2907 Martin Luther King Jr. Avenue, SE Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Ralph Waldo Petey Greene Community Service Center (UPO)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2907 Martin Luther King Jr. Avenue, SE Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 562-3800<br /><b>Fax No:</b>(202) 562-2937<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.upo.org/AU4-SCPG.php<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training, Parenting, Social Services<br \><b>Services : </b> Employment services, Family support services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Financial counseling (money management, housing &amp; credit), Job search &amp; placement assistance, Job skills assessment &amp; readiness, Parenting support, e.g. classes, groups, Referrals for social services, Vocational training &amp; placement assistance<br \><b>Population : </b> Families, Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>9:00 am - 5:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC Residents in the neighborhoods of Congress Heights, Washington Highlands, Henson's Creek and Barry Farms (SE DC).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Ralph Waldo "Petey" Greene Community Service Center assists DC residents in reaching their desired level of self-sufficiency by placing an emphasis on family strengthening. The center serves the neighborhoods of Congress Heights, Washington Highlands; Henson's Creek; and Barry Farms in southeast Washington, DC.
+<br />
+<br />
+EMPLOYMENT AND VOCATIONAL TRAINING
+<br />
+Their staff helps low-income DC residents with valuable workforce skills placing them on a pathway to employment. Customers can enroll in the following training/certification programs: (1) basic computer training, (2) Microsoft Office Specialist (MOS) Certification, and (3) Food Service Handler Training and Certification. 
+<br />
+<br />
+SOCIAL SERVICES
+<br />
+Assists DC residents in reaching their desired level of sufficiency by placing an emphasis on family strengthening. This Community Service Center helps eligible residents with rent/mortgage and utility assistance when available. They also offer employment assistance, case management, and financial counseling. 
+<br />
+<br />
+Intake is Mondays and Thursdays, 9:00 am - 1:00 pm. Potentially eligible residents can take Metro bus lines, W4 and A8, to get to the center. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

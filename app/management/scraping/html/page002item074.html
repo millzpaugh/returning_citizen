@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkyMDEzOSBMYXVyZWwgSGlsbCBXYXkgR2VybWFudG93biBNRCAyMDg3NGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoyMDEzOSBMYXVyZWwgSGlsbCBXYXkgR2VybWFudG93biwgTUQgMjA4NzRkZAIDDw8WAh8CBXE8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgOTIxLTIwMTA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyNDApIDgzOC0wODE2PGJyIC8+PGI+RmF4IE5vOjwvYj4oMzAxKSA1MjgtNzk2NzxiciAvPmRkAgUPDxYCHwIFLzxiPldlYnNpdGU6IDwvYj53d3cuY29tcGFzc2lvbnBvd2VyLmNvbSAgPGJyIC8+ZGQCBw8PFgIfAgWKAjxiPkNhdGVnb3J5IDogPC9iPiBNZW50YWwgSGVhbHRoPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1lbnRhbCBoZWFsdGggdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgRG9tZXN0aWMgVmlvbGVuY2U8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gU2VsZi1wYXltZW50PGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVZPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+NzozMCBwbSDigJMgOTozMCBwbSAoQXJyaXZlIGF0IDc6MDAgcG0gZm9yIDFzdCBzZXNzaW9uKS48YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgWNBzxiPkRlc2NyaXB0aW9uOiA8L2I+U3RhZmYgYXQgQ29tcGFzc2lvbiBQb3dlciBiZWxpZXZlIHRoYXQgaW5kaXZpZHVhbHMgYW5kIHNvY2lldGllcyBhcmUgbW9yZSBwb3dlcmZ1bCB3aGVuIGNvbXBhc3Npb25hdGUgdGhhbiB3aGVuIGFuZ3J5IG9yIGFnZ3Jlc3NpdmUuICBJdCBpcyBmb3IgdGhpcyByZWFzb24gdGhhdCB0aGV5IG9mZmVyIGNsYXNzZXMgZm9yIGFuZ2VyIG1hbmFnZW1lbnQsIGRvbWVzdGljIHZpb2xlbmNlIHRvIGluY2x1ZGUgZmFtaWx5IHZpb2xlbmNlLCB0ZWVuIHZpb2xlbmNlLCBlbW90aW9uYWwgYW5kIHZlcmJhbCBhYnVzZSwgY29tcGFzc2lvbmF0ZSBwYXJlbnRpbmcsIGNvcmUgdmFsdWUgZWF0aW5nLCBhbmQgYW5nZXIgZnJlZSBkcml2aW5nLiBDb21wYXNzaW9uIFBvd2VyIGFsc28gb2ZmZXJzIGEgQ29yZSBWYWx1ZSBXb3Jrc2hvcCBpbiBQLkcuIENvdW50eSBmb3IgYW5nZXIgcmVndWxhdGlvbiBhbmQgZmFtaWx5IGFidXNlLiAgVGhlcmUgYXJlIDE2IHdlZWtseSBzZXNzaW9ucyBjb3N0aW5nICQ0MCBwZXIgc2Vzc2lvbiBwbHVzIGEgb25lLXRpbWUgZmVlIG9mICQzNSBmb3IgcmVnaXN0cmF0aW9uIG1hdGVyaWFscyAod29ya2Jvb2sgJiBDRC1Sb20pIHBheWFibGUgYnkgY2FzaCBvciBtb25leSBvcmRlci4gIFNwb3VzZXMgYW5kIHNpZ25pZmljYW50IG90aGVycyBtYXkgYXR0ZW5kIGF0IG5vIGFkZGl0aW9uYWwgY29zdC4gIFNlc3Npb25zIGFyZSBoZWxkIGF0IFJlaWQgVGVtcGxlIChKb3NodWEgUm9vbSkgbG9jYXRlZCBhdCAxMTQwMCBHbGVuZGFsZSBCbHZkLCBHbGVuZGFsZSwgTUQgZnJvbSA3OjMwIHBtIOKAkyA5OjMwIHBtLiAgUGxlYXNlIGFycml2ZSBhdCA3OjAwIHBtIGZvciBmaXJzdCBzZXNzaW9uIHRvIGFsbG93IGZvciB0aW1lIHRvIHJlZ2lzdGVyLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0OTYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRv5PSBh50p/wOPIQiaSwwBFNq0dQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKamNhmApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBTdYS4eOsVjhIJSINoE0ySyAXdCM=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="20139 Laurel Hill Way Germantown MD 20874" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Compassion Power" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">20139 Laurel Hill Way Germantown, MD 20874</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 921-2010<br /><b>Phone No2:</b>(240) 838-0816<br /><b>Fax No:</b>(301) 528-7967<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.compassionpower.com  <br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management, Domestic Violence<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>7:30 pm – 9:30 pm (Arrive at 7:00 pm for 1st session).<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Staff at Compassion Power believe that individuals and societies are more powerful when compassionate than when angry or aggressive.  It is for this reason that they offer classes for anger management, domestic violence to include family violence, teen violence, emotional and verbal abuse, compassionate parenting, core value eating, and anger free driving. Compassion Power also offers a Core Value Workshop in P.G. County for anger regulation and family abuse.  There are 16 weekly sessions costing $40 per session plus a one-time fee of $35 for registration materials (workbook & CD-Rom) payable by cash or money order.  Spouses and significant others may attend at no additional cost.  Sessions are held at Reid Temple (Joshua Room) located at 11400 Glendale Blvd, Glendale, MD from 7:30 pm – 9:30 pm.  Please arrive at 7:00 pm for first session to allow for time to register.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

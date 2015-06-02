@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTcyMDQxIE1hcnRpbiBMdXRoZXIgS2luZywgSnIgQXZlLCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFODIwNDEgTWFydGluIEx1dGhlciBLaW5nLCBKciBBdmUsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVQPGI+Q29udGFjdCBQZXJzb246PC9iPkNoZXN0ZXIgTWFyc2hhbGw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjcxLTI0NTc8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFoQE8Yj5DYXRlZ29yeSA6IDwvYj4gUGFyZW50aW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gUGFyZW50aW5nIHN1cHBvcnQsIGUuZy4gY2xhc3NlcywgZ3JvdXBzLCBTdXBwb3J0IGdyb3VwczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgUwPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIGJveXMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBa0LPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgSW5zdGl0dXRlIGZvciBBZnJpY2FuIE1hbiBEZXZlbG9wbWVudCBwcm92aWRlcyBhIHdpZGUgcmFuZ2Ugb2Ygc29jaWFsIHNlcnZpY2VzLCB0byBpbmNyZWFzZSBwb3NpdGl2ZSBtZW50YWwgaGVhbHRoIG9mIHlvdW5nIG1lbiB0aHJvdWdoIHRoZXJhcGV1dGljIHNlbGYtZXhhbWluYXRpb247IGluY3JlYXNlIGxpZmUgc2tpbGxzIHRoYXQgaGVscCB5b3VuZyBtZW4gbmVnb3RpYXRlIGxpZmUgbW9yZSBlZmZlY3RpdmVseTsgcHJvbW90ZSBoZWFsdGhpZXIgcmVsYXRpb25zaGlwcyB0aHJvdWdoIHNvY2lhbC1lY29ub21pY2FsIGRldmVsb3BtZW50OyBhc3Npc3QgeW91bmcgbWVuIGluIHVuZGVyc3RhbmRpbmcgdGhlaXIgcm9sZXMgYXMgZmF0aGVycyBhbmQgaW5jcmVhc2UgdGhlaXIgcHJlc2VuY2UgaW4gdGhlaXIgY2hpbGRyZW7igJlzIGxpdmVzOyBlcXVpcCB0aG9zZSB3aG8gd29yayB3aXRoIHRoaXMgcG9wdWxhdGlvbiwgd2l0IGVmZmVjdGl2ZSBpbnRlcnZlbnRpb24gc3RyYXRlZ2llczsgZXN0YWJsaXNoIGFuIGluZm9ybWF0aW9uIENsZWFyaW5naG91c2UgZm9yIEFmcmljYW4tQW1lcmljYW4gbWVuIGFuZCBib3lzOyBhbmQgbGluayB5b3VuZyBtZW4gdG8gbXVjaCBuZWVkZWQgY29tbXVuaXR5IHJlc291cmNlcy4NCjxiciAvPg0KPGJyIC8+DQpUaGUgSW5zdGl0dXRlIGZvciBBZnJpY2FuIE1hbiBEZXZlbG9wbWVudCBjdXJyZW50bHkgb2ZmZXJzIHRoZSBmb2xsb3dpbmcgc2VydmljZXMgb24gYSBjb250cmFjdHVhbCBiYXNpczoNCjxiciAvPg0KPGJyIC8+DQpJbmRpdmlkdWFsIFRoZXJhcHk7IEZhbWlseSBUaGVyYXB5OyBHcm91cCBUaGVyYXB5OyBTdXBwb3J0IEdyb3VwczsgQ2FzZSBNYW5hZ2VtZW50OyBQYXJlbnRpbmcvRmF0aGVyaG9vZCBUcmFpbmluZzsgTGlmZSBNYW5hZ2VtZW50IFNraWxscyBUcmFpbmluZzsgQ2hhcmFjdGVyIEVkdWNhdGlvbjsgSG9tZS1CYXNlZCBTZXJ2aWNlczsgTWVudG9yaW5nOyBhbmQgRW5yaWNobWVudCBSZXRyZWF0cy4NCjxiciAvPg0KPGJyIC8+DQpUaGUgVHJhaW5pbmcgSW5zdGl0dXRlIGN1cnJlbnRseSBvZmZlcnMgdHJhaW5pbmcncyB0byBzZXJ2aWNlIHByb3ZpZGVycyBhY3Jvc3MgdGhlIGNvdW50cnkgdXNpbmcgY3VycmljdWx1bSB3ZSBoYXZlIGRldmVsb3BlZDoNCjxiciAvPg0KPGJyIC8+DQpFZmZlY3RpdmUgQ2xpbmljYWwgSW50ZXJ2ZW50aW9ucyB3aXRoIEFmcmljYW4tQW1lcmljYW4gTWVuIGFuZCBCb3lzOyBNYW5ob29kIERldmVsb3BtZW50OyBUaGUgRW1hbmNpcGF0ZWQgQm95OyBQcmVwYXJpbmcgTWVuIGFuZCBCb3lzIGZvciBNYWxlL0ZlbWFsZSBSZWxhdGlvbnNoaXBzOyBSYWNpc20gYW5kIFNleGlzbTsgQWZyaWNhbi1BbWVyaWNhbiBNZW4gYW5kIEFkZGljdGl2ZSBCZWhhdmlvcjsgRWZmZWN0aXZlIEZhdGhlcmluZyBTdHJhdGVnaWVzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1ODkeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWT4xjP7fz1Tpkdp7JD3Le2xn6zE4w==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL4xK+CCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYNt6mfxQBQpA2sA/MZEM/+0VjZn" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2041 Martin Luther King, Jr Ave, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Institute for African Male Development" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2041 Martin Luther King, Jr Ave, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Chester Marshall<br /><b>Phone No:</b>(202) 271-2457<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Parenting<br \><b>Services : </b> Family support services<br \><b>Program : </b> Parenting support, e.g. classes, groups, Support groups<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and boys.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Institute for African Man Development provides a wide range of social services, to increase positive mental health of young men through therapeutic self-examination; increase life skills that help young men negotiate life more effectively; promote healthier relationships through social-economical development; assist young men in understanding their roles as fathers and increase their presence in their children’s lives; equip those who work with this population, wit effective intervention strategies; establish an information Clearinghouse for African-American men and boys; and link young men to much needed community resources.
+<br />
+<br />
+The Institute for African Man Development currently offers the following services on a contractual basis:
+<br />
+<br />
+Individual Therapy; Family Therapy; Group Therapy; Support Groups; Case Management; Parenting/Fatherhood Training; Life Management Skills Training; Character Education; Home-Based Services; Mentoring; and Enrichment Retreats.
+<br />
+<br />
+The Training Institute currently offers training's to service providers across the country using curriculum we have developed:
+<br />
+<br />
+Effective Clinical Interventions with African-American Men and Boys; Manhood Development; The Emancipated Boy; Preparing Men and Boys for Male/Female Relationships; Racism and Sexism; African-American Men and Addictive Behavior; Effective Fathering Strategies.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

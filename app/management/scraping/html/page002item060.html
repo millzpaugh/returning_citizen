@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSg2MjAwIEJhbHRpbW9yZSBBdmVudWUgUml2ZXJkYWxlIE1EIDIwNzM3ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTYyMDAgQmFsdGltb3JlIEF2ZW51ZSBSaXZlcmRhbGUsIE1EIDIwNzM3ZGQCAw8PFgIfAgVRPGI+Q29udGFjdCBQZXJzb246PC9iPlZpY3RvcmlhIEhhbWlsdG9uPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyNDApIDczNy01MTAwPGJyIC8+ZGQCBQ8PFgIfAgUhPGI+V2Vic2l0ZTogPC9iPnd3dy5jbGIub3JnPGJyIC8+ZGQCBw8PFgIfAgXtAjxiPkNhdGVnb3J5IDogPC9iPiBFbXBsb3ltZW50ICZhbXA7IFZvY2F0aW9uYWwgVHJhaW5pbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRW1wbG95bWVudCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEpvYiBzZWFyY2ggJmFtcDsgcGxhY2VtZW50IGFzc2lzdGFuY2UsIEpvYiBza2lsbHMgYXNzZXNzbWVudCAmYW1wOyByZWFkaW5lc3MsIFJlaGFiaWxpdGF0aXZlIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBQZXJzb25zIHdpdGggcGh5c2ljYWwgZGlzYWJpbGl0eSwgV29tZW4sIFlvdXRoICgxMiAtIDI0KTxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVCPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDg6MDAgYW0gLSA0OjMwIHBtPGJyIC8+ZGQCDw8PFgIfAgVzPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4sIHdvbWVuIGFuZCBjaGlsZHJlbiBhcmUgZWxpZ2libGUgLS10aGVyZSBpcyBubyBhZ2UgcmVxdWlyZW1lbnQgZm9yIHNlcnZpY2VzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXZBDxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIENvbHVtYmlhIExpZ2h0aG91c2UgZm9yIHRoZSBCbGluZCBvZmZlcnMgc2VydmljZXMgZm9yIGJvdGggdGhlIHNldmVyZWx5IHZpc2lvbi1pbXBhaXJlZCBhbmQgZm9yIHRob3NlIHdpdGggbG93IHZpc2lvbi4gIFNlcnZpY2VzIG9mZmVyZWQgZm9yIGluZGl2aWR1YWxzIHdobyBhcmUgc2V2ZXJlbHkgdmlzaW9uLWltcGFpcmVkIGluY2x1ZGU6IHJlaGFiaWxpdGF0aW9uIHRyYWluaW5nLCB0eXBpbmcgYW5kIGNvbXB1dGVyIHNraWxscyB0cmFpbmluZywgdm9jYXRpb25hbCBldmFsdWF0aW9ucywgam9iLXNpdGUgYW5hbHlzaXMsIGRhaWx5IGxpdmluZyBza2lsbHMsIGEgc2hlbHRlcmVkIHdvcmtzaG9wIGFuZCBnZW5lcmFsIHNvY2lhbCBzZXJ2aWNlcy4gVGhvc2Ugd2hvIG1heSBoYXZlIGxvdyB2aXNpb24gbWF5IHJlY2VpdmUgdmlzaW9uIGV2YWx1YXRpb25zLiBUaGVyZSBpcyBhbHNvIHdoYXQgaXMgcmVmZXJyZWQgdG8gYXMgbGVpc3VyZS10aW1lIGFuZCBwcm92aXNpb25zIGZvciBjaGlsZHJlbidzIHNlcnZpY2VzLiBUaGVyZSBpcyBubyBhZ2UgcmVxdWlyZW1lbnQgdG8gcmVjZWl2ZSBzZXJ2aWNlcy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUCMzgeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQJ3zT1ug9TdnERh5LztpE7UzVzHQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKBm7TxBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARRFyWi6Y1pZeri5xvazUm9BRf8a" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="6200 Baltimore Avenue Riverdale MD 20737" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Columbia Lighthouse for the Blind, Inc." id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">6200 Baltimore Avenue Riverdale, MD 20737</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Victoria Hamilton<br /><b>Phone No:</b>(240) 737-5100<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.clb.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness, Rehabilitative services<br \><b>Population : </b> Men, Persons with physical disability, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:00 am - 4:30 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men, women and children are eligible --there is no age requirement for services.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Columbia Lighthouse for the Blind offers services for both the severely vision-impaired and for those with low vision.  Services offered for individuals who are severely vision-impaired include: rehabilitation training, typing and computer skills training, vocational evaluations, job-site analysis, daily living skills, a sheltered workshop and general social services. Those who may have low vision may receive vision evaluations. There is also what is referred to as leisure-time and provisions for children's services. There is no age requirement to receive services.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkzMTE4IDE2dGggU3RyZWV0LCBOVyAgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSozMTE4IDE2dGggU3RyZWV0LCBOVyAgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjM0LTY4NTU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDIzNC00ODYzPGJyIC8+ZGQCBQ8PFgIfAgUuPGI+V2Vic2l0ZTogPC9iPnd3dy5uZWlnaGJvcnNjb25zZWpvLm9yZzxiciAvPmRkAgcPDxYCHwIFngU8Yj5DYXRlZ29yeSA6IDwvYj4gTWVudGFsIEhlYWx0aCwgU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1lbnRhbCBoZWFsdGggdHJlYXRtZW50LCBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBJbnRlbnNpdmUgb3V0cGF0aWVudCwgT3V0cGF0aWVudCwgUGFydGlhbCBob3NwaXRhbGl6YXRpb24vZGF5IHByb2dyYW08YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgQ29tbXVuaXR5IFNlcnZpY2UgQWdlbmN5IChDU0EpLCBEb21lc3RpYyBWaW9sZW5jZSwgRmFtaWx5IGlzc3Vlcy0tY291bnNlbGluZywgbWFycmlhZ2UsIHBhcmVudGluZywgR3JpZWYgJmFtcDsgbG9zcywgVHJhdW1hLS1zZXh1YWwgYWJ1c2UvUFRTRC92aWN0aW1zIG9mIGNyaW1lPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IEFjY2VzcyB0byByZWNvdmVyeSB2b3VjaGVyLCBNZWRpY2FpZCwgTWVkaWNhcmUsIFB1YmxpYyBmdW5kaW5nLCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVMPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+OTowMGFtIC0gNTowMHBtOyA1OjMwcG0gLSA4OjMwcG0gZm9yIGdyb3VwczxiciAvPmRkAg8PDxYCHwIFYjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+REMgUmVzaWRlbnRzOyBSZWZlcnJhbCBieSBBUFJBL0RNSDsgV2FsayAtaW4gb3IgQ291cnQgUmVmZXJyZWQuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBZsFPGI+RGVzY3JpcHRpb246IDwvYj5OZWlnaGJvcnMgQ29uc2VqbyBpcyBhIHN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQgZmFjaWxpdHkuIFRoZSBwcm9ncmFtIG9mZmVycyB0aGUgb25seSBpbnRlbnNpdmUsIGFsbC1kYXkgcHJvZ3JhbSBpbiB0aGUgV2FzaGluZ3RvbiwgREMgbWV0cm9wb2xpdGFuIGFyZWEgdGhhdCBzcGVjaWFsaXplcyBpbiBob21lbGVzcyBMYXRpbm9zIHdpdGggY28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzIGFuZCBjaHJvbmljIHN1YnN0YW5jZSBhYnVzZSBwcm9ibGVtcy4NCjxiciAvPg0KPGJyIC8+DQpUaGUgMTItc3RlcCByZWNvdmVyeSBwcm9ncmFtIChpbmNsdWRpbmcgdGhvc2Ugd2l0aCBkdWFsIGRpYWdub3Npcykgc2VydmVzIExhdGlub3MgbGl2aW5nIGluIEFkYW1zIE1vcmdhbiwgQ29sdW1iaWEgSGVpZ2h0cyBhbmQgTW91bnQgUGxlYXNhbnQuIEJyZWFrZmFzdCBhbmQgbHVuY2ggc2VydmVkIHRocm91Z2ggdGhlIHByb2dyYW0gYW5kIGhvbWVsZXNzIHBhcnRpY2lwYW50cyBjYW4gc3RheSBhdCB0aGUgTGEgQ2FzYSBTaGVsdGVyIHdoZXJlIGRpbm5lciBzZXJ2ZWQuIFRoZSBwcm9ncmFtcyBzZXNzaW9ucyBhcmUgY29uZHVjdGVkIGluIFNwYW5pc2ggYW5kIHRoZSBwcm9ncmFtIGlzIGFuIEFQUkEgY29udHJhY3QgcHJvdmlkZXIuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMzNDYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRgBdRLXh+Qf/TJT8SKxA+O1bsJeA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLSp6OaDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAeW6BoWSXK9fqlmfKX4K3Hx2vZ4+" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3118 16th Street, NW  Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Neighbors Consejo" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3118 16th Street, NW  Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 234-6855<br /><b>Fax No:</b>(202) 234-4863<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.neighborsconsejo.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health, Substance Abuse<br \><b>Services : </b> Mental health treatment, Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient, Partial hospitalization/day program<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Community Service Agency (CSA), Domestic Violence, Family issues--counseling, marriage, parenting, Grief &amp; loss, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Access to recovery voucher, Medicaid, Medicare, Public funding, State financed insurance (other than Medicaid)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>9:00am - 5:00pm; 5:30pm - 8:30pm for groups<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC Residents; Referral by APRA/DMH; Walk -in or Court Referred.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Neighbors Consejo is a substance abuse treatment facility. The program offers the only intensive, all-day program in the Washington, DC metropolitan area that specializes in homeless Latinos with co-occurring mental illness and chronic substance abuse problems.
+<br />
+<br />
+The 12-step recovery program (including those with dual diagnosis) serves Latinos living in Adams Morgan, Columbia Heights and Mount Pleasant. Breakfast and lunch served through the program and homeless participants can stay at the La Casa Shelter where dinner served. The programs sessions are conducted in Spanish and the program is an APRA contract provider. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

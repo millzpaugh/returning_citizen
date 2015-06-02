@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block container %}
+{% load i18n %}
+
+<section class="landing jumbotron">
+        <h1>{% trans "Find your roots." %}</h1>
+        <p class="landing--tagline">{% trans "Are you a returning citizen? Find resources in the DC Metro Area for anyone who has previously had a criminal record." %}</p>
+
+        {% if messages %}
+          {% for message in messages %}
+                <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
+                {{ message }}
+                </div>
+          {% endfor %}
+        {% endif %}
+
+        <form class="landing--form form-inline" role="form" method="post" action={% url 'resources' %}>
+            {% csrf_token %}
+            <div class="landing--need-container form-group">
+                <label class="sr-only" for="resource">{% trans "Resource" %}</label>
+                <input type="hidden" name="type" value="search">
+                <select class="landing--need form-control" data-placeholder="{% trans "What do you need?" %}" name="resource">
+                 <option></option>
+                    <option value="Education">Education</option>
+{#                    <option value="Employment and Vocational Training">Employment and Vocational Training</option>#}
+                    <option value="Social Services">Social Services</option>
+                    <option value="Housing"> Housing</option>
+                    <option value="Mental Health">Mental Health</option>
+                    <option value="Medical">Medical</option>
+                    <option value="Parenting">Parenting</option>
+                    <option value="Legal">Legal</option>
+                    <option value="Emergency Food">Emergency Food</option>
+                    <option value="Volunteer Opportunities">Volunteer Opportunities</option>
+                     <option value="Self-Help/Support Groups">Self-Help/Support Groups</option>
+                </select>
+            </div>
+            <div class="landing--location-container form-group">
+                <input type="hidden" name="page" value="index.html">
+                <label class="sr-only" for="zipcode">ZIP Code</label>
+                <input class="landing--location form-control" type="text" placeholder="{% trans "Location" %}" name="location" data-toggle="tooltip" data-placement="bottom" title="{% trans "Address, City or ZIP Code" %}">
+            </div>
+            <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
+        </form>
+</section>
+
+{% endblock %}

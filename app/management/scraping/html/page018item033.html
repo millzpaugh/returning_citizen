@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSM2MCBPIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQ2MCBPIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBTo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzk3LTg4MDYgPGI+RXh0OjwvYj4xMDQxPGJyIC8+ZGQCBQ8PFgIfAgUiPGI+V2Vic2l0ZTogPC9iPnd3dy5zb21lLm9yZzxiciAvPmRkAgcPDxYCHwIFxgI8Yj5DYXRlZ29yeSA6IDwvYj4gTWVkaWNhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBDb21tdW5pdHkgaGVhbHRoPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBEZW50YWwsIEhJVi9BSURTLCBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpLCBWaXNpb248YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBNZWRpY2FpZCwgUHVibGljIGZ1bmRpbmcsIFNlbGYtcGF5bWVudDxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gUGF5bWVudCBhc3Npc3RhbmNlIChDaGVjayB3aXRoIGZhY2lsaXR5IGZvciBkZXRhaWxzKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFejxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA4OjAwYW0gLSA0OjAwcG0gKG1lZGljYWwgY2xpbmljKTsgc2VlIGJlbG93IGZvciBhZGRpdGlvbmFsIHNlcnZpY2UgaG91cnMuPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIF+w48Yj5EZXNjcmlwdGlvbjogPC9iPlNPTUUgKFNvIE90aGVycyBNaWdodCBFYXQpIGlzIGFuIGludGVyZmFpdGgsIGNvbW11bml0eS1iYXNlZCBvcmdhbml6YXRpb24gdGhhdCBleGlzdHMgdG8gaGVscCB0aGUgcG9vciBhbmQgaG9tZWxlc3Mgb2Ygb3VyIG5hdGlvbidzIGNhcGl0YWwuIFNPTUUgd2lsbCBtZWV0IHRoZSBpbW1lZGlhdGUgZGFpbHkgbmVlZHMgb2YgdGhlIHBlb3BsZSB3ZSBzZXJ2ZSB3aXRoIGZvb2QsIGNsb3RoaW5nLCBhbmQgaGVhbHRoIGNhcmUuIFNPTUUgYWxzbyBoZWxwcyBicmVhayB0aGUgY3ljbGUgb2YgaG9tZWxlc3NuZXNzIGJ5IG9mZmVyaW5nIHNlcnZpY2VzLCBzdWNoIGFzIGFmZm9yZGFibGUgaG91c2luZywgam9iIHRyYWluaW5nLCBhZGRpY3Rpb24gdHJlYXRtZW50LCBhbmQgY291bnNlbGluZywgdG8gdGhlIHBvb3IsIHRoZSBlbGRlcmx5IGFuZCBpbmRpdmlkdWFscyB3aXRoIG1lbnRhbCBpbGxuZXNzLiBFYWNoIGRheSwgU09NRSBpcyByZXN0b3JpbmcgaG9wZSBhbmQgZGlnbml0eSBvbmUgcGVyc29uIGF0IGEgdGltZS4gDQo8YnIgLz4NClNPTUUgb2ZmZXJzIGEgY29tcHJlaGVuc2l2ZSBuZXR3b3JrIG9mIGhlYWx0aGNhcmUuIFRoZSBjbGluaWMgaXMgbG9jYXRlZCBhdCA2MCAnTycgU3RyZWV0LCBOVywgYW5kIGlzIG9wZW4gTW9uZGF5IC0gRnJpZGF5LCA4OjAwIGFtIC0gNDowMCBwbS4gUGF0aWVudHMgYXJlIGFjY2VwdGVkIG9uIGEgd2Fsay1pbiBhbmQgYXBwb2ludG1lbnQgYmFzaXMuIFNPTUUncyBIZWFsdGggU2VydmljZXMgaW5jbHVkZXMgYSBjb21wcmVoZW5zaXZlIE1lZGljYWwgQ2xpbmljLCBhbiBFeWUgQ2xpbmljIGFuZCBhIERlbnRhbCBDbGluaWMuDQo8YnIgLz4NCjxiciAvPg0KTUVESUNBTCBDTElOSUMNClRoZSBNZWRpY2FsIENsaW5pYyBvZmZlcnMgYSBmdWxsIHJhbmdlIG9mIHNlcnZpY2VzIGluY2x1ZGluZyBwcmltYXJ5IGNhcmUsIHBvZGlhdHJ5IHNlcnZpY2VzLCBsYWIgd29yayBhbmQgdHJlYXRtZW50IGZvciBkaWFiZXRpY3MuIFRoZSBNZWRpY2FsIENsaW5pYyB0cmVhdHMgYW4gYXZlcmFnZSBvZiAyNiBwYXRpZW50cyBlYWNoIGRheS4NCjxiciAvPg0KVGhlIEV5ZSBDbGluaWMgaXMgb25lIG9mIHRoZSBvbmx5IGZyZWUgZXllIGNsaW5pY3MgaW4gdGhlIGNpdHkgYW5kIHRyZWF0cyBhcHByb3hpbWF0ZWx5IDMwIHBhdGllbnRzIGVhY2ggbW9udGguIFNPTUUncyBwYXJ0LXRpbWUgb3BodGhhbG1vbG9naXN0IHRyZWF0cyB0aG9zZSBzdWZmZXJpbmcgZnJvbSBkaWFiZXRlcywgZ2xhdWNvbWEsIEFJRFMsIGFuZCBleWUgaW5qdXJpZXMsIGFuZCBjb25kdWN0cyBnZW5lcmFsIGV5ZSBleGFtcy4NCjxiciAvPg0KPGJyIC8+DQpERU5UQUwgQ0xJTklDDQpUaGUgRGVudGFsIENsaW5pYyBwcm92aWRlcyBib3RoIGVtZXJnZW5jeSBhbmQgY29tcHJlaGVuc2l2ZSBvcmFsIGNhcmUgdG8gcGF0aWVudHMsIGluY2x1ZGluZyBwcmV2ZW50aW9uLCBiYXNpYyBjYXJlLCByZXN0b3JhdGlvbnMsIHJvb3QgY2FuYWxzLCBleHRyYWN0aW9ucyBhbmQgcmVtb3ZhYmxlIHByb3N0aGVzZXMgKGRlbnR1cmVzKS4gV2UgYXJlIG9wZW4gZml2ZSBkYXlzIHBlciB3ZWVrLg0KPGJyIC8+DQpUbyBiZSBlbGlnaWJsZSBmb3IgZGVudGFsIGNhcmUgaW4gdGhlIFNPTUUgRGVudGFsIENsaW5pYywgYSBwYXRpZW50IG11c3QgYmUgaG9tZWxlc3MgaW4gdGhlIERpc3RyaWN0IGFuZC9vciBsb3ctaW5jb21lIGFuZCBsaXZpbmcgaW4gdGhlIGltbWVkaWF0ZSBuZWlnaGJvcmhvb2Qgb2Ygb3VyIGNsaW5pYy4gSW4gYWRkaXRpb24gdG8gc2NoZWR1bGVkIGFwcG9pbnRtZW50cywgdGhlIERlbnRhbCBDbGluaWMgcHJvdmlkZXMgZW1lcmdlbmN5IGNhcmUgdG8gdGhlIGZpcnN0IGZvdXIgd2Fsay1pbiBjbGllbnRzIE1vbmRheSAtIEZyaWRheS4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzc0OB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZDYbxDk/q7+BDt9JwU7k1a6REHwI" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLtoJO/BAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAfVpbHdTHzZO+w8M6P9havkFMo9j" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="60 O Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="So Others Might Eat (SOME) - Medical Clinic" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">60 O Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 797-8806 <b>Ext:</b>1041<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.some.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Dental, HIV/AIDS, Primary (Adult, Family &amp; Pediatrics), Vision<br \><b>Forms Of Payment : </b> Medicaid, Public funding, Self-payment<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:00am - 4:00pm (medical clinic); see below for additional service hours.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>SOME (So Others Might Eat) is an interfaith, community-based organization that exists to help the poor and homeless of our nation's capital. SOME will meet the immediate daily needs of the people we serve with food, clothing, and health care. SOME also helps break the cycle of homelessness by offering services, such as affordable housing, job training, addiction treatment, and counseling, to the poor, the elderly and individuals with mental illness. Each day, SOME is restoring hope and dignity one person at a time. 
+<br />
+SOME offers a comprehensive network of healthcare. The clinic is located at 60 'O' Street, NW, and is open Monday - Friday, 8:00 am - 4:00 pm. Patients are accepted on a walk-in and appointment basis. SOME's Health Services includes a comprehensive Medical Clinic, an Eye Clinic and a Dental Clinic.
+<br />
+<br />
+MEDICAL CLINIC
+The Medical Clinic offers a full range of services including primary care, podiatry services, lab work and treatment for diabetics. The Medical Clinic treats an average of 26 patients each day.
+<br />
+The Eye Clinic is one of the only free eye clinics in the city and treats approximately 30 patients each month. SOME's part-time ophthalmologist treats those suffering from diabetes, glaucoma, AIDS, and eye injuries, and conducts general eye exams.
+<br />
+<br />
+DENTAL CLINIC
+The Dental Clinic provides both emergency and comprehensive oral care to patients, including prevention, basic care, restorations, root canals, extractions and removable prostheses (dentures). We are open five days per week.
+<br />
+To be eligible for dental care in the SOME Dental Clinic, a patient must be homeless in the District and/or low-income and living in the immediate neighborhood of our clinic. In addition to scheduled appointments, the Dental Clinic provides emergency care to the first four walk-in clients Monday - Friday. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

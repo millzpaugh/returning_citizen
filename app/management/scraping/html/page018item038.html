@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS44MjAgQ2hlc2FwZWFrZSBTdHJlZXQsIFNFICBXYXNoaW5ndG9uIERDIDIwMDMyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLzgyMCBDaGVzYXBlYWtlIFN0cmVldCwgU0UgIFdhc2hpbmd0b24sIERDIDIwMDMyZGQCAw8PFgIfAgVxPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU2MS04Mzg3PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA3NDUtODY4NTxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNTYxLTgzODM8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFggQ8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZywgTWVkaWNhbCwgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGgsIERheSBwcm9ncmFtcy9Ecm9wLWluIGNlbnRlcnMsIFNvY2lhbCBzZXJ2aWNlcywgVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEhvbWVsZXNzLCBNZW4sIFZldGVyYW5zLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1pbGl0YXJ5IGluc3VyYW5jZSAoZS5nLiBWQSwgVFJJQ0FSRSksIFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgV6PGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5LCBUaHVyc2RheSAmIEZyaWRheSA3OjMwYW0gLSA0OjAwcG0gYW5kIFR1ZXNkYXkgYW5kIFdlZG5lc2RheSBmcm9tIDc6MDBhbSAtIDM6MzBwbS48YnIgLz5kZAIPDw8WAh8CBZwBPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Ib3VzaW5nIFByb2dyYW06IEREIDIxNCAoaG9ub3JhYmxlIGRpc2NoYXJnZSk7IDYwIGRheXMgZHJ1ZyBhbmQgYWxjb2hvbCBmcmVlOyBNZWRpY2FsIENhcmU6IFZldGVyYW4gUmVkIFRlYW0gTWVtYmVycyBPbmx5PGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBY8JPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgU291dGhlYXN0IFZldGVyYW5zIENlbnRlciBwcm92aWRlcyBiYXNpYyBtZWRpY2FsIGFuZCBwcmV2ZW50YXRpdmUgY2FyZSwgaGVhbHRoIGVkdWNhdGlvbiwgbWVudGFsIGhlYWx0aCBzZXJ2aWNlcywgYWRkaWN0aW9uIGNvdW5zZWxpbmcsIGNvbXByZWhlbnNpdmUgd29tZW4ncyBoZWFsdGggY2FyZSwgbnV0cml0aW9uYWwgY291bnNlbGluZyB0byBlbGlnaWJsZSB2ZXRlcmFucywgYW5kIHJlZmVycmFscyBmb3IgcGVyc29ucyB3aG8gcmVxdWlyZSBzcGVjaWFsaXplZCBzZXJ2aWNlcy4NCjxiciAvPg0KPGJyIC8+DQpUaHJvdWdoIHRoZSBjZW50ZXIgdmV0ZXJhbnMgY2FuIHNlZWsgdHJhbnNpdGlvbmFsIGhvdXNpbmcsIFNpbmdlIFJvb20gT2NjdXBhbmN5IGhvdXNpbmcgKFNSTykgYW5kIGFjY2VzcyB0aGUgZHJvcC1pbiBjZW50ZXIgKGVsaWdpYmxlIHZldGVyYW5zKS4gV2hpbGUgYmVpbmcgYSBwYXJ0IG9mIHRoZSBob3VzaW5nIHByb2dyYW0gdmV0ZXJhbnMgYXJlIGFibGUgdG8gcHJvZ3Jlc3MgdGhyb3VnaCBob3VzaW5nLCBlbXBsb3ltZW50LCBhbmQgdHJlYXRtZW50IG9wcG9ydHVuaXRpZXMuIFdpdGggYXBhcnRtZW50IHN0eWxlIHRyYW5zaXRpb25hbCBob3VzaW5nIHZldGVyYW5zIGNhbiByZWNlaXZpbmcgaG91c2luZyBmb3IgdXAgdG8gMSB5ZWFyKTsgU1JPJ3MgYXJlIHJlc3BvbnNpYmxlIGZvciBwYXlpbmcgYSBwZXJjZW50YWdlIG9mIHRoZWlyIGluY29tZSBmb3IgcmVudDsgYW5kIHRocm91Z2ggdGhlIGRyb3AtaW4gY2VudGVyIHZldGVyYW5zIGhhdmUgYWNjZXNzIHRvIGNhc2UgbWFuYWdlbWVudDsgc2hvd2VyczsgbGF1bmRyeSwgTkEvQUEgbWVldGluZzsgam9iIHNlYXJjaCBhc3Npc3RhbmNlLg0KPGJyIC8+DQo8YnIgLz4NCk1FRElDQUwgQ0FSRTogDQo8YnIgLz4NCkJhc2ljIG1lZGljYWwgY2FyZSBzZXJ2aWNlcyBhcmUgYXZhaWxhYmxlIGZvciBWZXRlcmFuIFJlZCBUZWFtIE1lbWJlcnMgb25seS4gT3RoZXIgc2VydmljZXMgcHJvdmlkZWQgdG8gdmV0ZXJhbnMgaW5jbHVkZTogcGh5c2ljYWwgZXhhbXM7IGltbXVuaXphdGlvbnM7IGNhc2UgbWFuYWdlbWVudDsgbWVkaWNhdGlvbiBtb25pdG9yaW5nOyBhbmQgYXNzaXN0YW5jZSBvYnRhaW5pbmcgdmV0ZXJhbiBJRCBjYXJkcy4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzI0Nx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZO4vGvHaComk+SO50MuOZwkepAaS" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKSruKjCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAc+YB55uE9NpvMOFaAhbLKBvk0X7" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="820 Chesapeake Street, SE  Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Southeast Veterans Service Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">820 Chesapeake Street, SE  Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 561-8387<br /><b>Phone No2:</b>(202) 745-8685<br /><b>Fax No:</b>(202) 561-8383<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Medical, Social Services<br \><b>Services : </b> Community health, Day programs/Drop-in centers, Social services, Transitional housing/Single Room Occupancy<br \><b>Type Of Care : </b> Primary (Adult, Family &amp; Pediatrics)<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Referrals for social services<br \><b>Population : </b> Homeless, Men, Veterans, Women<br \><b>Forms Of Payment : </b> Military insurance (e.g. VA, TRICARE), Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday, Thursday & Friday 7:30am - 4:00pm and Tuesday and Wednesday from 7:00am - 3:30pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Housing Program: DD 214 (honorable discharge); 60 days drug and alcohol free; Medical Care: Veteran Red Team Members Only<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Southeast Veterans Center provides basic medical and preventative care, health education, mental health services, addiction counseling, comprehensive women's health care, nutritional counseling to eligible veterans, and referrals for persons who require specialized services.
+<br />
+<br />
+Through the center veterans can seek transitional housing, Singe Room Occupancy housing (SRO) and access the drop-in center (eligible veterans). While being a part of the housing program veterans are able to progress through housing, employment, and treatment opportunities. With apartment style transitional housing veterans can receiving housing for up to 1 year); SRO's are responsible for paying a percentage of their income for rent; and through the drop-in center veterans have access to case management; showers; laundry, NA/AA meeting; job search assistance.
+<br />
+<br />
+MEDICAL CARE: 
+<br />
+Basic medical care services are available for Veteran Red Team Members only. Other services provided to veterans include: physical exams; immunizations; case management; medication monitoring; and assistance obtaining veteran ID cards. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

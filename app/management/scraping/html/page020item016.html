@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxNjM4IEdvb2QgSG9wZSBSb2FkLCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDE2MzggR29vZCBIb3BlIFJvYWQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDYxMC03MjgwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2MTAtMDU1NTxiciAvPmRkAgUPDxYCHwIFUDxiPldlYnNpdGU6IDwvYj53d3cudW5pdHloZWFsdGhjYXJlLm9yZy9IZWFsdGhDZW50ZXJzL1NlcnZpY2VHb29kSG9wZS5odG1sPGJyIC8+ZGQCBw8PFgIfAgW1AzxiPkNhdGVnb3J5IDogPC9iPiBNZWRpY2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGg8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEZhbWlseSBwbGFubmluZywgSElWL0FJRFMsIE9iLUd5biwgUHJpbWFyeSAoQWR1bHQsIEZhbWlseSAmYW1wOyBQZWRpYXRyaWNzKSwgVmlzaW9uPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIE1lZGljYXJlLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVBPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDg6MTUgYW0tNDo0NSBwbS48YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgXrCjxiPkRlc2NyaXB0aW9uOiA8L2I+VW5pdHkgSGVhbHRoIENhcmUgSGVhbHRoIENlbnRlcnMgaGF2ZSBzZXJ2aWNlIHNpdGVzIGxvY2F0ZWQgaW4gZXZlcnkgd2FyZCBvZiB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEuIFRoZSBDZW50ZXJzIHByb3ZpZGUgcXVhbGl0eSwgY29tcGFzc2lvbmF0ZSBhbmQgY29tcHJlaGVuc2l2ZSBwcmltYXJ5IGhlYWx0aCBjYXJlIHNlcnZpY2VzLiBEQyByZXNpZGVudHMgY2FuIGFjY2VzcyBVbml0eSBIZWFsdGggQ2FyZSBzZXJ2aWNlcyByZWdhcmRsZXNzIG9mIGFiaWxpdHkgdG8gcGF5LiBGb3IgdGhvc2Ugd2hvIGNhbiBwYXksIGEgc2xpZGluZyBzY2FsZSBiYXNlZCBvbiBmYW1pbHkgc2l6ZSBhbmQgaW5jb21lIGlzIHVzZWQgdG8gZGV0ZXJtaW5lIHRoZSBhcHByb3ByaWF0ZSBhbW91bnQuIFVuaXR5IEhlYWx0aCBDYXJlIGFjY2VwdHMgTWVkaWNhaWQsIE1lZGljYXJlLCBNYW5hZ2VkIENhcmUgT3JnYW5pemF0aW9ucywgREMgSGVhbHRoY2FyZSBBbGxpYW5jZSAoREMgQ2hhcnRlcmVkIEhlYWx0aCBDYXJlIEFsbGlhbmNlIGFuZCBVbml0ZWQgSGVhbHRoIENhcmUgQ29tbXVuaXR5IFBsYW4pLCBhbmQgb3RoZXIgcHJpdmF0ZSBpbnN1cmFuY2UgcGxhbnMuDQo8YnIgLz4NCjxiciAvPg0KVGVlbnMgd2hvIGFyZSBpbnRlcmVzdGVkIGluIHNlcnZpY2VzIHByb3ZpZGVkIGJ5IFVuaXR5IEhlYWx0aCBDYXJlIENlbnRlcnMgY2FuIGNhbGwgdGhlIFRlZW4gQXBwb2ludG1lbnQgbGluZSBhdCAoMjAyKSA0NjktNDY5OS4gQWxsIHRlZW5zIGNhbGxpbmcgaW4gZm9yIGFuIGFwcG9pbnRtZW50IG11c3QgcHJvdmlkZSB0aGUgZm9sbG93aW5nIGluZm9ybWF0aW9uIGZvciBlbWVyZ2VuY3kgcHVycG9zZXM6IGFkZHJlc3MsIHBob25lIG51bWJlciwgZGF0ZSBvZiBiaXJ0aCBhbmQgcGFyZW50L2d1YXJkaWFuIGNvbnRhY3QgaW5mb3JtYXRpb24gKHBhcmVudHMgd2lsbCBub3QgYmUgY29udGFjdGVkKS4gDQo8YnIgLz4NCjxiciAvPg0KVGhlIG1lZGljYWwgc2VydmljZXMgcHJvdmlkZWQgYXQgdGhlIEdvb2QgSG9wZSBzaXRlIGluY2x1ZGUgdGhlIGZvbGxvd2luZzogUGVkaWF0cmljcywgQ2FyZGlvbG9neSwgT3BodGhhbG1vbG9neSwgRGVybWF0b2xvZ3ksIEhJVi9BSURTIFNlcnZpY2VzLCBQb2RpYXRyeSwgUHVsbW9uYXJ5IE1lZGljaW5lLCBPQi1HWU4sIFJoZXVtYXRvbG9neSwgVXJvbG9neSwgU29jaWFsIFNlcnZpY2UsIExhYm9yYXRvcnkgc2VydmljZXMsIENhc2UgTWFuYWdlbWVudCBhbmQgU3VyZ2VyeSBTZXJ2aWNlcy4NCjxiciAvPg0KPGJyIC8+DQpUaGUgaG91cnMgb2Ygb3BlcmF0aW9uIGF0IHRoZSBHb29kIEhvcGUgc2l0ZSBhcmUgYXMgZm9sbG93czogSG91cnM6IE0tRiA4OjE1IEFNLTQ6NDUgUE08YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzgyHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkox8ZO1v/0G7p9dg172wh1CIekm0=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL456GTBwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARrlTLUOC+EOGJ4onAQIebp/t7KL" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1638 Good Hope Road, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care (Good Hope Health Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1638 Good Hope Road, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 610-7280<br /><b>Fax No:</b>(202) 610-0555<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceGoodHope.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> Family planning, HIV/AIDS, Ob-Gyn, Primary (Adult, Family &amp; Pediatrics), Vision<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:15 am-4:45 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Health Centers have service sites located in every ward of the District of Columbia. The Centers provide quality, compassionate and comprehensive primary health care services. DC residents can access Unity Health Care services regardless of ability to pay. For those who can pay, a sliding scale based on family size and income is used to determine the appropriate amount. Unity Health Care accepts Medicaid, Medicare, Managed Care Organizations, DC Healthcare Alliance (DC Chartered Health Care Alliance and United Health Care Community Plan), and other private insurance plans.
+<br />
+<br />
+Teens who are interested in services provided by Unity Health Care Centers can call the Teen Appointment line at (202) 469-4699. All teens calling in for an appointment must provide the following information for emergency purposes: address, phone number, date of birth and parent/guardian contact information (parents will not be contacted). 
+<br />
+<br />
+The medical services provided at the Good Hope site include the following: Pediatrics, Cardiology, Ophthalmology, Dermatology, HIV/AIDS Services, Podiatry, Pulmonary Medicine, OB-GYN, Rheumatology, Urology, Social Service, Laboratory services, Case Management and Surgery Services.
+<br />
+<br />
+The hours of operation at the Good Hope site are as follows: Hours: M-F 8:15 AM-4:45 PM<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

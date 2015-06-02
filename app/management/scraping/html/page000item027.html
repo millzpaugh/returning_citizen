@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkyNDQzIEFpbmdlciBQbGFjZSwgU0UgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoyNDQzIEFpbmdlciBQbGFjZSwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODg5LTU2MDc8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDg4OS0zMjE5PGJyIC8+ZGQCBQ8PFgIfAgUmPGI+V2Vic2l0ZTogPC9iPnd3dy5hY29jYXJlcy5vcmc8YnIgLz5kZAIHDw8WAh8CBa8BPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWF0ZXJpYWwgbmVlZHMsIE51dHJpdGlvbmFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ2xvdGhpbmcsIEVtZXJnZW5jeSBmb29kL2dyb2NlcmllczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVZPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5TZW5pb3IgQ2l0aXplbiByZXNpZGVudHMgb2YgQWxsZW4sIEZhaXJ2aWV3IGFuZCBMdWNhcy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFphE8Yj5EZXNjcmlwdGlvbjogPC9iPkFsbGVuIENvbW11bml0eSBPdXRyZWFjaCAoQUNPKSBoZWxwcyBmYW1pbGllcyBsaXZpbmcgaW4gQWxsZW4sIEZhaXJ2aWV3IGFuZCBMdWNhcyB0byByZWJ1aWxkIHRoZWlyIGxpdmVzIHRocm91Z2ggdGhlIG1hbnkgc2VydmljZXMgcHJvdmlkZWQuIEFDTyBpcyBhIG5vbi1wcm9maXQgb3JnYW5pemF0aW9uIGFuZCB0aGUgbWFqb3JpdHkgb2YgZnVuZGluZyBmb3IgdGhlIGFnZW5jeSBjb21lcyBmcm9tIGxvY2FsLCBpbmRpdmlkdWFsIGRvbmF0aW9ucyBhbmQgZnVuZCByYWlzaW5nIGFjdGl2aXRpZXMuIEFPQyBmb2N1c2VzIG9uIHJlYnVpbGRpbmcgbGl2ZXMgYnkgcHJvdmlkaW5nIGVtZXJnZW5jeSBhc3Npc3RhbmNlIGZvciBmYW1pbGllcyBhbmQgaW5kaXZpZHVhbHMuIFRoZSBPdXRyZWFjaCBDZW50ZXIgYWxzbyBwcm92aWRlcyBhc3Npc3RhbmNlIHRvIGZhbWlsaWVzIGluIHRpbWVzIG9mIGVtZXJnZW5jeSwgcmVudCBhbmQgdXRpbGl0aWVzIGNyaXNpcy4NCjxiciAvPg0KPGJyIC8+DQpBQ08gRk9PRCBQQU5UUlkNCjxiciAvPg0KVGhlIEFDTyBGb29kIFBhbnRyeSBpcyBhdmFpbGFibGUgdG8gZmFtaWxpZXMgaW4gbmVlZCBvZiBncm9jZXJpZXMuIEFDTyBwcm92aWRlcyB2b3VjaGVycyBmb3IgZmFtaWxpZXMgdG8gcmVjZWl2ZSBmb29kIGl0ZW1zIG9uY2UgYSBtb250aC4gIEluIGFkZGl0aW9uLCB2b3VjaGVycyBhcmUgZ2l2ZW4gdG8gaGVscCBmYW1pbGllcyBuZWVkaW5nIGNsb3RoaW5nLiBWb3VjaGVycyBtYXkgYmUgc3BlbnQgYXMgY2FzaCBhdCB0aGUgQUNPIFJlc2FsZSBTaG9wIGxvY2F0ZWQgYXQgODAxIE1haW4gU3RyZWV0LCBmb3Igd2FybSB3aW50ZXIgY29hdHMsIG9yIHNjaG9vbCBjbG90aGVzIGFuZCBzaG9lcyBmb3IgY2hpbGRyZW4sIGNsb3RoZXMgZm9yIGFuIGludGVydmlldywgb3Igc2Vhc29uYWwgY2xvdGhlcy4gVm91Y2hlcnMgbXVzdCBiZSBvYnRhaW5lZCBhdCB0aGUgQUNPIG9mZmljZSBsb2NhdGVkIGF0IDgwMSBFLiBNYWluIFN0cmVldCBpbiBBbGxlbi4NCjxiciAvPg0KPGJyIC8+DQpNRUFMUyBPTiBXSEVFTFMgJiBNT1JFDQo8YnIgLz4NCkFDT+KAmXMgTWVhbHMgb24gV2hlZWxzICYgTW9yZSBwcm9ncmFtIHNlcnZlcyB0aGUgaG9tZS1ib3VuZCByZXNpZGVudHMgb2YgQWxsZW4sIEZhaXJ2aWV3IGFuZCBMdWNhcy4gVGhlIHByb2dyYW0gaXMgZGVzaWduZWQgdG8gc2VydmUgc2VuaW9ycyBvdmVyIHRoZSBhZ2Ugb2YgNjAgd2hvIGFyZSBob21lLWJvdW5kIG9yIGNhbm5vdCBwcmVwYXJlIHRoZWlyIG93biBtZWFscy4gQSB3YXJtLCBudXRyaXRpb3VzIGx1bmNoIGlzIGRlbGl2ZXJlZCBieSBhIHZvbHVudGVlciBlYWNoIHdlZWtkYXkgYW5kIHNwZWNpYWxseSBwYWNrYWdlZCBoZWF0LWFuZC1lYXQgbWVhbHMgYXJlIGRlbGl2ZXJlZCBwcmlvciB0byB0aGUgaG9saWRheXMuDQo8YnIgLz4NCjxiciAvPg0KQUNP4oCZcyDigJxNb3Jl4oCdIHBhcnQgb2YgdGhlIHByb2dyYW0gb2ZmZXJzIG1lYWwgZGVsaXZlcnkgdG8gaW5kaXZpZHVhbHMgeW91bmdlciB0aGFuIDYwLCB3aG8gYXJlIGhvbWVib3VuZCBhbmQgbmVlZCB0aGlzIGFzc2lzdGFuY2UuIFNvbWV0aW1lcyBpdCBpcyBhIHNob3J0LXRlcm0gYmFzaXMgc3VjaCBhcyByZWNvdmVyaW5nIGZyb20gYW4gaWxsbmVzcyBvciBpdCBtYXkgYmUgYSBsb25nLXRlcm0gc2VydmljZSBmb3IgYSBkaXNhYmlsaXR5Lg0KPGJyIC8+DQo8YnIgLz4NCklmIHlvdSBhcmUgaW50ZXJlc3RlZCBpbiB0aGUgTWVhbHMgb24gV2hlZWxzICYgTW9yZSBwcm9ncmFtIGZvciB5b3Vyc2VsZiBvciBzb21lb25lIHlvdSBrbm93LCBwbGVhc2UgY2FsbCB0b2RheS4gVGhlcmUgaXMgbm8gY29zdCBpbnZvbHZlZC4gSWYgeW91IGFyZSA2MCBvciBvbGRlciwgY29udGFjdCB0aGUgQ29sbGluIENvdW50eSBDb21taXR0ZWUgb24gQWdpbmcgZm9yIGluZm9ybWF0aW9uIG9uIHRoZSBwcm9ncmFtIGF0IDk3Mi01NjItNjk5Ni4gQWZ0ZXIgdGhleSB0YWtlIHlvdXIgZ2VuZXJhbCBpbmZvcm1hdGlvbiwgdGhleSB3aWxsIHB1dCBBQ08gaW4gY29udGFjdCB3aXRoIHlvdS4gSWYgeW91IHVuZGVyIHRoZSBhZ2Ugb2YgNjAgYW5kIGluIG5lZWQgb2YgbWVhbHMgZGVsaXZlcnkgb3IgaGF2ZSBhbnkgcXVlc3Rpb25zIGFib3V0IHRoZSBwcm9ncmFtIGluIGdlbmVyYWwsIGNvbnRhY3QgQUNPIGF0IDk3Mi03MjctOTEzMS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjA1Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkl5scigZ8IxqFdETM1Pc9u6mGjI0=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLP5unQDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAeVDPKyrmv3DgB2T4o3oJjbAfP3n" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2443 Ainger Place, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Allen Community Outreach Center (ACOC)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2443 Ainger Place, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 889-5607<br /><b>Fax No:</b>(202) 889-3219<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.acocares.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Social Services<br \><b>Services : </b> Material needs, Nutritional services<br \><b>Program : </b> Clothing, Emergency food/groceries<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Senior Citizen residents of Allen, Fairview and Lucas.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Allen Community Outreach (ACO) helps families living in Allen, Fairview and Lucas to rebuild their lives through the many services provided. ACO is a non-profit organization and the majority of funding for the agency comes from local, individual donations and fund raising activities. AOC focuses on rebuilding lives by providing emergency assistance for families and individuals. The Outreach Center also provides assistance to families in times of emergency, rent and utilities crisis.
+<br />
+<br />
+ACO FOOD PANTRY
+<br />
+The ACO Food Pantry is available to families in need of groceries. ACO provides vouchers for families to receive food items once a month.  In addition, vouchers are given to help families needing clothing. Vouchers may be spent as cash at the ACO Resale Shop located at 801 Main Street, for warm winter coats, or school clothes and shoes for children, clothes for an interview, or seasonal clothes. Vouchers must be obtained at the ACO office located at 801 E. Main Street in Allen.
+<br />
+<br />
+MEALS ON WHEELS & MORE
+<br />
+ACO’s Meals on Wheels & More program serves the home-bound residents of Allen, Fairview and Lucas. The program is designed to serve seniors over the age of 60 who are home-bound or cannot prepare their own meals. A warm, nutritious lunch is delivered by a volunteer each weekday and specially packaged heat-and-eat meals are delivered prior to the holidays.
+<br />
+<br />
+ACO’s “More” part of the program offers meal delivery to individuals younger than 60, who are homebound and need this assistance. Sometimes it is a short-term basis such as recovering from an illness or it may be a long-term service for a disability.
+<br />
+<br />
+If you are interested in the Meals on Wheels & More program for yourself or someone you know, please call today. There is no cost involved. If you are 60 or older, contact the Collin County Committee on Aging for information on the program at 972-562-6996. After they take your general information, they will put ACO in contact with you. If you under the age of 60 and in need of meals delivery or have any questions about the program in general, contact ACO at 972-727-9131.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

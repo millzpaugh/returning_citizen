@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxOTIwIEcgU3RyZWV0LCBOVyBXYXNoaW5ndG9uICBEQyAyMDAwNmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxOTIwIEcgU3RyZWV0LCBOVyBXYXNoaW5ndG9uICwgREMgMjAwMDZkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzMxLTE0OTU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDUzMC0wNDA2PGJyIC8+ZGQCBQ8PFgIfAgUpPGI+V2Vic2l0ZTogPC9iPnRoZXVuaXRlZGNodXJjaC5vcmc8YnIgLz5kZAIHDw8WAh8CBYQBPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE51dHJpdGlvbmFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRW1lcmdlbmN5IGZvb2QvZ3JvY2VyaWVzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVFPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+M3JkIFNhdHVyZGF5cyAxMDowMCBhbSAtIDEyOjAwIG5vb24uPGJyIC8+ZGQCDw8PFgIfAgVIPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Mb3ctaW5jb21lIHJlc2lkZW50cyBvZiB0aGUgRGlzdHJpY3QuPGJyIC8+ZGQCEQ8PFgIfAgVgPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5Qcm9vZiBvZiByZXNpZGVuY3kgYW5kIGluY29tZSAobXVzdCBtZWV0IHBvdmVydHkgZ3VpZGVsaW5lcykuPGJyIC8+ZGQCEw8PFgIfAgXRCTxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIEZvZ2d5IEJvdHRvbSBGb29kIFBhbnRyeSBpcyBvcGVyYXRlZCBieSB0aGUgVW5pdGVkIENodXJjaC4gVGhlIGZvb2QgcGFudHJ5IGlmIHJ1biB0aHJvdWdoIG1vbmV5IGFuZCBmb29kIGZyb20gdGhlIGNodXJjaCwgaW5kaXZpZHVhbCBtZW1iZXJzLCBGRU1BLCBJbnRlcm5hdGlvbmFsIE1vbmV0YXJ5IEZ1bmQsIHN0dWRlbnQgZ3JvdXBzIG9mIHRoZSBHZW9yZ2UgV2FzaGluZ3RvbiBVbml2ZXJzaXR5LCBhbmQgb3RoZXJzIHByb3ZpZGUgdGhlIGJhc2ljIHN1cHBvcnQuIEZ1bmRzIGFyZSB1c2VkIHRvIHB1cmNoYXNlIGZvb2QgYW5kIHN1cHBsaWVzLCBwcmluY2lwYWxseSBzYWx2YWdlIGZvb2QgZnJvbSB0aGUgQ2FwaXRhbCBBcmVhIENvbW11bml0eSBGb29kIEJhbmsuIFRoZXJlIGFyZSBubyBvdmVyaGVhZCBjaGFyZ2VzIGJlY2F1c2UgdGhlIHByb2dyYW0gaXMgcnVuIGJ5IHZvbHVudGVlcnMgdXRpbGl6aW5nIHRoZSBjaHVyY2gncyBmYWNpbGl0aWVzLiBGb29kIGlzIGJhZ2dlZCBhbmQgZGlzdHJpYnV0ZWQgdHdpY2UgcGVyIG1vbnRoIHRvIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcyB0aGF0IGNhbiBkZW1vbnN0cmF0ZSBuZWVkLiBTcGVjaWFsIGJhZ3MgY29udGFpbmluZyByZWFkeS10by1lYXQgZm9vZHMgYXJlIHByZXBhcmVkIGZvciB0aG9zZSB3aG8gYXJlIGhvbWVsZXNzLiANCjxiciAvPg0KPGJyIC8+DQpFbGlnaWJsZSByZWNpcGllbnRzIGNhbiByZWNlaXZlIGEgYmFnIG9mIGNhbm5lZCBmb29kcyBhbmQgb3RoZXIgZ3JvY2VyaWVzIEphbnVhcnkgdGhyb3VnaCBPY3RvYmVyIG9uIHRoZSAybmQgYW5kIDR0aCBTYXR1cmRheSBvZiBldmVyeSBtb250aC4gSW4gTm92ZW1iZXIgYW5kIERlY2VtYmVyLCBlbGlnaWJsZSByZWNpcGllbnRzIGNhbiByZWNlaXZlIGEgYmFnIG9mIGNhbm5lZCBmb29kcyBhbmQgb3RoZXIgZ3JvY2VyaWVzIG9uIHRoZSAxc3QgYW5kIDNyZCBTYXR1cmRheXMgZnJvbSAxMDowMCBhbSB0byBub29uLiBSZWNpcGllbnRzIGNhbiBiZSBEQyByZXNpZGVudHMgb25seSwgbXVzdCBzaG93IHByb29mIG9mIHJlc2lkZW5jeSwgYW5kIHByb29mIG9uIGluY29tZS4gSW5jb21lIG11c3QgYmUgYmVsb3cgdGhlIERDIFBvdmVydHkgZ3VpZGVsaW5lcy4gDQo8YnIgLz4NCjxiciAvPg0KTmVhcmVzdCBNZXRybyBzdGF0aW9uOiBGYXJyYWd1dCBOb3J0aC4gTWV0cm8gYnVzIGxpbmVzOiAzMiAmIDM2LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1MTYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQ+2wXY8OoUTALCIPKtz4cQVhor3A==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKtxb4+ApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBgS+lJdIP9DieWWXE/aikAdpsNXQ=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1920 G Street, NW Washington  DC 20006" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Foggy Bottom Food Pantry" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1920 G Street, NW Washington , DC 20006</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 331-1495<br /><b>Fax No:</b>(202) 530-0406<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>theunitedchurch.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food<br \><b>Services : </b> Nutritional services<br \><b>Program : </b> Emergency food/groceries<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>3rd Saturdays 10:00 am - 12:00 noon.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low-income residents of the District.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Proof of residency and income (must meet poverty guidelines).<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Foggy Bottom Food Pantry is operated by the United Church. The food pantry if run through money and food from the church, individual members, FEMA, International Monetary Fund, student groups of the George Washington University, and others provide the basic support. Funds are used to purchase food and supplies, principally salvage food from the Capital Area Community Food Bank. There are no overhead charges because the program is run by volunteers utilizing the church's facilities. Food is bagged and distributed twice per month to individuals and families that can demonstrate need. Special bags containing ready-to-eat foods are prepared for those who are homeless. 
+<br />
+<br />
+Eligible recipients can receive a bag of canned foods and other groceries January through October on the 2nd and 4th Saturday of every month. In November and December, eligible recipients can receive a bag of canned foods and other groceries on the 1st and 3rd Saturdays from 10:00 am to noon. Recipients can be DC residents only, must show proof of residency, and proof on income. Income must be below the DC Poverty guidelines. 
+<br />
+<br />
+Nearest Metro station: Farragut North. Metro bus lines: 32 & 36.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BUEyMDQxIE1hcnRpbiBMdXRoZXIgS2luZyBKciBBdmVudWUsIFNFLCAjIDMwMyBXYXNoaW5ndG9uICBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBUIyMDQxIE1hcnRpbiBMdXRoZXIgS2luZyBKciBBdmVudWUsIFNFLCAjIDMwMyBXYXNoaW5ndG9uICwgREMgMjAwMjBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODg5LTc5MDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDYxMC0zMDk1PGJyIC8+ZGQCBQ8PFgIfAgUkPGI+V2Vic2l0ZTogPC9iPnd3dy5mbWNpbmMub3JnPGJyIC8+ZGQCBw8PFgIfAgWFCDxiPkNhdGVnb3J5IDogPC9iPiBFbWVyZ2VuY3kgRm9vZCwgTWVkaWNhbCwgTWVudGFsIEhlYWx0aCwgU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGgsIE1lbnRhbCBoZWFsdGggdHJlYXRtZW50LCBOdXRyaXRpb25hbCBzZXJ2aWNlcywgU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gSElWL0FJRFMsIEludGVuc2l2ZSBvdXRwYXRpZW50LCBPdXRwYXRpZW50LCBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIERvbWVzdGljIFZpb2xlbmNlLCBEVUkvRFdJIGVkdWNhdGlvbiBwcm9ncmFtLCBFbWVyZ2VuY3kgZm9vZC9ncm9jZXJpZXMsIEZhbWlseSBpc3N1ZXMtLWNvdW5zZWxpbmcsIG1hcnJpYWdlLCBwYXJlbnRpbmcsIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIExlc2JpYW4sIEdheSwgQmlzZXh1YWwsIFRyYW5zZ2VuZGVyICZhbXA7IFNleHVhbCBNaW5vcml0aWVzLCBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgVW5kZXIgYWdlIDE4LCBVbmRlciBhZ2UgMjEsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gQWNjZXNzIHRvIHJlY292ZXJ5IHZvdWNoZXIsIE1lZGljYWlkLCBNZWRpY2FyZSwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50LCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBTbGlkaW5nIGZlZSBzY2FsZSAoRmVlIGlzIGJhc2VkIG9uIGluY29tZSAmYW1wOyBvdGhlciBmYWN0b3JzKTxiciBcPmRkAgkPDxYCHwJlZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFTTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjg6MzBhbSAtIDU6MzBwbSBNIC0gRnJpLCA5OjAwYW0gLSAxOjAwcG0gU2F0PGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CBVA8Yj5Eb2N1bWVudGF0aW9uIE5lZWRlZDogPC9iPklEIGFuZCBpbnN1cmFuY2UgY2FyZDsgQVBSQSBWb3VjaGVycyBhY2NlcHRlZDxiciAvPmRkAhMPDxYCHwIFzRw8Yj5EZXNjcmlwdGlvbjogPC9iPkZNQ1Mgb2ZmZXJzIGEgbXVsdGl0dWRlIG9mIHNlcnZpY2VzLCBpbmNsdWRpbmc6DQo8YnIgLz4NCjxiciAvPg0K4oCiCU1lZGljYWwgTWFuYWdlbWVudCAtIE1lZGljYWwgY2FzZSBtYW5hZ2VycyAoTUNNcykgYXNzZXNzIGNsaWVudHPigJkgbmVlZHMsIGxpbmsgY2xpZW50cyB0byBhcHByb3ByaWF0ZSBzZXJ2aWNlcywgcmVtaW5kIGNsaWVudHMgb2YgZm9ydGhjb21pbmcgYXBwb2ludG1lbnRzLCBhbmQgYXNzaXN0IHdpdGggdHJlYXRtZW50IGFkaGVyZW5jZSBwbGFubmluZyBhbmQgc29jaWFsIHNlcnZpY2UgYXBwbGljYXRpb25zIChpLmUuIGZvb2Qgc3RhbXBzLCBTU0ksIFdJQykuDQo8YnIgLz4NCjxiciAvPg0K4oCiCVByaW1hcnkgTWVkaWNhbCBDYXJlIC0gUHJpbWFyeSBNZWRpY2FsIENhcmUgaXMgcHJvdmlkZWQgZm9yIGFueW9uZSB3aG8gaW4gbmVlZCByZWdhcmRsZXNzIG9mIGFiaWxpdHkgdG8gcGF5LiBNZWRpY2FsIGNhcmUgaXMgY29vcmRpbmF0ZWQgd2l0aCBiZWhhdmlvcmFsIGhlYWx0aCBhbmQgb3RoZXIgc2VydmljZXMgdG8gZW5zdXJlIHRoYXQgb3RoZXIgcmVsYXRlZCBzZXJ2aWNlIG5lZWRzIGFyZSBwcm92aWRlZCBhdCBvbmUgbG9jYXRpb24uICBUaGV5IHNwZWNpYWxpemUgaW4gcHJvdmlkaW5nIGNvbXByZWhlbnNpdmUgbWVkaWNhbCBjYXJlIGZvciBISVYvQUlEUyBwb3NpdGl2ZSBwZXJzb25zIHRocm91Z2ggYWxsIHN0YWdlcyBvZiBpbGxuZXNzLiBQZXJzb25zIHdobyB0ZXN0IHBvc2l0aXZlIHRvIEhJViBhcmUgZ2l2ZW4gaW1tZWRpYXRlIGFjY2VzcyB0byBjYXJlLiAgIFRoZXkgYWxzbyBoYXZlIGEgSEVBTGluZyBDbGluaWMsIHN0YWZmZWQgYnkgR2VvcmdlIFdhc2hpbmd0b24gVW5pdmVyc2l0eSBtZWRpY2FsIHN0dWRlbnRzIGFuZCBGTUNTIHByb3ZpZGVycywgd2hpY2ggaXMgb3BlbiBUdWVzZGF5IGV2ZW5pbmdzIGZyb20gNTozMCBwLm0uIHRvIDg6MzAgcC5tLiBieSBhcHBvaW50bWVudCBvbmx5IGZvciB0aG9zZSB0aGF0IHByZWZlciBhbiBldmVuaW5nIGNsaW5pYy4gQ2FsbCAyMDItODg5LTc5MDAgdG8gc2NoZWR1bGUgYW4gYXBwb2ludG1lbnQuDQo8YnIgLz4NCjxiciAvPg0K4oCiCUhJVi9BaWRzIFByZXZlbnRpb24vQ29tbXVuaXR5IE91dHJlYWNoDQo8YnIgLz4NCjxiciAvPg0K4oCiCUhJViBDb3Vuc2VsaW5nLCBUZXN0aW5nLCBhbmQgUmVmZXJyYWwgU2VydmljZXMgLSBISVYgVGVzdGluZyBDb3Vuc2Vsb3JzIHVzZSBPcmFRdWljaywgYW4gb3JhbCBtZXRob2QgdGhhdCBnaXZlcyBwcmVsaW1pbmFyeSBISVYgdGVzdCByZXN1bHRzIGluIDIwIG1pbnV0ZXMuIFBlb3BsZSB3aXRoIGEgcHJlbGltaW5hcnkgcmVhY3RpdmUgcmVzdWx0IGFyZSBnaXZlbiBleHBlZGl0ZWQgYWNjZXNzIHRvIGEgY29uZmlybWF0b3J5IHRlc3QgYW5kIGxpbmthZ2UgdG8gcHJpbWFyeSBtZWRpY2FsIGNhcmUuIEZyZWUgSElWIHRlc3RzIGFyZSBwcm92aWRlZCBpbiB0aGUgY29tbXVuaXR5IG9uIHRoZWlyIG1vYmlsZSB2YW4sIGluIHRoZWlyIG9mZmljZXMgZm9yIHdhbGstaW4gdGVzdCByZXF1ZXN0cywgYW5kIGF0IG90aGVyIHNlcnZpY2UgcHJvdmlkZXIgbG9jYXRpb25zLg0KPGJyIC8+DQo8YnIgLz4NCuKAoglOdXRyaXRpb24gVGhlcmFweSAtIE51dHJpdGlvbmFsIHN0YXR1cyBpcyBhc3Nlc3NlZCBieSBhIGxpY2Vuc2VkLCByZWdpc3RlcmVkIGRpZXRpY2lhbiB3aG8gZGV2ZWxvcHMgYSBudXRyaXRpb24gcGxhbiB3aXRoIHRoZSBjbGllbnQgYW5kIHByb3ZpZGVzIG51dHJpdGlvbiBlZHVjYXRpb24gYW5kIGNvdW5zZWxpbmcsIGFuZCBmcmVlIG51dHJpdGlvbmFsIHN1cHBsZW1lbnRzLiBUaGlzIHByb2dyYW0gaXMgZGVzaWduZWQgZm9yIGNsaWVudHMgd2hvIGFyZSBISVYtcG9zaXRpdmUuDQo8YnIgLz4NCjxiciAvPg0K4oCiCVN1cHBvcnQgR3JvdXBzIC0gRGlmZmVyZW50IHR5cGVzIG9mIHN1cHBvcnQgZ3JvdXBzIGJhc2VkIG9uIG5lZWQgYW5kIGludGVyZXN0IGluY2x1ZGUgc3Bpcml0dWFsaXR5LCBkZWNpc2lvbi1tYWtpbmcsIGFuZ2VyIG1hbmFnZW1lbnQsIEhJVi9BSURTLCBhbmQgc3Vic3RhbmNlIGFidXNlIHJlY292ZXJ5Lg0KPGJyIC8+DQo8YnIgLz4NCuKAoglTdWJzdGFuY2UgQWJ1c2UgQ291bnNlbGluZyAtIFNjcmVlbmluZywgYXNzZXNzbWVudCwgYW5kIHBsYWNlbWVudCBmb3Igc3Vic3RhbmNlLXVzZSB0cmVhdG1lbnQuIEluZGl2aWR1YWwgYW5kIGdyb3VwIGNvdW5zZWxpbmcgaXMgcHJvdmlkZWQgYnkgbGljZW5zZWQgYWRkaWN0aW9uIGNvdW5zZWxvcnMuIFRoZWlyIHRyYWZmaWMgYWxjb2hvbCBlZHVjYXRpb24gYW5kIGNvdW5zZWxpbmcgcHJvZ3JhbSB3b3JrcyB3aXRoIGluZGl2aWR1YWxzIHdobyBoYXZlIGJlZW4gY2hhcmdlZCB3aXRoIGEgRFdJL0RVSS4NCjxiciAvPg0KPGJyIC8+DQrigKIJTWVudGFsIEhlYWx0aCBTZXJ2aWNlcyAtIFNjcmVlbmluZyBhbmQgY29tcHJlaGVuc2l2ZSBhc3Nlc3NtZW50cyBhcmUgcHJvdmlkZWQgYnkgbGljZW5zZWQgdGhlcmFwaXN0cyB0byBkZXRlcm1pbmUgbWVudGFsIGhlYWx0aCBzZXJ2aWNlIG5lZWRzIGFuZCBjb21wcmVoZW5zaXZlIHNlcnZpY2VzIGZvciBhZHVsdHMsIGNoaWxkcmVuLCBhbmQgYWRvbGVzY2VudHMuICAgVGhleSBwcm92aWRlIGluZGl2aWR1YWwsIGZhbWlseSwgY291cGxlcywgYW5kIGdyb3VwIHRoZXJhcHkuDQo8YnIgLz4NCjxiciAvPg0K4oCiCUZvb2QgQmFuayAtIE51dHJpdGlvdXMgZm9vZHMsIGRpc3RpbGxlZCB3YXRlciwgYW5kIGZlbWluaW5lIGh5Z2llbmUgcHJvZHVjdHMgYXJlIHByb3ZpZGVkLCBhcyB3ZWxsIGFzIGVtZXJnZW5jeSBmb29kIHNlcnZpY2VzLiBUaGlzIHByb2dyYW0gaXMgY29vcmRpbmF0ZWQgd2l0aCBudXRyaXRpb24gdGhlcmFweSBmb3IgcGVyc29ucyB3aG8gYXJlIEhJVi1wb3NpdGl2ZS4NCjxiciAvPg0KPGJyIC8+DQrigKIJVHJlYXRtZW50IEFkaGVyZW5jZSAtIEluZGl2aWR1YWwgYW5kIGdyb3VwIHRyZWF0bWVudCBhZGhlcmVuY2UgZWR1Y2F0aW9uLCB0cmVhdG1lbnQgYWRoZXJlbmNlIHBsYW5zIGFuZCBzdXBwb3J0IHRvb2xzLiBUaGlzIHByb2dyYW0gaXMgaW50ZWdyYXRlZCB3aXRoIG1lZGljYWwgY2FzZSBtYW5hZ2VtZW50IGFuZCBwcmltYXJ5IG1lZGljYWwgY2FyZSB0byBvcHRpbWl6ZSBhZGhlcmVuY2Ugb2YgSElWLXBvc2l0aXZlIGNsaWVudHMgd2l0aCBwcmVzY3JpYmVkIHRyZWF0bWVudCByZWdpbWVucy4NCjxiciAvPg0KPGJyIC8+DQrigKIJTmVlZGxlIEV4Y2hhbmdlIFNlcnZpY2VzIC0gUGFydGljaXBhbnRzIHJlY2VpdmUgc3RlcmlsZSBpbmplY3Rpb24gZXF1aXBtZW50IGFuZCBzYWZlciBzZXgga2l0cyBmcm9tIHRoZSBvdXRyZWFjaCB0ZWFtLiBBIG1vYmlsZSB2YW4gdmlzaXRzIGxvY2F0aW9ucyBpbiB0aGUgY29tbXVuaXR5IGF0IHJlZ3VsYXJseS1zY2hlZHVsZWQgdGltZXMuIFBhcnRpY2lwYW50cyBhcmUgZ2l2ZW4gaGFybSByZWR1Y3Rpb24gYW5kIEhJVi9IZXBhdGl0aXMgQyBwcmV2ZW50aW9uIGluZm9ybWF0aW9uIGFuZCByZWZlcnJhbHMgZm9yIG5lZWRlZCBoZWFsdGggYW5kIHNvY2lhbCBzZXJ2aWNlcy4gQSBsaWNlbnNlZCBtZWRpY2FsIHByb3ZpZGVyIGFsc28gcHJvdmlkZXMgd291bmQgY2FyZSBvbiB0aGUgdmFuLg0KPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzE2Nx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZJcjUTOuH+cMaIcG3LSEw1SWA4pF" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLpw8DLDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAd4aB82SlJLDDeTliiU+S3jlm3DN" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2041 Martin Luther King Jr Avenue, SE, # 303 Washington  DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Family and Medical Counseling Services, Inc. (FMCS)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2041 Martin Luther King Jr Avenue, SE, # 303 Washington , DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 889-7900<br /><b>Fax No:</b>(202) 610-3095<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.fmcinc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Medical, Mental Health, Substance Abuse<br \><b>Services : </b> Community health, Mental health treatment, Nutritional services, Substance abuse treatment<br \><b>Type Of Care : </b> HIV/AIDS, Intensive outpatient, Outpatient, Primary (Adult, Family &amp; Pediatrics)<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Domestic Violence, DUI/DWI education program, Emergency food/groceries, Family issues--counseling, marriage, parenting, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Persons with HIV/AIDS, Under age 18, Under age 21, Women<br \><b>Forms Of Payment : </b> Access to recovery voucher, Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>8:30am - 5:30pm M - Fri, 9:00am - 1:00pm Sat<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>ID and insurance card; APRA Vouchers accepted<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>FMCS offers a multitude of services, including:
+<br />
+<br />
+•	Medical Management - Medical case managers (MCMs) assess clients’ needs, link clients to appropriate services, remind clients of forthcoming appointments, and assist with treatment adherence planning and social service applications (i.e. food stamps, SSI, WIC).
+<br />
+<br />
+•	Primary Medical Care - Primary Medical Care is provided for anyone who in need regardless of ability to pay. Medical care is coordinated with behavioral health and other services to ensure that other related service needs are provided at one location.  They specialize in providing comprehensive medical care for HIV/AIDS positive persons through all stages of illness. Persons who test positive to HIV are given immediate access to care.   They also have a HEALing Clinic, staffed by George Washington University medical students and FMCS providers, which is open Tuesday evenings from 5:30 p.m. to 8:30 p.m. by appointment only for those that prefer an evening clinic. Call 202-889-7900 to schedule an appointment.
+<br />
+<br />
+•	HIV/Aids Prevention/Community Outreach
+<br />
+<br />
+•	HIV Counseling, Testing, and Referral Services - HIV Testing Counselors use OraQuick, an oral method that gives preliminary HIV test results in 20 minutes. People with a preliminary reactive result are given expedited access to a confirmatory test and linkage to primary medical care. Free HIV tests are provided in the community on their mobile van, in their offices for walk-in test requests, and at other service provider locations.
+<br />
+<br />
+•	Nutrition Therapy - Nutritional status is assessed by a licensed, registered dietician who develops a nutrition plan with the client and provides nutrition education and counseling, and free nutritional supplements. This program is designed for clients who are HIV-positive.
+<br />
+<br />
+•	Support Groups - Different types of support groups based on need and interest include spirituality, decision-making, anger management, HIV/AIDS, and substance abuse recovery.
+<br />
+<br />
+•	Substance Abuse Counseling - Screening, assessment, and placement for substance-use treatment. Individual and group counseling is provided by licensed addiction counselors. Their traffic alcohol education and counseling program works with individuals who have been charged with a DWI/DUI.
+<br />
+<br />
+•	Mental Health Services - Screening and comprehensive assessments are provided by licensed therapists to determine mental health service needs and comprehensive services for adults, children, and adolescents.   They provide individual, family, couples, and group therapy.
+<br />
+<br />
+•	Food Bank - Nutritious foods, distilled water, and feminine hygiene products are provided, as well as emergency food services. This program is coordinated with nutrition therapy for persons who are HIV-positive.
+<br />
+<br />
+•	Treatment Adherence - Individual and group treatment adherence education, treatment adherence plans and support tools. This program is integrated with medical case management and primary medical care to optimize adherence of HIV-positive clients with prescribed treatment regimens.
+<br />
+<br />
+•	Needle Exchange Services - Participants receive sterile injection equipment and safer sex kits from the outreach team. A mobile van visits locations in the community at regularly-scheduled times. Participants are given harm reduction and HIV/Hepatitis C prevention information and referrals for needed health and social services. A licensed medical provider also provides wound care on the van.
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

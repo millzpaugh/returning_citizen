@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSoyMjAgSGlnaHZpZXcgUGxhY2UsIFNFIFdhc2hpbmd0b24gREMgMjAwMzJkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUrMjIwIEhpZ2h2aWV3IFBsYWNlLCBTRSBXYXNoaW5ndG9uLCBEQyAyMDAzMmRkAgMPDxYCHwIFTDxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA1NzQtMzQ0MjxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNTc0LTM0NzQ8YnIgLz5kZAIFDw8WAh8CBTg8Yj5XZWJzaXRlOiA8L2I+Ly93d3cuY2F0aG9saWNjaGFyaXRpZXNkYy5vcmcvc2VmYzxiciAvPmRkAgcPDxYCHwIFmQI8Yj5DYXRlZ29yeSA6IDwvYj4gU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1vbmV0YXJ5IGFzc2lzdGFuY2UsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgTW9ydGdhZ2UvUmVudCAoRVJBUCksIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzLCBVdGlsaXRpZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBGYW1pbGllczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPkNvbnRhY3QgZm9yIGhvdXJzIG9mIG9wZXJhdGlvbi48YnIgLz5kZAIPDw8WAh8CBUI8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk11c3QgYmUgaG9tZWxlc3Mgb3IgbG93LWluY29tZS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFngg8Yj5EZXNjcmlwdGlvbjogPC9iPkNhdGhvbGljIENoYXJpdGllcyBpcyB0aGUgc29jaWFsIG1pbmlzdHJ5IG91dHJlYWNoIG9mIHRoZSBBcmNoZGlvY2VzZSBvZiBXYXNoaW5ndG9uLiBNb3RpdmF0ZWQgYnkgdGhlIEdvc3BlbCBtZXNzYWdlIG9mIEplc3VzIENocmlzdCwgYW5kIGd1aWRlZCBieSBDYXRob2xpYyBzb2NpYWwgYW5kIG1vcmFsIHRlYWNoaW5nLCBDYXRob2xpYyBDaGFyaXRpZXMgc3RyZW5ndGhlbnMgdGhlIGxpdmVzIG9mIGFsbCBpbiBuZWVkIGJ5IGdpdmluZyBoZWxwIHRoYXQgZW1wb3dlcnMgYW5kIGhvcGUgdGhhdCBsYXN0cy4gVG8gdGhpcyBlbmQgd2UgYWZmaXJtIGFuZCBzdXBwb3J0IHRoZSBkaWduaXR5IG9mIGFsbCBodW1hbiBsaWZlLCBzdHJlbmd0aGVuIGZhbWlsaWVzIGFuZCBzZXJ2ZSB0aGUgcG9vciBhbmQgbW9zdCB2dWxuZXJhYmxlLg0KPGJyIC8+DQo8YnIgLz4NClRoZSBTb3V0aGVhc3QgRmFtaWx5IENlbnRlciBzZXJ2ZXMgYXMgYSBnYXRld2F5IHRvIHByb3ZpZGluZyBoZWxwIGZvciBhbGwgdHlwZXMgb2YgY3Jpc2VzIGFuZCBuZWVkcy4gVGhlIFNvdXRoZWFzdCBGYW1pbHkgQ2VudGVyLCBsb2NhdGVkIGluIFdhcmQgOCwgZm9jdXNlcyBvbiBrZWVwaW5nIGZhbWlsaWVzIGluIHRoZWlyIGhvbWVzIGFuZCB3b3JraW5nIHRvIGZpbmQgZW1wbG95bWVudCBvciBvdGhlciBmb3JtcyBvZiBhc3Npc3RhbmNlIHRvIHRyZWF0IGxvbmctdGVybSBjaGFsbGVuZ2VzLiANCjxiciAvPg0KPGJyIC8+DQpUaHJvdWdoIHRoZSBDZW50ZXLigJlzIEVtZXJnZW5jeSBSZW50YWwgQXNzaXN0YW5jZSBwcm9ncmFtLCBmdW5kaW5nIHRvIGFzc2lzdCBEQyByZXNpZGVudHMsIHdobyBtYXkgZmFjZSBldmljdGlvbiBhcmUgYXNzaXN0ZWQgYnkgcHJvdmlkaW5nIHJlbnRhbCBmdW5kcy4NCjxiciAvPg0KPGJyIC8+DQpJbmZvcm1hdGlvbiBhbmQgUmVmZXJyYWxzOiANCkNhbGwgZm9yIGFuIGFwcG9pbnRtZW50IHdpdGggYSBGYW1pbHkgU3VwcG9ydCBXb3JrZXIgb3IgdmlzaXQgdGhlIHdlYnNpdGUgZm9yIG1vcmUgaW5mb3JtYXRpb24uPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzU1OB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZMoySaTWxT9lweZ46VnJhuEguzJn" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKCqKObCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXtXtMO5vaQGoWW0LDw/U/cN8A3x" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="220 Highview Place, SE Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Southeast Family Center (Catholic Charities)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">220 Highview Place, SE Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 574-3442<br /><b>Fax No:</b>(202) 574-3474<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>//www.catholiccharitiesdc.org/sefc<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Monetary assistance, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Mortgage/Rent (ERAP), Referrals for social services, Utilities<br \><b>Population : </b> Families<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Contact for hours of operation.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Must be homeless or low-income.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Catholic Charities is the social ministry outreach of the Archdiocese of Washington. Motivated by the Gospel message of Jesus Christ, and guided by Catholic social and moral teaching, Catholic Charities strengthens the lives of all in need by giving help that empowers and hope that lasts. To this end we affirm and support the dignity of all human life, strengthen families and serve the poor and most vulnerable.
+<br />
+<br />
+The Southeast Family Center serves as a gateway to providing help for all types of crises and needs. The Southeast Family Center, located in Ward 8, focuses on keeping families in their homes and working to find employment or other forms of assistance to treat long-term challenges. 
+<br />
+<br />
+Through the Center’s Emergency Rental Assistance program, funding to assist DC residents, who may face eviction are assisted by providing rental funds.
+<br />
+<br />
+Information and Referrals: 
+Call for an appointment with a Family Support Worker or visit the website for more information.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

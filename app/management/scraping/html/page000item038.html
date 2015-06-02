@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxNDAwIERlY2F0dXIgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDExZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDE0MDAgRGVjYXR1ciBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDExZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDI5MS00NzA3PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA3MjMtNDU2MDxiciAvPmRkAgUPDxYCHwIFOjxiPldlYnNpdGU6IDwvYj53d3cuYW5kcm9tZWRhdHJhbnNjdWx0dXJhbGhlYWx0aC5vcmc8YnIgLz5kZAIHDw8WAh8CBd0EPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lZGljYWwsIE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ29tbXVuaXR5IGhlYWx0aCwgTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEhJVi9BSURTLCBPdXRwYXRpZW50LCBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIERvbWVzdGljIFZpb2xlbmNlLCBHcmllZiAmYW1wOyBsb3NzLCBUcmF1bWEtLXNleHVhbCBhYnVzZS9QVFNEL3ZpY3RpbXMgb2YgY3JpbWU8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgVW5kZXIgYWdlIDE4LCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD5kZAIJDw8WAh8CBWQ8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaCwgRnJlbmNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFdTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA5OjAwIGFtIC0gNTowMCBwbTsgU2F0dXJkYXlzIChCeSBBcHBvaW50bWVudCBPbmx5KTsgU3VuZGF5cyAoQ2xvc2VkKTxiciAvPmRkAg8PDxYCHwIFQDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+REMsIE1hcnlsYW5kIGFuZCBWQSByZXNpZGVudHM8YnIgLz5kZAIRDw8WAh8CBTg8Yj5Eb2N1bWVudGF0aW9uIE5lZWRlZDogPC9iPklEIGFuZCBpbnN1cmFuY2UgY2FyZDxiciAvPmRkAhMPDxYCHwIF3Q48Yj5EZXNjcmlwdGlvbjogPC9iPkFuZHJvbWVkYeKAmXMgbWlzc2lvbiBpcyB0byBwcm92aWRlIGFjY2VzcyB0byBxdWFsaXR5IGhlYWx0aGNhcmUgdW5kZXIgdGhlIHByZW1pc2UgdGhhdCBhbGwgaHVtYW5zIGFyZSBpbmhlcmVudGx5IG9mIGVxdWFsIHdvcnRoIGJ1dCBoYXZlIGN1bHR1cmFsIGFuZCBsaW5ndWlzdGljIGRpZmZlcmVuY2VzIHRoYXQgbXVzdCBiZSBjb25zaWRlcmVkLiBUaGlzIHBoaWxvc29waHkgcmVmbGVjdHMgYSBoaWdoIGxldmVsIG9mIGNvbW11bml0eSBoZWFsdGggY2FyZSB0aGF0IGhhcyBiZWVuIHZhbGlkYXRlZCBieSBvdmVyIHRocmVlIGRlY2FkZXMgb2YgZGlyZWN0IHNlcnZpY2UgdG8gbWlub3JpdGllcyBhbmQgdW5kZXItc2VydmVkIHBvcHVsYXRpb25zLg0KPGJyIC8+DQo8YnIgLz4NCkFuZHJvbWVkYSBUcmFuc2N1bHR1cmFsIEhlYWx0aCBwcm92aWRlcyBhY2Nlc3MgdG8gcXVhbGl0eSBoZWFsdGhjYXJlIHRvIG1pbm9yaXRpZXMgYW5kIHVuZGVyLXNlcnZlZCBwb3B1bGF0aW9ucywgbmFtZWx5IHRob3NlIHdpdGggY3VsdHVyYWwgYW5kIGxpbmd1aXN0aWMgZGlmZmVyZW5jZXMuIFRoZXkgcHJvdmlkZSBwcmV2ZW50aW9uIGFuZCB0cmVhdG1lbnQgb2YgSElWL0FJRFMsIEhJViB0ZXN0aW5nLCBwcmltYXJ5IGNhcmUsIGNhc2UgbWFuYWdlbWVudCwgc3Vic3RhbmNlIGFidXNlIGNvdW5zZWxpbmcsIG1lbnRhbCBoZWFsdGggY291bnNlbGluZyBmb2N1c2luZyBvbiB0cmF1bWEsIGFuZ2VyIG1hbmFnZW1lbnQsIGRvbWVzdGljIHZpb2xlbmNlLCBncmllZiBhbmQgbG9zcywgYW5kIHJlZmVycmFsIGZvciBob3VzaW5nIGFuZCBob3NwaXRhbGl6YXRpb24uICBUaGVzZSBzZXJ2aWNlcyBhcmUgZnJlZSB0byBEQyByZXNpZGVudHMuICAgQXBwb2ludG1lbnRzIGZvciBwcmltYXJ5IGNhcmUgY2FuIGJlIG1hZGUgd2l0aCB0aGUgUGh5c2ljaWFu4oCZcyBBc3Npc3RhbnQgb24gTW9uZGF5cyBhbmQgV2VkbmVzZGF5cyBmcm9tIDk6MDAgYW0g4oCTIDU6MDAgcG0uICAgDQo8YnIgLz4NCjxiciAvPg0KQW5kcm9tZWRhIFRyYW5zY3VsdHVyYWwgSGVhbHRoIGFsc28gcHJvdmlkZXMgaW5kaXZpZHVhbCBhbmQgZ3JvdXAgY291bnNlbGluZyBmb3IgdGhlIGR1YWxseSBkaWFnbm9zZWQ7IGNoaWxkcmVu4oCZcyBwcm9ncmFtIHdpdGggZW1waGFzaXMgb24gZGVwcmVzc2lvbiBhbmQgYXR0ZW50aW9uIGRlZmljaXQgZGlzb3JkZXJzIChjaGlsZHJlbiBzZWVuIG9uIFNhdHVyZGF5cyBvbmx5KTsgTGF0aW5vIFdvbWVu4oCZcyBncm91cCBldmVyeSBUaHVyc2RheSBldmVuaW5nIChmcmVlIGFuZCBjb25kdWN0ZWQgaW4gU3BhbmlzaCk7IGFkdWx0IHBzeWNoaWF0cmljIHRyZWF0bWVudCB3aXRoIGFjY2VzcyB0byBob3NwaXRhbGl6YXRpb24gYXQgV2FzaGluZ3RvbiBIb3NwaXRhbCBDZW50ZXIgYW5kIEhvd2FyZCBVbml2ZXJzaXR5IEhvc3BpdGFsLiBBbmRyb21lZGEgVHJhbnNjdWx0dXJhbCBIZWFsdGggYWxzbyBydW5zIGEgbW9iaWxlIG91dHJlYWNoIHZlaGljbGUgKFByb2plY3QgT3Jpb24pIHRoYXQgcHJvdmlkZXMgSElWIHRlc3RpbmcsIHByaW1hcnkgY2FyZSwgY2FzZSBtYW5hZ2VtZW50LCByZWZlcnJhbCBhbmQgZWR1Y2F0aW9uIHNlcnZpY2VzLiBBY2NlcHRzIHB1YmxpYyBmdW5kaW5nLCBzZWxmLXBheW1lbnQgKCQ1MCBmbGF0IGZlZSBwZXIgdmlzaXQpLCBNZWRpY2FpZCwgQ2hhcnRlciBIZWFsdGgsIHNvbWUgUHJpdmF0ZSBpbnN1cmFuY2UgKGNhbGwgaW4gYWR2YW5jZSB0byBzZWUgaWYgdGhleSBhY2NlcHQgeW91ciBpbnN1cmFuY2UpLiBTcGFuaXNoIGFuZCBGcmVuY2ggc3BlYWtpbmcgc3RhZmYgYXZhaWxhYmxlLiBEYXkgcHJvZ3JhbSBjdXJyZW50bHkgbm90IGJlaW5nIG9mZmVyZWQuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzIxMR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZDt7IYMp6cmbt/D/5nXfN2R94NTH" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL9jqCJDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAS915jQ1Fp3Dn0JxIGP7HGjUFf14" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1400 Decatur Street, NW Washington DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Andromeda Transcultural Health" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1400 Decatur Street, NW Washington, DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 291-4707<br /><b>Fax No:</b>(202) 723-4560<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.andromedatransculturalhealth.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical, Mental Health<br \><b>Services : </b> Community health, Mental health treatment<br \><b>Type Of Care : </b> HIV/AIDS, Outpatient, Primary (Adult, Family &amp; Pediatrics)<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Domestic Violence, Grief &amp; loss, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Men, Persons with HIV/AIDS, Under age 18, Women<br \><b>Forms Of Payment : </b> Medicaid, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, French<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am - 5:00 pm; Saturdays (By Appointment Only); Sundays (Closed)<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC, Maryland and VA residents<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>ID and insurance card<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Andromeda’s mission is to provide access to quality healthcare under the premise that all humans are inherently of equal worth but have cultural and linguistic differences that must be considered. This philosophy reflects a high level of community health care that has been validated by over three decades of direct service to minorities and under-served populations.
+<br />
+<br />
+Andromeda Transcultural Health provides access to quality healthcare to minorities and under-served populations, namely those with cultural and linguistic differences. They provide prevention and treatment of HIV/AIDS, HIV testing, primary care, case management, substance abuse counseling, mental health counseling focusing on trauma, anger management, domestic violence, grief and loss, and referral for housing and hospitalization.  These services are free to DC residents.   Appointments for primary care can be made with the Physician’s Assistant on Mondays and Wednesdays from 9:00 am – 5:00 pm.   
+<br />
+<br />
+Andromeda Transcultural Health also provides individual and group counseling for the dually diagnosed; children’s program with emphasis on depression and attention deficit disorders (children seen on Saturdays only); Latino Women’s group every Thursday evening (free and conducted in Spanish); adult psychiatric treatment with access to hospitalization at Washington Hospital Center and Howard University Hospital. Andromeda Transcultural Health also runs a mobile outreach vehicle (Project Orion) that provides HIV testing, primary care, case management, referral and education services. Accepts public funding, self-payment ($50 flat fee per visit), Medicaid, Charter Health, some Private insurance (call in advance to see if they accept your insurance). Spanish and French speaking staff available. Day program currently not being offered.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

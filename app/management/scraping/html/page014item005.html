@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTcxNTE4IEsgU3RyZWV0LCBOVyAoTWV6emFuaW5lIExldmVsKSBXYXNoaW5ndG9uIERDIDIwMDA1ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFODE1MTggSyBTdHJlZXQsIE5XIChNZXp6YW5pbmUgTGV2ZWwpIFdhc2hpbmd0b24sIERDIDIwMDA1ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU0OC0yNDAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1NDgtMjQwMzxiciAvPmRkAgUPDxYCHwIFKDxiPldlYnNpdGU6IDwvYj53d3cub3VycGxhY2VkYy5vcmc8YnIgLz5kZAIHDw8WAh8CBcwDPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmcsIExlZ2FsLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRGF5IHByb2dyYW1zL0Ryb3AtaW4gY2VudGVycywgTGVnYWwsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgRmFtaWx5IGxhdy0tY2hpbGQgY3VzdG9keSwgc3VwcG9ydCwgdmlzaXRhdGlvbiwgZ3VhcmRpYW5zaGlwLCBMYW5kbG9yZC9UZW5hbnQvRmFpciBob3VzaW5nLCBQdWJsaWMgYmVuZWZpdHMsIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFejxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk9mZmljZSBIb3VyczogTW9uZGF5IC0gRnJpZGF5IDk6MDAgYW0gLSA1OjAwIHBtOyBMZWdhbCBDbGluaWM6IEZyaWRheXMgMTE6MDAgYW0gLSA0OjAwIHBtPGJyIC8+ZGQCDw8PFgIfAgV3PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbiB3aG8gYXJlIGN1cnJlbnRseSBpbmNhcmNlcmF0ZWQgb3IgcmV0dXJuaW5nIHRvIHRoZSBjb21tdW5pdHkgZnJvbSBqYWlsL3ByaXNvbi48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF5ww8Yj5EZXNjcmlwdGlvbjogPC9iPk91ciBQbGFjZSwgREMsIHByb3ZpZGVzIGxlZ2FsIHN1cHBvcnQgc2VydmljZXMgZm9yIHdvbWVuIHdobyBhcmUgY3VycmVudGx5IGluY2FyY2VyYXRlZCBvciByZXR1cm5pbmcgdG8gdGhlIGNvbW11bml0eSBmcm9tIHByaXNvbiBvciBqYWlsLiBDbGllbnRzIGFyZSBwcm92aWRlZCB3aXRoIGRpcmVjdCBsZWdhbCBhc3Npc3RhbmNlIGluIG9idGFpbmluZyBtZWRpY2FsIGNhcmUgd2hpbGUgaW5jYXJjZXJhdGVkOyBhbmQgcGFyb2xlIG1hdHRlcnMgKGhlYXJpbmdzLCBwYXJvbGUgZGVjaXNpb25zLCBwYXJvbGUgZ3JhbnQgbGV0dGVycy4gQ2xpZW50cyBtYXkgYWxzbyByZWNlaXZlIGxlZ2FsIGFzc2lzdGFuY2UgaW4gdW5jb250ZXN0ZWQgZGl2b3JjZXMsIGNoaWxkIHZpc2l0YXRpb24vY2hpbGQgY3VzdG9keSwgbGFuZGxvcmQvdGVuYW50IGNoYWxsZW5nZXMsIHNleHVhbCBoYXJhc3NtZW50IGNsYWltcywgZGVuaWFsIG9mIHB1YmxpYyBiZW5lZml0cyBhbmQgb2J0YWluaW5nIG1lZGljYWwgb3IgaW5zdGl0dXRpb25hbCBmaWxlcy4gDQo8YnIgLz4NCjxiciAvPg0KSE9VU0lORzoNCjxiciAvPg0KVGhyb3VnaCB0aGUgUmUtRW50cnkgU2VydmljZXMgQ2FzZSBNYW5hZ2VycyB3b3JrIGluZGl2aWR1YWxseSB3aXRoIHdvbWVuIHdoaWxlIHRoZXkgYXJlIGluY2FyY2VyYXRlZCB0byBjcmVhdGUgYSByZS1lbnRyeSBwbGFuIGJhc2VkIHVwb24gdGhlIHdvbWVu4oCZcyBzZWxmLWlkZW50aWZpZWQgbmVlZHMuIENhc2UgTWFuYWdlcnMgbWVldCB3aXRoIHdvbWVuIG9uY2UgYSBtb250aCwgb3Igb25jZSBldmVyeSBvdGhlciBtb250aCwgd2hpbGUgdGhlIHdvbWVuIGFyZSBpbmNhcmNlcmF0ZWQgdG8gYmVnaW4gdG8gcHV0IHRoZWlyIHJlLWVudHJ5IHBsYW5zIGludG8gYWN0aW9uIGFuZCB0byBoZWxwIGNvbm5lY3QgdGhlIHdvbWVuIHRvIHJlc291cmNlcyBpbiBEQyB0byBhaWQgaW4gdGhlaXIgcmUtZW50cnkuIE9uY2UgdGhlIHdvbWVuIGFyZSByZWxlYXNlZCB0aGV5IGFyZSBleHBlY3RlZCB0byBtZWV0IHdpdGggY2FzZSBtYW5hZ2VycyBhdCBsZWFzdCBvbmNlIGEgbW9udGguIENhc2UgTWFuYWdlcnMgYXNzaXN0IHdvbWVuIGluIG9idGFpbmluZyBpZGVudGlmaWNhdGlvbiwgcG9saWNlIGNsZWFyYW5jZXMgYW5kIGJpcnRoIGNlcnRpZmljYXRlcy4gQ2FzZSBtYW5hZ2VycyBhbHNvIGFzc2lzdCB3b21lbiBpbiBmaW5kaW5nIG1lbnRhbCBoZWFsdGggc2VydmljZXMsIHN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQsIHRyYW5zaXRpb25hbCBob3VzaW5nLCBlbXBsb3ltZW50IGFuZCBsZWdhbCBzZXJ2aWNlcyBhbmQgb3RoZXIgcmVzb3VyY2VzIGJhc2VkIHVwb24gdGhlaXIgaW5kaXZpZHVhbCBuZWVkcy4NCjxiciAvPg0KPGJyIC8+DQpTT0NJQUwgU0VSVklDRVM6DQo8YnIgLz4NClRoZSBFbXBsb3ltZW50IERlcGFydG1lbnQgYXQgT3VyIFBsYWNlIERDIGFzc2lzdHMgY2xpZW50cyB3aXRoIGZpbmRpbmcgZW1wbG95bWVudCwgaGVscHMgY2xpZW50cyBhY3F1aXJlIGpvYiB0cmFpbmluZyBhbmQgZWR1Y2F0aW9uLCBhbmQgd29ya3Mgb25lIG9uIG9uZSB3aXRoIGNsaWVudHMgdG8gaGVscCB0aGVtIGF0dGFpbiB0aGVpciBjYXJlZXIgZ29hbHMuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzM0MR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZIHuMC32/GRXT3YkR8j5o3ETaV3s" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL3upLSDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARA0SIOvjeeSVqnlvwOaT/IkkOh1" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1518 K Street, NW (Mezzanine Level) Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Our Place, DC" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1518 K Street, NW (Mezzanine Level) Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 548-2400<br /><b>Fax No:</b>(202) 548-2403<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ourplacedc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Legal, Social Services<br \><b>Services : </b> Day programs/Drop-in centers, Legal, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Family law--child custody, support, visitation, guardianship, Landlord/Tenant/Fair housing, Public benefits, Referrals for social services<br \><b>Population : </b> Criminal justice involved, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Office Hours: Monday - Friday 9:00 am - 5:00 pm; Legal Clinic: Fridays 11:00 am - 4:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women who are currently incarcerated or returning to the community from jail/prison.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Our Place, DC, provides legal support services for women who are currently incarcerated or returning to the community from prison or jail. Clients are provided with direct legal assistance in obtaining medical care while incarcerated; and parole matters (hearings, parole decisions, parole grant letters. Clients may also receive legal assistance in uncontested divorces, child visitation/child custody, landlord/tenant challenges, sexual harassment claims, denial of public benefits and obtaining medical or institutional files. 
+<br />
+<br />
+HOUSING:
+<br />
+Through the Re-Entry Services Case Managers work individually with women while they are incarcerated to create a re-entry plan based upon the women’s self-identified needs. Case Managers meet with women once a month, or once every other month, while the women are incarcerated to begin to put their re-entry plans into action and to help connect the women to resources in DC to aid in their re-entry. Once the women are released they are expected to meet with case managers at least once a month. Case Managers assist women in obtaining identification, police clearances and birth certificates. Case managers also assist women in finding mental health services, substance abuse treatment, transitional housing, employment and legal services and other resources based upon their individual needs.
+<br />
+<br />
+SOCIAL SERVICES:
+<br />
+The Employment Department at Our Place DC assists clients with finding employment, helps clients acquire job training and education, and works one on one with clients to help them attain their career goals.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

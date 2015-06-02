@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSY3MjEgOHRoIFN0cmVldCwgU0UgV2FzaGluZ3RvbiBEQyAyMDAwM2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSc3MjEgOHRoIFN0cmVldCwgU0UgV2FzaGluZ3RvbiwgREMgMjAwMDNkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTQ2LTIyMzU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDUyMS0zOTU0PGJyIC8+ZGQCBQ8PFgIfAgUvPGI+V2Vic2l0ZTogPC9iPnd3dy5kaWduaXR5d2FzaGluZ3Rvbi5vcmc8YnIgLz5kZAIHDw8WAh8CBfcBPGI+Q2F0ZWdvcnkgOiA8L2I+IFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBMZXNiaWFuLCBHYXksIEJpc2V4dWFsLCBUcmFuc2dlbmRlciAmYW1wOyBTZXh1YWwgTWlub3JpdGllczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFPjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1hc3MgYXQgNjowMCBQTSBldmVyeSBTdW5kYXkgPGJyIC8+ZGQCDw8PFgIfAgVjPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5QZXJzb25zIG9mIHRoZSBnYXksIGxlc2JpYW4sIGJpc2V4dWFsIGFuZCB0cmFuc2dlbmRlciBjb21tdW5pdHkuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBZgFPGI+RGVzY3JpcHRpb246IDwvYj5EaWduaXR5IFdhc2hpbmd0b24gaXMgYSBjb21tdW5pdHkgb2YgR2F5LCBMZXNiaWFuLCBCaXNleHVhbCBhbmQgVHJhbnNnZW5kZXIgQ2F0aG9saWNzIGFuZCBvdGhlciBDaHJpc3RpYW5zLCBvdXIgZmFtaWxpZXMgYW5kIGZyaWVuZHMuIFRoZSBvcmdhbml6YXRpb24gcHJvdmlkZXMgYSBoZWFsaW5nIG91dHJlYWNoIHRvIEdheSwgTGVzYmlhbiwgQmlzZXh1YWwsIFRyYW5zZ2VuZGVyIENhdGhvbGljcyBhbmQgb3RoZXIgcGVvcGxlIGJ5IGFmZmlybWF0aW9uIHRoYXQgdGhleSBhcmUgYmVsb3ZlZCBjaGlsZHJlbiBvZiBHb2QuIERpZ25pdHkgV2FzaGluZ3RvbiBnYXRoZXJzIHRvZ2V0aGVyIHRvIGVzdGFibGlzaCBhIG51cnR1cmluZyBjb21tdW5pdHkgb2Ygd29yc2hpcCwgYmxlc3NpbmcsIGNlbGVicmF0aW9uLCBtaW5pc3RyeSwgc3Bpcml0dWFsIGRldmVsb3BtZW50LCBlZHVjYXRpb24gYW5kIGZlbGxvd3NoaXAuDQo8YnIgLz4NCjxiciAvPg0KRGlnbml0eS9XYXNoaW5ndG9uIGlzIGEgY2hhcHRlciBpbiB0aGUgbmF0aW9uYWwgb3JnYW5pemF0aW9uIERpZ25pdHkvVVNBLiBXaXRoIEV1Y2hhcmlzdCBjZWxlYnJhdGlvbiBTdW5kYXkgTWFzcyBpbiB0aGUgRHVwb250IENpcmNsZSBhcmVhIGluIFdhc2hpbmd0b24sIERDLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0MTkeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSW0mWobDtH8hPjj802wDKmLFeGqg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKwtdT5DQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAe2RLaDbrBYwvSi5yzGFl0EWq+pL" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="721 8th Street, SE Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Dignity Washington" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">721 8th Street, SE Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 546-2235<br /><b>Fax No:</b>(202) 521-3954<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dignitywashington.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services<br \><b>Population : </b> Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Mass at 6:00 PM every Sunday <br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Persons of the gay, lesbian, bisexual and transgender community.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Dignity Washington is a community of Gay, Lesbian, Bisexual and Transgender Catholics and other Christians, our families and friends. The organization provides a healing outreach to Gay, Lesbian, Bisexual, Transgender Catholics and other people by affirmation that they are beloved children of God. Dignity Washington gathers together to establish a nurturing community of worship, blessing, celebration, ministry, spiritual development, education and fellowship.
+<br />
+<br />
+Dignity/Washington is a chapter in the national organization Dignity/USA. With Eucharist celebration Sunday Mass in the Dupont Circle area in Washington, DC.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

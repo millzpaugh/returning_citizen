@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BT80MjAwIENvbm5lY3RpY3V0IEF2ZW51ZSwgTlcgIEludGVsc2F0IDZQLTQyIFdhc2hpbmd0b24gREMgMjAwMDhkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgVANDIwMCBDb25uZWN0aWN1dCBBdmVudWUsIE5XICBJbnRlbHNhdCA2UC00MiBXYXNoaW5ndG9uLCBEQyAyMDAwOGRkAgMPDxYCHwIFiAE8Yj5Db250YWN0IFBlcnNvbjo8L2I+Qy4gVmFuZXNzYSBTcGlubmVyIChBc3NvY2lhdGUgRGVhbik8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjc0LTU4MDA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDI3NC01MTIzPGJyIC8+ZGQCBQ8PFgIfAgUjPGI+V2Vic2l0ZTogPC9iPmNjLnVkYy5lZHUvd2Q8YnIgLz5kZAIHDw8WAh8CBYMCPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFbXBsb3ltZW50IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gVm9jYXRpb25hbCB0cmFpbmluZyAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFLjxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPlNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBVo8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkNBU0EgYXNzZXNzbWVudCB0ZXN0IGF0IFAuUi4gSGFycmlzIEVkdWNhdGlvbmFsIENlbnRlciA8YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFvQY8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBXb3JrIEZvcmNlIERldmVsb3BtZW50IFByb2dyYW0gb2ZmZXJzIGFjYWRlbWljIGFuZCBoYW5kcy1vbiBqb2IgdHJhaW5pbmcgZm9yIHBlcnNvbnMgcHVyc3VpbmcgYSBjYXJlZXIgaW46IGhlYWx0aCBjYXJlLCBjb25zdHJ1Y3Rpb24gdHJhZGVzLCBob3NwaXRhbGl0eSBzZXJ2aWNlcywgb2ZmaWNlIHRlY2hub2xvZ3ksIGFuZCBhZG1pbmlzdHJhdGl2ZSB0ZWNobm9sb2d5LiBGb3IgYW55IHBlcnNvbiB3aG8gcmVxdWlyZXMgZXh0cmEgYWNhZGVtaWMgc3VwcG9ydCB3aXRoIEdFRCBwcmVwYXJhdGlvbiB0aG9zZSBzZXJ2aWNlcyBhcmUgYXZhaWxhYmxlLiANCjxici8gPg0KPGJyLyA+DQpUaGUgQWNjdXBsYWNlciAocGxhY2VtZW50IHRlc3QgdG8gZW50ZXIgdGhlIENvbW11bml0eSBDb2xsZWdlIG9mIERDKWlzIGF2YWlsYWJsZSBhbmQgZm9yIGRldGVybWluYXRpb24gb2YgZWxpZ2liaWxpdHkgY29udGFjdDogQ0FTQSBhc3Nlc3NtZW50IHRlc3QgYXQgUGF0cmljaWEgUm9iZXJ0cyBIYXJyaXMgRWR1Y2F0aW9uYWwgQ2VudGVyLCA0NjAwIExpdmluZ3N0b24gUm9hZCwgU0UgMjAwMzIsICgyMDIpIDI3NC02OTk5LiANCjxici8gPg0KPGJyLyA+DQpUaGVyZSBhcmUgQ2xhc3NlcyBvZmZlcmVkIGF0OiBNY0tpbmxleSBUZWNoIEhpZ2ggU2Nob29sLCBXb29kc29uIEhpZ2ggU2Nob29sIGF0IEZsZXRjaGVyIEpvaG5zb24sIEZyaWVuZHNoaXAgQ29sbGVnaWF0ZSBBY2FkZW15LCBhbmQgQmVydGllIEJhY2t1cyBDYW1wdXMgYXQgTm8gY29zdCBmb3IgREMgcmVzaWRlbnRzLiAoRmxleGlibGUgY2xhc3MgaG91cnMpPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAjg0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkuq89er6gTewFlbpvJISFZ5/7iS8=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLs0qHqDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXwxWsIh0JNhW3OIh8h6Jyfbdqmg" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4200 Connecticut Avenue, NW  Intelsat 6P-42 Washington DC 20008" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Work Force Development Program" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4200 Connecticut Avenue, NW  Intelsat 6P-42 Washington, DC 20008</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>C. Vanessa Spinner (Associate Dean)<br /><b>Phone No:</b>(202) 274-5800<br /><b>Phone No2:</b>(202) 274-5123<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>cc.udc.edu/wd<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Vocational training &amp; placement assistance<br \><b>Population : </b> Men, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>CASA assessment test at P.R. Harris Educational Center <br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Work Force Development Program offers academic and hands-on job training for persons pursuing a career in: health care, construction trades, hospitality services, office technology, and administrative technology. For any person who requires extra academic support with GED preparation those services are available. 
+<br/ >
+<br/ >
+The Accuplacer (placement test to enter the Community College of DC)is available and for determination of eligibility contact: CASA assessment test at Patricia Roberts Harris Educational Center, 4600 Livingston Road, SE 20032, (202) 274-6999. 
+<br/ >
+<br/ >
+There are Classes offered at: McKinley Tech High School, Woodson High School at Fletcher Johnson, Friendship Collegiate Academy, and Bertie Backus Campus at No cost for DC residents. (Flexible class hours)<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

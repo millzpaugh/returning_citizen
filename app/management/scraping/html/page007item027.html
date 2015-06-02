@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkzNzIwIFVwdG9uIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxNmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSozNzIwIFVwdG9uIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTZkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgOTY2LTM3MjA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPig4NjYpIDIzNC03NzQyPGJyIC8+ZGQCBQ8PFgIfAgUwPGI+V2Vic2l0ZTogPC9iPnd3dy50aGV3YXNoaW5ndG9uaG9tZS5vcmcvPGJyIC8+ZGQCBw8PFgIfAgX3ATxiPkNhdGVnb3J5IDogPC9iPiBNZWRpY2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEhvc3BpY2UgY2FyZTxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBNZWRpY2FyZSwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBTZWxmLXBheW1lbnQ8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFBheW1lbnQgYXNzaXN0YW5jZSAoQ2hlY2sgd2l0aCBmYWNpbGl0eSBmb3IgZGV0YWlscyk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBakFPGI+RGVzY3JpcHRpb246IDwvYj5Db21tdW5pdHkgSG9zcGljZXMgcHJvdmlkZXMgZ2VuZXJhbCBpbnBhdGllbnQgY2FyZSBmb3IgcGF0aWVudHMgd2hvIHJlcXVpcmUgcGFpbiBhbmQvb3IgYWN1dGUgc3ltcHRvbSBtYW5hZ2VtZW50IHRoYXQgY2Fubm90IGZlYXNpYmx5IGJlIHByb3ZpZGVkIGluIG90aGVyIHNldHRpbmdzIGluY2x1ZGluZzogQ29tcGxpY2F0ZWQgdGVjaG5pY2FsIGRlbGl2ZXJ5IG9mIG1lZGljYXRpb24gcmVxdWlyaW5nIFJOIGFuZCBNRCBmb3IgY2FsaWJyYXRpb247IEZyZXF1ZW50IGFzc2Vzc21lbnQgYW5kIG1lZGljYXRpb24gdGl0cmF0aW9uIGJ5IE1EL1JOZXZhbHVhdGlvbiBieSBwaHlzaWNpYW4vbnVyc2U7IGFuZC9vciBBZ2dyZXNzaXZlIHRyZWF0bWVudCByZXF1aXJpbmcgc2tpbGxlZCBudXJzaW5nIGNhcmUgdG8gY29udHJvbCBwYWluIGFuZCBvdGhlciBzeW1wdG9tcy4NCjxiciAvPg0KPGJyIC8+DQpDYWxsIENvbW11bml0eSBIb3NwaWNlIGF0IDEuODY2LjIzNC43NzQyIGFuZCB0aGV5IHdpbGwgaGVscCBndWlkZSB5b3UgdGhyb3VnaCB0aGUgc3lzdGVtLCBhbmQgYW5zd2VyIGFsbCBxdWVzdGlvbnMgcmVnYXJkaW5nIGluc3VyYW5jZSBjb3ZlcmFnZS4NCjxiciAvPg0KPGJyIC8+DQpIb3NwaWNlIG9mIFBHIENvdW50eSwgTUQgKDMwMSkgNDk5LTA1NTAuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQyMx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZB7v260xYRczFitobaXxbsEK7BTY" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLroen/BgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYQGicmGulR5mWAwFIZhn+4cBaxk" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3720 Upton Street, NW Washington DC 20016" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Hospice of Washington" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3720 Upton Street, NW Washington, DC 20016</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 966-3720<br /><b>Phone No2:</b>(866) 234-7742<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.thewashingtonhome.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Hospice care<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Self-payment<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Community Hospices provides general inpatient care for patients who require pain and/or acute symptom management that cannot feasibly be provided in other settings including: Complicated technical delivery of medication requiring RN and MD for calibration; Frequent assessment and medication titration by MD/RNevaluation by physician/nurse; and/or Aggressive treatment requiring skilled nursing care to control pain and other symptoms.
+<br />
+<br />
+Call Community Hospice at 1.866.234.7742 and they will help guide you through the system, and answer all questions regarding insurance coverage.
+<br />
+<br />
+Hospice of PG County, MD (301) 499-0550.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

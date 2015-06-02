@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxNDEzIFBhcmsgUm9hZCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxNDEzIFBhcmsgUm9hZCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzg3LTM3MjU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDM4Ny0zNzI5PGJyIC8+ZGQCBQ8PFgIfAgVHPGI+V2Vic2l0ZTogPC9iPmlubmVyY2l0eS5vcmcvY29sdW1iaWFoZWlnaHRzL2FnZW5jeXMvY2hhbmdlLmh0bWw8YnIgLz5kZAIHDw8WAh8CBeAGPGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbiwgRW1lcmdlbmN5IEZvb2QsIEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZywgU29jaWFsIFNlcnZpY2VzLCBWb2x1bnRlZXIgT3Bwb3J0dW5pdGllczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFZHVjYXRpb25hbCBzZXJ2aWNlcywgRW1wbG95bWVudCBzZXJ2aWNlcywgTW9uZXRhcnkgYXNzaXN0YW5jZSwgTnV0cml0aW9uYWwgc2VydmljZXMsIFNvY2lhbCBzZXJ2aWNlcywgVm9sdW50ZWVyIG9wcG9ydHVuaXRpZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBY2FkZW1pYyBlbnJpY2htZW50L0FmdGVyIHNjaG9vbCBwcm9ncmFtcywgQWR1bHQgQmFzaWMgRWR1Y2F0aW9uL0xpdGVyYWN5L1R1dG9yaW5nLCBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIENvdXJ0IG9yZGVyZWQgY29tbXVuaXR5IHNlcnZpY2UsIEVtZXJnZW5jeSBmb29kL2dyb2NlcmllcywgRmluYW5jaWFsIGNvdW5zZWxpbmcgKG1vbmV5IG1hbmFnZW1lbnQsIGhvdXNpbmcgJmFtcDsgY3JlZGl0KSwgR0VEIHByb2dyYW1zLCBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBKb2Igc2tpbGxzIGFzc2Vzc21lbnQgJmFtcDsgcmVhZGluZXNzLCBNb3J0Z2FnZS9SZW50IChFUkFQKSwgT3RoZXIgYXNzaXN0YW5jZSwgZS5nLiB0cmFuc3BvcnRhdGlvbiwgUmVmZXJyYWxzIGZvciBzb2NpYWwgc2VydmljZXMsIFV0aWxpdGllczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgV29tZW4sIFlvdXRoICgxMiAtIDI0KTxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVEPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5LCA5OjAwIGFtIC0gNDozMCBwbS48YnIgLz5kZAIPDw8WAh8CBTQ8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPjE2IHllYXJzIG9sZCAoKykuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBZIUPGI+RGVzY3JpcHRpb246IDwvYj5DaGFuZ2UsIEluYy4gb2ZmZXJzIHNlcnZpY2VzIGluIGVkdWNhdGlvbiwgZW1lcmdlbmN5IGZvb2QsIGVtcGxveW1lbnQgYW5kIHZvY2F0aW9uYWwgdHJhaW5pbmcsIGFzc2lzdGFuY2Ugd2l0aCBvYnRhaW5pbmcgc29jaWFsIHNlcnZpY2VzIGFuZCB2b2x1bnRlZXIgb3Bwb3J0dW5pdGllcy4gIFNlcnZpY2VzIGFyZSBvZmZlcmVkIE1vbmRheSB0aHJvdWdoIEZyaWRheSBmcm9tIDk6MDAgYW0gLSA0OjMwIHBtLiBEZXRhaWxzIGNvbmNlcm5pbmcgYWxsIHNlcnZpY2VzIG9mZmVyZWQgYXJlIGFzIGZvbGxvd3M6DQo8YnIgLz4gDQo8YnIgLz4gIA0KRURVQ0FUSU9ODQo8YnIgLz4gDQpUaGUgRWR1Y2F0aW9uIHByb2dyYW0gcHJvbW90ZXMgYWR2YW5jZW1lbnQgdGhyb3VnaCBlZHVjYXRpb24gb2YgaXRzIHBhcnRpY2lwYW50cy4gQWR1bHQgZWR1Y2F0aW9uIHByb2dyYW0gaW5mb3JtYXRpb24gaXMgcHJvdmlkZWQsIGluY2x1ZGluZyBlbnJvbGxtZW50IGluIEdFRC9BQkUgY2xhc3Nlcy4gVHV0b3JpbmcgaXMgcHJvdmlkZWQgaW4gc3R1ZGVudHMnIGhvbWVzLCBhbmQgcmVjcmVhdGlvbiBhbmQgc29jaWFsaXphdGlvbiBhcmUgZW5jb3VyYWdlZC4gDQo8YnIgLz4gDQo8YnIgLz4gICAgDQpFTUVSR0VOQ1kgRk9PRA0KPGJyIC8+DQpUaGUgTnV0cml0aW9uIHByb2dyYW0gZGV2b3RlcyBpdHNlbGYgdG8gcHJvdmlkaW5nIGNvdW5zZWxpbmcgYW5kIHN1cHBseSBvZiBzZXJ2aWNlcyByZWxhdGluZyB0byBwcm9wZXIgbnV0cml0aW9uLiBJdCBtYWtlcyBhdmFpbGFibGUgc3VycGx1cyBmb29kc3R1ZmZzIGFuZCBjb21tb2RpdGllcywgb3BlcmF0ZXMgYSBmb29kIHBhbnRyeSBmaXZlIGRheXMgYSB3ZWVrLCBwcm92aWRlcyBmb29kIGJhc2tldHMsIGFuZCBlbmNvdXJhZ2VzIHBhcnRpY2lwYXRpb24gaW4gZm9vZCBjb3Vwb24gZXhjaGFuZ2UuDQo8YnIgLz4gDQo8YnIgLz4gIA0KRU1QTE9ZTUVOVCBBTkQgVk9DQVRJT05BTCBUUkFJTklORw0KQ2hhbmdlLCBJbmMuIGhhcyBhIGNvbXByZWhlbnNpdmUgam9iIGNvdW5zZWxpbmcgYW5kIHJlZmVycmFsIHN5c3RlbSwgaW5jbHVkaW5nIHRyYWluaW5nIGluIGpvYiBodW50aW5nIHNraWxscywgcmVmZXJyYWwgdG8gam9iIGNsdWJzIGFuZCBpbnN0cnVjdGlvbiBpbiBqb2IgaWRlbnRpZmljYXRpb24gaXMgYXZhaWxhYmxlLiBKb2IgZmFpcnMgYXJlIGhlbGQgYW5kIGpvYiBiYW5rIGxpc3RpbmdzIGFyZSBpZGVudGlmaWVkLiBDaGFuZ2UsIEluYy4gd2lsbCBhc3Npc3QgaW4gc2V0dGluZyB1cCBqb2IgaW50ZXJ2aWV3cywgcHJvdmlkZSBhcHByb3ByaWF0ZSBkcmVzcyBmb3IgdGhlIG9jY2FzaW9uIGlmIG5lY2Vzc2FyeS4gQSBTdW1tZXIgWW91dGggRW1wbG95bWVudCBQcm9ncmFtIGFzc2lzdHMgdGhlIHlvdW5nIHVuZW1wbG95ZWQgaW4gYnVpbGRpbmcgbXVjaC1uZWVkZWQgc2tpbGxzIGZvciB0aGVpciBmdXR1cmUgd29yayBsaWZlLg0KPGJyIC8+IA0KPGJyIC8+ICANClNPQ0lBTCBTRVJWSUNFUzoNCjxiciAvPiANCkVtZXJnZW5jeSBhc3Npc3RhbmNlIHdpdGggdXRpbGl0eSBjb21wYW5pZXMgaXMgYXZhaWxhYmxlIGFzIHdlbGwgYXMgaW50ZXJ2ZW50aW9uIGluIGxhbmRsb3JkLXRlbmFudCBkaXNwdXRlcyBhbmQgYXNzaXN0YW5jZSB3aXRoIGRlYWxpbmcgd2l0aCBhZ2VuY2llcyByZWdhcmRpbmcgaW1wZW5kaW5nIGN1dC1vZmYgb2YgYmVuZWZpdHMuIFJlZmVycmFsIHRvIGhvdXNpbmcgYWdlbmNpZXMgd2hpY2ggZGlzYnVyc2UgZW1lcmdlbmN5IHJlbnQgcGF5bWVudHMgaXMgcHJvdmlkZWQ7IGVtZXJnZW5jeSBmb29kIGFuZCBob3VzZWhvbGQgaXRlbXMgY2FuIGJlIGlzc3VlZCB3aGVuIG5lY2Vzc2FyeS4gQ2hhbmdlLCBJbmMuIGFsc28gcHJvdmlkZXMgZW1lcmdlbmN5IHRyYW5zcG9ydGF0aW9uIGZvciBtZWRpY2FsIGFuZCBvdGhlciBzaXR1YXRpb25zLCByZWZlcnJhbCB0byBzaGVsdGVyIGluIHRoZSBjYXNlIG9mIGRhbmdlciBmcm9tIHNwb3VzYWwgb3IgY2hpbGQgYWJ1c2UgYW5kIGJlaGF2aW9yIGNhdXNlZCBieSBzdWJzdGFuY2UgYWJ1c2UsIGFuZCBjYW4gYXJyYW5nZSBmb3IgaW1tZWRpYXRlbHkgbmVlZGVkIGxhdW5kcnkgc2VydmljZXMgYW5kIGNsb3RoaW5nLiBFbWVyZ2VuY3kgd2VhdGhlcml6YXRpb24gcmVwYWlycyBhcmUgYWxzbyBhcnJhbmdlZC4gQ2hhbmdlLCBJbmMuIGFsc28gcHJvbW90ZXMgaG9tZSBvd25lcnNoaXAgdGhyb3VnaCBjb3Vuc2VsaW5nIGFuZCBhc3Npc3RhbmNlIGluIGxvYW4gcHJlcGFyYXRpb24uDQo8YnIgLz4gDQo8YnIgLz4gIA0KVk9MVU5URUVSIE9QUE9SVFVOSVRJRVM6DQo8YnIgLz4gIA0KQ29tbXVuaXR5IHBhcnRpY2lwYXRpb24gYW5kIHN1cHBvcnQgd2lsbCBlbnN1cmUgdGhlIGNvbnRpbnVlZCBvcGVyYXRpb24gb2YgQ2hhbmdlLCBJbmMuIFlvdSBjYW4gc3VwcG9ydCB0aGlzIG9yZ2FuaXphdGlvbiBieSB2b2x1bnRlZXJpbmcgeW91ciBzZXJ2aWNlcywgZG9uYXRpbmcgZm9vZCwgY2xvdGhpbmcgYW5kIGhvdXNlaG9sZCBnb29kcywgYW5kL29yIG9mZmVyaW5nIGZpbmFuY2lhbCBjb250cmlidXRpb25zLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQIzNB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZK2ATxeB6j5Dx0nnTrWjr1idcrQn" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK8vbfSDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATW4ZhV9+sTMpYHmeEXdfIvS1Xz0" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1413 Park Road, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Change, Inc." id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1413 Park Road, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 387-3725<br /><b>Fax No:</b>(202) 387-3729<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>innercity.org/columbiaheights/agencys/change.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Emergency Food, Employment &amp; Vocational Training, Social Services, Volunteer Opportunities<br \><b>Services : </b> Educational services, Employment services, Monetary assistance, Nutritional services, Social services, Volunteer opportunities<br \><b>Program : </b> Academic enrichment/After school programs, Adult Basic Education/Literacy/Tutoring, Advocacy, case management, counseling, emergency services, Court ordered community service, Emergency food/groceries, Financial counseling (money management, housing &amp; credit), GED programs, Job search &amp; placement assistance, Job skills assessment &amp; readiness, Mortgage/Rent (ERAP), Other assistance, e.g. transportation, Referrals for social services, Utilities<br \><b>Population : </b> Men, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday, 9:00 am - 4:30 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>16 years old (+).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Change, Inc. offers services in education, emergency food, employment and vocational training, assistance with obtaining social services and volunteer opportunities.  Services are offered Monday through Friday from 9:00 am - 4:30 pm. Details concerning all services offered are as follows:
+<br /> 
+<br />  
+EDUCATION
+<br /> 
+The Education program promotes advancement through education of its participants. Adult education program information is provided, including enrollment in GED/ABE classes. Tutoring is provided in students' homes, and recreation and socialization are encouraged. 
+<br /> 
+<br />    
+EMERGENCY FOOD
+<br />
+The Nutrition program devotes itself to providing counseling and supply of services relating to proper nutrition. It makes available surplus foodstuffs and commodities, operates a food pantry five days a week, provides food baskets, and encourages participation in food coupon exchange.
+<br /> 
+<br />  
+EMPLOYMENT AND VOCATIONAL TRAINING
+Change, Inc. has a comprehensive job counseling and referral system, including training in job hunting skills, referral to job clubs and instruction in job identification is available. Job fairs are held and job bank listings are identified. Change, Inc. will assist in setting up job interviews, provide appropriate dress for the occasion if necessary. A Summer Youth Employment Program assists the young unemployed in building much-needed skills for their future work life.
+<br /> 
+<br />  
+SOCIAL SERVICES:
+<br /> 
+Emergency assistance with utility companies is available as well as intervention in landlord-tenant disputes and assistance with dealing with agencies regarding impending cut-off of benefits. Referral to housing agencies which disburse emergency rent payments is provided; emergency food and household items can be issued when necessary. Change, Inc. also provides emergency transportation for medical and other situations, referral to shelter in the case of danger from spousal or child abuse and behavior caused by substance abuse, and can arrange for immediately needed laundry services and clothing. Emergency weatherization repairs are also arranged. Change, Inc. also promotes home ownership through counseling and assistance in loan preparation.
+<br /> 
+<br />  
+VOLUNTEER OPPORTUNITIES:
+<br />  
+Community participation and support will ensure the continued operation of Change, Inc. You can support this organization by volunteering your services, donating food, clothing and household goods, and/or offering financial contributions.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

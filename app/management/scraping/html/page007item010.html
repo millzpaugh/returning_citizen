@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSZQcmluY2UgR2VvcmdlJ3MgQ291bnR5IEh5YXR0c3ZpbGxlIE1EIGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSdQcmluY2UgR2VvcmdlJ3MgQ291bnR5IEh5YXR0c3ZpbGxlLCBNRCBkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgNjk5LTkwMDk8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFwwM8Yj5DYXRlZ29yeSA6IDwvYj4gRW1lcmdlbmN5IEZvb2QsIFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNYXRlcmlhbCBuZWVkcywgTW9uZXRhcnkgYXNzaXN0YW5jZSwgTnV0cml0aW9uYWwgc2VydmljZXMsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgQ2xvdGhpbmcsIEVtZXJnZW5jeSBmb29kL2dyb2NlcmllcywgRmluYW5jaWFsIGNvdW5zZWxpbmcgKG1vbmV5IG1hbmFnZW1lbnQsIGhvdXNpbmcgJmFtcDsgY3JlZGl0KSwgTWVkaWNhbCBleHBlbnNlcywgZS5nLiBjb3N0IG9mIHByZXNjcmlwdGlvbnMsIE90aGVyIGFzc2lzdGFuY2UsIGUuZy4gdHJhbnNwb3J0YXRpb24sIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBU88Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlJlc2lkZW50cyBvZiBQcmluY2UgR2VvcmdlJ3MgQ291bnR5IE1hcnlsYW5kPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBdcEPGI+RGVzY3JpcHRpb246IDwvYj5IZWxwIEJ5IFBob25lIGlzIGEgcGFydCBvZiBQcmluY2UgR2VvcmdlJ3MgQ291bnR5IHNvY2lhbCBzZXJ2aWNlcyBwcm92aXNpb25zIG9mZmVyZWQgdG8gcmVzaWRlbnRzIHdpdGhpbiB0aGUgY291bnR5LiBSZXNpZGVudHMgb2YgUEcgQ291bnR5IGNhbiByZWNlaXZlZCBlbWVyZ2VuY3kgZm9vZCBhc3Npc3RhbmNlIGFuZCBhIGhvc3Qgb2Ygb3RoZXIgc29jaWFsIHNlcnZpY2VzLg0KPGJyIC8+DQo8YnIgLz4NCkVNRVJHRU5DWSBGT09EDQo8YnIgLz4NCiJIZWxwIEJ5IFBob25lIiBwcm92aWRlcyBmb29kIGZvciBuZWVkeSBpbmRpdmlkdWFscy4NCjxiciAvPg0KPGJyIC8+DQpTT0NJQUwgU0VSVklDRVMNCjxiciAvPg0KIkhlbHAgQnkgUGhvbmUiIHByb3ZpZGVzIGNsb3RoaW5nLCBwcmVzY3JpcHRpb24gaGVscCAodXAgdG8gJDUwLCB3aWxsIG5vdCBjb3ZlciBwYWluIG1lZGljYXRpb24pLCB0cmFuc3BvcnRhdGlvbiB0byBkb2N0b3LigJlzIGFwcG9pbnRtZW50cywgZmluYW5jaWFsIGNvdW5zZWxpbmcgYW5kIHJlbGF0ZWQgZW1lcmdlbmN5IHNlcnZpY2VzLiBSZWZlcnJhbHMgYXJlIG5vdCByZXF1aXJlZC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNTY3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk/dfD1oTkUtMVC9hCkx6jwrsPPLk=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK6teblCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAfW/59sGwDBJP+EeqKBuozFt0vmU" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="Prince George's County Hyattsville MD " id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Help by Phone" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">Prince George's County Hyattsville, MD </span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 699-9009<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Social Services<br \><b>Services : </b> Material needs, Monetary assistance, Nutritional services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Clothing, Emergency food/groceries, Financial counseling (money management, housing &amp; credit), Medical expenses, e.g. cost of prescriptions, Other assistance, e.g. transportation, Referrals for social services<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Residents of Prince George's County Maryland<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Help By Phone is a part of Prince George's County social services provisions offered to residents within the county. Residents of PG County can received emergency food assistance and a host of other social services.
+<br />
+<br />
+EMERGENCY FOOD
+<br />
+"Help By Phone" provides food for needy individuals.
+<br />
+<br />
+SOCIAL SERVICES
+<br />
+"Help By Phone" provides clothing, prescription help (up to $50, will not cover pain medication), transportation to doctor’s appointments, financial counseling and related emergency services. Referrals are not required.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

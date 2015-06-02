@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSwxMDAxIExhd3JlbmNlIFN0cmVldCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAxN2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS0xMDAxIExhd3JlbmNlIFN0cmVldCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMTdkZAIDDw8WAh8CBV48YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzcyLTQzMDAgPGI+RXh0OjwvYj4wNDA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDQ4MS0xNDE0PGJyIC8+ZGQCBQ8PFgIfAgU0PGI+V2Vic2l0ZTogPC9iPnd3dy5wcmlzb25vdXRyZWFjaG1pbmlzdHJ5Lm9yZzxiciAvPmRkAgcPDxYCHwIF/wE8Yj5DYXRlZ29yeSA6IDwvYj4gU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgTWVudG9yaW5nLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQ8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFUTxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWVuIGFuZCB3b21lbiByZXR1cm5pbmcgZnJvbSBob21lIGZyb20gcHJpc29uLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWvCDxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIFByaXNvbiBPdXRyZWFjaCBNaW5pc3RyeSBhbmQgaXRzIFdlbGNvbWUgSG9tZSBSZWVudHJ5IFByb2dyYW0gbGl2ZSB0aGUgR29zcGVsIE1hbmRhdGUgdG8gc2VydmUgbWVuIGFuZCB3b21lbiByZXR1cm5pbmcgdG8gdGhlaXIgY29tbXVuaXRpZXMgYWZ0ZXIgaW5jYXJjZXJhdGlvbi4gVGhlIHByb2dyYW1zIHNlZWsgdG8gcmVkdWNlIHJlY2lkaXZpc20sIGVkdWNhdGUgdGhlIGNvbW11bml0eSBhbmQgZGV2ZWxvcCBzdHJvbmcgc3lzdGVtcyBvZiBzdXBwb3J0LCBieSBidWlsZGluZyByZWxhdGlvbnNoaXBzIGFuZCBieSBtYXRjaGluZyByZXR1cm5pbmcgaW5kaXZpZHVhbHMgd2l0aCBjb21wYXNzaW9uYXRlIHZvbHVudGVlciBtZW50b3JzIGZyb20gY29tbXVuaXRpZXMgb2YgZmFpdGggYW5kIGNpdmljIG9yZ2FuaXphdGlvbnMuDQo8YnIvID4NCjxici8gPg0KUmVlbnRyeSBLaXRzDQpUaGUgcHVycG9zZSBvZiB0aGUgcmVlbnRyeSBraXQgaXMgdG8gd2VsY29tZSB0aG9zZSBuZXdseSByZWxlYXNlZCBmcm9tIHByaXNvbiBhbmQgdG8gYWlkIHRoZW0gd2l0aCB0aGVpciBpbW1lZGlhdGUgcGVyc29uYWwgY2FyZSBuZWVkcy4gT2Z0ZW4sIHdoZW4gc29tZW9uZSBoYXMgYmVlbiByZWxlYXNlZCBmcm9tIHByaXNvbiwgdGhleSBsZWF2ZSB3aXRoIG9ubHkgdGhlIGNsb3RoZXMgd2l0aCB3aGljaCB0aGV5IGVudGVyZWQgb3IgYSBzd2VhdCBzdWl0IGdpdmVuIHRvIHRoZW0gYnkgdGhlIHByaXNvbi4gVGhlIHJlZW50cnkga2l0IGVuc3VyZXMgdGhhdCBubyBvbmUgYmVnaW5zIHRoZWlyIG5ldyBsaWZlIGVtcHR5LWhhbmRlZC4NCjxici8gPg0KPGJyLyA+DQpNZW50b3JpbmcgUHJvZ3JhbQ0KTWVudG9ycyBwcm92aWRlIHByYWN0aWNhbCBhc3Npc3RhbmNlLCBndWlkYW5jZSwgYW5kIGNvbXBhc3Npb25hdGUgc2VydmljZSB0aHJvdWdoIGNsb3NlIGNvbGxhYm9yYXRpb24gd2l0aCB0aGUgQXJjaGRpb2Nlc2Ugb2YgV2FzaGluZ3RvbiwgRC5DLiBhbmQgb3RoZXIgcHJpdmF0ZSBhbmQgY2l2aWMgb3JnYW5pemF0aW9ucyBpbiB0aGUgcmVnaW9uLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM3MTIeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRiYsEOpBCLAFcvCAFLRJRcxd4I6w==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKS4fGICwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARNsCMy7wJ93JEW+uA5XQxhLoCXu" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1001 Lawrence Street, NE Washington DC 20017" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Welcome Home Program (Prison Outreach Ministry) Catholic Charities" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1001 Lawrence Street, NE Washington, DC 20017</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 772-4300 <b>Ext:</b>040<br /><b>Phone No2:</b>(202) 481-1414<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.prisonoutreachministry.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Mentoring, Referrals for social services<br \><b>Population : </b> Criminal justice involved<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and women returning from home from prison.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Prison Outreach Ministry and its Welcome Home Reentry Program live the Gospel Mandate to serve men and women returning to their communities after incarceration. The programs seek to reduce recidivism, educate the community and develop strong systems of support, by building relationships and by matching returning individuals with compassionate volunteer mentors from communities of faith and civic organizations.
+<br/ >
+<br/ >
+Reentry Kits
+The purpose of the reentry kit is to welcome those newly released from prison and to aid them with their immediate personal care needs. Often, when someone has been released from prison, they leave with only the clothes with which they entered or a sweat suit given to them by the prison. The reentry kit ensures that no one begins their new life empty-handed.
+<br/ >
+<br/ >
+Mentoring Program
+Mentors provide practical assistance, guidance, and compassionate service through close collaboration with the Archdiocese of Washington, D.C. and other private and civic organizations in the region.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

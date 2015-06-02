@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BUQxMzM4IE5vcnRoIENhcGl0b2wgU3RyZWV0LCBOVyBTVEUuIDIwMSAoRE1IL0NTQSkgV2FzaGluZ3RvbiBEQyAyMDAwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBUUxMzM4IE5vcnRoIENhcGl0b2wgU3RyZWV0LCBOVyBTVEUuIDIwMSAoRE1IL0NTQSkgV2FzaGluZ3RvbiwgREMgMjAwMDJkZAIDDw8WAh8CBXE8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzQ1LTAwNzM8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDczNy0wMTkxPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA3NDUtMDIzMzxiciAvPmRkAgUPDxYCHwIFLjxiPldlYnNpdGU6IDwvYj53d3cubWNjbGVuZG9uY2VudGVyLm9yZy88YnIgLz5kZAIHDw8WAh8CBYcEPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IE91dHBhdGllbnQsIFBhcnRpYWwgaG9zcGl0YWxpemF0aW9uL2RheSBwcm9ncmFtPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIENvbW11bml0eSBTZXJ2aWNlIEFnZW5jeSAoQ1NBKTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBNZWRpY2FpZCwgTWVkaWNhcmUsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQ8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVDPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDg6MzAgYW0gLSA1OjAwIHBtIDxiciAvPmRkAg8PDxYCHwIFVDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+QWR1bHRzIHdpdGggcGVyc2lzdGVudCBhbmQgc2V2ZXJlIG1lbnRhbCBpbGxuZXNzLjxiciAvPmRkAhEPDxYCHwIFXDxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+REMgcmVzaWRlbnQsIHZlcmlmaWNhdGlvbiBhbmQgZG9jdW1lbnRhdGlvbiBvZiBpbnN1cmFuY2UuPGJyIC8+ZGQCEw8PFgIfAgXjAzxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIE1jQ2xlbmRvbiBDZW50ZXJzIHNlcnZlcyB0aGUgbmVlZHMgb2YgYWR1bHRzIHdpdGggcGVyc2lzdGVudCBhbmQgc2V2ZXJlIG1lbnRhbCBpbGxuZXNzLiBUaGUgQ2VudGVyIGlzIGNlcnRpZmllZCBieSB0aGUgREMgRGVwYXJ0bWVudCBvZiBNZW50YWwgSGVhbHRoIGFzIGEgQ29yZSBTZXJ2aWNlIEFnZW5jeSAoQ1NBKSBhbmQgcHJvdmlkZXMgYXNzZXNzbWVudCwgbWVkaWNhdGlvbiBtYW5hZ2VtZW50LCBjb21tdW5pdHkgc3VwcG9ydCwgYW5kIGNvdW5zZWxpbmcuIFRoZXkgYWxzbyBvZmZlciBhIGRheSBwcm9ncmFtIHRoYXQgZm9jdXNlcyBvbiBleHByZXNzaXZlIGFydCBhbmQgZGFuY2UgdGhlcmFweTsgY2xpbmljYWwgc2tpbGxzIGJ1aWxkaW5nOyBhbmQgY29uc3VtZXIgZW1wb3dlcm1lbnQuIFJlZmVycmFscyB0aHJvdWdoIHRoZSBBY2Nlc3MgSGVscGxpbmUgKDEtODc3LTc5My00MzU3KS4gIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxODEeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQArY8vusHSc4pOU0zxtN18x7fGEA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKQ0Y6WDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdGEVbDMrYrk2zk6qaV9j4fy0ASd" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1338 North Capitol Street, NW STE. 201 (DMH/CSA) Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="McClendon Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1338 North Capitol Street, NW STE. 201 (DMH/CSA) Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 745-0073<br /><b>Phone No2:</b>(202) 737-0191<br /><b>Fax No:</b>(202) 745-0233<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.mcclendoncenter.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Outpatient, Partial hospitalization/day program<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders, Community Service Agency (CSA)<br \><b>Population : </b> Criminal justice involved, Men, Women<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Public funding, Self-payment<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:30 am - 5:00 pm <br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Adults with persistent and severe mental illness.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>DC resident, verification and documentation of insurance.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The McClendon Centers serves the needs of adults with persistent and severe mental illness. The Center is certified by the DC Department of Mental Health as a Core Service Agency (CSA) and provides assessment, medication management, community support, and counseling. They also offer a day program that focuses on expressive art and dance therapy; clinical skills building; and consumer empowerment. Referrals through the Access Helpline (1-877-793-4357).  <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

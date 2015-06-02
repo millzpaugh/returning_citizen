@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSk0NjAxIFNoZXJpZmYgUm9hZCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAxOWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSo0NjAxIFNoZXJpZmYgUm9hZCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMTlkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzk2LTQyOTA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDM5Ni00ODc3PGJyIC8+ZGQCBQ8PFgIfAgUtPGI+V2Vic2l0ZTogPC9iPnRoZWJldHRlcndheXByb2dyYW0ub3JnPGJyIC8+ZGQCBw8PFgIfAgXJAjxiPkNhdGVnb3J5IDogPC9iPiBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQ8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBDcmltaW5hbCBqdXN0aWNlIGludm9sdmVkLCBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgV5PGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gU2F0dXJkYXkgMTowMCBwbSAtIDc6MDAgcG07IHNlZSBiZWxvdyBmb3IgYWRkaXRpb25hbCBwcm9ncmFtIHRpbWVzIGFuZCBkZXRhaWxzLjxiciAvPmRkAg8PDxYCHwIFfjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+RHJ1Zy9BbGNvaG9sIGFidXNlcnMgKG11c3QgYXR0ZW5kIDcgY29uc2VjdXRpdmUgMTItc3RlcCBzcGlyaXR1YWwgZ3JvdXAgcmVjb3ZlcnkgbWVldGluZ3MpLjxiciAvPmRkAhEPDxYCHwIFMzxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+VEIgdGVzdCByZXN1bHRzLjxiciAvPmRkAhMPDxYCHwIFxQk8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBCZXR0ZXIgV2F5IHByb2dyYW0gaXMgYSBwcm9ncmFtIGZvciB0aG9zZSB3aG8gc2VlayB0byBpbnZvbHZlIHRoZW1zZWx2ZXMgaW4gYWxjb2hvbCBhbmQgZHJ1Z3MgcmVjb3ZlcnkgbWVldGluZ3MuIEZvciB0aG9zZSBzZWVraW5nIHN1cHBvcnQgZm9yIHJlY292ZXJ5IG1lZXRpbmcgb3Igc3Vic3RhbmNlIGFidXNlIHRoZSBCZXR0ZXIgV2F5IHByb2dyYW0gbWF5IGhhdmUgc2VydmljZXMgdGhhdCBmaXQgeW91ciBuZWVkcy4gRm9yIHRob3NlIHNlZWtpbmcgb3V0IEFBIGFuZC9vciBOQSB0aGVzZSBtZWV0aW5ncyBhcmUgcG9wdWxhciBhbW9uZyByZWNvdmVyaW5nIGFkZGljdGlvbnMgYW5kIG9mdGVuIGhhdmUgcGVlciBzcG9uc29ycyB3aWxsaW5nIHRvIG9mZmVyIHN1cHBvcnQuDQo8YnIgLz4NCjxiciAvPg0KRm9yIHRob3NlIHNlZWtpbmcgZGV0b3ggYW5kIHN1YnN0YW5jZSBzdXBwb3J0IGF0IGEgZ3JlYXRlciBuZWVkIHRoYW4gc3VwcG9ydCBtZWV0aW5ncyBtYXkgY29uc2lkZXIgdGhlIEJldHRlciBXYXkgOS1tb250aCBvdXRwYXRpZW50IHByb2dyYW0uIFRoZSBwcm9ncmFtIGlzIGEgMTItc3RlcCBzcGlyaXR1YWwgcmVjb3ZlcnkgYW5kIHJlbGFwc2UgcHJldmVudGlvbiBwcm9ncmFtLiBQcm9ncmFtIGRldmVsb3BzIHRocm91Z2ggdHdvIHBoYXNlcy4gUGhhc2UgSTogKDMgbW9udGhzKSBwYXJ0aWNpcGFudHMgYXR0ZW5kIGdyb3VwIG1lZXRpbmdzIE1vbiAtIEZyaS4gMTFhbSB0byAycG0gb3IgNnBtIHRvIDlwbS4gUGhhc2UgSUk6ICg2IG1vbnRocykgcGFydGljaXBhbnRzIGF0dGVuZCAxMi1zdGVwIHNwaXJpdHVhbCBncm91cCByZWNvdmVyeSBtZWV0aW5ncyAoYXQgQmV0dGVyIFdheSkgMyBkYXlzIHBlciB3ZWVrLiBFeC1vZmZlbmRlciBncm91cCBtZWV0aW5ncyBTYXR1cmRheXMgMTBhbSB0byAxMTozMGFtLiANCjxiciAvPg0KPGJyIC8+DQpUbyBiZSBlbGlnaWJsZSBwYXJ0aWNpcGFudHMgbXVzdCBhdHRlbmQgNyBjb25zZWN1dGl2ZSAxMi1zdGVwIHNwaXJpdHVhbCBncm91cCByZWNvdmVyeSBtZWV0aW5ncyAoYXQgQmV0dGVyIFdheSkgYW5kIHByb3ZpZGUgcmVzdWx0cyBvZiByZWNlbnQgVEIgdGVzdC4gUGFydGljaXBhbnRzIHRyYW5zaXRpb25pbmcgZnJvbSBhIGRldG94IHByb2dyYW0gYXV0b21hdGljYWxseSBlbGlnaWJsZS4NCg0KDQoNCg0KQVBSQSBWb3VjaGVyIFByb2dyYW08YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNDcwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkdrmQIPfQ3tboObQtGQ5kEl7+cIs=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLO1J3TBwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAbEbATF7lE0m3svFqKyilRjvWIFz" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4601 Sheriff Road, NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="The Better Way Program (Pilgrim Rest Baptist Therapeutic Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4601 Sheriff Road, NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 396-4290<br /><b>Phone No2:</b>(202) 396-4877<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>thebetterwayprogram.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management<br \><b>Population : </b> Criminal justice involved, Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Private health insurance, Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Saturday 1:00 pm - 7:00 pm; see below for additional program times and details.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Drug/Alcohol abusers (must attend 7 consecutive 12-step spiritual group recovery meetings).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>TB test results.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Better Way program is a program for those who seek to involve themselves in alcohol and drugs recovery meetings. For those seeking support for recovery meeting or substance abuse the Better Way program may have services that fit your needs. For those seeking out AA and/or NA these meetings are popular among recovering addictions and often have peer sponsors willing to offer support.
+<br />
+<br />
+For those seeking detox and substance support at a greater need than support meetings may consider the Better Way 9-month outpatient program. The program is a 12-step spiritual recovery and relapse prevention program. Program develops through two phases. Phase I: (3 months) participants attend group meetings Mon - Fri. 11am to 2pm or 6pm to 9pm. Phase II: (6 months) participants attend 12-step spiritual group recovery meetings (at Better Way) 3 days per week. Ex-offender group meetings Saturdays 10am to 11:30am. 
+<br />
+<br />
+To be eligible participants must attend 7 consecutive 12-step spiritual group recovery meetings (at Better Way) and provide results of recent TB test. Participants transitioning from a detox program automatically eligible.
+
+
+
+
+APRA Voucher Program<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

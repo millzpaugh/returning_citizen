@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgzMTQ5IDE2dGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDEwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTMxNDkgMTZ0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDEwZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY3My03NjQ3PGJyIC8+ZGQCBQ8PFgIfAgUkPGI+V2Vic2l0ZTogPC9iPnd3dy5kcHIuZGMuZ292PGJyIC8+ZGQCBw8PFgIfAgXKATxiPkNhdGVnb3J5IDogPC9iPiBFbXBsb3ltZW50ICZhbXA7IFZvY2F0aW9uYWwgVHJhaW5pbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRW1wbG95bWVudCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IFNlYXNvbmFsIGVtcGxveW1lbnQ8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuLCBZb3V0aCAoMTIgLSAyNCk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUI8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgODozMCBhbSAtIDY6MDAgcG08YnIgLz5kZAIPDw8WAh8CBTg8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk1lbiwgV29tZW4gYW5kIFlvdXRoLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXFBzxiPkRlc2NyaXB0aW9uOiA8L2I+V2FzaGluZ3RvbiBhcmVhIHB1YmxpYyBhbmQgcHJpdmF0ZSBwb29scyBhcmUgaW4gbmVlZCBvZiBzdW1tZXIgbGlmZSBndWFyZHMgYW5kIHN3aW1taW5nIHBvb2wgc3RhZmYuIExpZmUgZ3VhcmRzIGFuZCBwb29sIGF0dGVuZGFudHMgYXJlIOKAnHJlcXVpcmVk4oCdIHRvIGJlIG9uIGR1dHkgZHVyaW5nIGFsbCBvcGVyYXRpbmcgaG91cnMuIEhpcmVzIG11c3QgYmUgYWJsZSB0byBwYXNzIGNlcnRhaW4gcGh5c2ljYWwgcmVxdWlyZW1lbnRzIGFuZCBzd2ltbWluZyBza2lsbHMuDQo8YnIgLz4NCjxiciAvPg0KVGhlIERDIERlcGFydG1lbnQgb2YgUGFya3MgYW5kIFJlY3JlYXRpb24gKERQUikgaGFzIHN1bW1lciBwb3NpdGlvbnMgZm9yIGxpZmVndWFyZHMsIGFzc2lzdGFudCBwb29sIG1hbmFnZXJzLCBhbmQgcG9vbCBtYW5hZ2VycyBhdmFpbGFibGUuIFRvIGFwcGx5IGluZGl2aWR1YWxzIG11c3QgYmUgYXQgbGVhc3QgMTYgeXJzIG9mIGFnZSAob3Igb2xkZXIpIGFuZCBEQyByZXNpZGVuY3kgaXMgbm90IHJlcXVpcmVkLiBBcHBsaWNhbnRzIG11c3QgYWxyZWFkeSBwb3NzZXNzIGJhc2ljIHN3aW1taW5nIHNraWxscyBhbmQgcGFzcyBhIGxpZmVndWFyZCBjZXJ0aWZpY2F0aW9uIGNvdXJzZS4gU2FsYXJ5IHJhbmdlcyBmcm9tICQxMCB0byAkMTMgcGVyIGhvdXIuDQo8YnIgLz4NCjxiciAvPg0KRm9yIG1vcmUgaW5mb3JtYXRpb24gaW50ZXJlc3RlZCBwZXJzb25zIHNob3VsZCBjYWxsKDIwMikgNjcxLTEyODkgb3IgKDIwMikgMjg4LTcyNzUgdG8gQ29udGFjdCBEYXZpZCBCcm9va3MsIG9yIHNlbmQgZW1haWxzIHRvIGRhdmlkLmJyb29rc0BkYy5nb3YgDQo8YnIgLz4NCjxiciAvPg0KQXBwbGljYXRpb25zIGFyZSBhY2NlcHRlZCBhdDogREMgRGVwYXJ0bWVudCBvZiBQYXJrcyBhbmQgUmVjcmVhdGlvbiwgMzE0OSAxNnRoIFN0cmVldCwgTlcgMjAwMTAgPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAjE3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkGw94usL9ww5Y39huv2+68Lze2e0=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLctcRTApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBcZelzKZOF26XtiEwxeu8KABAJ5A=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3149 16th Street, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="DC Department of Parks and Recreation (DPR)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3149 16th Street, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 673-7647<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dpr.dc.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Seasonal employment<br \><b>Population : </b> Men, Women, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:30 am - 6:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men, Women and Youth.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Washington area public and private pools are in need of summer life guards and swimming pool staff. Life guards and pool attendants are “required” to be on duty during all operating hours. Hires must be able to pass certain physical requirements and swimming skills.
+<br />
+<br />
+The DC Department of Parks and Recreation (DPR) has summer positions for lifeguards, assistant pool managers, and pool managers available. To apply individuals must be at least 16 yrs of age (or older) and DC residency is not required. Applicants must already possess basic swimming skills and pass a lifeguard certification course. Salary ranges from $10 to $13 per hour.
+<br />
+<br />
+For more information interested persons should call(202) 671-1289 or (202) 288-7275 to Contact David Brooks, or send emails to david.brooks@dc.gov 
+<br />
+<br />
+Applications are accepted at: DC Department of Parks and Recreation, 3149 16th Street, NW 20010 <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

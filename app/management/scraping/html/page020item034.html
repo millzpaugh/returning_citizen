@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxMzU1IE5ZIEF2ZW51ZSwgTkUgV2FzaGluZ3RvbiBEQyAyMDAwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxMzU1IE5ZIEF2ZW51ZSwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMDJkZAIDDw8WAh8CBXI8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjgxLTM4ODQ8YnIgLz48Yj5Ub2xsIEZyZWU6IDwvYj4oODAwKSA1MzUtNzI1MjxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNTI2LTM1ODU8YnIgLz5kZAIFDw8WAh8CBU88Yj5XZWJzaXRlOiA8L2I+d3d3LnVuaXR5aGVhbHRoY2FyZS5vcmcvSGVhbHRoQ2VudGVycy9TZXJ2aWNlTmV3WW9yay5odG1sPGJyIC8+ZGQCBw8PFgIfAgWjAzxiPkNhdGVnb3J5IDogPC9iPiBNZWRpY2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENvbW11bml0eSBoZWFsdGg8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEhJVi9BSURTLCBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpLCBUQiBzY3JlZW5pbmdzPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIE1lZGljYXJlLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVHPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IOKAkyBGcmlkYXkgNTowMCBwbSDigJMgOTowMCBwbS48YnIgLz5kZAIPDw8WAh8CBTA8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkhvbWVsZXNzIG1lbi48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF3QY8Yj5EZXNjcmlwdGlvbjogPC9iPlVuaXR5IEhlYWx0aCBDYXJlIEhvbWVsZXNzIFNlcnZpY2UgQ2VudGVycyBoYXZlIGJlZW4gcHJvdmlkaW5nIGhvbWVsZXNzIHNlcnZpY2VzIHNpbmNlIDE5ODUuIEN1cnJlbnRseSwgdGhlIHByb2dyYW0gb3BlcmF0ZXMgMTAgaG9tZWxlc3MgbWVkaWNhbCBzZXJ2aWNlIHNpdGVzIGxvY2F0ZWQgaW4gYWxtb3N0IGV2ZXJ5IHdhcmQgb2YgdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhLiBVbml0eSBwcm92aWRlcyBxdWFsaXR5LCBjb21wYXNzaW9uYXRlIGFuZCBjb21wcmVoZW5zaXZlIHByaW1hcnkgaGVhbHRoIGNhcmUgc2VydmljZXMgdG8gaG9tZWxlc3MgaW5kaXZpZHVhbHMgYW5kIGZhbWlsaWVzIGFubnVhbGx5LiBUaGUgc2VydmljZXMgcHJvdmlkZWQgYnkgVW5pdHkgSGVhbHRoIENhcmXigJlzIGV4dGVuc2l2ZSBuZXR3b3JrIGFsbG93cyBhc3Npc3RhbmNlIHRocm91Z2hvdXQgdGhlIGNvbW11bml0eSBpbmNsdWRpbmcgc2l0ZXMgbG9jYXRlZCBpbiBlbWVyZ2VuY3kgc2hlbHRlcnMgYW5kIGhvbWVsZXNzIHNlcnZpY2UgZmFjaWxpdGllcyBhY3Jvc3MgdGhlIGNpdHkuDQo8YnIgLz4NCjxiciAvPg0KVGhlIE5ldyBZb3JrIEF2ZSBIZWFsdGggQ2VudGVyIGV4cGFuZHMgc2VydmljZXMgdG8gV2FzaGluZ3RvbiwgREPigJlzIEhvdXNpbmcgQXNzaXN0YW5jZSBDZW50ZXIgcHJvdmlkaW5nIDEyLWhvdXIgYW5kIDI0LWhvdXIgZW1lcmdlbmN5IHNoZWx0ZXIgYW5kIHdyYXAgYXJvdW5kIHNlcnZpY2VzIGZvciBob21lbGVzcyBtZW4uDQo8YnIgLz4NCjxiciAvPg0KSG91cnMgb3Igb3BlcmF0aW9uIGFyZTogTW9uZGF5IOKAkyBGcmlkYXkgNTowMCBwbSDigJMgOTowMCBwbSA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNDAzHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk1IhfhhJan/l6DcqxjESAVQOmyII=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKHjfDdAQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQQeEm8U/QufhnueUsEeWXQq0JZa" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1355 NY Avenue, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Unity Health Care Homeless Service Center (New York Avenue Shelter)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1355 NY Avenue, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 281-3884<br /><b>Toll Free: </b>(800) 535-7252<br /><b>Fax No:</b>(202) 526-3585<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.unityhealthcare.org/HealthCenters/ServiceNewYork.html<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health<br \><b>Type Of Care : </b> HIV/AIDS, Primary (Adult, Family &amp; Pediatrics), TB screenings<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday – Friday 5:00 pm – 9:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless men.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Unity Health Care Homeless Service Centers have been providing homeless services since 1985. Currently, the program operates 10 homeless medical service sites located in almost every ward of the District of Columbia. Unity provides quality, compassionate and comprehensive primary health care services to homeless individuals and families annually. The services provided by Unity Health Care’s extensive network allows assistance throughout the community including sites located in emergency shelters and homeless service facilities across the city.
+<br />
+<br />
+The New York Ave Health Center expands services to Washington, DC’s Housing Assistance Center providing 12-hour and 24-hour emergency shelter and wrap around services for homeless men.
+<br />
+<br />
+Hours or operation are: Monday – Friday 5:00 pm – 9:00 pm <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

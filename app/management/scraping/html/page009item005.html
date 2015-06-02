@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSQxMTkgRCBTdHJlZXQsIE5XIFdhc2hpbmd0b24gREMgMjAwMDFkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUlMTE5IEQgU3RyZWV0LCBOVyBXYXNoaW5ndG9uLCBEQyAyMDAwMWRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA2MzktODQ2OTxiciAvPmRkAgUPDxYCHwJlZGQCBw8PFgIfAgVhPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU2hlbHRlcnM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFTDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjk6MDAgcG0gLSA3OjAwIGFtLiBGaXJzdCBjb21lLCBmaXJzdCBzZXJ2ZS48YnIgLz5kZAIPDw8WAh8CBUw8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlVuYXR0YWNoZWQgKGkuZS4gd2l0aG91dCBjaGlsZHJlbikgd29tZW4uPGJyIC8+ZGQCEQ8PFgIfAgUwPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5ObyBJRCBuZWVkZWQuPGJyIC8+ZGQCEw8PFgIfAgWlBTxiPkRlc2NyaXB0aW9uOiA8L2I+Sm9obiBMLiBZb3VuZyBXb21lbidzIENlbnRlciBwcm92aWRlcyBjYXNlIG1hbmFnZW1lbnQsIGpvYiB0cmFpbmluZywgbGlmZSBza2lsbHMgYW5kIGRydWcgY291bnNlbGluZywgYW5kIG9uY2UgYSB3ZWVrIGxhdW5kcnkgc2VydmljZS4gQWRkaXRpb25hbGx5LCBKb2huIEwuIFlvdW5nIFdvbWVuJ3MgQ2VudGVyIGlzIG9wZW4gdG8gREMgKDE4KykgcmVzaWRlbnRzIHNlZWtpbmcgZW1lcmdlbmN5IDEyLWhvdXIgb3Zlcm5pZ2h0IHNoZWx0ZXIgY2FuIGNvbnRhY3QgYW55IG9mIHRoZSBzaGVsdGVycyBsaXN0ZWQgYmVsb3cuIFNoZWx0ZXJzIGdlbmVyYWxseSByZXF1aXJlIHRoYXQgcmVzaWRlbnRzIGFncmVlIHRvIHJlY2VpdmUgY2FzZSBtYW5hZ2VtZW50IHNlcnZpY2VzIGkuZS4gbWVkaWNhbCwgbWVudGFsIGhlYWx0aCwgc3Vic3RhbmNlIGFidXNlIGFzIGEgY29uZGl0aW9uIHRvIGxpdmluZyBhdCB0aGUgc2hlbHRlci4gDQo8YnIgLz4NCjxiciAvPg0KSm9obiBMLiBZb3VuZyBXb21lbidzIENlbnRlciBpcyBhIGxvdyBiYXJyaWVyIHNoZWx0ZXIuIEEgbG93IGJhcnJpZXIgc2hlbHRlciBkb2VzIG5vdCByZXF1aXJlIHJlc2lkZW50cyB0byBhY2NlcHQgc2VydmljZXMgYXMgYSBjb25kaXRpb24gb2Ygc3RheWluZyBhdCB0aGUgc2hlbHRlci4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzMxMR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZN/lU2ic2afMDkhqHLHJyNqOsQR8" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLV7dqLAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASZXIPBfaE/GOw9FmKUjgFclIJEz" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="119 D Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="John L. Young Women's Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">119 D Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 639-8469<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Shelters<br \><b>Population : </b> Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>9:00 pm - 7:00 am. First come, first serve.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Unattached (i.e. without children) women.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>No ID needed.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>John L. Young Women's Center provides case management, job training, life skills and drug counseling, and once a week laundry service. Additionally, John L. Young Women's Center is open to DC (18+) residents seeking emergency 12-hour overnight shelter can contact any of the shelters listed below. Shelters generally require that residents agree to receive case management services i.e. medical, mental health, substance abuse as a condition to living at the shelter. 
+<br />
+<br />
+John L. Young Women's Center is a low barrier shelter. A low barrier shelter does not require residents to accept services as a condition of staying at the shelter. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

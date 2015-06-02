@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS43MDAzIFBpbmV5IEJyYW5jaCBSb2FkLCBOVyBXYXNoaW5ndG9uIERDIDIwMDEyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLzcwMDMgUGluZXkgQnJhbmNoIFJvYWQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDEyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDQ0OS0zNzg5PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA0NDktMzc4OTxiciAvPmRkAgUPDxYCHwIFMjxiPldlYnNpdGU6IDwvYj53d3cucGFzdG9yYWxjb3Vuc2VsaW5nZGMuY29tPGJyIC8+ZGQCBw8PFgIfAgWFBjxiPkNhdGVnb3J5IDogPC9iPiBNZW50YWwgSGVhbHRoPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1lbnRhbCBoZWFsdGggdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIERvbWVzdGljIFZpb2xlbmNlLCBGYW1pbHkgaXNzdWVzLS1jb3Vuc2VsaW5nLCBtYXJyaWFnZSwgcGFyZW50aW5nLCBHcmllZiAmYW1wOyBsb3NzLCBUcmF1bWEtLXNleHVhbCBhYnVzZS9QVFNEL3ZpY3RpbXMgb2YgY3JpbWU8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBMZXNiaWFuLCBHYXksIEJpc2V4dWFsLCBUcmFuc2dlbmRlciAmYW1wOyBTZXh1YWwgTWlub3JpdGllcywgTWVuLCBTZW5pb3JzICg1NSspLCBVbmRlciBhZ2UgMTgsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIE1lZGljYXJlLCBNaWxpdGFyeSBpbnN1cmFuY2UgKGUuZy4gVkEsIFRSSUNBUkUpLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVkPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2gsIEZyZW5jaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBWI8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5WYXJpZXMgZGVwZW5kaW5nIG9uIHNpdGUgKDggZGlmZmVyZW50IGNodXJjaGVzKTogIDY6MzBhbSAtIDk6MDBwbTxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBbUHPGI+RGVzY3JpcHRpb246IDwvYj5QYXN0b3JhbCBDb3Vuc2VsaW5nIGFuZCBDb25zdWx0YXRpb24gQ2VudGVycyBvZiBHcmVhdGVyIFdhc2hpbmd0b24gKFBDJkNDKSBhcmUgbXVsdGlkaW1lbnNpb25hbCB0cmFpbmluZyBhbmQgY29uc3VsdGluZyBmYWNpbGl0aWVzIHRoYXQgc3BlY2lhbGl6ZSBpbiBjb3VwbGVzIGFuZCByZWxhdGlvbnNoaXAgdGhlcmFweSB0aHJvdWdoIHRoZSB1c2Ugb2YgSW1hZ28gUmVsYXRpb25zaGlwIFRoZXJhcHkuICBQQyZDQyBjb3Vuc2Vsb3JzIGFyZSBjZXJ0aWZpZWQgYW5kL29yIGxpY2Vuc2VkIHBzeWNob2xvZ2lzdCwgcGFzdG9yYWwgY291bnNlbG9ycywgYW5kIHNvY2lhbCB3b3JrZXJzLiAgQWRkaXRpb25hbCBzZXJ2aWNlcyBpbmNsdWRlIGNvdW5zZWxpbmcgZm9yOiBzdHJlc3MgbWFuYWdlbWVudCwgZGVwcmVzc2lvbiwgYW54aWV0eSwgZmFtaWx5IHRoZXJhcHksIHNleHVhbGl0eSBpc3N1ZXMsIGNhcmVlciB0cmFuc2l0aW9ucywgcHJlbWFyaXRhbCBjb3Vuc2VsaW5nLCBjaGlsZGhvb2QgYW5kIGFkb2xlc2NlbnQgdHJhbnNpdGlvbnMsIGFkZGljdGlvbnMsIGdyaWVmICYgbG9zcywgYWdpbmcsIHRyYXVtYSBhbmQgYWJ1c2UsIGxpZmUgY29hY2hpbmcsIGFuZCBzcGlyaXR1YWwgZGlyZWN0aW9uLiAgDQo8YnIvID4NCjxici8gPg0KUEMmQ0MgYWNjZXB0cyBwdWJsaWMgZnVuZGluZywgTWVkaWNhaWQsIE1lZGljYXJlLCBzbGlkaW5nIHNjYWxlIGZlZXMsIHN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSwgcHJpdmF0ZSBpbnN1cmFuY2UsIG1pbGl0YXJ5IGluc3VyYW5jZS4gIA0KPGJyLyA+DQo8YnIvID4NCk5vdGU6IFBDJkNDIGRvZXMgbm90IHN1Ym1pdCBwYXBlcndvcmsgdG8gaW5zdXJhbmNlIGNvbXBhbmllcyBzbyBzcGVhayB3aXRoIHlvdXIgaW5zdXJhbmNlIHByb3ZpZGVyIGluIGFkdmFuY2UgYWJvdXQgY292ZXJhZ2UuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxODAeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWR2c94tRyWwz7nZEOBCm6BFSdSdOw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKC4YDMDQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYBcN1ANfeFJ3x2yjpHoJR+mLZCu" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="7003 Piney Branch Road, NW Washington DC 20012" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Pastoral Counseling and Consultation Centers of Greater Washington" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">7003 Piney Branch Road, NW Washington, DC 20012</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 449-3789<br /><b>Fax No:</b>(202) 449-3789<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.pastoralcounselingdc.com<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Domestic Violence, Family issues--counseling, marriage, parenting, Grief &amp; loss, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Seniors (55+), Under age 18, Women<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Military insurance (e.g. VA, TRICARE), Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, French<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Varies depending on site (8 different churches):  6:30am - 9:00pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Pastoral Counseling and Consultation Centers of Greater Washington (PC&CC) are multidimensional training and consulting facilities that specialize in couples and relationship therapy through the use of Imago Relationship Therapy.  PC&CC counselors are certified and/or licensed psychologist, pastoral counselors, and social workers.  Additional services include counseling for: stress management, depression, anxiety, family therapy, sexuality issues, career transitions, premarital counseling, childhood and adolescent transitions, addictions, grief & loss, aging, trauma and abuse, life coaching, and spiritual direction.  
+<br/ >
+<br/ >
+PC&CC accepts public funding, Medicaid, Medicare, sliding scale fees, state financed insurance, private insurance, military insurance.  
+<br/ >
+<br/ >
+Note: PC&CC does not submit paperwork to insurance companies so speak with your insurance provider in advance about coverage. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

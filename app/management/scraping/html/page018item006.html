@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTozMTAxIE1hcnRpbiBMdXRoZXIgS2luZyBKci4gQXZlbnVlLCBTRSBXYXNoaW5ndG9uIERDIDIwMDMyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFOzMxMDEgTWFydGluIEx1dGhlciBLaW5nIEpyLiBBdmVudWUsIFNFIFdhc2hpbmd0b24sIERDIDIwMDMyZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU2MS0yMDAwPGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBfYBPGI+Q2F0ZWdvcnkgOiA8L2I+IFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNb25ldGFyeSBhc3Npc3RhbmNlPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gTW9ydGdhZ2UvUmVudCAoRVJBUCksIFBob3RvIElEJ3MsIHNvY2lhbCBzZWN1cml0eSBjYXJkcywgYmlydGggY2VydGlmaWNhdGVzLCBVdGlsaXRpZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBDcmltaW5hbCBqdXN0aWNlIGludm9sdmVkPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVIPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+UGxlYXNlIGNhbGwgdG8gc2NoZWR1bGUgYW4gYXBwb2ludG1lbnQuPGJyIC8+ZGQCDw8PFgIfAgVxPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Mb3ctaW5jb21lIERDIHJlc2lkZW50cyBhbmQgYWxsIG5laWdoYm9yaW5nIGNvdW50aWVzIHNlcnZlZCBieSBXYXNoaW5ndG9uIEdhcy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF/gU8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBTYWx2YXRpb24gQXJtIChXYXNoaW5ndG9uIEFyZWEgRnVlbCBGdW5kKSBwcm92aWRlcyBiaXJ0aCBjZXJ0aWZpY2F0ZSBhbmQgcGhvdG8gSUQgYXNzaXN0YW5jZS4gRW1lcmdlbmN5IG1vbmV0YXJ5IGFzc2lzdGFuY2UgaXMgYXZhaWxhYmxlIGZvciBjbGllbnRzIHRvIHBheSBoZWF0aW5nIGJpbGxzIG9yIHRoZSBwdXJjaGFzZSBhbmQgaW5zdGFsbGF0aW9uIG9mIGVuZXJneSBjb25zZXJ2YXRpb24gbWVhc3VyZXMuIFNlcnZpY2VzIGFyZSBhdmFpbGFibGUgdG8gbG93LWluY29tZSByZXNpZGVudHMgaW4gREMgYW5kIGFsbCBuZWlnaGJvcmluZyBjb3VudGllcyBzZXJ2ZWQgYnkgV2FzaGluZ3RvbiBHYXMuIA0KPGJyIC8+DQo8YnIgLz4NCkFwcGx5IGF0IHRoZSBTYWx2YXRpb24gQXJteSBvZmZpY2UgaW4gdGhlIGNpdHkgb3IgY291bnR5IGluIHdoaWNoIHBlcnNvbiByZXNpZGVzLiBJbiBEQyBhcHBseSBhdDogMTQzNCBIYXJ2YXJkIFN0cmVldCwgTlcgMjAwMDksICgyMDIpIDMzMi01MDAwIG9yIDMxMDEgTWFydGluIEx1dGhlciBLaW5nLCBKciBBdmVudWUsIFNFIDIwMDMyLCAoMjAyKSA1NjEtMjAwMC4gQXBwbGljYXRpb25zIGFjY2VwdGVkIEphbnVhcnkgMSDigJMgTWF5IDMxc3QuIEJyaW5nIGN1dCBvZmYgbm90aWNlIGZyb20gdGhlIHV0aWxpdHkgdGhhdCBwcm92aWRlcyB0aGUgcHJpbWFyeSBoZWF0aW5nIHNvdXJjZS4gUGxlYXNlIGNhbGwgdG8gc2NoZWR1bGUgYW4gYXBwb2ludG1lbnQuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzczNR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZFeM9OVEq4og+smTByU1m84X8gN2" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKq9IbOCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASASIICPxTUdj7C1ys8jHqc7hdmk" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3101 Martin Luther King Jr. Avenue, SE Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Salvation Army (Washington Area Fuel Fund)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3101 Martin Luther King Jr. Avenue, SE Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 561-2000<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Monetary assistance<br \><b>Program : </b> Mortgage/Rent (ERAP), Photo ID's, social security cards, birth certificates, Utilities<br \><b>Population : </b> Criminal justice involved<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Please call to schedule an appointment.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low-income DC residents and all neighboring counties served by Washington Gas.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Salvation Arm (Washington Area Fuel Fund) provides birth certificate and photo ID assistance. Emergency monetary assistance is available for clients to pay heating bills or the purchase and installation of energy conservation measures. Services are available to low-income residents in DC and all neighboring counties served by Washington Gas. 
+<br />
+<br />
+Apply at the Salvation Army office in the city or county in which person resides. In DC apply at: 1434 Harvard Street, NW 20009, (202) 332-5000 or 3101 Martin Luther King, Jr Avenue, SE 20032, (202) 561-2000. Applications accepted January 1 – May 31st. Bring cut off notice from the utility that provides the primary heating source. Please call to schedule an appointment.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

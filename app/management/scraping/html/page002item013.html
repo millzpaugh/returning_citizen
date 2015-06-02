@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTYxMzEwIFNvdXRoZXJuIEF2ZW51ZSwgU0UgU1RFLiAwMTUgV2FzaGluZ3RvbiAgREMgMjAwMzJkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgU3MTMxMCBTb3V0aGVybiBBdmVudWUsIFNFIFNURS4gMDE1IFdhc2hpbmd0b24gLCBEQyAyMDAzMmRkAgMPDxYCHwIFcTxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA1NzQtNjA1NDxiciAvPjxiPlBob25lIE5vMjo8L2I+KDIwMikgNTc0LTU0NDQ8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDU3NC02OTQ5PGJyIC8+ZGQCBQ8PFgIfAgUsPGI+V2Vic2l0ZTogPC9iPnd3dy5jYXBjb21zZXJ2aWNlcy5jb208YnIgLz5kZAIHDw8WAh8CBY0FPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEFzc2VydGl2ZSBDb21tdW5pdHkgVHJlYXRtZW50LCBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIENvbW11bml0eSBTZXJ2aWNlIEFnZW5jeSAoQ1NBKSwgRG9tZXN0aWMgVmlvbGVuY2U8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBDcmltaW5hbCBqdXN0aWNlIGludm9sdmVkLCBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBNZWRpY2FpZCwgTWVkaWNhcmUsIFByaXZhdGUgaGVhbHRoIGluc3VyYW5jZSwgUHVibGljIGZ1bmRpbmcsIFNlbGYtcGF5bWVudDxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gUGF5bWVudCBhc3Npc3RhbmNlIChDaGVjayB3aXRoIGZhY2lsaXR5IGZvciBkZXRhaWxzKSwgU2xpZGluZyBmZWUgc2NhbGUgKEZlZSBpcyBiYXNlZCBvbiBpbmNvbWUgJmFtcDsgb3RoZXIgZmFjdG9ycyk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBZIBPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5LCBXZWRuZXNkYXksICYgRnJpZGF5IDg6MzAgYW0gLSA2OjAwIHBtLjsgVHVlc2RheSAmIFRodXJzZGF5IDg6MzAgYW0gLTc6MDAgcG0uIGFuZCBTYXR1cmRheSBieSBhcHBvaW50bWVudC48YnIgLz5kZAIPDw8WAh8CBTA8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPjE4IHllYXJzICgrKS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF8ws8Yj5EZXNjcmlwdGlvbjogPC9iPkNhcGl0YWwgQ29tbXVuaXR5IFNlcnZpY2VzIChDQ1MpIHByb3ZpZGVzIGFuIGFycmF5IG9mIG91dHBhdGllbnQgc2VydmljZXMgYW5kIHByb2dyYW1zIGZvciBhZHVsdHMgMTggeWVhcnMgYW5kIG9sZGVyIGluY2x1ZGluZzogZGlhZ25vc3RpYyBhc3Nlc3NtZW50LCBtZWRpY2F0aW9uIHNvbWF0aWMgdHJlYXRtZW50LCBpbmRpdmlkdWFsIGFuZCBncm91cCBjb3Vuc2VsaW5nIGFuZCBwc3ljaG90aGVyYXB5LCBjb21tdW5pdHkgc3VwcG9ydCwgYW5kIEFzc2VydGl2ZSBDb21tdW5pdHkgVHJlYXRtZW50IChBQ1QpLiAgU2VydmljZXMgYXJlIHByb3ZpZGVkIGJ5IHF1YWxpZmllZCwgbGljZW5zZWQsIGFuZCBjcmVkZW50aWFsZWQgc3RhZmYgaW5jbHVkaW5nOiBCb2FyZCBDZXJ0aWZpZWQgUHN5Y2hpYXRyaXN0cywgUmVnaXN0ZXJlZCBOdXJzZXMsIExpY2Vuc2VkIEluZGVwZW5kZW50IENsaW5pY2FsIFNvY2lhbCBXb3JrZXJzLCBDZXJ0aWZpZWQgQWRkaWN0aW9ucyBDb3Vuc2Vsb3JzLCBMaWNlbnNlZCBQcm9mZXNzaW9uYWwgQ291bnNlbG9ycywgYW5kIENyZWRlbnRpYWxlZCBNZW50YWwgSGVhbHRoIFNwZWNpYWxpc3QuIENDUyBpcyBhbHNvIGNlcnRpZmllZCBhcyBhIENvcmUgU2VydmljZSBBZ2VuY3kgYnkgdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhIERlcGFydG1lbnQgb2YgTWVudGFsIEhlYWx0aC4gIFRoaXMgY2VydGlmaWNhdGlvbiBhbGxvd3MgQ0NTIHRvIHByb3ZpZGUgbWVudGFsIGhlYWx0aCByZWhhYmlsaXRhdGl2ZSBzZXJ2aWNlcyAoTUhSUykgdG8gdGhlIERpc3RyaWN0J3MgcG9wdWxhdGlvbi4gQ0NTIGFsc28gcHJvdmlkZXMgYWZ0ZXIgaG91cnMgZW1lcmdlbmN5IG9uLWNhbGwgc2VydmljZXMgZm9yIGNvbnN1bWVycyBlbnJvbGxlZCBpbiB0aGUgcHJvZ3JhbS4gQ0NTIHNlcnZpY2VzIGFyZSBjb3ZlcmVkIGJ5IE1lZGljYWlkLCBNZWRpY2FyZSwgYXMgd2VsbCBhcywgc2V2ZXJhbCBITU/igJlzLiBQYXltZW50IGFycmFuZ2VtZW50cyBhcmUgd29ya2VkIG91dCBiYXNlZCBvbiBjb3ZlcmFnZSBhbmQgQ0NTIHByb3ZpZGVzIGEgc2xpZGluZyBzY2FsZSBmZWUuDQo8YnIgLz4gDQo8YnIgLz4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKioqKioqKioqKioqKioqKioqKioqKg0KQ2FwaXRhbCBDb21tdW5pdHkgU2VydmljZXMgYWxzbyBvZmZlcnMgdGhlIHNhbWUgcXVhbGl0eSBtZW50YWwgaGVhbHRoIHByb2dyYW1zIGxpc3RlZCBhYm92ZSBhdCDigJxUaGUgQmlnIENoYWly4oCdIGxvY2F0aW9uICgyMDQxIE1hcnRpbiBMdXRoZXIgS2luZyBKci4gQXZlLCBTRS4sICMyMzYsIFdEQyAgMjAwMjApLiBUaGlzIGxvY2F0aW9uIGlzIGFsc28gY2VydGlmaWVkIGFzIGEgRE1IIENvcmUgU2VydmljZSBBZ2VuY3kgYW5kIG9mZmVycyB0aGUgc2FtZSBwYXltZW50IG9wdGlvbnMgYXMgdGhvc2UgbGlzdGVkIGFib3ZlLiBDb250YWN0KDIwMikgNjc4LTAzODAgZm9yIHNlcnZpY2VzIGF0IHRoaXMgbG9jYXRpb24uIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxNjUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTN9DxfT6MQ0cdbIbES81HWfxe2oA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK3gtzhDQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAafpAf1YpQSDBMLSrhHlF3sdwVjK" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1310 Southern Avenue, SE STE. 015 Washington  DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Capital Community Services (United Medical Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1310 Southern Avenue, SE STE. 015 Washington , DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 574-6054<br /><b>Phone No2:</b>(202) 574-5444<br /><b>Fax No:</b>(202) 574-6949<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.capcomservices.com<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Assertive Community Treatment, Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Community Service Agency (CSA), Domestic Violence<br \><b>Population : </b> Criminal justice involved, Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Public funding, Self-payment<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details), Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday, Wednesday, & Friday 8:30 am - 6:00 pm.; Tuesday & Thursday 8:30 am -7:00 pm. and Saturday by appointment.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>18 years (+).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Capital Community Services (CCS) provides an array of outpatient services and programs for adults 18 years and older including: diagnostic assessment, medication somatic treatment, individual and group counseling and psychotherapy, community support, and Assertive Community Treatment (ACT).  Services are provided by qualified, licensed, and credentialed staff including: Board Certified Psychiatrists, Registered Nurses, Licensed Independent Clinical Social Workers, Certified Addictions Counselors, Licensed Professional Counselors, and Credentialed Mental Health Specialist. CCS is also certified as a Core Service Agency by the District of Columbia Department of Mental Health.  This certification allows CCS to provide mental health rehabilitative services (MHRS) to the District's population. CCS also provides after hours emergency on-call services for consumers enrolled in the program. CCS services are covered by Medicaid, Medicare, as well as, several HMO’s. Payment arrangements are worked out based on coverage and CCS provides a sliding scale fee.
+<br /> 
+<br />                                     **********************
+Capital Community Services also offers the same quality mental health programs listed above at “The Big Chair” location (2041 Martin Luther King Jr. Ave, SE., #236, WDC  20020). This location is also certified as a DMH Core Service Agency and offers the same payment options as those listed above. Contact(202) 678-0380 for services at this location. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

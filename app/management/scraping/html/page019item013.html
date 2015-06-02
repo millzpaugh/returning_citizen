@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxMjIxIFRheWxvciBTdHJlZXQsIE5XIFdhc2hpbmd0b24gIERDIDIwMDExZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDEyMjEgVGF5bG9yIFN0cmVldCwgTlcgV2FzaGluZ3RvbiAsIERDIDIwMDExZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDQ2NC05MjAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA0NjQtNTczMDxiciAvPmRkAgUPDxYCHwIFJzxiPldlYnNpdGU6IDwvYj53d3cuZ3JlZW5kb29yLm9yZzxiciAvPmRkAgcPDxYCHwIF6wQ8Yj5DYXRlZ29yeSA6IDwvYj4gTWVudGFsIEhlYWx0aDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNZW50YWwgaGVhbHRoIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gQXNzZXJ0aXZlIENvbW11bml0eSBUcmVhdG1lbnQsIE91dHBhdGllbnQsIFBhcnRpYWwgaG9zcGl0YWxpemF0aW9uL2RheSBwcm9ncmFtPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIENvbW11bml0eSBTZXJ2aWNlIEFnZW5jeSAoQ1NBKSwgRmFtaWx5IGlzc3Vlcy0tY291bnNlbGluZywgbWFycmlhZ2UsIHBhcmVudGluZywgR3JpZWYgJmFtcDsgbG9zcywgU3VwcG9ydGVkIGVtcGxveW1lbnQsIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBNZWRpY2FpZCwgTWVkaWNhcmUsIFB1YmxpYyBmdW5kaW5nLCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVdPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDg6MzBhbSAtIDVwbTsgb24tY2FsbCBldmVuaW5ncyBhbmQgd2Vla2VuZHMuPGJyIC8+ZGQCDw8PFgIfAgUwPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EQyByZXNpZGVudHMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBc8SPGI+RGVzY3JpcHRpb246IDwvYj5HcmVlbiBEb29yIHByb3ZpZGVzIGNvbXByZWhlbnNpdmUgcHJvZ3JhbXMgZGVzaWduZWQgdG8gbWVldCB0aGUgbmVlZHMgb2YgcGVvcGxlIHdpdGggbWVudGFsIGlsbG5lc3MgaW5jbHVkaW5nOiBQc3ljaGlhdHJpYyAmIFN1cHBvcnQgU2VydmljZXMgLSBHcmVlbiBEb29yIGlzIGNlcnRpZmllZCBieSB0aGUgRGVwYXJ0bWVudCBvZiBNZW50YWwgSGVhbHRoIGFzIGEgQ29yZSBTZXJ2aWNlIEFnZW5jeSAoQ1NBKSBhbmQgcHJvdmlkZXMgb3V0cGF0aWVudCBtZW50YWwgaGVhbHRoIHNlcnZpY2VzIHRvIGluY2x1ZGU6IGFzc2Vzc21lbnQsIHBzeWNoaWF0cmljIHNlcnZpY2VzLCBtZWRpY2F0aW9uIG1hbmFnZW1lbnQsIGhlYWx0aCBlZHVjYXRpb24sIGNhc2UgbWFuYWdlbWVudCBieSBjb21tdW5pdHkgc3VwcG9ydCB3b3JrZXJzLCBpbmRpdmlkdWFsIGFuZCBncm91cCBjb3Vuc2VsaW5nLCBjb21tdW5pdHkgc3VwcG9ydCwgMjQgaG91ciBjcmlzaXMgaW50ZXJ2ZW50aW9uLCBjby1vY2N1cnJpbmcgZGlzb3JkZXJzIGdyb3VwcywgYW5kIGFzc2lzdGFuY2UgZm9yIGNsaWVudHMgaW52b2x2ZWQgaW4gdGhlIGNyaW1pbmFsIGp1c3RpY2Ugc3lzdGVtIChpLmUuIEphaWwgTGlua2FnZSBwcm9ncmFtKSwgQXNzZXJ0aXZlIENvbW11bml0eSBUcmVhdG1lbnQgKEFDVCkuDQo8YnIgLz4NCjxiciAvPg0KTkVYVCBTVEVQIFBST0dSQU0gDQo8YnIgLz4NCkludGVuc2l2ZSBnb2FsLWRyaXZlbiBkYXkgcHJvZ3JhbSBmb2N1c2luZyBvbiBiZWhhdmlvcmFsIG1hbmFnZW1lbnQsIGluZm9ybWF0aW9uIGFuZCBkaXNjdXNzaW9uIGFib3V0IG1lZGljYXRpb24gYW5kIHRoZWlyIHNpZGUgZWZmZWN0cywgcmVhZGluZyBhbmQgY29tcHJlaGVuc2lvbiwgY29waW5nIHRlY2huaXF1ZXMgYW5kIGV4ZXJjaXNlLiANCjxiciAvPg0KPGJyIC8+IA0KRURVQ0FUSU9OIFNFUlZJQ0VTOiANCjxiciAvPg0KVGhlIEdyZWVuIERvb3IgRWR1Y2F0aW9uIFNlcnZpY2VzIHN0YWZmIHByb3ZpZGVzIHN1cHBvcnQgdG8gY2xpZW50cyB3aG8gd2FudCB0byBsZWFybiBiYXNpYyByZWFkaW5nIGFuZC9vciBtYXRoIHNraWxscywgY29udGludWUgdGhlaXIgZWR1Y2F0aW9uIGFuZCBlYXJuIHRoZWlyIEdFRCwgaGlnaCBzY2hvb2wgZGlwbG9tYSwgY29sbGVnZSBkZWdyZWUsIG9yIHZvY2F0aW9uYWwgY2VydGlmaWNhdGlvbi4gIEFzc2lzdGFuY2UgaW5jbHVkZXMgYXNzZXNzbWVudCB0ZXN0aW5nIGZvciBvZmYtIHNpdGUgZWR1Y2F0aW9uIHByb2dyYW1zOyBpZGVudGlmeWluZyBhbiBhcHByb3ByaWF0ZSBsaXRlcmFjeSBvcmdhbml6YXRpb24sIHZvY2F0aW9uYWwgcHJvZ3JhbSwgb3IgZWR1Y2F0aW9uYWwgaW5zdGl0dXRpb24gdGhhdCB3b3VsZCBiZXN0IGZpdCBjbGllbnTigJlzIGVkdWNhdGlvbmFsIGdvYWxzOyBhbmQgaGVscGluZyB0byBleHBsb3JlIHBvc3NpYmxlIGZ1bmRpbmcgZm9yIHR1aXRpb24sIHRyYW5zcG9ydGF0aW9uIGFuZCBzdXBwbGllcy4NCjxiciAvPg0KPGJyIC8+DQpFTVBMT1lNRU5UIFNFUlZJQ0VTOg0KPGJyIC8+DQpHcmVlbiBEb29yIGlzIGEgcGFydGljaXBhbnQgaW4gdGhlIFRpY2tldCB0byBXb3JrIFByb2dyYW0sIGFuIGluaXRpYXRpdmUgb2YgdGhlIFNvY2lhbCBTZWN1cml0eSBBZG1pbmlzdHJhdGlvbiB0aGF0IGVuY291cmFnZXMgaW5kaXZpZHVhbHMgd2hvIHJlY2VpdmUgU29jaWFsIFNlY3VyaXR5IERpc2FiaWxpdHkgSW5zdXJhbmNlIG9yIFN1cHBsZW1lbnRhbCBTZWN1cml0eSBJbmNvbWUgdG8gc2VlayBhbmQgZmluZCBlbXBsb3ltZW50LiAgVGhleSBhbHNvIHByb3ZpZGUgY2xpZW50cyB3aXRoIGNvdW5zZWxpbmcgYW5kIGVkdWNhdGlvbiBuZWVkZWQgdG8gb2J0YWluIGVtcGxveW1lbnQgc3VjaCBhcyByZXN1bWUgd3JpdGluZywgaG93IHRvIGJlZ2luIHRoZSBqb2Igc2VhcmNoIHByb2Nlc3MsIGhvdyB0byBnZXQgYWxvbmcgd2l0aCBjby13b3JrZXJzLCBob3cgZW1wbG95bWVudCBhZmZlY3RzIFNTSSBiZW5lZml0cywgZXRjLiANCkhvdXNpbmcgU2VydmljZXMgLSBHcmVlbiBEb29yICBwcm92aWRlcyBhZmZvcmRhYmxlIGhvdXNpbmcgZm9yIHBlb3BsZSB3aXRoIHNldmVyZSBtZW50YWwgaWxsbmVzcyB3aGV0aGVyIGl0IGlzIGluZGVwZW5kZW50IGxpdmluZyBpbiBhIGhvbWUgb3IgYXBhcnRtZW50LCBvciBsaXZpbmcgaW4gYSBncm91cCBob21lIGVudmlyb25tZW50LiAgDQo8YnIgLz4NCjxiciAvPg0KR3JlZW4gRG9vciBpcyBwdWJsaWNseSBmdW5kZWQgdGhyb3VnaCBETUggYW5kIGFjY2VwdHMsIE1lZGljYWlkLCBNZWRpY2FyZSwgYW5kIHN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAoaS5lLiBjaGFydGVyZWQgaGVhbHRoLCB1bmlzb24sIGV0Yy4pLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxODQeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQkJeDLWWB7i6GKI5PuIp0PzOb7yg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKm2MaYDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcTJiOZvA6sUk0OW9lv7Rgs0HO/D" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1221 Taylor Street, NW Washington  DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="The Green Door" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1221 Taylor Street, NW Washington , DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 464-9200<br /><b>Fax No:</b>(202) 464-5730<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.greendoor.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Assertive Community Treatment, Outpatient, Partial hospitalization/day program<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders, Community Service Agency (CSA), Family issues--counseling, marriage, parenting, Grief &amp; loss, Supported employment, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Men, Women<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Public funding, State financed insurance (other than Medicaid)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:30am - 5pm; on-call evenings and weekends.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC residents.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Green Door provides comprehensive programs designed to meet the needs of people with mental illness including: Psychiatric & Support Services - Green Door is certified by the Department of Mental Health as a Core Service Agency (CSA) and provides outpatient mental health services to include: assessment, psychiatric services, medication management, health education, case management by community support workers, individual and group counseling, community support, 24 hour crisis intervention, co-occurring disorders groups, and assistance for clients involved in the criminal justice system (i.e. Jail Linkage program), Assertive Community Treatment (ACT).
+<br />
+<br />
+NEXT STEP PROGRAM 
+<br />
+Intensive goal-driven day program focusing on behavioral management, information and discussion about medication and their side effects, reading and comprehension, coping techniques and exercise. 
+<br />
+<br /> 
+EDUCATION SERVICES: 
+<br />
+The Green Door Education Services staff provides support to clients who want to learn basic reading and/or math skills, continue their education and earn their GED, high school diploma, college degree, or vocational certification.  Assistance includes assessment testing for off- site education programs; identifying an appropriate literacy organization, vocational program, or educational institution that would best fit client’s educational goals; and helping to explore possible funding for tuition, transportation and supplies.
+<br />
+<br />
+EMPLOYMENT SERVICES:
+<br />
+Green Door is a participant in the Ticket to Work Program, an initiative of the Social Security Administration that encourages individuals who receive Social Security Disability Insurance or Supplemental Security Income to seek and find employment.  They also provide clients with counseling and education needed to obtain employment such as resume writing, how to begin the job search process, how to get along with co-workers, how employment affects SSI benefits, etc. 
+Housing Services - Green Door  provides affordable housing for people with severe mental illness whether it is independent living in a home or apartment, or living in a group home environment.  
+<br />
+<br />
+Green Door is publicly funded through DMH and accepts, Medicaid, Medicare, and state financed insurance (i.e. chartered health, unison, etc.).<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

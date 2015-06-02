@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BUExODAwIE1hcnRpbiBMdXRoZXIgS2luZyBKci4gQXZlbnVlLCBTRSAxc3QgRkwgV2FzaGluZ3RvbiBEQyAyMDAyMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBUIxODAwIE1hcnRpbiBMdXRoZXIgS2luZyBKci4gQXZlbnVlLCBTRSAxc3QgRkwgV2FzaGluZ3RvbiwgREMgMjAwMjBkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODg5LTIxOTY8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFgAI8Yj5DYXRlZ29yeSA6IDwvYj4gTGVnYWwsIFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBMZWdhbCwgU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRmluYW5jaWFsIGNvdW5zZWxpbmcgKG1vbmV5IG1hbmFnZW1lbnQsIGhvdXNpbmcgJmFtcDsgY3JlZGl0KSwgTGFuZGxvcmQvVGVuYW50L0ZhaXIgaG91c2luZzxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVLPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+Q29udGFjdCBmb3IgZGV0YWlscyBvbiBob3VycyBvZiBvcGVyYXRpb24uPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFixM8Yj5EZXNjcmlwdGlvbjogPC9iPlVuaXZlcnNpdHkgTGVnYWwgU2VydmljZXMgKFVMUykgaXMgYSBwcml2YXRlLCBub24tcHJvZml0IG9yZ2FuaXphdGlvbiB0aGF0IHNlcnZlcyBhcyB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEncyBmZWRlcmFsbHkgbWFuZGF0ZWQgcHJvdGVjdGlvbiBhbmQgYWR2b2NhY3kgc3lzdGVtIGZvciB0aGUgaHVtYW4sIGxlZ2FsIGFuZCBzZXJ2aWNlIHJpZ2h0cyBvZiBwZW9wbGUgd2l0aCBkaXNhYmlsaXRpZXMuIFNlcnZpY2VzIHByb3ZpZGVkIGJ5IFVMUyB1bmRlciB0aGUgcHJvdGVjdGlvbiBhbmQgYWR2b2NhY3kgZ3JhbnRzIGluY2x1ZGUgaW5mb3JtYXRpb24gYW5kIHJlZmVycmFsOyBlZHVjYXRpb24gYW5kIHRyYWluaW5nOyBpbnZlc3RpZ2F0aW9uIG9mIHJlcG9ydGVkIG9yIHN1c3BlY3RlZCBpbnN0YW5jZXMgb2YgYWJ1c2Ugb3IgbmVnbGVjdDsgbGVnYWwgY291bnNlbDsgdGVjaG5pY2FsIGFzc2lzdGFuY2UsIGFuZCBsaXRpZ2F0aW9uIHNlcnZpY2VzOyBhbmQgdGVjaG5pY2FsIGFzc2lzdGFuY2UgcmVnYXJkaW5nIGxlZ2lzbGF0aXZlIGFuZCBwb2xpY3kgY29uY2VybnMuIEFsbCBzZXJ2aWNlcyBhcmUgb2ZmZXJlZCBmcmVlIG9mIGNoYXJnZSB0byBlbGlnaWJsZSBpbmRpdmlkdWFscyBpbiBhY2NvcmRhbmNlIHdpdGggVUxTJyBhdmFpbGFibGUgcmVzb3VyY2VzIGFuZCBwb2xpY2llcy4NCjxiciAvPg0KPGJyIC8+DQpNT05FWSBNQU5BR0VNRU5ULCBCVURHRVRJTkcgQU5EIENSRURJVDogDQo8YnIgLz4NClRoZSBjb3Vuc2Vsb3IgYWxvbmcgd2l0aCB0aGUgY2xpZW50IG11c3QgZmlyc3QgZG8gYW4gYXNzZXNzbWVudCBvZiB0aGUgY2xpZW50J3MgcHJlc2VudCBmaW5hbmNpYWwgc2l0dWF0aW9uLiBUaGUgY291bnNlbG9yIHRoZW4gYXNzaXN0cyB0aGUgY2xpZW50IGluIGZvcm11bGF0aW5nIGEgYnVkZ2V0LiBUaGUgY291bnNlbG9yIGFsc28gaGVscHMgdGhlIGNsaWVudCB0byBwcmlvcml0aXplIGhpcy9oZXIgZXhwZW5kaXR1cmVzLiBPbmNlIGFuIGFjY2VwdGFibGUgYnVkZ2V0IGlzIGZvcm1lZCwgdGhlIGNsaWVudCBpcyB0aGVuIHRhdWdodCBob3cgdG8gcmVkdWNlIGV4cGVuc2VzLiBGaW5hbGx5LCB0aGUgY2xpZW50IGlzIGVuY291cmFnZWQgdG8gcHV0IGEgcHJpb3JpdHkgb24gc2F2aW5nIG1vbmV5IGFuZCB1dGlsaXppbmcgdmFyaW91cyBzYXZpbmdzIHZlaGljbGVzIChpLmUuIGNyZWRpdCB1bmlvbnMgb3IgYmFuayBzYXZpbmdzIGFjY291bnQsIENELCBtdXR1YWwgZnVuZCwgSVJBLCBldGMuKS4gDQo8YnIgLz4NCkNvdW5zZWxvcnMgcmV2aWV3IGNsaWVudHMnIGNyZWRpdCByZXBvcnRzIHRvIGdldCBhbiBvdmVydmlldyBvZiB0aGUgY2xpZW50cycgY3JlZGl0IHNpdHVhdGlvbi4gVGhlIGNvdW5zZWxvciBleHBsYWlucyB0aGUgdmFyaW91cyBjb2RlcywgaW5zdGFsbG1lbnQgdnMuIHJldm9sdmluZyBhY2NvdW50cywgZGlzcHV0ZSBwcm9jZXNzLCBjcmVkaXQgc2NvcmVzLCBzZWN1cmVkIHZzLiB1bnNlY3VyZWQgZGVidCwgZXRjLiBUaGUgY291bnNlbG9yIHRoZW4gZXhwbGFpbnMgaG93IHRvIGVzdGFibGlzaCBhbmQgbWFpbnRhaW4gY3JlZGl0d29ydGhpbmVzcy4NCjxiciAvPg0KPGJyIC8+DQpQT1NULVBVUkNIQVNFIE9DQ1VQQU5DWSBDT1VOU0VMSU5HIEZPUiBGSVJTVC1USU1FIEhPTUVCVVlFUlM6IA0KPGJyIC8+DQpQb3N0LW9jY3VwYW5jeSBzZXJ2aWNlcyBwcm92aWRlIG9uZ29pbmcgY291bnNlbGluZyBzdXBwb3J0IHRvIGNsaWVudHMgdGhhdCBoYXZlIHB1cmNoYXNlZCBob21lcy4gVGhlIHByaW1hcnkgZ29hbCBvZiBwb3N0LW9jY3VwYW5jeSBjb3Vuc2VsaW5nIGlzIHRvIGVuc3VyZSB0aGF0IHRoZSBob21lLW93bmVyc2hpcCBleHBlcmllbmNlIGlzIGEgc3VjY2Vzc2Z1bCBvbmUsIGFuZCB0byBtYWtlIHN1cmUgVUxTIGNsaWVudHMgYXJlIHByZXBhcmVkIHRvIGhhbmRsZSB0aGUgcmVzcG9uc2liaWxpdGllcyBvZiByb3V0aW5lIGFuZCBwcmV2ZW50YXRpdmUgcmVwYWlycyBhbmQgbWFpbnRlbmFuY2UuIFBvc3Qtb2NjdXBhbmN5IGNvdW5zZWxpbmcgZW50YWlscyBwcm92aWRpbmcgaW5mb3JtYXRpb24gdG8gaG9tZW93bmVycyBhYm91dCBob21lIG1haW50ZW5hbmNlLCBzZWFzb25hbCB1cGtlZXAgYW5kIGVuZXJneSBjb25zZXJ2YXRpb24uIFByb3ZpZGluZyBjb250aW51YWwgYXNzaXN0YW5jZSwgYnVkZ2V0aW5nIGFuZCBmaW5hbmNpYWwgcGxhbm5pbmcsIGluIGFuIGVmZm9ydCB0byBwcmV2ZW50IGRlZmF1bHRzIGFuZCBmb3JlY2xvc3VyZXMuIFRoZSBvYmplY3RpdmUgaXMgdG8gc2hvdyBuZXcgaG9tZW93bmVycyBob3cgdG8ga2VlcCB0aGVpciBob21lcywgcHJvdGVjdCB0aGVpciBpbnZlc3RtZW50LCBhbmQgbWFuYWdlIHRoZSBuZXcgZXhwZW5zZXMgYW5kIHJlc3BvbnNpYmlsaXRpZXMgb2YgaG9tZS1vd25lcnNoaXAuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzc1OR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZAfK4JrK9WKAAgYvvjtQF7s0X0XE" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKDrci7DwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAR0ksuUWhn1p5OEDv8m41/zrom9g" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1800 Martin Luther King Jr. Avenue, SE 1st FL Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="University Legal Services" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1800 Martin Luther King Jr. Avenue, SE 1st FL Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 889-2196<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal, Social Services<br \><b>Services : </b> Legal, Social services<br \><b>Program : </b> Financial counseling (money management, housing &amp; credit), Landlord/Tenant/Fair housing<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Contact for details on hours of operation.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>University Legal Services (ULS) is a private, non-profit organization that serves as the District of Columbia's federally mandated protection and advocacy system for the human, legal and service rights of people with disabilities. Services provided by ULS under the protection and advocacy grants include information and referral; education and training; investigation of reported or suspected instances of abuse or neglect; legal counsel; technical assistance, and litigation services; and technical assistance regarding legislative and policy concerns. All services are offered free of charge to eligible individuals in accordance with ULS' available resources and policies.
+<br />
+<br />
+MONEY MANAGEMENT, BUDGETING AND CREDIT: 
+<br />
+The counselor along with the client must first do an assessment of the client's present financial situation. The counselor then assists the client in formulating a budget. The counselor also helps the client to prioritize his/her expenditures. Once an acceptable budget is formed, the client is then taught how to reduce expenses. Finally, the client is encouraged to put a priority on saving money and utilizing various savings vehicles (i.e. credit unions or bank savings account, CD, mutual fund, IRA, etc.). 
+<br />
+Counselors review clients' credit reports to get an overview of the clients' credit situation. The counselor explains the various codes, installment vs. revolving accounts, dispute process, credit scores, secured vs. unsecured debt, etc. The counselor then explains how to establish and maintain creditworthiness.
+<br />
+<br />
+POST-PURCHASE OCCUPANCY COUNSELING FOR FIRST-TIME HOMEBUYERS: 
+<br />
+Post-occupancy services provide ongoing counseling support to clients that have purchased homes. The primary goal of post-occupancy counseling is to ensure that the home-ownership experience is a successful one, and to make sure ULS clients are prepared to handle the responsibilities of routine and preventative repairs and maintenance. Post-occupancy counseling entails providing information to homeowners about home maintenance, seasonal upkeep and energy conservation. Providing continual assistance, budgeting and financial planning, in an effort to prevent defaults and foreclosures. The objective is to show new homeowners how to keep their homes, protect their investment, and manage the new expenses and responsibilities of home-ownership.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgxMjIyIDExdGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDAxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTEyMjIgMTF0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDAxZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY4Mi0xMDA1PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2ODItODY0ODxiciAvPmRkAgUPDxYCHwIFJjxiPldlYnNpdGU6IDwvYj53d3cucmFjaGFlbHMub3JnPGJyIC8+ZGQCBw8PFgIfAgWSAjxiPkNhdGVnb3J5IDogPC9iPiBFbWVyZ2VuY3kgRm9vZCwgSG91c2luZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IERheSBwcm9ncmFtcy9Ecm9wLWluIGNlbnRlcnMsIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBGcmVlIG1lYWxzL1NvdXAga2l0Y2hlbnMsIE1haWwgJmFtcDsgcGhvbmUgc2VydmljZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBIb21lbGVzcywgV29tZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBZYBPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDc6MDAgYW0gdG8gNDowMCBwbSAoY2xvc2VkIFR1ZXNkYXkgYXQgM3BtKTsgU2F0IDk6MDAgYW0gdG8gMzowMCBwbS4gT3BlbiBob2xpZGF5cyA4OjAwIGFtIHRvIDQ6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAgVGPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EYXkgY2VudGVyIGZvciBob21lbGVzcyB3b21lbiAoMTgrKTxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXxHTxiPkRlc2NyaXB0aW9uOiA8L2I+UmFjaGVs4oCZcyBXb21lbuKAmXMgQ2VudGVyIGhhcyB0aHJlZSBwcm9ncmFtcyB3aGljaCBoZWxwIGJ1aWxkIGEgY29udGludXVtIG9mIGNhcmUuIFRocm91Z2ggUmFjaGVs4oCZcyBwcm9ncmFtcyB0aGUgb3JnYW5pemF0aW9uIGlzIGFibGUgdG8gb2ZmZXIgd29tZW4gYXNzaXN0YW5jZSB0byBkZXZlbG9wIHRoZWlyIGluZGVwZW5kZW5jZSwgc2Vuc2Ugb2Ygc2VsZiwgYW5kIGhvcGUgZm9yIHRoZSBmdXR1cmUuIFRoZXNlIHRocmVlIHByb2dyYW0gaGVscCB3b21lbiBzdGF5IG9mZiB0aGUgc3RyZWV0cyBhbmQgaW50byBwZXJtYW5lbnQgaG91c2luZzogU3RyZWV0IE91dHJlYWNoIFByb2dyYW0sIERheSBDZW50ZXIgYW5kIFBlcm1hbmVudCBTdXBwb3J0aXZlIEhvdXNpbmcgUHJvZ3JhbS4gSW50YWtlIGNhbiB0YWtlIHBsYWNlIGF0IHRoZSBXYXNoaW5ndG9uIExlZ2FsIENsaW5pYyBmb3IgdGhlIEhvbWVsZXNzLiBUaGVpciBhZGRyZXNzIGlzOiAxMjAwIFUgU3RyZWV0LCBOVyAzcmQgRmxvb3IsIDIwMDA5LiBUaGVpciBwaG9uZSBudW1iZXIgaXM6ICgyMDIpIDMyOC01NTAwLg0KPGJyIC8+DQo8YnIgLz4NClNUUkVFVCBPVVRSRUFDSDoNCjxiciAvPg0KVGhlIHB1cnBvc2Ugb2YgdGhlIFN0cmVldCBPdXRyZWFjaCBwcm9ncmFtIGlzIHRvIGVzdGFibGlzaCBzdHJvbmcsIHRydXN0aW5nIHJlbGF0aW9uc2hpcHMgd2l0aCBpbmRpdmlkdWFscyBsaXZpbmcgb24gdGhlIHN0cmVldHMgaW4gb3JkZXIgdG8gZmFjaWxpdGF0ZSB0aGVpciBjb25uZWN0aW9uIHRvIHJlc291cmNlcyB0aGF0IHdpbGwgYXNzaXN0IGluIHVsdGltYXRlbHkgbW92aW5nIHRoZW0gb2ZmIG9mIHRoZSBzdHJlZXRzIGFuZCBvdXQgb2YgaG9tZWxlc3NuZXNzLiBSYWNoYWVsJ3MgaGFzIHR3byBPdXRyZWFjaCB3b3JrZXJzIHdobyBnbyBvdXQgcmVndWxhcmx5IGFuZCB0cnkgdG8gZW5nYWdlIHRoZSBwZW9wbGUgd2hvIGFyZSBzdGF5aW5nIG9uIHRoZSBzdHJlZXRzIGFuZCBhcmUgdW5saWtlbHkgdG8gY29tZSBpbnNpZGUgZm9yIHNlcnZpY2VzLiBPbmUgcHVycG9zZSBvZiB0aGUgc3RyZWV0IG91dHJlYWNoIGlzIHRvIGFzc2VzcyBpbmRpdmlkdWFscycgc2FmZXR5LiBPdXIgd29ya2VycyBoYW5kIG91dCB3YXRlciBpbiB3YXJtIHdlYXRoZXIgYW5kIGJsYW5rZXRzLCBoYXRzLCBldGMuIGR1cmluZyBjb2xkIHdlYXRoZXIuIE9uY2UgdHJ1c3QgaXMgYnVpbHQgb3VyIHdvcmtlcnMgdHJ5IHRvIGNvbm5lY3QgdGhlc2UgaW5kaXZpZHVhbHMgdG8gdGhlIHNlcnZpY2VzIHRoZXkgbmVlZCBpbiBvcmRlciB0byBtb3ZlIG91dCBvZiBob21lbGVzc25lc3MuIE91ciBPdXRyZWFjaCB0ZWFtIGFsc28gaGFzIG9mZmljZSBob3VycyB0aHJlZSB0aW1lcyBhIHdlZWssIHdoZW4gdGhlaXIgbWFsZSBjbGllbnRzIGNhbiBjb21lIGluIGZvciBzZXJ2aWNlcyBzdWNoIGFzIHNob3dlcnMsIGxhdW5kcnksIHBob25lLCBtYWlsLCBldGMuIHNpbmNlIHRoZSBtZW4gYXJlIG5vdCBhbGxvd2VkIGluIHRoZSBkYXkgY2VudGVyLg0KPGJyIC8+DQo8YnIgLz4NCkRBWSBDRU5URVI6DQo8YnIgLz4NClJhY2hhZWxzJyBEYXkgQ2VudGVyIHVzZXMgYSBzdHJlbmd0aHMtYmFzZWQgYXBwcm9hY2ggdG8gaGVscGluZyB3b21lbiBiZWNvbWUgbW9yZSBzZWxmLXN1ZmZpY2llbnQuIFdoZW4gdGltZXMgYXJlIGRpZmZpY3VsdCBmb3IgdGhlIHdvbWVuLCBzdGFmZiBsaXN0ZW5zLCBnaXZlcyBmZWVkYmFjaywgYW5kIGFsbG93cyB0aGUgd29tZW4gdG8gYXNrIGZvciB0aGUgc2VydmljZXMgdGhleSBuZWVkIHRvIGVuc3VyZSB0aGF0IG5vIG9uZSBnZXRzICdsb3N0IGluIHRoZSBzeXN0ZW0nIG9yIGlzIHByZXNzdXJlZCBpbnRvIGRvaW5nIGFueXRoaW5nIGZvciB3aGljaCB0aGV5IGFyZSBub3QgcHJlcGFyZWQuDQo8YnIgLz4NCldvbWVuIGFsc28gcmVjZWl2ZSBvdGhlciBzZXJ2aWNlcyBzdWNoIGFzIGRheSBzaGVsdGVyLCBzaG93ZXJzLCBsYXVuZHJ5LCBpbnRlbnNpdmUgY2FzZSBtYW5hZ2VtZW50LCB1c2Ugb2YgY29tcHV0ZXJzLCBzb2NpYWwgYWN0aXZpdGllcywgZmllbGQgdHJpcHMsIGZyZWUgbGVnYWwgc2VydmljZXMsIHBzeWNob2VkdWNhdGlvbmFsIGdyb3VwcyBzdWNoIGFzIExpZmUgU2tpbGxzIGFuZCBXb21lbidzIEhlYWx0aCwgYW5kIHN1YnN0YW5jZSBhYnVzZSBhbmQgcmVjb3Zlcnkgc3VwcG9ydC4gSW4gMjAwOSBhcHByb3hpbWF0ZWx5IDc1IHdvbWVuIHdvcmtlZCB3aXRoIHRoZSBDYXNlIE1hbmFnZXIgdG8gYWNoaWV2ZSB0aGVpciBwZXJzb25hbCBnb2Fscy4gVGhlIHN0YWZmIG9mIHRoZSBjZW50ZXIgd29yayBoYXJkIHRvIG1ha2UgZWFjaCB3b21lbiBmZWVsIGxpa2UgYW4gaW5kaXZpZHVhbCwgbm90IGp1c3QgYSBudW1iZXIsIGFuZCB0byBoZWxwIGhlciBhY2hpZXZlIGhlciBzcGVjaWZpYyBnb2FscyBpbiBvcmRlciB0byBzdGFiaWxpemUgYW5kIG1vdmUgb3V0IG9mIGhvbWVsZXNzbmVzcy4NCjxiciAvPg0KPGJyIC8+DQpQRVJNRU5BTlQgU1VQUE9SVElWRSBIT1VTSU5HIFBST0dSQU06DQo8YnIgLz4NCk9uY2Ugc3RhYmxlIGFuZCByZWFkeSB0byBsaXZlIGluZGVwZW5kZW50bHksIHdvbWVuIGNhbiBiZSByZWZlcnJlZCB0byBSYWNoYWVsJ3MgUGVybWFuZW50IFN1cHBvcnRpdmUgSG91c2luZyBQcm9ncmFtLiBSYWNoYWVsJ3MgaG91c2luZyBpcyBhIDE3IHVuaXQgcHJvZ3JhbSBpbiB3aGljaCB3b21lbiBoYXZlIHRoZWlyIG93biByb29tcyBhbmQgc2hhcmUgY29tbW9uIGFyZWFzLiBJdCBpcyBhbiBpbmRlcGVuZGVudCBsaXZpbmcgcHJvZ3JhbSB3aGljaCBtZWFucyB0aGF0IHN0YWZmIGFyZSBub3Qgb24gc2l0ZSAyNCBob3VycyBhIGRheS4gVGhlcmUgaXMgYSBjYXNlIG1hbmFnZXIgZm9yIHRoaXMgcHJvZ3JhbSB3aG8gd29ya3Mgd2l0aCB0aGUgd29tZW4gdG8gaGVscCB0aGVtIGJlY29tZSBldmVuIG1vcmUgaW5kZXBlbmRlbnQgYW5kIHdobyBpcyBhbHNvIG9uLWNhbGwgMjQgaG91cnMgYSBkYXkgaW4gY2FzZSBvZiBlbWVyZ2VuY2llcy4gVGhlcmUgaXMgbm8gdGltZSBsaW1pdCB0byBob3cgbG9uZyB3b21lbiBhcmUgYWJsZSB0byBzdGF5IGluIHRoZSBwcm9ncmFtLg0KPGJyIC8+DQo8YnIgLz4NCk9VVFJFQUNIIFNFUlZJQ0VTIElOQ0xVREU6DQo8YnIgLz4NCkJyZWFrZmFzdCBNb25kYXkgLSBGcmlkYXkgNzo0NSBhbSB0byA4OjAwIGFtIGFuZCBDb250aW5lbnRhbCBicmVha2Zhc3QgU2F0dXJkYXkgNzo0NSBhbSB0byA4OjAwIGFtOyBMdW5jaCAxMjowMCBub29uIHRvIDE6MDAgcG07IGhvdCBsdW5jaCBTYXQgMTI6MDAgbm9vbiB0byAxOjMwIHBtOyBwZXJzb25hbCBoeWdpZW5lIGZhY2lsaXRpZXM7IHNvY2lhbCB3b3JrZXJzOyBjYXNlIG1hbmFnZXIgb24gc2l0ZTsgbGVnYWwgc2VydmljZXMgY2xpbmljIFNhdHVyZGF5IDEyOjMwIHBtIHRvIDI6MDAgcG07IHVzZSBvZiBjb21wdXRlcnM7IHBlcm1hbmVudCBob3VzaW5nIHByb2dyYW0gKG11c3QgZm9sbG93IGNlcnRhaW4gY3JpdGVyaWHigJlzIHRvIGJlIGVsaWdpYmxlIGZvciB0aGUgcHJvZ3JhbSkgbGlmZSBza2lsbHM7IGFuZCBOQSBtZWV0aW5nIDEwOjAwIGFtIHRvIDExOjAwIGFtIChNb25kYXktU2F0dXJkYXkpLiANCjxiciAvPg0KVG9rZW5zIGFyZSBwcm92aWRlZCBmb3IgbWVkaWNhbCBhcHBvaW50bWVudC4gTWFpbCBhbmQgcGhvbmUgc2VydmljZXMgYXZhaWxhYmxlIGFuZCB0aGUgbmVhcmVzdCBNZXRybyBzdGF0aW9uOiBNdC4gVmVybm9uIFNxdWFyZS9Db252ZW50aW9uIENlbnRlciBhbmQgbmVhcmVzdCBNZXRybyBidXMgbGluZXMgRzggYW5kIDY0LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1MDceDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSD3s6HemuIyNbSPc1cJnN4TCszJQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLBlvTuBQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYq93LUyHEIOCDFbnHHQIQKi1HNP" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1222 11th Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Rachel's Women's Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1222 11th Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 682-1005<br /><b>Fax No:</b>(202) 682-8648<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.rachaels.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing, Social Services<br \><b>Services : </b> Day programs/Drop-in centers, Nutritional services, Social services<br \><b>Program : </b> Free meals/Soup kitchens, Mail &amp; phone services<br \><b>Population : </b> Homeless, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 7:00 am to 4:00 pm (closed Tuesday at 3pm); Sat 9:00 am to 3:00 pm. Open holidays 8:00 am to 4:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Day center for homeless women (18+)<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Rachel’s Women’s Center has three programs which help build a continuum of care. Through Rachel’s programs the organization is able to offer women assistance to develop their independence, sense of self, and hope for the future. These three program help women stay off the streets and into permanent housing: Street Outreach Program, Day Center and Permanent Supportive Housing Program. Intake can take place at the Washington Legal Clinic for the Homeless. Their address is: 1200 U Street, NW 3rd Floor, 20009. Their phone number is: (202) 328-5500.
+<br />
+<br />
+STREET OUTREACH:
+<br />
+The purpose of the Street Outreach program is to establish strong, trusting relationships with individuals living on the streets in order to facilitate their connection to resources that will assist in ultimately moving them off of the streets and out of homelessness. Rachael's has two Outreach workers who go out regularly and try to engage the people who are staying on the streets and are unlikely to come inside for services. One purpose of the street outreach is to assess individuals' safety. Our workers hand out water in warm weather and blankets, hats, etc. during cold weather. Once trust is built our workers try to connect these individuals to the services they need in order to move out of homelessness. Our Outreach team also has office hours three times a week, when their male clients can come in for services such as showers, laundry, phone, mail, etc. since the men are not allowed in the day center.
+<br />
+<br />
+DAY CENTER:
+<br />
+Rachaels' Day Center uses a strengths-based approach to helping women become more self-sufficient. When times are difficult for the women, staff listens, gives feedback, and allows the women to ask for the services they need to ensure that no one gets 'lost in the system' or is pressured into doing anything for which they are not prepared.
+<br />
+Women also receive other services such as day shelter, showers, laundry, intensive case management, use of computers, social activities, field trips, free legal services, psychoeducational groups such as Life Skills and Women's Health, and substance abuse and recovery support. In 2009 approximately 75 women worked with the Case Manager to achieve their personal goals. The staff of the center work hard to make each women feel like an individual, not just a number, and to help her achieve her specific goals in order to stabilize and move out of homelessness.
+<br />
+<br />
+PERMENANT SUPPORTIVE HOUSING PROGRAM:
+<br />
+Once stable and ready to live independently, women can be referred to Rachael's Permanent Supportive Housing Program. Rachael's housing is a 17 unit program in which women have their own rooms and share common areas. It is an independent living program which means that staff are not on site 24 hours a day. There is a case manager for this program who works with the women to help them become even more independent and who is also on-call 24 hours a day in case of emergencies. There is no time limit to how long women are able to stay in the program.
+<br />
+<br />
+OUTREACH SERVICES INCLUDE:
+<br />
+Breakfast Monday - Friday 7:45 am to 8:00 am and Continental breakfast Saturday 7:45 am to 8:00 am; Lunch 12:00 noon to 1:00 pm; hot lunch Sat 12:00 noon to 1:30 pm; personal hygiene facilities; social workers; case manager on site; legal services clinic Saturday 12:30 pm to 2:00 pm; use of computers; permanent housing program (must follow certain criteria’s to be eligible for the program) life skills; and NA meeting 10:00 am to 11:00 am (Monday-Saturday). 
+<br />
+Tokens are provided for medical appointment. Mail and phone services available and the nearest Metro station: Mt. Vernon Square/Convention Center and nearest Metro bus lines G8 and 64.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

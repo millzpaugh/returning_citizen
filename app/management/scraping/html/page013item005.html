@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS4yMDEgUml0dGVuaG91c2UgU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDAxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLzIwMSBSaXR0ZW5ob3VzZSBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDAxZGQCAw8PFgIfAgVxPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDcyMi0yMzAwPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA3MjItMjMxOTxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNzIyLTIzODM8YnIgLz5kZAIFDw8WAh8CBSQ8Yj5XZWJzaXRlOiA8L2I+d3d3Lm5jY2luYy5vcmc8YnIgLz5kZAIHDw8WAh8CBdADPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFBhcnRpYWwgaG9zcGl0YWxpemF0aW9uL2RheSBwcm9ncmFtLCBSZXNpZGVudGlhbDxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyB3aXRoIGludGVsbGVjdHVhbCBkaXNhYmlsaXR5LCBQZXJzb25zIHdpdGggcGh5c2ljYWwgZGlzYWJpbGl0eSwgVW5kZXIgYWdlIDE4LCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFNlbGYtcGF5bWVudDxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gU2xpZGluZyBmZWUgc2NhbGUgKEZlZSBpcyBiYXNlZCBvbiBpbmNvbWUgJmFtcDsgb3RoZXIgZmFjdG9ycyk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFMDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+REMgcmVzaWRlbnRzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgW1DDxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIE5hdGlvbmFsIENoaWxkcmVuJ3MgQ2VudGVyIChOQ0MpIHByb3ZpZGVzIGNvbW11bml0eS1iYXNlZCBzZXJ2aWNlcyBmb3IgY2hpbGRyZW4gd2l0aCBzcGVjaWFsIG5lZWRzIGFuZCB0aGVpciBmYW1pbGllcy4gIFRoZXkgcHJvdmlkZSBudW1lcm91cyBjb21wcmVoZW5zaXZlIHNlcnZpY2VzIGF0IDMgZGlmZmVyZW50IGNhbXB1c2VzLiAgU2VydmljZXMgaW5jbHVkZTogDQo8YnIgLz4NCjxiciAvPg0KLUVhcmx5IGludGVydmVudGlvbiBhbmQgcHJlc2Nob29sIHByb2dyYW1zIGZvciBpbmZhbnRzIGFuZCB5b3VuZyBjaGlsZHJlbiB3aXRoIGFuZCB3aXRob3V0IGRpc2FiaWxpdGllcy4gDQo8YnIgLz4NCjxiciAvPg0KLUVkdWNhdGlvbiBmb3Igc2Nob29sLWFnZWQgY2hpbGRyZW4gd2l0aCBkaXNhYmlsaXRpZXMgdGhhdCBhcmUgdG9vIGNvbXBsZXggb3Igc2V2ZXJlIGZvciB0aGUgcHVibGljIHNjaG9vbCBzeXN0ZW0uIA0KPGJyIC8+DQo8YnIgLz4NCi1Hcm91cCBob21lcyBhbmQgdHJhbnNpdGlvbmFsIGxpdmluZyBob21lcyBmb3IgY2hpbGRyZW4gYW5kIHlvdXRoLiBHcm91cCBob21lcywgaW5kZXBlbmRlbnQgYXBhcnRtZW50cywgYW5kIHN1cGVydmlzZWQgYXBhcnRtZW50cyBmb3IgbWVuIGFuZCB3b21lbiB3aXRoIGRldmVsb3BtZW50YWwgZGlzYWJpbGl0aWVzLiANCjxiciAvPg0KPGJyIC8+DQpUaGVyYXBldXRpYyBkYXkgcHJvZ3JhbSBmb3IgbWVuIGFuZCB3b21lbiB3aXRoIGRldmVsb3BtZW50YWwgZGlzYWJpbGl0aWVzLiBUaGVyYXBpZXMsIGxpZmUgYW5kIHNvY2lhbCBza2lsbHMgY2xhc3NlcywgY29tbXVuaXR5LWJhc2VkIGFjdGl2aXRpZXMgYW5kIHZvY2F0aW9uYWwgc2VydmljZXMuDQo8YnIgLz4NCjxiciAvPg0KQ2FyZWVyIGRldmVsb3BtZW50IGFuZCBlbXBsb3ltZW50IHNlcnZpY2VzIGZvciBtZW4gYW5kIHdvbWVuIHdpdGggZGV2ZWxvcG1lbnRhbCBkaXNhYmlsaXRpZXMuDQo8YnIgLz4NCjxiciAvPg0KR3JlYXRlciBEQyBSZXNwaXRhbGl0eSBnaXZlcyBjYXJlZ2l2ZXJzIG9mIHBlb3BsZSB3aXRoIGRldmVsb3BtZW50YWwgZGlzYWJpbGl0aWVzIGEgYnJlYWsgaW4gYSBsb2NhbCBob3RlbCwgd2l0aCBjb21wbGltZW50YXJ5IG1lYWxzIGFuZCBleHRyYXMgc3VjaCBhcyBnaWZ0IGNlcnRpZmljYXRlcywgc3BhIHNlcnZpY2VzLCBmbG93ZXJzLCB0aWNrZXRzIHRvIGxvY2FsIGV2ZW50cy4gV2hpbGUgdGhlIGNhcmVnaXZlcnMgYXJlIHJlbGF4aW5nIGFuZCBlbmpveWluZyB0aGVpciBuaWdodCBvZmYsIGEgc3RpcGVuZCBmcm9tIEdyZWF0ZXIgREMgUmVzcGl0YWxpdHkgY292ZXJzIHRoZSBjb3N0IG9mIGNhcmUgZm9yIHRoZSBsb3ZlZCBvbmUgd2l0aCBhIGRpc2FiaWxpdHkgYnkgYSBwZXJzb24gY2hvc2VuIGFuZCBoaXJlZCBieSB0aGUgY2FyZWdpdmVyLg0KPGJyIC8+DQo8YnIgLz4NClNlbGYgcGF5bWVudCwgc2xpZGluZyBzY2FsZSBmZWVzLCBNZWRpY2FpZCwgYW5kIHNvbWUgcHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlIGFjY2VwdGVkLiAgQ2xpZW50cyBzZXJ2ZWQgcmFuZ2UgZnJvbSBuZXdib3JuIHRvIGFnZSA1Ni4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzM2NB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZJBfKX2wFeIBio6lxrjurTryyB46" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLku5KwBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATW29e4VhG+GWQbInaJbHm7NgjQ6" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="201 Rittenhouse Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="National Children's Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">201 Rittenhouse Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 722-2300<br /><b>Phone No2:</b>(202) 722-2319<br /><b>Fax No:</b>(202) 722-2383<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.nccinc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Partial hospitalization/day program, Residential<br \><b>Population : </b> Men, Persons with intellectual disability, Persons with physical disability, Under age 18, Women<br \><b>Forms Of Payment : </b> Medicaid, Private health insurance, Self-payment<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC residents.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The National Children's Center (NCC) provides community-based services for children with special needs and their families.  They provide numerous comprehensive services at 3 different campuses.  Services include: 
+<br />
+<br />
+-Early intervention and preschool programs for infants and young children with and without disabilities. 
+<br />
+<br />
+-Education for school-aged children with disabilities that are too complex or severe for the public school system. 
+<br />
+<br />
+-Group homes and transitional living homes for children and youth. Group homes, independent apartments, and supervised apartments for men and women with developmental disabilities. 
+<br />
+<br />
+Therapeutic day program for men and women with developmental disabilities. Therapies, life and social skills classes, community-based activities and vocational services.
+<br />
+<br />
+Career development and employment services for men and women with developmental disabilities.
+<br />
+<br />
+Greater DC Respitality gives caregivers of people with developmental disabilities a break in a local hotel, with complimentary meals and extras such as gift certificates, spa services, flowers, tickets to local events. While the caregivers are relaxing and enjoying their night off, a stipend from Greater DC Respitality covers the cost of care for the loved one with a disability by a person chosen and hired by the caregiver.
+<br />
+<br />
+Self payment, sliding scale fees, Medicaid, and some private health insurance accepted.  Clients served range from newborn to age 56. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

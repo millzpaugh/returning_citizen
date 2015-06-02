@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSJQLk8uIEJveCAyNTAzNiBBbGV4YW5kcmlhIFZBIDIyMzEzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFI1AuTy4gQm94IDI1MDM2IEFsZXhhbmRyaWEsIFZBIDIyMzEzZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPig3MDMpIDU0OS03MDc4PGJyIC8+PGI+RmF4IE5vOjwvYj4oNzAzKSA1NDktNjcxNTxiciAvPmRkAgUPDxYCHwIFLzxiPldlYnNpdGU6IDwvYj53d3cuYWxleGFuZHJpYXNlYXBvcnQub3JnPGJyIC8+ZGQCBw8PFgIfAgWkAjxiPkNhdGVnb3J5IDogPC9iPiBFZHVjYXRpb24sIEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFZHVjYXRpb25hbCBzZXJ2aWNlcywgRW1wbG95bWVudCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFwcHJlbnRpY2VzaGlwcywgR0VEIHByb2dyYW1zPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBXb21lbiwgWW91dGggKDEyIC0gMjQpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBTI8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj44OjMwIGFtIC0gNTowMCBwbTxiciAvPmRkAg8PDxYCHwIFNzxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+WW91dGggYWdlcyAxNy41IC0gMjE8YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF+Qc8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBBbGV4YW5kcmlhIFNlYXBvcnQgRm91bmRhdGlvbiAoQVNGKSBpcyBhIDUwMShjKSgzKSBub3QtZm9yLXByb2ZpdCBvcmdhbml6YXRpb24gQVNG4oCZcyBwcmltYXJ5IGZvY3VzIGhhcyBiZWVuIG9uIHRoZSB1c2Ugb2YgdGhlIHRyYWRpdGlvbmFsIGVudGVycHJpc2Ugb2YgYm9hdCBidWlsZGluZyB0byBoZWxwIGF0LXJpc2sgYW5kIGRpc2FkdmFudGFnZWQgeW91dGggc3RyYWlnaHRlbiBvdXQgdGhlaXIgbGl2ZXMuDQo8YnIgLz4NCjxiciAvPg0KQVNG4oCZcyBzaWduYXR1cmUgcHJvZ3JhbSBpcyBpdHMgQm9hdCBidWlsZGluZyBBcHByZW50aWNlc2hpcCBQcm9ncmFtLCBhbiBpbnRlbnNpdmUgY29tYmluZWQgR0VEL3ZvY2F0aW9uYWwgdHJhaW5pbmcgcHJvZ3JhbSB3aGljaCBoYXMgcHJvdmVuIGVmZmVjdGl2ZSBpbiBoZWxwaW5nIHNlcmlvdXNseSBhdC1yaXNrIHlvdXRocyBhY3F1aXJlIG5lY2Vzc2FyeSBqb2Igc2tpbGxzIGFuZCBzZWN1cmUgd2VsbC1wYXlpbmcsIGNhcmVlci1wYXRoIGpvYnMuDQo8YnIgLz4NCjxiciAvPg0KVGhlIHByb2dyYW0gaXMgYSA0LW1vbnRoIHdvb2RlbiBib2F0IGJ1aWxkaW5nIGFwcHJlbnRpY2VzaGlwIHByb2dyYW0uIFBhcnRpY2lwYW50cyBsZWFybiB0aGUgY3JhZnQgb2Ygd29vZGVuIGJvYXQgYnVpbGRpbmcgYW5kIGhhdmUgYW4gb3Bwb3J0dW5pdHkgdG8gZWFybiBhIEdFRC4gQ2xhc3NlcyBhcmUgaGVsZCBhdCB0aGUgT2xkIFRvd24sIEFsZXhhbmRyaWEgTWFyaW5hLiBTdHVkZW50cyBlYXJuIG1pbmltdW0gd2FnZSBzdGlwZW5kcyB3aGlsZSB0cmFpbmluZyBpbiB0aGUgcHJvZ3JhbS4gQ2xhc3NlcyBzdGFydCBldmVyeSB0d28gbW9udGhzLiBDbGFzc2VzIGFyZSBzY2hlZHVsZWQgb24gTW9uZGF5LUZyaWRheSwgNzozMCBhbSAtIDM6MzAgcG0uIENhbmRpZGF0ZXMgbXVzdCBiZSBhY2FkZW1pY2FsbHkgY2FwYWJsZSBvZiBwYXNzaW5nIEdFRCB3aXRoaW4gNiBtb250aHMgYW5kIG1vdGl2YXRlZC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUCMjUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSPluNzD7VuBF5MS/hRSSRUdxpzOw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLezqeoCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAbR7Z3ooqzUkyEjrHFVCIdynuA58" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="P.O. Box 25036 Alexandria VA 22313" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Alexandria Seaport Foundation" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">P.O. Box 25036 Alexandria, VA 22313</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(703) 549-7078<br /><b>Fax No:</b>(703) 549-6715<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.alexandriaseaport.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Employment &amp; Vocational Training<br \><b>Services : </b> Educational services, Employment services<br \><b>Program : </b> Apprenticeships, GED programs<br \><b>Population : </b> Men, Women, Youth (12 - 24)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>8:30 am - 5:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Youth ages 17.5 - 21<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Alexandria Seaport Foundation (ASF) is a 501(c)(3) not-for-profit organization ASF’s primary focus has been on the use of the traditional enterprise of boat building to help at-risk and disadvantaged youth straighten out their lives.
+<br />
+<br />
+ASF’s signature program is its Boat building Apprenticeship Program, an intensive combined GED/vocational training program which has proven effective in helping seriously at-risk youths acquire necessary job skills and secure well-paying, career-path jobs.
+<br />
+<br />
+The program is a 4-month wooden boat building apprenticeship program. Participants learn the craft of wooden boat building and have an opportunity to earn a GED. Classes are held at the Old Town, Alexandria Marina. Students earn minimum wage stipends while training in the program. Classes start every two months. Classes are scheduled on Monday-Friday, 7:30 am - 3:30 pm. Candidates must be academically capable of passing GED within 6 months and motivated.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

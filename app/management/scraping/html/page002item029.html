@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSU3MTQgRyBTdHJlZXQsIFNFIFdhc2hpbmd0b24gIERDIDIwMDAzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjcxNCBHIFN0cmVldCwgU0UgV2FzaGluZ3RvbiAsIERDIDIwMDAzZGQCAw8PFgIfAgVPPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU0Ny02MTc1PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA1NDQtMzE0NDxiciAvPmRkAgUPDxYCHwIFMzxiPldlYnNpdGU6IDwvYj53d3cuY2VudGVyY2hpbGRwcm90ZWN0aW9uLm9yZzxiciAvPmRkAgcPDxYCHwIF7wM8Yj5DYXRlZ29yeSA6IDwvYj4gTWVudGFsIEhlYWx0aCwgUGFyZW50aW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEFkdm9jYWN5L091dHJlYWNoIHNlcnZpY2VzLCBGYW1pbHkgc3VwcG9ydCBzZXJ2aWNlcywgTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IE91dHBhdGllbnQ8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBEb21lc3RpYyBWaW9sZW5jZSwgRmFtaWx5IGlzc3Vlcy0tY291bnNlbGluZywgbWFycmlhZ2UsIHBhcmVudGluZywgUGFyZW50aW5nIHN1cHBvcnQsIGUuZy4gY2xhc3NlcywgZ3JvdXBzLCBTdXBwb3J0IGdyb3VwcywgVHJhdW1hLS1zZXh1YWwgYWJ1c2UvUFRTRC92aWN0aW1zIG9mIGNyaW1lPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBVbmRlciBhZ2UgMTgsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBUM8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXnigJNGcmlkYXkgOTowMCBhbSAtIDU6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIF4ws8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBDZW50ZXIgZm9yIENoaWxkIFByb3RlY3Rpb24gYW5kIEZhbWlseSBTdXBwb3J0KENDUEZTKSBpcyBhIGNvbW11bml0eS1iYXNlZCBub25wcm9maXQgc29jaWFsIHNlcnZpY2UgYW5kIGFkdm9jYWN5IGFnZW5jeSB0aGF0IGZvY3VzZXMgb24gY2hpbGQgcHJvdGVjdGlvbiBhbmQgc2FmZXR5LiAgVGhlIENlbnRlciBpcyBuYXRpb25hbGx5IGFuZCBpbnRlcm5hdGlvbmFsIGtub3duIGZvciBkZWxpdmVyeSBvZiBzZXJ2aWNlcywgdHJhaW5pbmcgJiB0ZWNobmljYWwgYXNzaXN0YW5jZSB0byBwcm92aWRlcnMsIGFuZCBwcm9ncmFtcyB0aGF0IHByZXZlbnQgdmlvbGVuY2UuIEl0cyBzZXJ2aWNlcyBpbXBhY3QgY2hpbGRyZW4gYW5kIGZhbWlsaWVzIHRocm91Z2hvdXQgdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhIGFuZCBuYXRpb25hbGx5IGZvciB0aGUgcHJldmVudGlvbiBvZiBjaGlsZCBhYnVzZS4gICBUaGUgQ2VudGVyIG9mZmVycyBhIFRyYXVtYSBJbmZvcm1lZCBQb3NpdGl2ZSBQYXJlbnRpbmcgcHJvZ3JhbSBmb3IgcGFyZW50cyB3aG8gYXJlIHN1cnZpdm9ycyBvZiBkb21lc3RpYyB2aW9sZW5jZSBhbmQgd29tZW4gcmVlbnRlcmluZyB0aGUgY29tbXVuaXR5IGFmdGVyIGluY2FyY2VyYXRpb25zLiAgRWFjaCBUSVBQIHRyYWluaW5nIHNlc3Npb24gaXMgdHdvLWhvdXJzIGluIGxlbmd0aCwgYW5kIGNvbnNpc3RzIG9mIHNtYWxsIGdyb3VwcyBvZiBwYXJ0aWNpcGFudHMuIEEgY2VydGlmaWNhdGUgb2YgY29tcGxldGlvbiBpcyBwcm92aWRlZCB0byBlYWNoIHBhcmVudC9jYXJlZ2l2ZXIgdGhhdCBjb21wbGV0ZXMgdGhlIHByb2dyYW0uICBUaGUgQ2VudGVyIG9mZmVycyBwYXJlbnQgZWR1Y2F0aW9uIGFuZCBza2lsbC1idWlsZGluZyBwcm9ncmFtcyB0byBmYW1pbGllcyBhcyB3ZWxsLiAgDQo8YnIgLz4gDQo8YnIgLz4gIA0KVGhlIHBhcmVudCBlZHVjYXRpb24gcHJvZ3JhbSBpcyAxNCB3ZWVrcyBsb25nIGFuZCBwYXJ0aWNpcGFudHMgbWF5IGluY3VyIGEgbWluaW1hbCBmZWUuICBJbiBhZGRpdGlvbiBUaGUgQ2VudGVyIHByb3ZpZGVzIHN1cHBvcnQgZ3JvdXBzIGZvciBjYXJlIGdpdmVycywgYW5nZXIgbWFuYWdlbWVudCBjbGFzc2VzIGFuZCBkb21lc3RpYyB2aW9sZW5jZSBjbGFzc2VzLiAgVGhlIENlbnRlciBhbHNvIG9mZmVycyBwcm9mZXNzaW9uYWwgdHJhaW5pbmcgcHJvZ3JhbXMgZGVzaWduZWQgdG8gZW1wb3dlciwgZWR1Y2F0ZSBhbmQgaW5mb3JtIGNoaWxkIHdlbGZhcmUgcHJvZmVzc2lvbmFscyB3aXRoIHVwLXRvLXRoZSBtaW51dGUgaW5mb3JtYXRpb24gYWJvdXQgcHJldmVudGluZywgaWRlbnRpZnlpbmcgYW5kIHJlcG9ydGluZyBjaGlsZCBhYnVzZSBhbmQgbmVnbGVjdC4gIFNvbWUgZmVlcyBtYXkgYXBwbHkuICBIb3dldmVyLCB0aGUgbWFqb3JpdHkgb2Ygc2VydmljZXMgYXJlIHB1YmxpY2x5IGZ1bmRlZC4gIENvbnRhY3QgVGhlIENlbnRlciBmb3IgbW9yZSBpbmZvcm1hdGlvbi4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQ5NR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZBRbJ0VPbxjID9YhE1xGigSWox09" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKlnte0AwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUT8N5vfwG55LVU27W4Be48vWihe" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="714 G Street, SE Washington  DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Center for Child Protection and Family Support" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">714 G Street, SE Washington , DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 547-6175<br /><b>Phone No2:</b>(202) 544-3144<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.centerchildprotection.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health, Parenting<br \><b>Services : </b> Advocacy/Outreach services, Family support services, Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management, Domestic Violence, Family issues--counseling, marriage, parenting, Parenting support, e.g. classes, groups, Support groups, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Men, Under age 18, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday–Friday 9:00 am - 5:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Center for Child Protection and Family Support(CCPFS) is a community-based nonprofit social service and advocacy agency that focuses on child protection and safety.  The Center is nationally and international known for delivery of services, training & technical assistance to providers, and programs that prevent violence. Its services impact children and families throughout the District of Columbia and nationally for the prevention of child abuse.   The Center offers a Trauma Informed Positive Parenting program for parents who are survivors of domestic violence and women reentering the community after incarcerations.  Each TIPP training session is two-hours in length, and consists of small groups of participants. A certificate of completion is provided to each parent/caregiver that completes the program.  The Center offers parent education and skill-building programs to families as well.  
+<br /> 
+<br />  
+The parent education program is 14 weeks long and participants may incur a minimal fee.  In addition The Center provides support groups for care givers, anger management classes and domestic violence classes.  The Center also offers professional training programs designed to empower, educate and inform child welfare professionals with up-to-the minute information about preventing, identifying and reporting child abuse and neglect.  Some fees may apply.  However, the majority of services are publicly funded.  Contact The Center for more information. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

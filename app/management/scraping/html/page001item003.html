@@ -1,0 +1,180 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxNDcwIElydmluZyBTdCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxNDcwIElydmluZyBTdCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzg3LTY3NTU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDMxOS05MDY2PGJyIC8+ZGQCBQ8PFgIfAgUuPGI+V2Vic2l0ZTogPC9iPnd3dy5iYXJiYXJhY2hhbWJlcnMub3JnLzxiciAvPmRkAgcPDxYCHwIF3QE8Yj5DYXRlZ29yeSA6IDwvYj4gRWR1Y2F0aW9uLCBQYXJlbnRpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRWR1Y2F0aW9uYWwgc2VydmljZXMsIEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWNhZGVtaWMgZW5yaWNobWVudC9BZnRlciBzY2hvb2wgcHJvZ3JhbXMsIFBhcmVudGluZyBzdXBwb3J0LCBlLmcuIGNsYXNzZXMsIGdyb3VwczxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVqPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5DaGlsZHJlbiBhZ2VzIDIuNi0xMiB5ZWFycyBvbGQsIGFzIHdlbGwgYXMgdGhlaXIgZmFtaWxpZXMgKGxvdyBpbmNvbWUpLjxiciAvPmRkAhEPDxYCHwIFogE8Yj5Eb2N1bWVudGF0aW9uIE5lZWRlZDogPC9iPlNvY2lhbCBTZWN1cml0eSBDYXJkcywgYmlydGggY2VydGlmaWNhdGVzLCBnb3Zlcm5tZW50LWlzc3VlZCBJRCwgcHJvb2Ygb2Y6IERDIHJlc2lkZW5jeSAodXRpbGl0eSBiaWxsKSwgaW5jb21lLCBzY2hvb2wgc2NoZWR1bGU8YnIgLz5kZAITDw8WAh8CBcwUPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgQmFyYmFyYSBDaGFtYmVycyBDaGlsZHJlbuKAmXMgQ2VudGVyIChCQ0NDKSBvZmZlcnMgY29tcHJlaGVuc2l2ZSBjaGlsZGNhcmUgc2VydmljZXMgZm9yIGNoaWxkcmVuIGFnZXMgMi42LTEyIHllYXJzIG9sZCwgYXMgd2VsbCBhcyB0aGVpciBmYW1pbGllcy4gQkNDQyBpcyBjb21taXR0ZWQgdG8gc2VydmluZyB0aGUgbG93LWluY29tZSBmYW1pbGllcyBpbiBXYXNoaW5ndG9uLCBEQyBhbmQgdGhlIENlbnRlciBvcGVyYXRlcyB5ZWFyIHJvdW5kLCBvZmZlcmluZyBhIG51bWJlciBvZiBlZHVjYXRpb25hbCBvcHBvcnR1bml0aWVzIGZvciBib3RoIGNoaWxkcmVuIGFuZCBwYXJlbnRzLiBBbGwgcHJvZ3JhbXMgb2ZmZXIgbWVhbHMgYW5kIHNuYWNrcyBmcmVlIG9mIGNoYXJnZSwgYW5kIGFyZSBiaWxpbmd1YWwgaW4gRW5nbGlzaCBhbmQgU3BhbmlzaC4NCjxiciAvPg0KPGJyIC8+DQpQUkUtSyBJTkNFTlRJVkU6DQo8YnIgLz4NClRoZSBQcmUtSyBJbmNlbnRpdmUgUHJvZ3JhbSBlbnRhaWxzIHJpY2ggYWNhZGVtaWNzLCBzdHJ1Y3R1cmVkIGNsYXNzcm9vbSBzY2hlZHVsZXMsIGFuZCBtYW55IGZpZWxkIHRyaXBzLiBUaGUgcHJvZ3JhbSBlbmNvdXJhZ2VzIGEgbG92ZSBvZiBsZWFybmluZyBhbmQgcHJlcGFyZXMgY2hpbGRyZW4gYW5kIHRoZWlyIGZhbWlsaWVzIGZvciB0aGUgZXZlciBpbXBvcnRhbnQgcGFzc2FnZSBpbnRvIGtpbmRlcmdhcnRlbi4gVGhlIENlbnRlciBhaW1zIHRvIHNob3cgY2hpbGRyZW4gdGhhdCB0aGV5IGNhbiBiZSBhY2FkZW1pY2FsbHkgc3VjY2Vzc2Z1bCBkZXNwaXRlIHRoZSBtYW55IG9ic3RhY2xlcyB0aGF0IGFyaXNlIGR1ZSB0byBwb3ZlcnR5LiBBcyB3aXRoIGFsbCBCQ0NDIHByb2dyYW1zLCBlYWNoIGNsYXNzcm9vbSBpcyBlbnRpcmVseSBiaWxpbmd1YWwgaW4gYm90aCBFbmdsaXNoIGFuZCBTcGFuaXNoIGFuZCBvcGVyYXRlcyB5ZWFyIHJvdW5kLg0KPGJyIC8+DQo8YnIgLz4NCkJFRk9SRSAmIEFGVEVSIFNDSE9PTCBQUk9HUkFNOg0KPGJyIC8+DQpUaGlzIHByb2dyYW0gaXMgb2ZmZXJlZCBmb3Igc2Nob29sLWFnZSBjaGlsZHJlbiB1cCB0byBhZ2UgMTIuIFRoZSBwcm9ncmFtIG9wZXJhdGVzIGZ1bGwtdGltZSBpbiB0aGUgc3VtbWVyIG1vbnRocy4gQ2hpbGRyZW4gcmVjZWl2ZSBhY2FkZW1pYyB0dXRvcmluZyBmcm9tIHN0YWZmIGFuZCB2b2x1bnRlZXJzLiBCcmVha2Zhc3QsIHNuYWNrcywgYW5kIGRpbm5lciBhcmUgcHJvdmlkZWQgdGhyb3VnaG91dCB0aGUgeWVhci4gVGhlIG9wcG9ydHVuaXRpZXMgb2ZmZXJlZCBhbGxvdyBjaGlsZHJlbiB0byBnYWluIHZhbHVhYmxlIGV4cG9zdXJlIHRvIGFydHMsIGN1bHR1cmUsIGRyYW1hLCBhbmQgb3RoZXIg4oCcZXh0cmFz4oCdIHdoaWNoIHRoZXkgd291bGQgbm90IG90aGVyd2lzZSBoYXZlIGFjY2VzcyB0by4gSXQgYWxzbyByZWluZm9yY2VzIGEgY29ybmVyc3RvbmUgb2YgdGhlIHByb2dyYW0gd2hpY2ggbGllcyBpbiBwcm9tb3RpbmcgdGhlIGRldmVsb3BtZW50IG9mIHNlbGYtZXN0ZWVtLCBzZWxmLXdvcnRoLCBhbmQgYSBzZW5zZSBvZiBiZWxvbmdpbmcgYW5kIGNvbW11bml0eS4gVGhpcyBwcm9ncmFtIGlzIGJpbGluZ3VhbCBpbiBib3RoIEVuZ2xpc2ggYW5kIFNwYW5pc2ggYW5kIG9wZXJhdGVzIHllYXIgcm91bmQuDQo8YnIgLz4NCjxiciAvPg0KUEFSRU5UIEVEVUNBVElPTiBQUk9HUkFNUzoNCjxiciAvPg0KQkNDQyBvZmZlcnMgY291bnRsZXNzIHBhcmVudCBlZHVjYXRpb24gb3Bwb3J0dW5pdGllcyB0aHJvdWdob3V0IHRoZSB5ZWFyLiBQYXJlbnRzIGFyZSBhYmxlIHRvIGxlYXJuIGFib3V0IGlzc3VlcyByZWxhdGVkIHRvIHBhcmVudGluZyBpbmNsdWRpbmcgbnV0cml0aW9uLCBkaXNjaXBsaW5lLCBsaXRlcmFjeSwgY29tbXVuaXR5IHJlc291cmNlcyBhbmQgbW9yZS4gVGhlIHByb2dyYW0gb2ZmZXJzIGNvb2tpbmcgZGVtb25zdHJhdGlvbnMgYW5kIGZvb2QgZGlzdHJpYnV0aW9ucyBzbyB0aGF0IHBhcmVudHMgYXJlIGFibGUgdG8gbGVhcm4gaG93IHRvIGNvb2sgbnV0cml0aW91cyBwcm9kdWNlIGZvciB0aGVpciBmYW1pbGllcy4gUGFyZW50cyByZWNlaXZlIHN1cHBvcnQsIGluZm9ybWF0aW9uLCBhbmQgaGF2ZSBhY2Nlc3MgdG8gZWR1Y2F0aW9uIHByb2Zlc3Npb25hbHMgd2hvIGFyZSBlYWdlciB0byBhbnN3ZXIgdGhlaXIgcXVlc3Rpb25zLiBQYXJlbnRzIHBhcnRpY2lwYXRlIGZyZWUgb2YgY2hhcmdlIGFuZCByZWNlaXZlIG1hbnkgcmVzb3VyY2VzIGluY2x1ZGluZyBib29rcywgam91cm5hbHMsIGFuZCBjcmVhdGUgdGhlaXIgb3duIGFjdGl2aXRpZXMgdG8gZG8gYXQgaG9tZSB3aXRoIHRoZWlyIGNoaWxkLg0KPGJyIC8+DQo8YnIgLz4NCkRPQ1VNRU5UQVRJT04gTkVFREVEOg0KPGJyIC8+DQpTb2NpYWwgU2VjdXJpdHkgQ2FyZHMsIGJpcnRoIGNlcnRpZmljYXRlcywgZ292ZXJubWVudC1pc3N1ZWQgSUQsIHByb29mIG9mIERDIHJlc2lkZW5jeSAodXRpbGl0eSBiaWxsKSwgcHJvb2Ygb2YgaW5jb21lIChJbmNsdWRlIDMgbW9zdCByZWNlbnQgY29uc2VjdXRpdmUgcGF5c3R1YnMpLiAgSWYgeW91IGFyZSBhIHN0dWRlbnQsIGJyaW5nIGEgY29weSBvZiB5b3VyIHNjaG9vbCBzY2hlZHVsZS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNTgzHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkivAZsvoMPTwpednTO1o8xYZ+5/4=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLrp8RQApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oB0eDHWUfjuZVvQLtHdmTG0xYXqDI=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1470 Irving St, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Barbara Chambers Children's Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1470 Irving St, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 387-6755<br /><b>Fax No:</b>(202) 319-9066<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.barbarachambers.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Parenting<br \><b>Services : </b> Educational services, Family support services<br \><b>Program : </b> Academic enrichment/After school programs, Parenting support, e.g. classes, groups<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Children ages 2.6-12 years old, as well as their families (low income).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Social Security Cards, birth certificates, government-issued ID, proof of: DC residency (utility bill), income, school schedule<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Barbara Chambers Children’s Center (BCCC) offers comprehensive childcare services for children ages 2.6-12 years old, as well as their families. BCCC is committed to serving the low-income families in Washington, DC and the Center operates year round, offering a number of educational opportunities for both children and parents. All programs offer meals and snacks free of charge, and are bilingual in English and Spanish.
+<br />
+<br />
+PRE-K INCENTIVE:
+<br />
+The Pre-K Incentive Program entails rich academics, structured classroom schedules, and many field trips. The program encourages a love of learning and prepares children and their families for the ever important passage into kindergarten. The Center aims to show children that they can be academically successful despite the many obstacles that arise due to poverty. As with all BCCC programs, each classroom is entirely bilingual in both English and Spanish and operates year round.
+<br />
+<br />
+BEFORE & AFTER SCHOOL PROGRAM:
+<br />
+This program is offered for school-age children up to age 12. The program operates full-time in the summer months. Children receive academic tutoring from staff and volunteers. Breakfast, snacks, and dinner are provided throughout the year. The opportunities offered allow children to gain valuable exposure to arts, culture, drama, and other “extras” which they would not otherwise have access to. It also reinforces a cornerstone of the program which lies in promoting the development of self-esteem, self-worth, and a sense of belonging and community. This program is bilingual in both English and Spanish and operates year round.
+<br />
+<br />
+PARENT EDUCATION PROGRAMS:
+<br />
+BCCC offers countless parent education opportunities throughout the year. Parents are able to learn about issues related to parenting including nutrition, discipline, literacy, community resources and more. The program offers cooking demonstrations and food distributions so that parents are able to learn how to cook nutritious produce for their families. Parents receive support, information, and have access to education professionals who are eager to answer their questions. Parents participate free of charge and receive many resources including books, journals, and create their own activities to do at home with their child.
+<br />
+<br />
+DOCUMENTATION NEEDED:
+<br />
+Social Security Cards, birth certificates, government-issued ID, proof of DC residency (utility bill), proof of income (Include 3 most recent consecutive paystubs).  If you are a student, bring a copy of your school schedule.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

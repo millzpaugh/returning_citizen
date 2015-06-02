@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUzNTE2IEVhc3Rlcm4gQXZlLiBCYWx0aW1vcmUgIE1EIDIxMjI0ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjM1MTYgRWFzdGVybiBBdmUuIEJhbHRpbW9yZSAsIE1EIDIxMjI0ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPig0MTApIDU1OC0zMTY4PGJyIC8+PGI+RmF4IE5vOjwvYj4oNDEwKSAzMjctMTk0MTxiciAvPmRkAgUPDxYCHwIFJTxiPldlYnNpdGU6IDwvYj53d3cubHNzbmNhLm9yZy88YnIgLz5kZAIHDw8WAh8CBZ8CPGI+Q2F0ZWdvcnkgOiA8L2I+IFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBBYnVzZSAmYW1wOyBuZWdsZWN0IHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIEh1bWFuIHRyYWZmaWNraW5nLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEltbWlncmFudHMvUmVmdWdlZXM8YnIgXD5kZAIJDw8WAh8CBWU8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaCwgQW1oYXJpYzxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBU08Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkg4oCTIFNhdHVyZGF5IGZyb20gOTozMCBhbSB0byA0OjAwIHBtLjxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBeQFPGI+RGVzY3JpcHRpb246IDwvYj5MdXRoZXJhbiBTb2NpYWwgU2VydmljZXMgaGFzIGZvdXIgbG9jYXRpb25zIHRoYXQgcHJvdmlkZSBzZXJ2aWNlcyBpbiBhZG9wdGlvbiwgZm9zdGVyIGNhcmUsIGRpc2FzdGVyIHByZXBhcmF0aW9uIGFuZCByZXNwb25zZSwgYW5kIHJlZnVnZWUvaW1taWdyYW50IHNlcnZpY2VzLiBUaGUgQmFsdGltb3JlL0NlbnRyYWwgTWFyeWxhbmQgb2ZmaWNlIHByb3ZpZGVzIHJlZnVnZWUvaW1taWdyYW50IHNlcnZpY2VzLg0KPGJyIC8+DQo8YnIgLz4NClJFRlVHRUUvSU1NSUdSQU5UIFNFUlZJQ0VTDQo8YnIgLz4NClJlZnVnZWUgJiBJbW1pZ3JhbnQgU2VydmljZSBwcm9ncmFtcyBpbmNsdWRlOiByZWZ1Z2VlIHJlc2V0dGxlbWVudCBmb3IgbmV3bHktYXJyaXZlZCByZWZ1Z2VlcywgYXN5bGVlcyBhbmQgdmljdGltcyBvZiBodW1hbiB0cmFmZmlja2luZywgcmVmdWdlZSBlbXBsb3ltZW50IHNlcnZpY2VzLCBzcGVjaWFsIHNvY2lhbCBwcm9ncmFtbWluZyBhbmQgaW1taWdyYXRpb24gJiBjaXRpemVuc2hpcCBjb3Vuc2VsaW5nIHNlcnZpY2VzLiBTZXJ2aWNlcyBvZmZlcmVkIGZvY3VzIG9uIGltbWlncmFudHMgZnJvbTogSXJhcSwgU2llcnJhIExlb25lLCBFcml0cmVhLCBCdXJtYSwgVmlldG5hbSwgU29tYWxpYSwgRXRoaW9waWEsIGFuZCBTdWRhbi4gU2VydmljZXMgYXJlIG9mZmVyZWQgTW9uZGF5IOKAkyBTYXR1cmRheSBmcm9tIDk6MzAgYW0gdG8gNDowMCBwbS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzM4Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkCbw0HY+Ii+tXdV8cC5MUBKIl2zo=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL4udyXDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVT6XErJkRcIoPBqxnFuskH5EcMU" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3516 Eastern Ave. Baltimore  MD 21224" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Lutheran Social Services (Refugee &amp; Immigrant Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3516 Eastern Ave. Baltimore , MD 21224</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(410) 558-3168<br /><b>Fax No:</b>(410) 327-1941<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.lssnca.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Abuse &amp; neglect services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Human trafficking, Referrals for social services<br \><b>Population : </b> Immigrants/Refugees<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Amharic<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday – Saturday from 9:30 am to 4:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Lutheran Social Services has four locations that provide services in adoption, foster care, disaster preparation and response, and refugee/immigrant services. The Baltimore/Central Maryland office provides refugee/immigrant services.
+<br />
+<br />
+REFUGEE/IMMIGRANT SERVICES
+<br />
+Refugee & Immigrant Service programs include: refugee resettlement for newly-arrived refugees, asylees and victims of human trafficking, refugee employment services, special social programming and immigration & citizenship counseling services. Services offered focus on immigrants from: Iraq, Sierra Leone, Eritrea, Burma, Vietnam, Somalia, Ethiopia, and Sudan. Services are offered Monday – Saturday from 9:30 am to 4:00 pm.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

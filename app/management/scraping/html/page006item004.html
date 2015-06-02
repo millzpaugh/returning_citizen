@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSw0MjAwIENvbm5lY3RpY3V0IEF2ZSwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwOGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS00MjAwIENvbm5lY3RpY3V0IEF2ZSwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDhkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjc0LTcxNzM8YnIgLz5kZAIFDw8WAh8CBSc8Yj5XZWJzaXRlOiA8L2I+d3d3LmRjZ2VkLm9yZy9qeC88YnIgLz5kZAIHDw8WAh8CBacBPGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbjxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFZHVjYXRpb25hbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEdFRCB0ZXN0aW5nIGNlbnRlcnM8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBTZWxmLXBheW1lbnQ8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFaTxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+MTYgeXJzKzsgbm90IGVucm9sbGVkIGluIDYgbW9udGhzIHByaW9yOyBwYXNzZWQgdGhlIEdFRCBwcmFjdGljZSBleGFtLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgX3BjxiPkRlc2NyaXB0aW9uOiA8L2I+SW4gdGhlIERDIE9mZmljZSBvZiB0aGUgU3RhdGUgU3VwZXJpbnRlbmRlbnQgb2YgRWR1Y2F0aW9uLCB0aGUgbWlzc2lvbiBvZiBHRUQgVGVzdGluZyBhbmQgVmVyaWZpY2F0aW9uIGlzIHRvIGFkbWluaXN0ZXIgdGhlIFRlc3RzIG9mIEdlbmVyYWwgRWR1Y2F0aW9uIERldmVsb3BtZW50IChHRUTCriksIHByb2Nlc3MsIHJlcG9ydCBhbmQgbWFpbnRhaW4gR0VEIHRlc3QgcmVzdWx0cyBhbmQgc2VydmUgYXMgdGhlIG9mZmljaWFsIHJlcG9zaXRvcnkgYW5kIGFyY2hpdmVzIGZvciB2ZXJpZmljYXRpb24gb2YgRGlzdHJpY3Qgb2YgQ29sdW1iaWEgY2FuZGlkYXRlIHJlY29yZHMuDQo8YnIgLz4NCjxiciAvPg0KSW4gb3JkZXIgdG8gc2l0IGZvciB0aGUgZXhhbSB0aGUgZm9sbG93aW5nIHJlcXVpcmVtZW50cyBtdXN0IGJlIG1ldDogKDEpIGJlIGF0IGxlYXN0IDE2IHllYXJzIG9sZDsgKDIpIG5vdCBlbnJvbGxlZCBpbiBzY2hvb2wgZHVyaW5nIHRoZSBwcmV2aW91cyA2IG1vbnRoczsgKDMpIHBhc3MgYSBHRUQgcHJhY3RpY2UgZXhhbS4gUHJhY3RpY2UgZXhhbXMgYXJlIGFkbWluaXN0ZXJlZCBhdCB0aGUgR0VEIFRlc3RpbmcgQ2VudGVyIG9uIDJuZCBhbmQgNHRoIEZyaWRheXMgb2YgZWFjaCBtb250aCwgYmV0d2VlbiA5YW0gYW5kIDFwbS4gVGhlIHByYWN0aWNlIHRlc3QgaXMgZnJlZS4gVGhlIGNvc3QgZm9yIHRoZSBmdWxsIEdFRCBleGFtIGlzICQ1MCBhbmQgcGFydGlhbCB0ZXN0IGlzICQxMCBwZXIgc2VjdGlvbi4gSWYgeW91IGZhaWwgdGhlIHRlc3QsIHlvdSBvbmx5IG5lZWQgdG8gcmV0YWtlIHRoZSBzZWN0aW9uKHMpIHRoYXQgeW91IGZhaWxlZC4gUmV0YWtlIGNvc3QgaXMgJDEwIHBlciBzZWN0aW9uLg0KPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAjg3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkzqNcLijDEMCHzgoacvdjpwE62/c=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLDq7abAQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdFELwNzT7DcUkVurqcg0T0QK0va" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4200 Connecticut Ave, NW Washington DC 20008" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="GED Testing Center - State Education Agency (UDC)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4200 Connecticut Ave, NW Washington, DC 20008</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 274-7173<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dcged.org/jx/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education<br \><b>Services : </b> Educational services<br \><b>Program : </b> GED testing centers<br \><b>Forms Of Payment : </b> Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>16 yrs+; not enrolled in 6 months prior; passed the GED practice exam.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>In the DC Office of the State Superintendent of Education, the mission of GED Testing and Verification is to administer the Tests of General Education Development (GED®), process, report and maintain GED test results and serve as the official repository and archives for verification of District of Columbia candidate records.
+<br />
+<br />
+In order to sit for the exam the following requirements must be met: (1) be at least 16 years old; (2) not enrolled in school during the previous 6 months; (3) pass a GED practice exam. Practice exams are administered at the GED Testing Center on 2nd and 4th Fridays of each month, between 9am and 1pm. The practice test is free. The cost for the full GED exam is $50 and partial test is $10 per section. If you fail the test, you only need to retake the section(s) that you failed. Retake cost is $10 per section.
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

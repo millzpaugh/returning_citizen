@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTExMSBEdXBvbnQgQ2lyY2xlLCBOVyBTVEUuIDQwMCBXYXNoaW5ndG9uIERDIDIwMDM2ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjExIER1cG9udCBDaXJjbGUsIE5XIFNURS4gNDAwIFdhc2hpbmd0b24sIERDIDIwMDM2ZGQCAw8PFgIfAgWHATxiPkNvbnRhY3QgUGVyc29uOjwvYj5Sb2RlcmljayBCb2dncy0gRXhlY3V0aXZlIERpcmVjdG9yPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDMxOS0xMDAwPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSAzMTktMTAxMDxiciAvPmRkAgUPDxYCHwIFJTxiPldlYnNpdGU6IDwvYj53d3cud2FzaGxhdy5vcmc8YnIgLz5kZAIHDw8WAh8CBakCPGI+Q2F0ZWdvcnkgOiA8L2I+IExlZ2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IExlZ2FsPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRW1wbG95bWVudCBMYXctLWRpc3B1dGVzICZhbXA7IHdvcmtlcidzIHJpZ2h0cywgTGFuZGxvcmQvVGVuYW50L0ZhaXIgaG91c2luZywgUHVibGljIGJlbmVmaXRzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgSW1taWdyYW50cy9SZWZ1Z2VlczxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVXPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+U3BhbmlzaCwgU3BhbmlzaC1zcGVha2luZywgY2FsbCA6ICgyMDIpIDMxOS0xMDE1PGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA5OjAwIGFtIC0gNTozMCBwbTxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBcYGPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgV2FzaGluZ3RvbiBMYXd5ZXIncyBDb21taXR0ZWUgZm9yIENpdmlsIFJpZ2h0cyAmIFVyYmFuIEFmZmFpcnMgcHJvdmlkZXMgZGlyZWN0IHBybyBib25vIGxlZ2FsIHNlcnZpY2VzIGluIGlzc3VlcyBpbnZvbHZpbmc6IGVtcGxveW1lbnQgZGlzY3JpbWluYXRpb24sIGZhaXIgaG91c2luZywgcHVibGljIGFjY29tbW9kYXRpb25zLCBwdWJsaWMgZWR1Y2F0aW9uLCBhbmQgaW1taWdyYXRpb24gJiBhc3lsdW0gKGltbWlncmFudCBhY2Nlc3MgdG8gc2VydmljZXMgYW5kIG90aGVyIGJlbmVmaXRzKS4gSW4gYWRkaXRpb24gdG8gdGhlIGRpcmVjdCBwcm8gYm9ubyBzZXJ2aWNlcyBvZmZlcmVkLCBXYXNoaW5ndG9uIExhd3llcidzIENvbW1pdHRlZSBmb3IgQ2l2aWwgUmlnaHRzICYgVXJiYW4gQWZmYWlycyBydW5zIHRoZSBEQyBQcmlzb25lcidzIFByb2plY3QuDQo8YnIvID4NCjxici8gPg0KREMgUFJJU09ORVJTJyBQUk9KRUNUDQpEQyBQcmlzb25lcnMnIFByb2plY3Qgc2VydmljZXMgaW5jbHVkZSByZXByZXNlbnRhdGlvbiBvZiBpbmNhcmNlcmF0ZWQgYW5kIHJlY2VudGx5IHJlbGVhc2VkIERDIENvZGUgT2ZmZW5kZXJzIG9uIGNvbmZpbmVtZW50IGlzc3VlcyBhbmQgbWVkaWNhbCBjYXJlOyBjbGVhcmluZ2hvdXNlIG9uIHByaXNvbmVyc+KAmSByaWdodHMgbGl0aWdhdGlvbiBhbmQgZ2VuZXJhbCBwcmlzb24gaXNzdWVzLiBQcmlvcml0eSB0byBoZWFsdGggYW5kIHNhZmV0eSBpc3N1ZXMsIGVzcGVjaWFsbHkgSElWLXJlbGF0ZWQgY2FzZXMuIFByaXNvbmVycyBjYW4gY2FsbCBjb2xsZWN0IGF0ICgyMDIpIDc3NS0wMzIzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMyMDkeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSvZZ840ruxmtnBQcXehg+Ddfe7Vg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK1kJLTCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcRjBw2PG3kEhhg5Waz2kwRvyzsD" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="11 Dupont Circle, NW STE. 400 Washington DC 20036" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Washington Lawyer's Committee for Civil Rights &amp; Urban Affairs" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">11 Dupont Circle, NW STE. 400 Washington, DC 20036</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Roderick Boggs- Executive Director<br /><b>Phone No:</b>(202) 319-1000<br /><b>Phone No2:</b>(202) 319-1010<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.washlaw.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Employment Law--disputes &amp; worker's rights, Landlord/Tenant/Fair housing, Public benefits<br \><b>Population : </b> Criminal justice involved, Immigrants/Refugees<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish, Spanish-speaking, call : (202) 319-1015<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am - 5:30 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Washington Lawyer's Committee for Civil Rights & Urban Affairs provides direct pro bono legal services in issues involving: employment discrimination, fair housing, public accommodations, public education, and immigration & asylum (immigrant access to services and other benefits). In addition to the direct pro bono services offered, Washington Lawyer's Committee for Civil Rights & Urban Affairs runs the DC Prisoner's Project.
+<br/ >
+<br/ >
+DC PRISONERS' PROJECT
+DC Prisoners' Project services include representation of incarcerated and recently released DC Code Offenders on confinement issues and medical care; clearinghouse on prisoners’ rights litigation and general prison issues. Priority to health and safety issues, especially HIV-related cases. Prisoners can call collect at (202) 775-0323.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

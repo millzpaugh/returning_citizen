@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMzYzIEhvbHRvbiBMYW5lIFRha29tYSBQYXJrIE1EIDIwOTEyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjEzNjMgSG9sdG9uIExhbmUgVGFrb21hIFBhcmssIE1EIDIwOTEyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDQzNC0yNjIyPGJyIC8+PGI+RmF4IE5vOjwvYj4oMzAxKSA0MzQtMjY0NDxiciAvPmRkAgUPDxYCHwIFODxiPldlYnNpdGU6IDwvYj53d3cuYWRkaWN0aW9uc3RyZWF0bWVudHN5c3RlbXMuY29tPGJyIC8+ZGQCBw8PFgIfAgWpAjxiPkNhdGVnb3J5IDogPC9iPiBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWV0aGFkb25lIG1haW50ZW5hbmNlLCBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRFVJL0RXSSBlZHVjYXRpb24gcHJvZ3JhbTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgVW5kZXIgYWdlIDIxLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFNlbGYtcGF5bWVudDxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFvQE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5DYWxsIGZvciBhbiBhcHBvaW50bWVudCAgTW9uZGF5IC0gU2F0dXJkYXkgODowMGFtLTY6MDAgcG07IE91dHBhdGllbnQ6IE1vbmRheS1GcmlkYXkgNjowMGFtLTI6MDBwbSwgU2F0dXJkYXkgNzowMGFtLTExOjAwYW07IERVSS9EV0k6IFNhdHVyZGF5IDc6MDBhbS0xOjAwcG08YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwIFQjxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+Rm9yIERVSS9EV0kgLSBNRCBTdGF0ZSBBcHByb3ZlZDxiciAvPmRkAhMPDxYCHwIFwwY8Yj5EZXNjcmlwdGlvbjogPC9iPkFub3RoZXIgV2F5LCBJbmMuIGlzIGEgcHJpdmF0ZSBtZXRoYWRvbmUgcHJvZ3JhbSBsb2NhdGVkIGluIFRha29tYSBQYXJrLCBNYXJ5bGFuZC4gQ2xpZW50cyBhcmUgZ2l2ZW4gYSBkYWlseSBkb3NlIG9mIG1ldGhhZG9uZSB3aGljaCBzdG9wcyB0aGVtIGZyb20gaGF2aW5nIHdpdGhkcmF3YWwgc3ltcHRvbXMsIHN0b3BzIHBoeXNpY2FsIGNyYXZpbmdzLCBhbmQgYmxvY2tzIG90aGVyIG9waWF0ZXMgZnJvbSB3b3JraW5nLiBDbGllbnRzIGFyZSBhbHNvIHJlcXVpcmVkIHRvIHByb3ZpZGUgcmFuZG9tIG1vbnRobHkgdXJpbmFseXNpcy4gSW5kaXZpZHVhbCBhbmQgR3JvdXAgY291bnNlbGluZyBpcyBwcm92aWRlZC4gQ2FzZSBtYW5hZ2VycyBtYXkgYWxzbyByZWZlciBzb21lIGNsaWVudHMgbWF5IGZvciBtb3JlIGludGVuc2l2ZSBzZXJ2aWNlcyBzdWNoIGFzIHNlZWluZyBhIHBzeWNoaWF0cmlzdCBvciBzcGVjaWFsdHkgdGhlcmFwaXN0LiAgDQo8YnIgLz4NCjxiciAvPg0KVGhlIFRyZWF0bWVudCBUZWFtIGlzIGNvbXBvc2VkIG9mIHRoZSBNZWRpY2FsIERpcmVjdG9yLCBMaWNlbnNlZCBOdXJzZXMsIE1hc3RlciBMZXZlbCBDbGluaWNpYW5zIGFuZCBDZXJ0aWZpZWQgQ291bnNlbG9ycy4gVGhpcyBhZ2VuY3kgaXMgYSBNYXJ5bGFuZCBTdGF0ZSBhcHByb3ZlZCB0cmVhdG1lbnQgcHJvdmlkZXIgZm9yIERXSS9EVUkgc2VydmljZXMgd2hpY2ggYXJlIG9mZmVyZWQgb24gU2F0dXJkYXkgZnJvbSA3OjAwIGFtIOKAkyAxOjAwIHBtLiBJbnRha2UgaXMgJDEyNTsgTWV0aGFkb25lIHNlcnZpY2VzIGFyZSAkNzcgcGVyIHdlZWsuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQ1OB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZAV5i2wj46Fx0KKrRt24ocrE8lJS" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLdy76ACgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUSK+PVmv69200lkjMVnMRjLRylT" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1363 Holton Lane Takoma Park MD 20912" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Another Way, Inc" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1363 Holton Lane Takoma Park, MD 20912</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 434-2622<br /><b>Fax No:</b>(301) 434-2644<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.addictionstreatmentsystems.com<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Methadone maintenance, Substance abuse treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> DUI/DWI education program<br \><b>Population : </b> Men, Under age 21, Women<br \><b>Forms Of Payment : </b> Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Call for an appointment  Monday - Saturday 8:00am-6:00 pm; Outpatient: Monday-Friday 6:00am-2:00pm, Saturday 7:00am-11:00am; DUI/DWI: Saturday 7:00am-1:00pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>For DUI/DWI - MD State Approved<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Another Way, Inc. is a private methadone program located in Takoma Park, Maryland. Clients are given a daily dose of methadone which stops them from having withdrawal symptoms, stops physical cravings, and blocks other opiates from working. Clients are also required to provide random monthly urinalysis. Individual and Group counseling is provided. Case managers may also refer some clients may for more intensive services such as seeing a psychiatrist or specialty therapist.  
+<br />
+<br />
+The Treatment Team is composed of the Medical Director, Licensed Nurses, Master Level Clinicians and Certified Counselors. This agency is a Maryland State approved treatment provider for DWI/DUI services which are offered on Saturday from 7:00 am – 1:00 pm. Intake is $125; Methadone services are $77 per week.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSw2OTI1LUIgV2lsbG93IFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS02OTI1LUIgV2lsbG93IFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTJkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzg3LTQ4NDg8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDM4Ny0wMzI0PGJyIC8+ZGQCBQ8PFgIfAgUmPGI+V2Vic2l0ZTogPC9iPnd3dy5heXVkYWluYy5vcmc8YnIgLz5kZAIHDw8WAh8CBdACPGI+Q2F0ZWdvcnkgOiA8L2I+IExlZ2FsLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQWJ1c2UgJmFtcDsgbmVnbGVjdCBzZXJ2aWNlcywgTGVnYWw8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBEb21lc3RpYyBWaW9sZW5jZSwgRmFtaWx5IGxhdy0tY2hpbGQgY3VzdG9keSwgc3VwcG9ydCwgdmlzaXRhdGlvbiwgZ3VhcmRpYW5zaGlwLCBIdW1hbiB0cmFmZmlja2luZzxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEltbWlncmFudHMvUmVmdWdlZXM8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50PGJyIFw+ZGQCCQ8PFgIfAgV3PGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2gsIFBvbGlzaCAtIEl0YWxpYW4gLSBGcmVuY2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBVk8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkxvdy1pbmNvbWUgaW1taWdyYW50cy9yZWZ1Z2VlcyBpbiBXYXNoaW5ndG9uLCBEQyBhcmVhLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWlEzxiPkRlc2NyaXB0aW9uOiA8L2I+QXl1ZGEgaGVscHMgdG8gcHJvdGVjdCB0aGUgcmlnaHRzIG9mIGxvdy1pbmNvbWUgaW1taWdyYW50cyBpbiB0aGUgV2FzaGluZ3RvbiwgREMgYXJlYS4gQXl1ZGEgaW1wcm92ZXMgdGhlIGFiaWxpdHkgb2YgbG93LWluY29tZSBpbW1pZ3JhbnRzIHRvIGxpdmUgc2FmZSwgdmlvbGVuY2UtZnJlZSBsaXZlcywgYW5kIGJlY29tZSBmdWxseSBwYXJ0aWNpcGF0aW5nIG1lbWJlcnMgb2Ygb3VyIGNvbW11bml0eSB0aHJvdWdoIHByb3ZpZGluZyBhY2Nlc3MgdG8gaGlnaC1xdWFsaXR5LCBhZmZvcmRhYmxlIGxlZ2FsIGFuZCBzb2NpYWwgc2VydmljZXMuIE91ciBwcm9ncmFtcyBpbmNsdWRlOiBJbW1pZ3JhdGlvbiwgQW50aS1UcmFmZmlja2luZywgRG9tZXN0aWMgVmlvbGVuY2UgYW5kIFNleHVhbCBBc3NhdWx0LCB0aGUgQ2hpbGRyZW7igJlzIFByb2plY3QgYW5kIHRoZSBDb21tdW5pdHkgTGVnYWwgSW50ZXJwcmV0ZXIgQmFuay4NCjxiciAvPg0KPGJyIC8+DQpJTU1JR1JBVElPTjogDQo8YnIgLz4NClRocm91Z2ggd2Vla2x5IGNvbnN1bHRhdGlvbiBob3VycywgQXl1ZGEgb2ZmZXJzIGRpcmVjdCBsZWdhbCBjb25zdWx0YXRpb25zIHdpdGggYW4gYXR0b3JuZXkgYW5kL29yIHBhcmFsZWdhbCBvbiBhIHdpZGUgdmFyaWV0eSBvZiBmYW1pbHkgYW5kIGh1bWFuaXRhcmlhbiBiYXNlZCBpbW1pZ3JhdGlvbiBjYXNlcy4gIFRocm91Z2ggdGhlc2UgY29uc3VsdGF0aW9ucywgY2xpZW50cyB3aXRoIGEgbGVnYWwgcmVtZWR5IGNhbiByZXF1ZXN0IGZ1bGwgcmVwcmVzZW50YXRpb24gaW4gZmlsaW5nIGFwcGxpY2F0aW9ucyBvciBjb3VydCByZXByZXNlbnRhdGlvbi4NCg0KQU5USS1UUkFGRklDS0lORzogIEF5dWRhIHByb3ZpZGVzIHZpY3RpbXMgb2YgaHVtYW4gdHJhZmZpY2tpbmcgd2l0aCBsZWdhbCBhc3Npc3RhbmNlIGluIG9idGFpbmluZyB2aXNhcyBhbmQgYWR2b2NhY3kgaW4gY3JpbWluYWwgY2FzZXMgYWdhaW5zdCB0cmFmZmlja2Vycy4gIEF5dWRhIGFsc28gcHJvdmlkZXMgc29jaWFsIHNlcnZpY2VzIHRvIGFzc2lzdCBzdXJ2aXZvcnMgbWVldCB0aGVpciBlbWVyZ2VuY3kgbmVlZHMgYW5kIGFjY2VzcyByZXNvdXJjZXMuICBBeXVkYSBzdGFmZiBhbHNvIGNvbmR1Y3RzIGNvbW11bml0eSBvdXRyZWFjaCBhbmQgdHJhaW5pbmdzIGZvciBsYXcgZW5mb3JjZW1lbnQsIHNlcnZpY2UgcHJvdmlkZXJzLCBhbmQgY29tbXVuaXR5IG9yZ2FuaXphdGlvbnMgdG8gaWRlbnRpZnkgYW5kIHNlcnZlIHRyYWZmaWNrZWQgcGVyc29ucy4NCjxiciAvPg0KPGJyIC8+DQpET01FU1RJQyBWSU9MRU5DRSAmIFNFWFVBTCBBU1NBVUxUOiANCjxiciAvPg0KQSBtb2RlbCBmb3IgaG9saXN0aWMgc2VydmljZXMgZm9yIGltbWlncmFudCB2aWN0aW1zIG9mIGRvbWVzdGljIHZpb2xlbmNlIGFuZCBzZXh1YWwgYXNzYXVsdCwgQXl1ZGEgb2ZmZXJzIGxlZ2FsIGFzc2lzdGFuY2UgKGJvdGggYnJpZWYgc2VydmljZXMgYW5kIGV4dGVuZGVkIHJlcHJlc2VudGF0aW9uKSB3aXRoIHByb3RlY3Rpb24gb3JkZXJzLCBkaXZvcmNlLCBjaGlsZCBjdXN0b2R5LCBhbmQgY2hpbGQgYW5kIHNwb3VzYWwgc3VwcG9ydC4gIEF5dWRhIGFsc28gb2ZmZXJzIHNvY2lhbCBzZXJ2aWNlcyBpbmNsdWRpbmcgY3Jpc2lzIGludGVydmVudGlvbiwgc2FmZXR5IHBsYW5uaW5nIGFuZCBjb21wcmVoZW5zaXZlIGNhc2UgbWFuYWdlbWVudC4NCjxiciAvPg0KPGJyIC8+DQpDSElMRFJFTidTIFBST0pFQ1Q6IA0KPGJyIC8+DQpBeXVkYSBwcm92aWRlcyBpbW1pZ3JhbnQgY2hpbGRyZW4gYW5kIHlvdXRoIHdpdGggc3BlY2lhbGl6ZWQgYWR2aWNlIGFuZCBsZWdhbCByZXByZXNlbnRhdGlvbiBpbiBhZGRyZXNzaW5nIHRoZWlyIGltbWlncmF0aW9uIHN0YXR1cywgYW5kIGFsc28gY29uZHVjdHMgb3V0cmVhY2ggYW5kIHRyYWluaW5ncyBhaW1lZCBhdCBpZGVudGlmeWluZyBjaGlsZHJlbiBuZWVkaW5nIHNlcnZpY2VzLiANCjxiciAvPg0KPGJyIC8+DQpDT01NVU5JVFkgTEVHQUwgSU5URVJQUkVURVIgQkFOSzogDQo8YnIgLz4NCldpdGggZnVuZGluZyBmcm9tIHRoZSBEQyBCYXIgRm91bmRhdGlvbiwgdGhpcyBtb2RlbCBJbnRlcnByZXRlciBCYW5rIGluY3JlYXNlcyBhY2Nlc3MgdG8ganVzdGljZSBmb3IgRGVhZiwgSGFyZCBvZiBIZWFyaW5nLCBhbmQgTGltaXRlZCBFbmdsaXNoIFByb2ZpY2llbnQgcGVvcGxlIGJ5IGlkZW50aWZ5aW5nLCB0cmFpbmluZywgYW5kIHByb3ZpZGluZyBpbnRlcnByZXRlcnMgZm9yIG5vbi1wcm9maXQgbGVnYWwgc2VydmljZXMgcHJvdmlkZXJzIGluIHRoZSBEaXN0cmljdC4gIEFkZGl0aW9uYWwgc2VydmljZXMgaW5jbHVkZSB0ZWxlcGhvbmljIGludGVycHJldGF0aW9uLCB0cmFuc2xhdGlvbiBzZXJ2aWNlcywgYW5kIHRyYWluaW5nIGZvciBwcm92aWRlcnMgb24gd29ya2luZyB3aXRoIHByb2Zlc3Npb25hbCBpbnRlcnByZXRlcnMuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMzNDQeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSLE4SJFu2sByq+h7RjAdKU/viqDQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLOkqjLAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAafAQhbjejbuP0kkcbphXNwfGsRK" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="6925-B Willow Street, NW Washington DC 20012" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Ayuda" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">6925-B Willow Street, NW Washington, DC 20012</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 387-4848<br /><b>Fax No:</b>(202) 387-0324<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ayudainc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal, Social Services<br \><b>Services : </b> Abuse &amp; neglect services, Legal<br \><b>Program : </b> Domestic Violence, Family law--child custody, support, visitation, guardianship, Human trafficking<br \><b>Population : </b> Immigrants/Refugees<br \><b>Forms Of Payment : </b> Public funding, Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Polish - Italian - French<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low-income immigrants/refugees in Washington, DC area.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Ayuda helps to protect the rights of low-income immigrants in the Washington, DC area. Ayuda improves the ability of low-income immigrants to live safe, violence-free lives, and become fully participating members of our community through providing access to high-quality, affordable legal and social services. Our programs include: Immigration, Anti-Trafficking, Domestic Violence and Sexual Assault, the Children’s Project and the Community Legal Interpreter Bank.
+<br />
+<br />
+IMMIGRATION: 
+<br />
+Through weekly consultation hours, Ayuda offers direct legal consultations with an attorney and/or paralegal on a wide variety of family and humanitarian based immigration cases.  Through these consultations, clients with a legal remedy can request full representation in filing applications or court representation.
+
+ANTI-TRAFFICKING:  Ayuda provides victims of human trafficking with legal assistance in obtaining visas and advocacy in criminal cases against traffickers.  Ayuda also provides social services to assist survivors meet their emergency needs and access resources.  Ayuda staff also conducts community outreach and trainings for law enforcement, service providers, and community organizations to identify and serve trafficked persons.
+<br />
+<br />
+DOMESTIC VIOLENCE & SEXUAL ASSAULT: 
+<br />
+A model for holistic services for immigrant victims of domestic violence and sexual assault, Ayuda offers legal assistance (both brief services and extended representation) with protection orders, divorce, child custody, and child and spousal support.  Ayuda also offers social services including crisis intervention, safety planning and comprehensive case management.
+<br />
+<br />
+CHILDREN'S PROJECT: 
+<br />
+Ayuda provides immigrant children and youth with specialized advice and legal representation in addressing their immigration status, and also conducts outreach and trainings aimed at identifying children needing services. 
+<br />
+<br />
+COMMUNITY LEGAL INTERPRETER BANK: 
+<br />
+With funding from the DC Bar Foundation, this model Interpreter Bank increases access to justice for Deaf, Hard of Hearing, and Limited English Proficient people by identifying, training, and providing interpreters for non-profit legal services providers in the District.  Additional services include telephonic interpretation, translation services, and training for providers on working with professional interpreters. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

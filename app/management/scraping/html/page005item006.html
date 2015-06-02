@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgxNTA5IDE2dGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDM2ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTE1MDkgMTZ0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDM2ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDI4OS0xNTEwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1MTgtODkyOTxiciAvPmRkAgUPDxYCHwIFLDxiPldlYnNpdGU6IDwvYj53d3cuZmFtaWx5bWF0dGVyZGMub3JnPGJyIC8+ZGQCBw8PFgIfAgWdBjxiPkNhdGVnb3J5IDogPC9iPiBNZW50YWwgSGVhbHRoPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IENhc2UgbWFuYWdlbWVudCwgZS5nLiByZXByZXNlbnRhdGl2ZSBwYXllZSBzZXJ2aWNlLCBNZW50YWwgaGVhbHRoIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQsIENvbW11bml0eSBTZXJ2aWNlIEFnZW5jeSAoQ1NBKSwgRG9tZXN0aWMgVmlvbGVuY2UsIEZhbWlseSBpc3N1ZXMtLWNvdW5zZWxpbmcsIG1hcnJpYWdlLCBwYXJlbnRpbmcsIEdyaWVmICZhbXA7IGxvc3MsIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIExlc2JpYW4sIEdheSwgQmlzZXh1YWwsIFRyYW5zZ2VuZGVyICZhbXA7IFNleHVhbCBNaW5vcml0aWVzLCBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgU2VuaW9ycyAoNTUrKSwgVW5kZXIgYWdlIDE4LCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVkPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2gsIEZyZW5jaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBT08Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5NLUYgOTowMGFtIC0gNTowMHBtIChpbnRha2UpPGJyIC8+ZGQCDw8PFgIfAgU0PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EQyByZXNpZGVudHMgb25seTxiciAvPmRkAhEPDxYCHwIFXTxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UGF5c3R1YnMsIHJlY29yZHMgb2YgbWVudGFsIGhlYWx0aCBhbmQgcGh5c2ljYWwgaGVhbHRoLCBJRDxiciAvPmRkAhMPDxYCHwIF0Ag8Yj5EZXNjcmlwdGlvbjogPC9iPkZhbWlseSBNYXR0ZXJzIGlzIGNvbW1pdHRlZCB0byBwcm92aWRpbmcgaGlnaC1xdWFsaXR5LCBsb3ctY29zdCBtZW50YWwgaGVhbHRoIHNlcnZpY2VzIHRvIGFsbCByZXNpZGVudHMgb2YgdGhlIFdhc2hpbmd0b24sIEQuQy4gYXJlYS4gIEZvciBtYW55IHllYXJzIEZhbWlseSBNYXR0ZXJzIGhhcyBhc3Npc3RlZCBjaGlsZHJlbiB3aG8gaGF2ZSBleHBlcmllbmNlZCBuZWdsZWN0LCBhYnVzZSwgdGhlIGRpZmZpY3VsdHkgb2YgbXVsdGlwbGUgZmFtaWx5IHNlcGFyYXRpb25zIGFuZCB0aG9zZSB3aG8gaGF2ZSBiZWVuIGRpYWdub3NlZCB3aXRoIGEgbWVudGFsIGlsbG5lc3MuICAgVGhleSBvZmZlciBzdXBwb3J0IHRvIHNlbmlvcnMgc3VmZmVyaW5nIGZyb20gbG9uZWxpbmVzcyBhbmQgZGVzcGFpci4gYW5kIG9mZmVyIGlubm92YXRpdmUgcHJvZ3JhbXMgZm9yIHNwb3VzYWwgYWJ1c2VycyBhbmQgdmljdGltcy4gICBUaGUgdHJhaW5lZCwgbGljZW5zZWQgY291bnNlbG9ycyBvZiBGYW1pbHkgTWF0dGVycyBvZmZlciBncm91cCBhbmQgaW5kaXZpZHVhbCBjb3Vuc2VsaW5nIHRvIGFkdWx0cyBzdWZmZXJpbmcgZnJvbSBhbnhpZXR5LCBkZXByZXNzaW9uIGFuZCBtZW50YWwgaWxsbmVzcywgYXMgd2VsbCBhcywgaW5kaXZpZHVhbHMgYW5kIGZhbWlsaWVzIGV4cGVyaWVuY2luZyBzdHJlc3MgYW5kIHRyYXVtYS4gIFRoZSBNZW50YWwgSGVhbHRoIFVuaXQgaXMgcHJvdWQgdG8gYmUgYSBDb3JlIFNlcnZpY2UgQWdlbmN5IChDU0EpIGFuZCBhIENob2ljZSBQcm92aWRlciBmb3IgTWVudGFsIEhlYWx0aCBSZWhhYmlsaXRhdGlvbiBzZXJ2aWNlcyB0aHJvdWdoIHRoZSBELkMuIERlcGFydG1lbnQgb2YgTWVudGFsIEhlYWx0aCBhbmQgaXMgb3BlbiB0byBEQyByZXNpZGVudHMgb25seS4gIFRoZXkgYWxzbyBzZXJ2ZSBhcyBhIHJlcHJlc2VudGF0aXZlIHBheWVlIGZvciBjbGllbnRzLiAgDQo8YnIgLz4NCjxiciAvPg0KTk9URTogTWVkaWNhaWQgYW5kIHN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSBhY2NlcHRlZCwgYXMgd2VsbCBhcyBzZWxmIHBheW1lbnRzLCBhbmQgc29tZSBwcml2YXRlIGluc3VyYW5jZS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTY2Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkFjo2oRALT7roGrfzNUDJBpqPxOY=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKAk8i8AgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAez78v908dJXZ6kLgfIYrC8U3E10" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1509 16th Street, NW Washington DC 20036" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Family Matters of Greater Washington" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1509 16th Street, NW Washington, DC 20036</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 289-1510<br /><b>Fax No:</b>(202) 518-8929<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.familymatterdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Case management, e.g. representative payee service, Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management, Community Service Agency (CSA), Domestic Violence, Family issues--counseling, marriage, parenting, Grief &amp; loss, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Persons with HIV/AIDS, Seniors (55+), Under age 18, Women<br \><b>Forms Of Payment : </b> Medicaid, Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, French<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>M-F 9:00am - 5:00pm (intake)<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC residents only<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Paystubs, records of mental health and physical health, ID<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Family Matters is committed to providing high-quality, low-cost mental health services to all residents of the Washington, D.C. area.  For many years Family Matters has assisted children who have experienced neglect, abuse, the difficulty of multiple family separations and those who have been diagnosed with a mental illness.   They offer support to seniors suffering from loneliness and despair. and offer innovative programs for spousal abusers and victims.   The trained, licensed counselors of Family Matters offer group and individual counseling to adults suffering from anxiety, depression and mental illness, as well as, individuals and families experiencing stress and trauma.  The Mental Health Unit is proud to be a Core Service Agency (CSA) and a Choice Provider for Mental Health Rehabilitation services through the D.C. Department of Mental Health and is open to DC residents only.  They also serve as a representative payee for clients.  
+<br />
+<br />
+NOTE: Medicaid and state financed insurance accepted, as well as self payments, and some private insurance.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

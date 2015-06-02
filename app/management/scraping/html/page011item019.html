@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs4MDEgQnVjaGFuYW4gU3RyZWV0LCBORSBXYXNoaW5ndG9uIERDIDIwMDE3ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDgwMSBCdWNoYW5hbiBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDE3ZGQCAw8PFgIfAgVyPGI+Q29udGFjdCBQZXJzb246PC9iPkNoYW5kcmEgQ29ubm9sbHk8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjgxLTI3MDM8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDUyOS04MjExPGJyIC8+ZGQCBQ8PFgIfAgUxPGI+V2Vic2l0ZTogPC9iPnd3dy5jYXRob2xpY2NoYXJpdGllc2RjLm9yZzxiciAvPmRkAgcPDxYCHwIFlwM8Yj5DYXRlZ29yeSA6IDwvYj4gRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVtcGxveW1lbnQgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBKb2Igc2tpbGxzIGFzc2Vzc21lbnQgJmFtcDsgcmVhZGluZXNzLCBSZWhhYmlsaXRhdGl2ZSBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyBpbiByZWNvdmVyeSwgUGVyc29ucyB3aXRoIGludGVsbGVjdHVhbCBkaXNhYmlsaXR5LCBQZXJzb25zIHdpdGggcGh5c2ljYWwgZGlzYWJpbGl0eSwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVzPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIHdvbWVuIHdpdGggZGV2ZWxvcG1lbnRhbCBkaXNhYmlsaXRpZXMgaW4gcmVjb3Zlcnkgd2hvIGFyZSAzMCBkYXlzIHNvYmVyLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWXCzxiPkRlc2NyaXB0aW9uOiA8L2I+Q2F0aG9saWMgQ2hhcml0aWVzIGlzIHRoZSBzb2NpYWwgbWluaXN0cnkgb3V0cmVhY2ggb2YgdGhlIEFyY2hkaW9jZXNlIG9mIFdhc2hpbmd0b24uIE1vdGl2YXRlZCBieSB0aGUgR29zcGVsIG1lc3NhZ2Ugb2YgSmVzdXMgQ2hyaXN0LCBhbmQgZ3VpZGVkIGJ5IENhdGhvbGljIHNvY2lhbCBhbmQgbW9yYWwgdGVhY2hpbmcsIENhdGhvbGljIENoYXJpdGllcyBzdHJlbmd0aGVucyB0aGUgbGl2ZXMgb2YgYWxsIGluIG5lZWQgYnkgZ2l2aW5nIGhlbHAgdGhhdCBlbXBvd2VycyBhbmQgaG9wZSB0aGF0IGxhc3RzLiBUbyB0aGlzIGVuZCB3ZSBhZmZpcm0gYW5kIHN1cHBvcnQgdGhlIGRpZ25pdHkgb2YgYWxsIGh1bWFuIGxpZmUsIHN0cmVuZ3RoZW4gZmFtaWxpZXMgYW5kIHNlcnZlIHRoZSBwb29yIGFuZCBtb3N0IHZ1bG5lcmFibGUuDQo8YnIgLz4NCjxiciAvPg0KTHQuIEpvc2VwaCBQLiBLZW5uZWR5IEluc3RpdHV0ZSBwcm92aWRlcywgMy02IG1vbnRocyBvZiBlbXBsb3ltZW50IHNlcnZpY2VzIGZvciBpbmRpdmlkdWFscyB3aXRoIGRldmVsb3BtZW50YWwgZGlzYWJpbGl0aWVzIHdobyBhcmUgaW4gcmVjb3ZlcnkgZnJvbSBkcnVnL2FsY29ob2wgdXNlIGFuZCBoYXZlIHNpZ25pZmljYW50IGJhcnJpZXJzIHRvIGVtcGxveW1lbnQuIFRvIGJlIGVsaWdpYmxlIGZvciBzZXJ2aWNlcyBpbmRpdmlkdWFsIG11c3QgYmUgMzAgZGF5cyBjbGVhbi4gSW5kaXZpZHVhbHMgd2lsbCBiZSByZXF1aXJlZCB0byBwYXJ0aWNpcGF0ZSBpbiBjYXNlIG1hbmFnZW1lbnQsIHdoaWNoIHJlcXVpcmVzIHJhbmRvbSBkcnVnIHRlc3Rpbmc7IHJlbGFwc2UgcHJldmVudGlvbiBlZHVjYXRpb247IGNhcmVlciBleHBsb3JhdGlvbjsgdm9jYXRpb25hbCBhc3Nlc3NtZW50cyAob2NjdXBhdGlvbmFsIGd1aWRhbmNlKTsgam9iIGRldmVsb3BtZW50IGFuZCBwbGFjZW1lbnQsIGFzIHdlbGwgYXMsIGZvbGxvdy11cCBqb2Igc2l0ZSBtb25pdG9yaW5nLiANCjxiciAvPg0KPGJyIC8+DQpUaGUgcHJvZ3JhbSBhbHNvIHByb3ZpZGVzIHdvcmsgcHJlcGFyYXRpb24gc2tpbGxzIHRyYWluaW5nLCBqb2IgZGV2ZWxvcG1lbnQ7IHBsYWNlbWVudCBhbmQgb25nb2luZyBqb2Igc3VwcG9ydHM7IGNvYWNoaW5nIGFuZCBmb2xsb3ctdXAgZm9yIHVwIHRvIDEgeWVhcjsgYWR1bHQgZWR1Y2F0aW9uOyBhbmQgb2NjdXBhdGlvbmFsIHNraWxscyB0cmFpbmluZy4gUmVmZXJyYWxzIGFjY2VwdGVkIGZyb20gUmVoYWJpbGl0YXRpb24gU2VydmljZXMgQWRtaW5pc3RyYXRpb24gKFJTQSksIERpc3RyaWN0IG9mIENvbHVtYmlhIFB1YmxpYyBTY2hvb2xzIChEQ1BTKSwgRGVwYXJ0bWVudCBvZiBEaXNhYmlsaXR5IFNlcnZpY2VzIChERFMpLCBEZXBhcnRtZW50IG9mIFJlaGFiaWxpdGF0aW9uIFNlcnZpY2VzIChET1JTIChNRCkpLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQI2MB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZDqwfhMYZnXHgzgIEq88PrWn3Pp+" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLH/Kb6BQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAR+xvXada9JM36rYzRTf9/xtkMPW" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="801 Buchanan Street, NE Washington DC 20017" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Lt. Joseph P. Kennedy Institute (Catholic Charities)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">801 Buchanan Street, NE Washington, DC 20017</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Chandra Connolly<br /><b>Phone No:</b>(202) 281-2703<br /><b>Fax No:</b>(202) 529-8211<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.catholiccharitiesdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness, Rehabilitative services<br \><b>Population : </b> Men, Persons in recovery, Persons with intellectual disability, Persons with physical disability, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and women with developmental disabilities in recovery who are 30 days sober.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Catholic Charities is the social ministry outreach of the Archdiocese of Washington. Motivated by the Gospel message of Jesus Christ, and guided by Catholic social and moral teaching, Catholic Charities strengthens the lives of all in need by giving help that empowers and hope that lasts. To this end we affirm and support the dignity of all human life, strengthen families and serve the poor and most vulnerable.
+<br />
+<br />
+Lt. Joseph P. Kennedy Institute provides, 3-6 months of employment services for individuals with developmental disabilities who are in recovery from drug/alcohol use and have significant barriers to employment. To be eligible for services individual must be 30 days clean. Individuals will be required to participate in case management, which requires random drug testing; relapse prevention education; career exploration; vocational assessments (occupational guidance); job development and placement, as well as, follow-up job site monitoring. 
+<br />
+<br />
+The program also provides work preparation skills training, job development; placement and ongoing job supports; coaching and follow-up for up to 1 year; adult education; and occupational skills training. Referrals accepted from Rehabilitation Services Administration (RSA), District of Columbia Public Schools (DCPS), Department of Disability Services (DDS), Department of Rehabilitation Services (DORS (MD)).<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

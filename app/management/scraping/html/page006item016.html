@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxMzIwIEdvb2QgSG9wZSBSb2FkLCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDEzMjAgR29vZCBIb3BlIFJvYWQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDYxMC0xODg2PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2MTAtMTg4NzxiciAvPmRkAgUPDxYCHwJlZGQCBw8PFgIfAgWtATxiPkNhdGVnb3J5IDogPC9iPiBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWV0aGFkb25lIG1haW50ZW5hbmNlPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50PGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVWPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+NTozMCBhbS0xMTowMCBhbSwgTW9uZGF5LUZyaWRheSwgU2F0IDc6MDAgYW0tMTE6MDAgYW08YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgXrBjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIEFkZGljdGlvbiBUcmVhdG1lbnQgU3lzdGVtcyBhdCB0aGUgSG9wZSBJbnN0aXR1dGUgcHJvdmlkZXMgZWZmZWN0aXZlLCBjb21wZXRlbnQgYW5kIGFmZm9yZGFibGUgb3V0cGF0aWVudCBtZXRoYWRvbmUgdHJlYXRtZW50IHRvIG5hcmNvdGljIGRlcGVuZGVudCBpbmRpdmlkdWFscy4gIEFUUyBhdHRlbXB0cyB0byBoZWxwIGFsbCBjbGllbnRzIGJlY29tZSBmdW5jdGlvbmFsLCBwcm9kdWN0aXZlIGFuZCByZXNwb25zaWJsZSBtZW1iZXJzIG9mIHNvY2lldHkuDQo8YnIgLz4NCjxiciAvPg0KU2VydmljZXMgYXJlIGF2YWlsYWJsZSBmb3IgbWV0aGFkb25lIG1haW50ZW5hbmNlIGFuZCBkZXRveGlmaWNhdGlvbiBmb3Igb3Bpb2lkIGFkZGljdGVkIGFkdWx0cy4gUHJvZ3JhbSBhbHNvIGhhcyBzZXJ2aWNlcyBmb3IgdXJpbmUgc3VydmVpbGxhbmNlLCBwaHlzaWNhbCBleGFtaW5hdGlvbiwgYXMgd2VsbCBhcyBpbmRpdmlkdWFsIGFuZCBncm91cCBjb3Vuc2VsaW5nLiBQYXJ0aWNpcGFudHMgdXNpbmcgcHJpdmF0ZSBwYXkgYXMgdGhlaXIgZm9ybSBvZiBwYXltZW50IHdpbGwgcGF5IHRoZSBpbml0aWFsIChvbmUgdGltZSkgZW5yb2xsbWVudCBmZWUgb2YgJDExMi4gVGhlIGluaXRpYWwgZmVlIGNvdmVycyB1cmluZSBzdXJ2ZWlsbGFuY2UsIHBoeXNpY2FsIGV4YW1pbmF0aW9uIGFuZCBhc3Nlc3NtZW50LiBUaGUgd2Vla2x5IHByb2dyYW0gZmVlIGlzIChpbmNsdWRlcyBtZXRoYWRvbmUgZG9zYWdlKSAkODQuDQo8YnIgLz4NCjxiciAvPg0KRm9yIE1vcmUgSW5mb3JtYXRpb24gT24gT3VyIFNlcnZpY2VzIE9yIFRvIE1ha2UgQSBSZWZlcnJhbCwgUGxlYXNlIENhbGw6ICgyMDIpIDYxMC0xODg2PGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQ1Mx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZKlpcAe/h3De5gWsof6pO7SJWbid" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKnmtLABwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVZK8duRcK8xkcdNb+yPV+fCi7ci" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1320 Good Hope Road, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Good Hope Institute" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1320 Good Hope Road, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 610-1886<br /><b>Fax No:</b>(202) 610-1887<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Methadone maintenance<br \><b>Forms Of Payment : </b> Private health insurance, Public funding, Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>5:30 am-11:00 am, Monday-Friday, Sat 7:00 am-11:00 am<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Addiction Treatment Systems at the Hope Institute provides effective, competent and affordable outpatient methadone treatment to narcotic dependent individuals.  ATS attempts to help all clients become functional, productive and responsible members of society.
+<br />
+<br />
+Services are available for methadone maintenance and detoxification for opioid addicted adults. Program also has services for urine surveillance, physical examination, as well as individual and group counseling. Participants using private pay as their form of payment will pay the initial (one time) enrollment fee of $112. The initial fee covers urine surveillance, physical examination and assessment. The weekly program fee is (includes methadone dosage) $84.
+<br />
+<br />
+For More Information On Our Services Or To Make A Referral, Please Call: (202) 610-1886<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

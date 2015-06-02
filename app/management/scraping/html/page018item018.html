@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSg1MzIxIEZpcnN0IFBsYWNlLCBORSBXYXNoaW5ndG9uIERDIDIwMDExZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTUzMjEgRmlyc3QgUGxhY2UsIE5FIFdhc2hpbmd0b24sIERDIDIwMDExZGQCAw8PFgIfAgVQPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDc0Mi0xNzIwPGJyIC8+PGI+VG9sbCBGcmVlOiA8L2I+KDg4OCkgMjc1LTM4NDU8YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFvQE8Yj5DYXRlZ29yeSA6IDwvYj4gTWVkaWNhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBIb3NwaXRhbC9SZXNpZGVudGlhbCBjYXJlPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gU0FORSAoU2V4dWFsIEFzc2F1bHQgTnVyc2UgRXhhbWluZXIpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFKzxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+Tm8gQ29zdC48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF/QQ8Yj5EZXNjcmlwdGlvbjogPC9iPkEgU0FORSBudXJzZSBpcyBhIFNleHVhbCBBc3NhdWx0IE51cnNlIEV4YW1pbmVyLiBUaGVzZSBzcGVjaWFsdHkgbnVyc2VzIHByb3ZpZGUgbnVyc2luZyBjYXJlLCBtZWRpY2FsIHRlc3RpbmcgYW5kIHN1cHBvcnQgc2VydmljZXMgdG8gYWR1bHQgdmljdGltcyBvZiByYXBlLCBzZXh1YWwgYXNzYXVsdCwgYW5kIG90aGVyIHNleCBjcmltZXMuIFdpdGhpbiA5NiBob3VycyAoNCBkYXlzKSBvZiB0aGUgYXNzYXVsdCwgdmljdGltIHNob3VsZCBnbyB0byB0aGUgU0FORSBQcm9ncmFtIGF0IFdhc2hpbmd0b24gSG9zcGl0YWwgQ2VudGVyIChXSEMpIEVtZXJnZW5jeSByb29tIGZvciBtZWRpY2FsIHNlcnZpY2VzLCB0ZXN0aW5nLCBhbmQgcmVmZXJyYWxzLiANCjxiciAvPg0KPGJyIC8+DQpTdXJ2aXZvcnMgYXJlIG9mZmVyZWQgSElWIHRlc3RpbmcgYXQgV0hDLiBJZiBub3QgSElWIHBvc2l0aXZlLCBzdXJ2aXZvcnMgYXJlIGVsaWdpYmxlIHRvIHRha2UgSElWIHByb3BoeWxheGlzIChwb3N0LWV4cG9zdXJlKSBtZWRpY2F0aW9uIGZvciAyOCBkYXlzIHRvIHJlZHVjZSBjaGFuY2VzIG9mIGNvbnRyYWN0aW5nIEhJViBhcyBhIHJlc3VsdCBvZiB0aGUgYXNzYXVsdC4gTm8gY29zdC4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzMzOR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZOKrzT4uuNp8xzvKHlS5xjzf+rD7" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKs89DDDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAffAIeo4k5P+xaVHQkrgpDMOAOr9" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="5321 First Place, NE Washington DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="SANE (Sexual Assault Nurse Examiner)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">5321 First Place, NE Washington, DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 742-1720<br /><b>Toll Free: </b>(888) 275-3845<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Hospital/Residential care<br \><b>Program : </b> SANE (Sexual Assault Nurse Examiner)<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>No Cost.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>A SANE nurse is a Sexual Assault Nurse Examiner. These specialty nurses provide nursing care, medical testing and support services to adult victims of rape, sexual assault, and other sex crimes. Within 96 hours (4 days) of the assault, victim should go to the SANE Program at Washington Hospital Center (WHC) Emergency room for medical services, testing, and referrals. 
+<br />
+<br />
+Survivors are offered HIV testing at WHC. If not HIV positive, survivors are eligible to take HIV prophylaxis (post-exposure) medication for 28 days to reduce chances of contracting HIV as a result of the assault. No cost. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

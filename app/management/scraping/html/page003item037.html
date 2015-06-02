@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTQ0MDU4IE1pbm5lc290YSBBdmVudWUsIE5FIDJuZCBGTCBXYXNoaW5ndG9uIERDIDIwMDE5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFNTQwNTggTWlubmVzb3RhIEF2ZW51ZSwgTkUgMm5kIEZMIFdhc2hpbmd0b24sIERDIDIwMDE5ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY5OC01NTk5PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2NzMtNjk5MzxiciAvPmRkAgUPDxYCHwIFRTxiPldlYnNpdGU6IDwvYj5kb2VzLmRjLmdvdi9zZXJ2aWNlL3Byb2plY3QtZW1wb3dlcm1lbnQtcHJvZ3JhbTxiciAvPmRkAgcPDxYCHwIFvQI8Yj5DYXRlZ29yeSA6IDwvYj4gRW1wbG95bWVudCAmYW1wOyBWb2NhdGlvbmFsIFRyYWluaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVtcGxveW1lbnQgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBKb2Igc2VhcmNoICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlLCBKb2Igc2tpbGxzIGFzc2Vzc21lbnQgJmFtcDsgcmVhZGluZXNzLCBWb2NhdGlvbmFsIHRyYWluaW5nICZhbXA7IHBsYWNlbWVudCBhc3Npc3RhbmNlPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTWVuLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQjxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA4OjMwIGFtIC0gNTowMCBwbTxiciAvPmRkAg8PDxYCHwIFYzxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+REMgcmVzaWRlbnRzICAobXVzdCBub3QgYmUgcmVjZWl2aW5nIGFueSBvdGhlciBpbmNvbWUgYmVuZWZpdHMpLjxiciAvPmRkAhEPDxYCHwIFUDxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+VmFsaWQgZ292ZXJubWVudCBJRCBhbmQgU29jaWFsIFNlY3VyaXR5IENhcmQuPGJyIC8+ZGQCEw8PFgIfAgXWBjxiPkRlc2NyaXB0aW9uOiA8L2I+UHJvamVjdCBlbXBvd2VybWVudCBpcyBhbiBlbXBsb3ltZW50IHNlcnZpY2VzIHByb2dyYW0gdGhhdCBpcyBvcGVuIHRvIERDIHJlc2lkZW50cyBhZ2VzIDIyIC01NCB5cnMuIFRoZSBwcm9ncmFtIGlzIGEgMy13ZWVrICgkOC4yNSBocikgcGFpZCBqb2IgdHJhaW5pbmcgYW5kIHBsYWNlbWVudCBhc3Npc3RhbmNlIHByb2dyYW0uIEFkZGl0aW9uYWxseSwgdGhlIHByb2dyYW0gbWF5IHByb3ZpZGUgcGFydGljaXBhbnRzIHdpdGggaG91c2luZyBuZWVkcywgbGlmZSBza2lsbHMsIGZpbmFuY2lhbCBtYW5hZ2VtZW50IHNraWxscywgYXMgd2VsbCBhcywgbWVudGFsIGFuZCBwaHlzaWNhbCBoZWFsdGggY2FyZSBzZXJ2aWNlcy4gRWxpZ2liaWxpdHkgcmVxdWlyZW1lbnRzIGluY2x1ZGUgdGhlIGZvbGxvd2luZzogREMgcmVzaWRlbnQgbXVzdCBub3QgYmUgcmVjZWl2aW5nIGFueSBvdGhlciBpbmNvbWUgYmVuZWZpdHMgKGkuZS4sIFRBTkYsIFNTSSwgU1NESSB1bmVtcGxveW1lbnQgYW5kIGFwcGxpY2FudCBtdXN0IHBvc3Nlc3MgYSB2YWxpZCBnb3Zlcm5tZW50IElEIGFuZCBTb2NpYWwgU2VjdXJpdHkgQ2FyZC4gDQo8YnIgLz4NCjxiciAvPg0KQW55IGluZGl2aWR1YWwgd2hvIG1heSBiZSBpbnRlcmVzdGVkIGluIHRoZSBwcm9ncmFtIG11c3QgZmlyc3QgcHJlLXJlZ2lzdGVyIGJlZm9yZSBwcm9jZWVkaW5nIHRvIGVucm9sbC4gQXBwbGljYW50cyBjYW4gcmVnaXN0ZXIgYXQgYW55IGlmIHRoZSBEZXBhcnRtZW50IG9mIEVtcGxveW1lbnQgU2VydmljZXMgKERPRVMpIERDIFdvcmtzISBDYXJlZXIgQ2VudGVycywgZnJvbSBNb24tRnJpIDg6MzBhbSB0byA1cG0uPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAjIwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkkUZRZbWZlo5LZF95m+xlqNAiby8=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLl8ZzxBQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATWX2Ae02hP5kNdehfxLog7emSaJ" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4058 Minnesota Avenue, NE 2nd FL Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Department of Employment Services--Project Empowerment" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4058 Minnesota Avenue, NE 2nd FL Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 698-5599<br /><b>Fax No:</b>(202) 673-6993<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>does.dc.gov/service/project-empowerment-program<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness, Vocational training &amp; placement assistance<br \><b>Population : </b> Criminal justice involved, Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:30 am - 5:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC residents  (must not be receiving any other income benefits).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Valid government ID and Social Security Card.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Project empowerment is an employment services program that is open to DC residents ages 22 -54 yrs. The program is a 3-week ($8.25 hr) paid job training and placement assistance program. Additionally, the program may provide participants with housing needs, life skills, financial management skills, as well as, mental and physical health care services. Eligibility requirements include the following: DC resident must not be receiving any other income benefits (i.e., TANF, SSI, SSDI unemployment and applicant must possess a valid government ID and Social Security Card. 
+<br />
+<br />
+Any individual who may be interested in the program must first pre-register before proceeding to enroll. Applicants can register at any if the Department of Employment Services (DOES) DC Works! Career Centers, from Mon-Fri 8:30am to 5pm.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

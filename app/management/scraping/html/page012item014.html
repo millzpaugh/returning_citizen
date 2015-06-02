@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUzNDI1IEEgU3RyZWV0LCBTRSBXYXNoaW5ndG9uIERDIDIwMDE5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjM0MjUgQSBTdHJlZXQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDE5ZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU4NC0xODAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1ODQtMjc1NDxiciAvPmRkAgUPDxYCHwIFMDxiPldlYnNpdGU6IDwvYj53d3cudGhlYnJpZGdlcHJvamVjdGRjLm9yZzxiciAvPmRkAgcPDxYCHwIFrAE8Yj5DYXRlZ29yeSA6IDwvYj4gRW1lcmdlbmN5IEZvb2Q8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTnV0cml0aW9uYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBFbWVyZ2VuY3kgZm9vZC9ncm9jZXJpZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBTZW5pb3JzICg1NSspPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVEPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDEwOjAwIGFtIHRvIDI6MzAgcG08YnIgLz5kZAIPDw8WAh8CBTQ8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPldhcmQgNyByZXNpZGVudHMuPGJyIC8+ZGQCEQ8PFgIfAgVGPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5QaG90byBJRCBhbmQgcHJvb2Ygb2YgREMgcmVzaWRlbmN5LjxiciAvPmRkAhMPDxYCHwIF1wI8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBNZWFkb3cgR3JlZW4gQ29tbXVuaXR5IENlbnRlciBvZmZlcnMgYW4gZW1lcmdlbmN5IGZvb2QgcGFudHJ5IGJ5IGFwcG9pbnRtZW50IG9ubHkgZm9yIHNlbmlvcnMgKDU1KyB5cnMpLiBSZWNpcGllbnRzIG11c3QgY29tcGxldGUgYW4gYXBwbGljYXRpb24gdG8gcmVjZWl2ZSBmb29kIGJhZ3MgdGhhdCBhcmUgZGlzdHJpYnV0ZWQgdGhlIDNyZCB3ZWVrIG9mIGVhY2ggbW9udGggdG8gV2FyZCA3IHJlc2lkZW50cy4gDQo8YnIgLz4NCjxiciAvPg0KTmVhcmVzdCBNZXRybyBzdGF0aW9uOiBNaW5uZXNvdGEgQXZlbnVlLiBNZXRybyBidXM6IFUyICYgVTYuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzYxMx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZETEO3t6jif2Rynh2NtFBdVPZHoS" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLqvMGTBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAe0lppT7Yy7Fbq0edN/JncWNDOkO" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3425 A Street, SE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Meadow Green Community Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3425 A Street, SE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 584-1800<br /><b>Fax No:</b>(202) 584-2754<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.thebridgeprojectdc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food<br \><b>Services : </b> Nutritional services<br \><b>Program : </b> Emergency food/groceries<br \><b>Population : </b> Seniors (55+)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 10:00 am to 2:30 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Ward 7 residents.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID and proof of DC residency.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Meadow Green Community Center offers an emergency food pantry by appointment only for seniors (55+ yrs). Recipients must complete an application to receive food bags that are distributed the 3rd week of each month to Ward 7 residents. 
+<br />
+<br />
+Nearest Metro station: Minnesota Avenue. Metro bus: U2 & U6.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

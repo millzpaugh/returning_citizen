@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTQ1MDAgSW5kaWFuYSBBdmVudWUsIE5XICBSbSAjNDQxNSBXYXNoaW5ndG9uIERDIDIwMDAxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFNTUwMCBJbmRpYW5hIEF2ZW51ZSwgTlcgIFJtICM0NDE1IFdhc2hpbmd0b24sIERDIDIwMDAxZGQCAw8PFgIfAgV6PGI+Q29udGFjdCBQZXJzb246PC9iPldpbG1hIEJyaWVyLSBEaXJlY3RvcjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA4NzktMTQwNjxiciAvPjxiPlBob25lIE5vMjo8L2I+KDIwMikgODc5LTEzMDQ8YnIgLz5kZAIFDw8WAh8CBVo8Yj5XZWJzaXRlOiA8L2I+d3d3LmRjYXBwZWFscy5nb3YvaW50ZXJuZXQvc3VwZXJpb3Ivb3JnX2ZhbWlseS9jaGlsZGFidXNlbmVnbGVjdC5qc2Y8YnIgLz5kZAIHDw8WAh8CBb8BPGI+Q2F0ZWdvcnkgOiA8L2I+IExlZ2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IExlZ2FsPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRmFtaWx5IGxhdy0tY2hpbGQgY3VzdG9keSwgc3VwcG9ydCwgdmlzaXRhdGlvbiwgZ3VhcmRpYW5zaGlwPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBdIIPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgQ291bnNlbCBmb3IgQ2hpbGQgQWJ1c2UgYW5kIE5lZ2xlY3QgKENDQU4pIE9mZmljZSBpcyBhIGJyYW5jaCBvZiB0aGUgRmFtaWx5IENvdXJ0IG9mIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSBTdXBlcmlvciBDb3VydC4gVGhlIENDQU4gT2ZmaWNlIG1haW50YWlucyBhIGxpc3Qgb2YgcXVhbGlmaWVkIGF0dG9ybmV5cyB3aG8gYXJlIGF2YWlsYWJsZSBmb3IgYXBwb2ludG1lbnQgaW4gY2hpbGQgYWJ1c2UgYW5kIG5lZ2xlY3QgY2FzZXMuIFRoZSBvZmZpY2UgYWxzbyBwcm9jZXNzZXMgdGhlIG9yZGVycyBhcHBvaW50aW5nIGNvdW5zZWwgaW4gYm90aCBuZXcgYW5kIG9uZ29pbmcgY2FzZXMuIFRoZSBDQ0FOIE9mZmljZSBwcm92aWRlcyBpbml0aWFsIGFuZCBvbmdvaW5nIHRyYWluaW5nIHRvIGF0dG9ybmV5cyB3aG8gcmVwcmVzZW50IGNoaWxkcmVuLCBwYXJlbnRzLCBhbmQgY2FyZXRha2VycyBpbiBjaGlsZCBhYnVzZSBhbmQgbmVnbGVjdCBjYXNlcy4gVGhlIE9mZmljZSBzY3JlZW5zIGFkdWx0IHBhcnRpZXMgZm9yIGZpbmFuY2lhbCBlbGlnaWJpbGl0eSBmb3IgY291cnQgYXBwb2ludGVkIGF0dG9ybmV5cyBhbmQgYXNzaXN0cyBhdHRvcm5leXMgd2hvIGhhdmUgbGVnYWwgYW5kIHNvY2lhbCB3b3JrIHF1ZXN0aW9ucyByZWdhcmRpbmcgY2hpbGQgYWJ1c2UgYW5kIG5lZ2xlY3QgY2FzZXMuDQo8YnIgLz4gDQo8YnIgLz4gIA0KSW4gYWRkaXRpb24sIHRoZSBDQ0FOIE9mZmljZSBkaXN0cmlidXRlcyBhIG5ld3NsZXR0ZXIgd2l0aCBsZWdhbCwgdHJhaW5pbmcsIGFuZCBzb2NpYWwgd29yayB1cGRhdGVzIGZvciBhdHRvcm5leXMuIFRoZSBDQ0FOIE9mZmljZSBhbHNvIHdvcmtzIHdpdGggdGhlIENoaWxkcmVu4oCZcyBMYXcgQ2VudGVyIHdoaWNoIGhhcyBhbiBhZ3JlZW1lbnQgd2l0aCB0aGUgY291cnQgdG8gcHJvdmlkZSByZXByZXNlbnRhdGlvbiBmb3Igc29tZSBjaGlsZHJlbiBhbmQgY2FyZXRha2VycyBpbiBjaGlsZCBhYnVzZSBhbmQgbmVnbGVjdCBjYXNlcy4gDQo8YnIgLz4gDQo8YnIgLz4gIA0KWW91IGNhbiBjb250YWN0IHRoZSBDQ0FOIE9mZmljZSBhdCAoMjAyKSA4NzktMTQwNi48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTkyHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkvy8RRsHOebV4V67omYwwp9eooDM=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKC+uiWDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAbWlGg8iOL23wGzIQgsQ0Xl6ysiT" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="500 Indiana Avenue, NW  Rm #4415 Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Counsel for Child Abuse &amp;  Neglect (CCAN)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">500 Indiana Avenue, NW  Rm #4415 Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Wilma Brier- Director<br /><b>Phone No:</b>(202) 879-1406<br /><b>Phone No2:</b>(202) 879-1304<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dcappeals.gov/internet/superior/org_family/childabuseneglect.jsf<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Family law--child custody, support, visitation, guardianship<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Counsel for Child Abuse and Neglect (CCAN) Office is a branch of the Family Court of the District of Columbia Superior Court. The CCAN Office maintains a list of qualified attorneys who are available for appointment in child abuse and neglect cases. The office also processes the orders appointing counsel in both new and ongoing cases. The CCAN Office provides initial and ongoing training to attorneys who represent children, parents, and caretakers in child abuse and neglect cases. The Office screens adult parties for financial eligibility for court appointed attorneys and assists attorneys who have legal and social work questions regarding child abuse and neglect cases.
+<br /> 
+<br />  
+In addition, the CCAN Office distributes a newsletter with legal, training, and social work updates for attorneys. The CCAN Office also works with the Children’s Law Center which has an agreement with the court to provide representation for some children and caretakers in child abuse and neglect cases. 
+<br /> 
+<br />  
+You can contact the CCAN Office at (202) 879-1406.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

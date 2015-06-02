@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSwyOTAwIFZhbiBOZXNzIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwOGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS0yOTAwIFZhbiBOZXNzIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDhkZAIDDw8WAh8CBW48Yj5Db250YWN0IFBlcnNvbjo8L2I+RWR3YXJkIERhdmlzPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDgwNi04MDgyPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA4MDYtODQzNjxiciAvPmRkAgUPDxYCHwIFKDxiPldlYnNpdGU6IDwvYj53d3cubGF3Lmhvd2FyZC5lZHU8YnIgLz5kZAIHDw8WAh8CBdYCPGI+Q2F0ZWdvcnkgOiA8L2I+IExlZ2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IExlZ2FsPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWx0ZXJuYXRpdmUgRGlzcHV0ZSBSZXNvbHV0aW9uLCBDcmltaW5hbCBsYXctLWFkdWx0cyAmYW1wOyBqdXZlbmlsZSwgRmFtaWx5IGxhdy0tY2hpbGQgY3VzdG9keSwgc3VwcG9ydCwgdmlzaXRhdGlvbiwgZ3VhcmRpYW5zaGlwLCBMYW5kbG9yZC9UZW5hbnQvRmFpciBob3VzaW5nPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZDxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgUyPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+Q2FsbCBmb3IgZGV0YWlscy48YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgXbCTxiPkRlc2NyaXB0aW9uOiA8L2I+SG93YXJkIFVuaXZlcnNpdHkgU2Nob29sIG9mIExhdyBvZmZlcnMgbGF3IGNsaW5pYyBzZXJ2aWNlcyBpbiBjcmltaW5hbCBqdXN0aWNlLCBhbHRlcm5hdGl2ZSBkaXNwdXRlIHJlc29sdXRpb24sIGNpdmlsIHJpZ2h0cyBhbmQgZmFpciBob3VzaW5nLg0KPGJyIC8+DQo8YnIgLz4NClRoZSBDcmltaW5hbCBKdXN0aWNlIENsaW5pYyBpcyBvcGVyYXRlZCBieSAzcmQgeWVhciBsYXcgc3R1ZGVudHMgdW5kZXIgdGhlIGxpY2Vuc2VkIHN1cGVydmlzaW9uIG9mIGFuIGV4cGVyaWVuY2VkIGF0dG9ybmV5LiBSZXByZXNlbnRhdGlvbiBzZXJ2aWNlcyBhcmUgcHJvdmlkZWQgZm9yIG1pc2RlbWVhbm9yIGFkdWx0cyBhbmQganV2ZW5pbGVzIGNoYXJnZWQgaW4gdGhlIERDIFN1cGVyaW9yIENvdXJ0IChhcyBhc3NpZ25lZCBieSB0aGUgQ291cnQpLiANCjxiciAvPg0KPGJyIC8+DQpUaGUgQWx0ZXJuYXRpdmUgRGlzcHV0ZSBSZXNvbHV0aW9uIENsaW5pYyBpcyB3aGVyZSBsYXcgc3R1ZGVudHMgbWVkaWF0ZSBkaXNwdXRlcyBvZiBzbWFsbCBjbGFpbXMsIGRvbWVzdGljIGFuZCBwcm9wZXJ0eSBpc3N1ZXMgKGNhc2VzIGFzc2lnbmVkIGJ5IENvdXJ0KS4gDQo8YnIgLz4NCjxiciAvPg0KVGhyb3VnaCB0aGUgQ2l2aWwgUmlnaHRzIENsaW5pYyBjbGllbnRzIG1heSByZWNlaXZlIHRyaWFsIGFuZCBhcHBlbGxhdGUgcmVwcmVzZW50YXRpb24gaW4gZmVkZXJhbCBhbmQgc3RhdGUgY291cnRzLiBDYXNlcyB0YWtlbiB1bmRlciBhZHZpc2VtZW50IGFyZSBzb2NpYWwganVzdGljZSBtYXR0ZXJzIHJlbGF0ZWQgdG86IGVtcGxveW1lbnQgYW5kIGhvdXNpbmc7IHZvdGluZyByaWdodHM7IHBvbGljZSBicnV0YWxpdHk7IHVuY29uc3RpdHV0aW9uYWwgcHJpc29uIGNvbmRpdGlvbnM7IGhhYmVhcyBjb3JwdXM7IHVuZmFpciBiYXJyaWVycyB0byB0aGUgY291cnRzLiBSZWZlcnJhbHMgYXJlIGFjY2VwdGVkIGJ5IGNvdXJ0IGFwcG9pbnRtZW50cywgcHJpdmF0ZSByZWZlcnJhbHMsIHdyaXRlLWluIHJlcXVlc3RzIGFuZCBzY2hlZHVsZWQgaW50YWtlIGludGVydmlld3MuDQo8YnIgLz4NCjxiciAvPg0KRmFpciBIb3VzaW5nIENsaW5pYyAoc3R1ZGVudHMgcHJvdmlkZSBhZG1pbmlzdHJhdGl2ZSBoZWFyaW5nIHJlcHJlc2VudGF0aW9uLCBhZHZvY2FjeSwgcmVzZWFyY2ggc3VwcG9ydCBhbmQgdHJhaW5pbmcgaW4gaG91c2luZyBkaXNjcmltaW5hdGlvbiBtYXR0ZXJzKS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMjAxHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkZDKBSE8eMqWPcmClBySvhnEJd6U=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLx78WtCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAaUBaU+w4xJ9uZzVVbVBTEHt73AP" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2900 Van Ness Street, NW Washington DC 20008" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Howard University School of Law Clinics" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2900 Van Ness Street, NW Washington, DC 20008</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Edward Davis<br /><b>Phone No:</b>(202) 806-8082<br /><b>Fax No:</b>(202) 806-8436<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.law.howard.edu<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Alternative Dispute Resolution, Criminal law--adults &amp; juvenile, Family law--child custody, support, visitation, guardianship, Landlord/Tenant/Fair housing<br \><b>Population : </b> Criminal justice involved<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Call for details.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Howard University School of Law offers law clinic services in criminal justice, alternative dispute resolution, civil rights and fair housing.
+<br />
+<br />
+The Criminal Justice Clinic is operated by 3rd year law students under the licensed supervision of an experienced attorney. Representation services are provided for misdemeanor adults and juveniles charged in the DC Superior Court (as assigned by the Court). 
+<br />
+<br />
+The Alternative Dispute Resolution Clinic is where law students mediate disputes of small claims, domestic and property issues (cases assigned by Court). 
+<br />
+<br />
+Through the Civil Rights Clinic clients may receive trial and appellate representation in federal and state courts. Cases taken under advisement are social justice matters related to: employment and housing; voting rights; police brutality; unconstitutional prison conditions; habeas corpus; unfair barriers to the courts. Referrals are accepted by court appointments, private referrals, write-in requests and scheduled intake interviews.
+<br />
+<br />
+Fair Housing Clinic (students provide administrative hearing representation, advocacy, research support and training in housing discrimination matters).<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

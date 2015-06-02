@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSk0MjUgU2Vjb25kIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSo0MjUgU2Vjb25kIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzgzLTczNDM8YnIgLz5kZAIFDw8WAh8CBTI8Yj5XZWJzaXRlOiA8L2I+d3d3LmNsZWFuYW5kc29iZXJzdHJlZXRzLm9yZzxiciAvPmRkAgcPDxYCHwIFjAM8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFJlc2lkZW50aWFsIGxvbmctdGVybSB0cmVhdG1lbnQgKG1vcmUgdGhhbiAzMCBkYXlzKSwgUmVzaWRlbnRpYWwgc2hvcnQtdGVybSB0cmVhdG1lbnQgKDMwIGRheXMgb3IgbGVzcyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTWVuLCBQZXJzb25zIHdpdGggSElWL0FJRFMsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFUDxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+UmVmZXJyYWxzIHRocm91Z2ggQ291cnQsIENTT1NBICwgbm8gd2Fsay1pbnMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBcoHPGI+RGVzY3JpcHRpb246IDwvYj5DbGVhbiBhbmQgU29iZXIgU3RyZWV0cyBvZmZlcnMgbG9uZyB0ZXJtIHJlc2lkZW50aWFsIGRydWcgYW5kIGFsY29ob2wgdHJlYXRtZW50IGFuZCByZWhhYmlsaXRhdGlvbiBzZXJ2aWNlcyBmb3IgbWVuIGFuZCB3b21lbiB3aG8gYXJlIHdpbGxpbmcgdG8gcmVjb3ZlciBpbiBXYXNoaW5ndG9uLCBEQy4gVXNpbmcgdGhlIDEyLVN0ZXAgcGhpbG9zb3BoeSwgdGhlIHByb2dyYW0gc3Vydml2ZXMgYW5kIHRocml2ZXMgZHVlIHRvIGNvbW11bml0eSBzdXBwb3J0IGZyb20gY29uY2VybmVkIG9yZ2FuaXphdGlvbnMgYW5kIGluZGl2aWR1YWxzIHNlZWtpbmcgdG8gbWFrZSBhIGRpZmZlcmVuY2UgaW4gdGhlIGxpdmVzIG9mIHRob3NlIGxlc3MgZm9ydHVuYXRlLg0KPGJyIC8+IA0KPGJyIC8+ICANCkNsZWFuIGFuZCBTb2JlciBTdHJlZXRzIG9wZXJhdGVzIGEgOTAtZGF5IHJlc2lkZW50aWFsIHRyZWF0bWVudCBwcm9ncmFtOyAxMi1zdGVwIGdyb3VwcyAoZGFpbHkpOyBhbmdlciBtYW5hZ2VtZW50IHNraWxsczsgY3JpbWluYWwganVzdGljZSBlZHVjYXRpb247IGxpZmUgc2tpbGxzIGFuZCA5MCBkYXlzIG9mIGFmdGVyY2FyZSBzZXJ2aWNlcy4gUmVzaWRlbnRzIHdobyByZXNpZGUgaW4gdHJhbnNpdGlvbmFsIGhvdXNpbmcgYW5kIGFyZSBleHBlY3RlZCB0byB3b3JrIGFuZCBzYXZlIHRvd2FyZCBpbmRlcGVuZGVuY2UuICBSZXNpZGVudHMgYWxzbyBoYXZlIGFjY2VzcyB0byBldmVuaW5nIGdyb3VwIGNvdW5zZWxpbmcgYW5kIGNhc2UgbWFuYWdlbWVudC4gDQo8YnIgLz4gDQo8YnIgLz4gIA0KTWV0cm8gYWNjZXNzaWJsZSB2aWEgdGhlIEp1ZGljaWFyeSBTcXVhcmUgbWV0cm8gc3RhdGlvbiBvbiB0aGUgcmVkIGxpbmUuIEJ1cyByb3V0ZXMgaW5jbHVkZSwgYnV0IGFyZSBub3QgbGltaXRlZCB0bzogNzAsIDc5LCA4MCwgOTYsIEE0NiwgRDEsIEQ2LCBWOCwgWDIsIFg4LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQE2Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk48Nz1m1jlFhF+nNojpye4WfmKt4=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLWhuH1DQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAd+ckxM32RyjJzoJQYAnhMdkXzx7" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="425 Second Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Clean and Sober Streets (Federal City Recovery Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">425 Second Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 783-7343<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.cleanandsoberstreets.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days), Residential short-term treatment (30 days or less)<br \><b>Program : </b> Anger management<br \><b>Population : </b> Criminal justice involved, Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Referrals through Court, CSOSA , no walk-ins.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Clean and Sober Streets offers long term residential drug and alcohol treatment and rehabilitation services for men and women who are willing to recover in Washington, DC. Using the 12-Step philosophy, the program survives and thrives due to community support from concerned organizations and individuals seeking to make a difference in the lives of those less fortunate.
+<br /> 
+<br />  
+Clean and Sober Streets operates a 90-day residential treatment program; 12-step groups (daily); anger management skills; criminal justice education; life skills and 90 days of aftercare services. Residents who reside in transitional housing and are expected to work and save toward independence.  Residents also have access to evening group counseling and case management. 
+<br /> 
+<br />  
+Metro accessible via the Judiciary Square metro station on the red line. Bus routes include, but are not limited to: 70, 79, 80, 96, A46, D1, D6, V8, X2, X8.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

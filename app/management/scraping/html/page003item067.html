@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTExNjIzIGNvbm5lY3RpY3V0IEF2ZS4gTlcgIzIwMCBXYXNoaW5ndG9uIERDIDIwMDA5ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjE2MjMgY29ubmVjdGljdXQgQXZlLiBOVyAjMjAwIFdhc2hpbmd0b24sIERDIDIwMDA5ZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDIzNC03ODM3PGJyIC8+ZGQCBQ8PFgIfAgUuPGI+V2Vic2l0ZTogPC9iPnd3dy5kdXBvbnRjaXJjbGVjbHViLm9yZzxiciAvPmRkAgcPDxYCHwIFYjxiPkNhdGVnb3J5IDogPC9iPiBTZWxmLUhlbHAvU3VwcG9ydCBHcm91cHM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU2VsZi1oZWxwL1N1cHBvcnQgZ3JvdXBzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgXGCDxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIER1cG9udCBDaXJjbGUgQ2x1YiBpcyBhIG5vbi1wcm9maXQgb3JnYW5pemF0aW9uIHdob3NlIG1pc3Npb24gaXMgdG8gcHJvdmlkZSBhIGNsZWFuLCBvcmdhbml6ZWQsIHdlbGNvbWluZyBzcGFjZSBmb3IgYSB2YXJpZXR5IG9mIDEyLVN0ZXAgUmVjb3ZlcnkgZ3JvdXBzLiBKdXN0IG9uZSBibG9jayBub3J0aCBvZiBEdXBvbnQgQ2lyY2xlLCBpbiBub3J0aHdlc3QgREMsIHdlIGFyZSBuZWFyIGEgd2lkZSByYW5nZSBvZiBjb2ZmZWUgc2hvcHMsIHN0b3JlcywgcmVzdGF1cmFudHMsIGdhbGxlcmllcywgYSBtb3ZpZSB0aGVhdGVyLCB5b2dhIHN0dWRpb3MgYW5kIG1hbnkgb3RoZXIgYXR0cmFjdGlvbnMgYW5kIGdhdGhlcmluZyBwbGFjZXMuIFRoZXJlJ3MgYWx3YXlzIGEgbWVldGluZyBhZnRlciB0aGUgbWVldGluZy4gQ3VycmVudGx5LCB0aGUgRHVwb250IENpcmNsZSBDbHViIHJlbnRzIHRocmVlIG1lZXRpbmcgcm9vbXMgdG8gb3ZlciBhIGRvemVuIGRpZmZlcmVudCBmZWxsb3dzaGlwcy4NCjxiciAvPg0KPGJyIC8+DQpEdXBvbnQgQ2lyY2xlIENsdWIgcHJvdmlkZXMgZm9yIG9yZ2FuaXplZCBtZWV0aW5nIHNwYWNlIGZvciBhIHZhcmlldHkgb2YgMTItc3RlcCBncm91cHMuICBSZWd1bGFyIG1lZXRpbmdzIGFyZSBoZWxkIGZvcjogIEFsY29ob2wsIEdhbWJsZXIncywgQ3J5c3RhbCBNZXRoLCBPdmVyZWF0ZXJzLCBhbmQgTmFyY290aWNzIEFub255bW91cy4gIEludGVyZXN0ZWQgcGVyc29ucyBzaG91bGQgdmlzaXQgdGhlIHdlYnNpdGUgZm9yIGEgc2NoZWR1bGUgb2YgbWVldGluZ3MuICBEb25hdGlvbnMgYXJlIGFjY2VwdGVkLiANCjxiciAvPg0KPGJyIC8+DQpOT1RFOg0KPGJyIC8+DQpUaGUgQ2x1YiBpcyBvbiB0aGUgc2Vjb25kIGZsb29yIGF0IDE2MjMgQ29ubmVjdGljdXQgQXZlLjsgdW5mb3J0dW5hdGVseSwgd2UgZG8gbm90IGhhdmUgYW4gZWxldmF0b3IuIE91ciBlbnRyYW5jZSBkb29yIGlzIHRvIHRoZSBsZWZ0IG9mIExvdSBMb3UgQ2xvdGhpbmcuIFNtb2tpbmcgYW5kIHBldHMgYXJlIG5vdCBhbGxvd2VkIGluIG91ciBDbHViIG9yIHRoZSBidWlsZGluZy4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzc1NB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZPbRb15k3WY7PJAJhci81mLo66/C" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKk6o/nCwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASnkEaVRunKwwqHW05X0SSsToTEO" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1623 connecticut Ave. NW #200 Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Dupont Circle Club" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1623 connecticut Ave. NW #200 Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 234-7837<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dupontcircleclub.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Self-Help/Support Groups<br \><b>Services : </b> Self-help/Support groups<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Dupont Circle Club is a non-profit organization whose mission is to provide a clean, organized, welcoming space for a variety of 12-Step Recovery groups. Just one block north of Dupont Circle, in northwest DC, we are near a wide range of coffee shops, stores, restaurants, galleries, a movie theater, yoga studios and many other attractions and gathering places. There's always a meeting after the meeting. Currently, the Dupont Circle Club rents three meeting rooms to over a dozen different fellowships.
+<br />
+<br />
+Dupont Circle Club provides for organized meeting space for a variety of 12-step groups.  Regular meetings are held for:  Alcohol, Gambler's, Crystal Meth, Overeaters, and Narcotics Anonymous.  Interested persons should visit the website for a schedule of meetings.  Donations are accepted. 
+<br />
+<br />
+NOTE:
+<br />
+The Club is on the second floor at 1623 Connecticut Ave.; unfortunately, we do not have an elevator. Our entrance door is to the left of Lou Lou Clothing. Smoking and pets are not allowed in our Club or the building. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

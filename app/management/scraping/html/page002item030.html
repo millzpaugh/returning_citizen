@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSE4MTAgNXRoIFN0IE5XIFdhc2hpbmd0b24gREMgMjAwMDFkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUiODEwIDV0aCBTdCBOVyBXYXNoaW5ndG9uLCBEQyAyMDAwMWRkAgMPDxYCHwIFTDxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA3NDUtNzExODxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgMjMyLTcwNzI8YnIgLz5kZAIFDw8WAh8CBSc8Yj5XZWJzaXRlOiA8L2I+d3d3Lm1pc3Npb25kYy5vcmc8YnIgLz5kZAIHDw8WAh8CBaoDPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmcsIFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTaGVsdGVycywgU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gUmVzaWRlbnRpYWwgbG9uZy10ZXJtIHRyZWF0bWVudCAobW9yZSB0aGFuIDMwIGRheXMpPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBDcmltaW5hbCBqdXN0aWNlIGludm9sdmVkLCBNZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBNZWRpY2FpZCwgUHJpdmF0ZSBoZWFsdGggaW5zdXJhbmNlLCBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50PGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVTPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+T24tU2l0ZSBJbnRlcnZpZXdzOiBNb25kYXktRnJpZGF5IDg6MDAgYW0tNDowMCBwbS48YnIgLz5kZAIPDw8WAh8CBUE8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk1lbjsgVG90YWwgRGV0b3ggTm90IFJlcXVpcmVkLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWLEDxiPkRlc2NyaXB0aW9uOiA8L2I+Q2VudHJhbCBVbmlvbiBNaXNzaW9uIGlzIHRoZSBvbGRlc3Qgc29jaWFsIHNlcnZpY2UgYWdlbmN5IGluIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYS4gQ2VudHJhbCBVbmlvbiBNaXNzaW9uIGlzIGEgZmFpdGgtYmFzZWQgNTAxKGMpMyBub25wcm9maXQgb3JnYW5pemF0aW9uIHdpdGggZm91ciBsb2NhdGlvbnMgdGhyb3VnaG91dCB0aGUgV2FzaGluZ3RvbiBhcmVhLiBJdCBvcGVyYXRlcyBhbiAxOC1tb250aCByZWhhYmlsaXRhdGlvbiBwcm9ncmFtIGZvciBtZW4gd2l0aCBsaWZlLWNvbnRyb2xsaW5nIGlzc3VlcywgYSBmcmVlIG1lYWxzIHByb2dyYW0sIGEgY2xvdGhpbmcgYW5kIGZ1cm5pdHVyZSBkaXN0cmlidXRpb24gY2VudGVyLCBhbmQgYSAyMjAtYWNyZSByZXRyZWF0IGNlbnRlciB3aXRoIGEgY2FtcCBmb3IgdW5kZXJwcml2aWxlZ2VkIGNoaWxkcmVuIGFuZCByZWNyZWF0aW9uIGZhY2lsaXRpZXMgZm9yIHRoZSBjb21tdW5pdHkuDQo8YnIgLz4gDQo8YnIgLz4gIA0KSE9VU0lORw0KPGJyIC8+ICAgDQpDZW50cmFsIFVuaW9uIE1pc3Npb24gaXMgYSBoaWdoIGJhcnJpZXIgb3Zlci1uaWdodCBlbWVyZ2VuY3kgc2hlbHRlci4gIkhpZ2ggYmFycmllciIgc2hlbHRlcnMgYXJlIHNoZWx0ZXJzIHRoYXQgcmVxdWlyZSByZXNpZGVudHMgdG8gcGFydGljaXBhdGUgaW4gY2FzZSBtYW5hZ2VtZW50IGFuZCBzb21lIGhvdXNlIG1haW50ZW5hbmNlIGNob3Jlcy4gQ2VudHJhbCBVbmlvbiBNaXNzaW9uIGFjY2VwdHMgcmVzaWRlbnRzIG9uIGEgZmlyc3QgY29tZSwgZmlyc3Qgc2VydmUgYmFzaXMuIFJlc2lkZW50cyBjYW4gY29tZSBpbiB0aGUgc2hlbHRlciBiZXR3ZWVuIHRoZSBob3VycyBvZiA1cG0gYW5kIDhhbSBmb3IgdGhyZWUgbmlnaHRzIGEgd2Vlay4gQ2VudHJhbCBVbmlvbiBNaXNzaW9uIHByb3ZpZGVzIGRpbm5lciwgYnJlYWtmYXN0LCBzaG93ZXJzLCBjbG90aGluZywgYW5kIHNvY2lhbCBzZXJ2aWNlcy4gUGFydGljaXBhbnRzIGFyZSBhbHNvIHJlcXVpcmVkIHRvIHBhcnRpY2lwYXRlIGluIGEgc3Bpcml0dWFsbHkgYmFzZWQgc3Vic3RhbmNlIGFidXNlIHByb2dyYW0uIA0KPGJyIC8+IA0KPGJyIC8+ICANCk1FTlRBTCBIRUFMVEgNCjxiciAvPg0KQ2VudHJhbCBVbmlvbiBNaXNzaW9uIGFsc28gb2ZmZXJzIGFuIDE4LW1vbnRoIHNwaXJpdHVhbC1iYXNlZCByZXNpZGVudGlhbCByZWNvdmVyeSBwcm9ncmFtLiBQYXJ0aWNpcGFudHMgbXVzdCBiZSBpbiBnb29kIGhlYWx0aC4gVGhleSBvZmZlciBCaWJsaWNhbCBjb3Vuc2VsaW5nLCBkcnVnIHRlc3RpbmcsIHdvcmsgdGhlcmFweSwgbGl0ZXJhY3kgYW5kIEdFRCBjbGFzc2VzLCBhbmQgam9iIHBsYWNlbWVudCBhc3Npc3RhbmNlLiBQaGFzZSBJSSBvZiB0aGUgcHJvZ3JhbSByZXF1aXJlcyBwYXJ0aWNpcGFudHMgdG8gYXR0ZW5kIGFuIG92ZXJuaWdodCBjYW1wIHJldHJlYXQgaW4gTW9udGdvbWVyeSBDby4sIE1ELiBXYWxrLWlucyBhY2NlcHRlZCBmb3IgaW50ZXJ2aWV3cy4gDQo8YnIgLz4NCkFkZGl0aW9uYWwgc2VydmljZXMgaW5jbHVkZToNCjxiciAvPiANCkd1ZXN0IFNlcnZpY2VzIC0gRW1lcmdlbmN5IHNoZWx0ZXIgc2VydmljZXMgYXJlIHByb3ZpZGVkIGZvciBob21lbGVzcyBtZW4gZXZlcnkgbmlnaHQgb2YgdGhlIHllYXIuIA0KPGJyIC8+ICANCkZvb2QgU2VydmljZXMgLSBNZWFscyBhbmQgZ3JvY2VyaWVzIGFyZSBvZmZlcmVkIDcgZGF5cyBhIHdlZWsgZm9yIGFueW9uZSB3aG8gd2Fsa3MgdGhyb3VnaCB0aGUgTWlzc2lvbidzIGRvb3JzIGluIG5lZWQuIA0KPGJyIC8+IA0KPGJyIC8+ICANCkNvbW11bml0eSBTZXJ2aWNlcyAtIEZhbWlseSBhbmQgY2hpbGRyZW4gc2VydmljZXMsIGNhc2UgbWFuYWdlbWVudCBzZXJ2aWNlcywgYW5kIHNwZWNpYWwgZXZlbnRzIGFuZCBjZWxlYnJhdGlvbnMuIA0KPGJyIC8+IA0KPGJyIC8+ICANCkRpc3RyaWJ1dGlvbiBDZW50ZXIgLSBCYXNpYyBuZWNlc3NpdGllcyBzdWNoIGFzIGNsb3RoZXMsIGZ1cm5pdHVyZSwgYW5kIGZvb2QgYXZhaWxhYmxlIGZvciBwaWNrIHVwIC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMjI1Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk0vIBhPBcPFcjaGdsPvo+WfrRPDA=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKKi465CgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdE6zC7/ysqlqweygPXzbgHVVLCj" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="810 5th St NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Central Union Mission" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">810 5th St NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 745-7118<br /><b>Fax No:</b>(202) 232-7072<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.missiondc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Substance Abuse<br \><b>Services : </b> Shelters, Substance abuse treatment<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days)<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders<br \><b>Population : </b> Criminal justice involved, Men<br \><b>Forms Of Payment : </b> Medicaid, Private health insurance, Public funding, Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>On-Site Interviews: Monday-Friday 8:00 am-4:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men; Total Detox Not Required.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Central Union Mission is the oldest social service agency in the District of Columbia. Central Union Mission is a faith-based 501(c)3 nonprofit organization with four locations throughout the Washington area. It operates an 18-month rehabilitation program for men with life-controlling issues, a free meals program, a clothing and furniture distribution center, and a 220-acre retreat center with a camp for underprivileged children and recreation facilities for the community.
+<br /> 
+<br />  
+HOUSING
+<br />   
+Central Union Mission is a high barrier over-night emergency shelter. "High barrier" shelters are shelters that require residents to participate in case management and some house maintenance chores. Central Union Mission accepts residents on a first come, first serve basis. Residents can come in the shelter between the hours of 5pm and 8am for three nights a week. Central Union Mission provides dinner, breakfast, showers, clothing, and social services. Participants are also required to participate in a spiritually based substance abuse program. 
+<br /> 
+<br />  
+MENTAL HEALTH
+<br />
+Central Union Mission also offers an 18-month spiritual-based residential recovery program. Participants must be in good health. They offer Biblical counseling, drug testing, work therapy, literacy and GED classes, and job placement assistance. Phase II of the program requires participants to attend an overnight camp retreat in Montgomery Co., MD. Walk-ins accepted for interviews. 
+<br />
+Additional services include:
+<br /> 
+Guest Services - Emergency shelter services are provided for homeless men every night of the year. 
+<br />  
+Food Services - Meals and groceries are offered 7 days a week for anyone who walks through the Mission's doors in need. 
+<br /> 
+<br />  
+Community Services - Family and children services, case management services, and special events and celebrations. 
+<br /> 
+<br />  
+Distribution Center - Basic necessities such as clothes, furniture, and food available for pick up .<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

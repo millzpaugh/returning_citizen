@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxMjI0NyBHZW9yZ2lhIEF2ZW51ZSBTaWx2ZXIgU3ByaW5nIE1EIDIwOTAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDEyMjQ3IEdlb3JnaWEgQXZlbnVlIFNpbHZlciBTcHJpbmcsIE1EIDIwOTAyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDk0Mi0xNzkwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMzAxKSA5NDktMTM3MTxiciAvPmRkAgUPDxYCHwIFNjxiPldlYnNpdGU6IDwvYj53d3cuY2F0aG9saWNjaGFyaXRpZXNkYy5vcmcvTUNGQzxiciAvPmRkAgcPDxYCHwIF8AQ8Yj5DYXRlZ29yeSA6IDwvYj4gRWR1Y2F0aW9uLCBFbWVyZ2VuY3kgRm9vZCwgTGVnYWwsIFBhcmVudGluZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVkdWNhdGlvbmFsIHNlcnZpY2VzLCBGYW1pbHkgc3VwcG9ydCBzZXJ2aWNlcywgTGVnYWwsIE1hdGVyaWFsIG5lZWRzLCBNb25ldGFyeSBhc3Npc3RhbmNlLCBOdXRyaXRpb25hbCBzZXJ2aWNlcywgU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBDbG90aGluZywgRW1lcmdlbmN5IGZvb2QvZ3JvY2VyaWVzLCBFbmdsaXNoIGFzIGEgU2Vjb25kIExhbmd1YWdlIChFU0wpLCBGaW5hbmNpYWwgY291bnNlbGluZyAobW9uZXkgbWFuYWdlbWVudCwgaG91c2luZyAmYW1wOyBjcmVkaXQpLCBNb3J0Z2FnZS9SZW50IChFUkFQKSwgUGFyZW50aW5nIHN1cHBvcnQsIGUuZy4gY2xhc3NlcywgZ3JvdXBzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlcywgVXRpbGl0aWVzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gRmFtaWxpZXMsIEltbWlncmFudHMvUmVmdWdlZXMsIEluZmFudHM8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBT08Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5TZWUgYmVsb3cgZm9yIHNlcnZpY2UgdGltZXMuPGJyIC8+ZGQCDw8PFgIfAgU/PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Nb250Z29tZXJ5IENvdW50eSByZXNpZGVudHMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBcESPGI+RGVzY3JpcHRpb246IDwvYj5Nb250Z29tZXJ5IENvdW50eSBGYW1pbHkgQ2VudGVyIHN0cml2ZXMgdG8gYnVpbGQgcGFydG5lcnNoaXBzIHdpdGhpbiB0aGUgY29tbXVuaXR5IHRvIHByb3ZpZGUgc2VydmljZXMsIGVkdWNhdGlvbiwgc3VwcG9ydCBhbmQgcHJvbW90ZSBzZWxmLXN1ZmZpY2llbmN5IGFuZCBlbXBvd2VybWVudC4gVGhlIENlbnRlciB3ZWxjb21lcyBhbGwgTW9udGdvbWVyeSBDb3VudHkgcmVzaWRlbnRzIHRvIHdhbGstaW4gdG8gZ2V0IGFjY2VzcyB0byBzZXJ2aWNlcy4gVGhlIENlbnRlciBvZmZlcnMgc2VydmljZXMgaW4gdGhlIGZvbGxvd2luZyBhcmVhczogY2FzZSBtYW5hZ2VtZW50LCBjcmlzaXMgaW50ZXJ2ZW50aW9uIGFuZCByZWZlcnJhbCBzZXJ2aWNlczsgcmVzdW1lIGFuZCBqb2IgYXBwbGljYXRpb24gYXNzaXN0YW5jZTsgbnV0cml0aW9uLCBjb29raW5nIGFuZCBleGVyY2lzZSBjbGFzc2VzOyBmb29kIGRpc3RyaWJ1dGlvbjsgY2xvdGhpbmcgYW5kIHNob2VzIHNob3BwaW5nIGRheTsgcGFyZW50IGVkdWNhdGlvbiBjbGFzc2VzOyBmaW5hbmNpYWwgZWR1Y2F0aW9uIGNsYXNzZXM7IEVuZ2xpc2ggYXMgYSBzZWNvbmQgbGFuZ3VhZ2UgY2xhc3NlczsgcmVudCwgbW9ydGdhZ2UgYW5kIHV0aWxpdHkgYXNzaXN0YW5jZTsgaW1taWdyYXRpb24gbGVnYWwgc2VydmljZXM7IGFuZCBzZXJ2aWNlcyBmb3IgcHJlZ25hbnQgd29tZW4uIA0KPGJyIC8+DQo8YnIgLz4NClNFUlZJQ0UgREVUQUlMUzoNCjxiciAvPg0KQ0FTRSBNQU5BR0VNRU5UICYgUkVGRVJSQUxTIChjcmlzaXMgaW50ZXJ2ZW50aW9uIGFsc28pOiBXYWxrLWluIGhvdXJzIGFyZSBNb25kYXkg4oCTIEZyaWRheSBmcm9tIDg6MDBhbSDigJMgNDozMCBwbS4NCjxiciAvPg0KPGJyIC8+DQpFRFVDQVRJT046DQpCZWdpbm5lciAmIEludGVybWVkaWF0ZSBFbmdsaXNoIENsYXNzIChFU0wpOiBUdWVzZGF5IGZyb20gNjowMCBwbSDigJMgODowMCBwbQ0KPGJyIC8+DQo8YnIgLz4NCk1PTkVZIFNNQVJUOiBGSU5BTkNJQUwgRURVQ0FUSU9OIENMQVNTRVMNCjxiciAvPg0KQ2xhc3NlcyBhcmUgdGF1Z2h0IG9uIGJ1ZGdldGluZywgc2F2aW5nIGFuZCBiYW5raW5nLCBwbGVhc2UgY2FsbCBmb3IgZGF0ZXMgYW5kIGluZm9ybWF0aW9uIHJlZ2FyZGluZyByZWdpc3RyYXRpb24uIENsYXNzZXMgYXJlIHR5cGljYWxseSBoZWxkIG9uIFR1ZXNkYXlzIGZyb20gNjowMCBwbSDigJMgODozMCBwbS4NCkVtcGxveW1lbnQ6DQpSZXN1bWUgYW5kIGpvYiBhcHBsaWNhdGlvbiBhc3Npc3RhbmNlLCBpbmNsdWRpbmcgcmVzdW1lIHdyaXRpbmcgYW5kIGpvYiBhcHBvaW50bWVudHMuDQo8YnIgLz4NCjxiciAvPg0KRkFNSUxZOg0KPGJyIC8+DQpQYXJlbnQgU3VwcG9ydCBDbGFzcyAoU3BhbmlzaCkgaXMgb2ZmZXJlZCBvbiBUaHVyc2RheXMgZnJvbSAxMjowMCBwbSDigJMgMTowMCBwbSBhbmQgY2hpbGRjYXJlIGlzIHByb3ZpZGVkIHdpdGggc25hY2tzIGFuZCBhY3Rpdml0aWVzLg0KPGJyIC8+DQo8YnIgLz4NCkZJTkFOQ0lBTCBBU1NJU1RBTkNFOg0KPGJyIC8+DQpUaGUgTmVpZ2hib3Job29kIFNlcnZpY2UgY2VudGVyIG9mZmVycyBEZXBhcnRtZW50IG9mIEhlYWx0aCBhbmQgSHVtYW4gU2VydmljZXMgdGhyb3VnaCB3YWxrLWlucyB0byBjb21wbGV0ZSBhcHBsaWNhdGlvbnMgZm9yIGluY29tZSBhc3Npc3RhbmNlIHByb2dyYW1zIChUZW1wb3JhcnkgQ2FzaCBBc3Npc3RhbmMsIEZvb2QgU3RhbXBzLCBNZWRpY2FsIEFzc2lzdGFuY2UsIENoaWxkY2FyZSBzdWJzaWR5IHByb2dyYW0sIGV2aWN0aW9uIHByZXZlbnRpb24gcHJvZ3JhbSwgdXRpbGl0eSBkaXNjb25uZWN0aW9ucyBhbmQgaG9tZSBlbmVyZ3kgcHJvZ3JhbSkuIFNlcnZpY2VzIGFyZSBhdmFpbGFibGUgZXZlcnkgV2VkbmVzZGF5IGFuZCBGcmlkYXkgZnJvbSA5OjAwIGFtIOKAkyA0OjAwIHBtLg0KPGJyIC8+DQo8YnIgLz4NCkxFR0FMIFNFUlZJQ0VTOg0KPGJyIC8+DQpMZWdhbCBTZXJ2aWNlcyBhcmUgcHJvdmlkZWQgZm9yIGltbWlncmF0aW9uIG5lZWRzIGV2ZXJ5IFRodXJzZGF5IGF0IDk6MDBhbS4gVGhlcmUgaXMgYSAkNjAgY29uc3VsdGF0aW9uIGZlZSBhc3NvY2lhdGVkIHdpdGggdGhpcyBzZXJ2aWNlIChjYXNoIG9yIGNoZWNrIG9ubHkpLiBBZGRpdGlvbmFsbHksIHRoZSBBcmNoZGlvY2VzZSBMZWdhbCBOZXR3b3JrIHByb3ZpZGVzIHNlcnZpY2VzIGZvciBmcmVlIHRvIGxvdy1pbmNvbWUgcmVzaWRlbnRzLiBJbnRha2UgaXMgb3BlbiBNb25kYXkg4oCTIEZyaWRheSBmcm9tIDk6MzAgYW0g4oCTIDEyOjAwIHBtIGFuZCAyOjAwIHBtIOKAkyA0OjMwIHBtKS4gQ2FsbCBmb3IgbW9yZSBpbmZvcm1hdGlvbiAoMjAyKSA2MjgtNDI2My48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNTU5Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkHNdlM5+oiGKE02CM556/4yP1jxI=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKwyLyYCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAT76fXpBGpS2Z4hlwQGoBMhOPfyK" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="12247 Georgia Avenue Silver Spring MD 20902" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Montgomery County Family Center (Catholic Charities)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">12247 Georgia Avenue Silver Spring, MD 20902</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 942-1790<br /><b>Fax No:</b>(301) 949-1371<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.catholiccharitiesdc.org/MCFC<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Emergency Food, Legal, Parenting, Social Services<br \><b>Services : </b> Educational services, Family support services, Legal, Material needs, Monetary assistance, Nutritional services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Clothing, Emergency food/groceries, English as a Second Language (ESL), Financial counseling (money management, housing &amp; credit), Mortgage/Rent (ERAP), Parenting support, e.g. classes, groups, Referrals for social services, Utilities<br \><b>Population : </b> Families, Immigrants/Refugees, Infants<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>See below for service times.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Montgomery County residents.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Montgomery County Family Center strives to build partnerships within the community to provide services, education, support and promote self-sufficiency and empowerment. The Center welcomes all Montgomery County residents to walk-in to get access to services. The Center offers services in the following areas: case management, crisis intervention and referral services; resume and job application assistance; nutrition, cooking and exercise classes; food distribution; clothing and shoes shopping day; parent education classes; financial education classes; English as a second language classes; rent, mortgage and utility assistance; immigration legal services; and services for pregnant women. 
+<br />
+<br />
+SERVICE DETAILS:
+<br />
+CASE MANAGEMENT & REFERRALS (crisis intervention also): Walk-in hours are Monday – Friday from 8:00am – 4:30 pm.
+<br />
+<br />
+EDUCATION:
+Beginner & Intermediate English Class (ESL): Tuesday from 6:00 pm – 8:00 pm
+<br />
+<br />
+MONEY SMART: FINANCIAL EDUCATION CLASSES
+<br />
+Classes are taught on budgeting, saving and banking, please call for dates and information regarding registration. Classes are typically held on Tuesdays from 6:00 pm – 8:30 pm.
+Employment:
+Resume and job application assistance, including resume writing and job appointments.
+<br />
+<br />
+FAMILY:
+<br />
+Parent Support Class (Spanish) is offered on Thursdays from 12:00 pm – 1:00 pm and childcare is provided with snacks and activities.
+<br />
+<br />
+FINANCIAL ASSISTANCE:
+<br />
+The Neighborhood Service center offers Department of Health and Human Services through walk-ins to complete applications for income assistance programs (Temporary Cash Assistanc, Food Stamps, Medical Assistance, Childcare subsidy program, eviction prevention program, utility disconnections and home energy program). Services are available every Wednesday and Friday from 9:00 am – 4:00 pm.
+<br />
+<br />
+LEGAL SERVICES:
+<br />
+Legal Services are provided for immigration needs every Thursday at 9:00am. There is a $60 consultation fee associated with this service (cash or check only). Additionally, the Archdiocese Legal Network provides services for free to low-income residents. Intake is open Monday – Friday from 9:30 am – 12:00 pm and 2:00 pm – 4:30 pm). Call for more information (202) 628-4263.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

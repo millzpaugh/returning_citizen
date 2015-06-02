@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgyNTMyIDE0dGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDEwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTI1MzIgMTR0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDEwZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY2Ny04ODMxPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2NjctODAyNjxiciAvPmRkAgUPDxYCHwIFKzxiPldlYnNpdGU6IDwvYj53d3cuc2FtYXJpdGFuaW5ucy5vcmc8YnIgLz5kZAIHDw8WAh8CBZ0BPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBQZXJzb25zIGluIHJlY292ZXJ5LCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgU9PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIHdvbWVuIGluIHJlY292ZXJ5LjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXjCDxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIFRyYW5zaXRpb25hbCBob3VzaW5nIGFuZCBTaW5nbGUgUm9vbSBPY2N1cGFuY3kgcHJvZ3JhbSwgcnVuIGJ5IFNhbWFyaXRhbiBJbm4sIGlzIHRoZSBzZWNvbmQgcGhhc2Ugb2YgUmVjb3ZlcnkgQ29udGludXVtLiBUaGlzIHByb2dyYW0gaXMgdGFyZ2V0ZWQgdG8gcGVyc29ucyB3aG8gYXJlIHJlY292ZXJpbmcgc3Vic3RhbmNlIGFidXNlcnMuIFJlc2lkZW50cyBtdXN0IGRvY3VtZW50IDYgbW9udGhzIGRydWcgZnJlZSBvciB0cmFuc2l0aW9uIHRocm91Z2ggYSByZWNvZ25pemVkIHN1YnN0YW5jZSBhYnVzZSBwcm9ncmFtLiBFbnRlcmluZyByZXNpZGVudHMgdHJhbnNpdGlvbiB0aHJvdWdoIGEgc2l4LW1vbnRoIHN0cnVjdHVyYWwgcHJvZ3JhbSB3aGVyZSB0aGV5IHJlY2VpdmUgZHJ1ZyBlZHVjYXRpb24gYW5kIGNvdW5zZWxpbmc7IGF0dGVuZCBBQS9OQSBtZWV0aW5ncyBkYWlseTsgbGVhcm4gam9iIHJldGVudGlvbiBhbmQgbGlmZSBza2lsbHMuIFJlc2lkZW504oCZcyBuZXh0IGdyYWR1YXRlIHRvIHRoZSBpbmRlcGVuZGVudCBsaXZpbmcgcHJvZ3JhbXMgKFNST+KAmXMpLCB0aGUgdGhpcmQgcGhhc2Ugb2YgdGhlIFJlY292ZXJ5IENvbnRpbnV1bSwgd2hlcmUgdGhleSBjb250aW51ZSB0byByZWNlaXZlIGNhc2UgbWFuYWdlbWVudCBzdXBwb3J0LiBNdXN0IHdvcmsgb3IgcmVjZWl2ZWQgcmVndWxhciBpbmNvbWUuIFdhbGstaW4gYWRtaXNzaW9ucyBhbmQgcmVmZXJyYWxzIGNvbnRhY3Q6ICgyMDIpIDY2Ny04ODMxLg0KPGJyIC8+DQo8YnIgLz4NCkVhY2ggb2YgdGhlIFNhbWFyaXRhbiBJbm4gVHJhbnNpdGlvbmFsIExpdmluZyBIb3VzZXMgYXJlIGZhY2lsaXRpZXMgdGhhdCBhcmUgc3RhZmZlZCAyNCBob3VyLiBSZXNpZGVudHMgbXVzdCBhdHRlbmQgZ3JvdXAgY291bnNlbGluZyBzZXNzaW9ucyBhbmQgYWJpZGUgYnkgc3RyaWN0IGhvdXNlIHJ1bGVzLiBSZXNpZGVudHMgY29vayB0aGVpciBvd24gZm9vZCBhbmQgaGF2ZSBwcml2YXRlIGJhdGhzLiBBY3Rpdml0eSBpbiBjb21tb24gYXJlYXMgaXMgdmlkZW8gbW9uaXRvcmVkLiAkMzkwIG1vbnRoIChzbWFsbCByb29tcyksICQ0MzUgbW9udGggKGxhcmdlIHJvb21zKS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzI0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkZ/Q35DZeGULGmJXY0u2YQlHIJgA=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKP0bnwBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAWLC5ZWwwjCVHREfWNTDyGgenAfT" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2532 14th Street, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Lazarus House (Samaritan Inns)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2532 14th Street, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 667-8831<br /><b>Fax No:</b>(202) 667-8026<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.samaritaninns.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Persons in recovery, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and women in recovery.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Transitional housing and Single Room Occupancy program, run by Samaritan Inn, is the second phase of Recovery Continuum. This program is targeted to persons who are recovering substance abusers. Residents must document 6 months drug free or transition through a recognized substance abuse program. Entering residents transition through a six-month structural program where they receive drug education and counseling; attend AA/NA meetings daily; learn job retention and life skills. Resident’s next graduate to the independent living programs (SRO’s), the third phase of the Recovery Continuum, where they continue to receive case management support. Must work or received regular income. Walk-in admissions and referrals contact: (202) 667-8831.
+<br />
+<br />
+Each of the Samaritan Inn Transitional Living Houses are facilities that are staffed 24 hour. Residents must attend group counseling sessions and abide by strict house rules. Residents cook their own food and have private baths. Activity in common areas is video monitored. $390 month (small rooms), $435 month (large rooms).<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkzOTM5IEJlbm5pbmcgUm9hZCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAxOWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSozOTM5IEJlbm5pbmcgUm9hZCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMTlkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjUwLTU2MzE8YnIgLz5kZAIFDw8WAh8CBVM8Yj5XZWJzaXRlOiA8L2I+d3d3LnVscy1kYy5vcmcvUFJPVEVDVElPTl8mXy0yNTIwQURWT0NBQ1lfRk9SX0lORElWSURVQUxTLmh0bTxiciAvPmRkAgcPDxYCHwIFnQI8Yj5DYXRlZ29yeSA6IDwvYj4gTGVnYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTGVnYWw8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBMYW5kbG9yZC9UZW5hbnQvRmFpciBob3VzaW5nPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gUGVyc29ucyB3aXRoIGludGVsbGVjdHVhbCBkaXNhYmlsaXR5LCBQZXJzb25zIHdpdGggbWVudGFsIGlsbG5lc3MsIFBlcnNvbnMgd2l0aCBwaHlzaWNhbCBkaXNhYmlsaXR5PGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBVg8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5EYXkgaW50YWtlOiA5OjAwIGFtIC0gNTowMCBwbSAod2l0aCBsYXd5ZXIgYXNzaXN0YW50cykuPGJyIC8+ZGQCDw8PFgIfAgVPPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5JbmRpdmlkdWFscyB3aXRoIGRldmVsb3BtZW50YWwgZGlzYWJpbGl0aWVzLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWuCTxiPkRlc2NyaXB0aW9uOiA8L2I+VW5pdmVyc2l0eSBMZWdhbCBTZXJ2aWNlcyAoVUxTKSBpcyBhIHByaXZhdGUsIG5vbi1wcm9maXQgb3JnYW5pemF0aW9uIHRoYXQgc2VydmVzIGFzIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSdzIGZlZGVyYWxseSBtYW5kYXRlZCBwcm90ZWN0aW9uIGFuZCBhZHZvY2FjeSBzeXN0ZW0gZm9yIHRoZSBodW1hbiwgbGVnYWwgYW5kIHNlcnZpY2UgcmlnaHRzIG9mIHBlb3BsZSB3aXRoIGRpc2FiaWxpdGllcy4gU2VydmljZXMgcHJvdmlkZWQgYnkgVUxTIHVuZGVyIHRoZSBwcm90ZWN0aW9uIGFuZCBhZHZvY2FjeSBncmFudHMgaW5jbHVkZSBpbmZvcm1hdGlvbiBhbmQgcmVmZXJyYWw7IGVkdWNhdGlvbiBhbmQgdHJhaW5pbmc7IGludmVzdGlnYXRpb24gb2YgcmVwb3J0ZWQgb3Igc3VzcGVjdGVkIGluc3RhbmNlcyBvZiBhYnVzZSBvciBuZWdsZWN0OyBsZWdhbCBjb3Vuc2VsOyB0ZWNobmljYWwgYXNzaXN0YW5jZSwgYW5kIGxpdGlnYXRpb24gc2VydmljZXM7IGFuZCB0ZWNobmljYWwgYXNzaXN0YW5jZSByZWdhcmRpbmcgbGVnaXNsYXRpdmUgYW5kIHBvbGljeSBjb25jZXJucy4gQWxsIHNlcnZpY2VzIGFyZSBvZmZlcmVkIGZyZWUgb2YgY2hhcmdlIHRvIGVsaWdpYmxlIGluZGl2aWR1YWxzIGluIGFjY29yZGFuY2Ugd2l0aCBVTFMnIGF2YWlsYWJsZSByZXNvdXJjZXMgYW5kIHBvbGljaWVzLg0KPGJyIC8+DQo8YnIgLz4NClBST1RFQ1RJT04gQU5EIEFEVk9DQUNZIEZPUiBJTkRJVklEVUFMUyBXSVRIIERFVkVMT1BNRU5UQUwgRElTQUJJTElUSUVTOg0KPGJyIC8+DQpVTFMgcHJvdmlkZXMgc2VydmljZXMgdG8gaW5kaXZpZHVhbHMgd2l0aCBkZXZlbG9wbWVudGFsIGRpc2FiaWxpdGllcyB1bmRlciB0aGlzIHByb2dyYW0uIEEgZGV2ZWxvcG1lbnRhbCBkaXNhYmlsaXR5IGlzIGRlZmluZWQgYXMgYSBkaXNhYmlsaXR5IG1hbmlmZXN0ZWQgYmVmb3JlIHRoZSBhZ2Ugb2YgMjI7IGNocm9uaWMgaW4gbmF0dXJlOyBhbmQgcmVzdWx0aW5nIGluIHN1YnN0YW50aWFsIGZ1bmN0aW9uYWwgbGltaXRhdGlvbnMgaW4gdGhyZWUgb3IgbW9yZSBtYWpvciBsaWZlIGFjdGl2aXRpZXMuIFRoaXMgcHJvZ3JhbSBpcyBkZXNpZ25lZCB0byBoZWxwIHBlcnNvbnMgd2l0aCBkZXZlbG9wbWVudGFsIGRpc2FiaWxpdGllcyBleGVyY2lzZSB0aGVpciByaWdodHMgdW5kZXIgdGhlIGxhdy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzU4Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkvMb0b4ROV8p6EMS/hagwnP1rGyE=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL/zeCqAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARuwIlgbumZJ1rnJt7qs5Xeyiixv" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3939 Benning Road, NE Washington DC 20019" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="University Legal Services" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3939 Benning Road, NE Washington, DC 20019</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 650-5631<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.uls-dc.org/PROTECTION_&_-2520ADVOCACY_FOR_INDIVIDUALS.htm<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Landlord/Tenant/Fair housing<br \><b>Population : </b> Persons with intellectual disability, Persons with mental illness, Persons with physical disability<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Day intake: 9:00 am - 5:00 pm (with lawyer assistants).<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Individuals with developmental disabilities.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>University Legal Services (ULS) is a private, non-profit organization that serves as the District of Columbia's federally mandated protection and advocacy system for the human, legal and service rights of people with disabilities. Services provided by ULS under the protection and advocacy grants include information and referral; education and training; investigation of reported or suspected instances of abuse or neglect; legal counsel; technical assistance, and litigation services; and technical assistance regarding legislative and policy concerns. All services are offered free of charge to eligible individuals in accordance with ULS' available resources and policies.
+<br />
+<br />
+PROTECTION AND ADVOCACY FOR INDIVIDUALS WITH DEVELOPMENTAL DISABILITIES:
+<br />
+ULS provides services to individuals with developmental disabilities under this program. A developmental disability is defined as a disability manifested before the age of 22; chronic in nature; and resulting in substantial functional limitations in three or more major life activities. This program is designed to help persons with developmental disabilities exercise their rights under the law.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

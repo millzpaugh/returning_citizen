@@ -1,0 +1,192 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSMxNTI1IDd0aCBTdHJlZXQgV2FzaGluZ3RvbiBEQyAyMDAwNWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSQxNTI1IDd0aCBTdHJlZXQgV2FzaGluZ3RvbiwgREMgMjAwMDVkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzMyLTA0NDA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDI2NS0yNDAwPGJyIC8+ZGQCBQ8PFgIfAgUtPGI+V2Vic2l0ZTogPC9iPnd3dy5icmVhZGZvcnRoZWNpdHkub3JnPGJyIC8+ZGQCBw8PFgIfAgXPBTxiPkNhdGVnb3J5IDogPC9iPiBFbWVyZ2VuY3kgRm9vZCwgTGVnYWwsIE1lZGljYWwsIE1lbnRhbCBIZWFsdGgsIFNvY2lhbCBTZXJ2aWNlcywgVm9sdW50ZWVyIE9wcG9ydHVuaXRpZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ2FzZSBtYW5hZ2VtZW50LCBlLmcuIHJlcHJlc2VudGF0aXZlIHBheWVlIHNlcnZpY2UsIENvbW11bml0eSBoZWFsdGgsIExlZ2FsLCBOdXRyaXRpb25hbCBzZXJ2aWNlcywgU29jaWFsIHNlcnZpY2VzLCBWb2x1bnRlZXIgb3Bwb3J0dW5pdGllczxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gRGVudGFsLCBGYW1pbHkgcGxhbm5pbmcsIFByaW1hcnkgKEFkdWx0LCBGYW1pbHkgJmFtcDsgUGVkaWF0cmljcyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIERvbWVzdGljIFZpb2xlbmNlLCBFbWVyZ2VuY3kgZm9vZC9ncm9jZXJpZXMsIEVtcGxveW1lbnQgTGF3LS1kaXNwdXRlcyAmYW1wOyB3b3JrZXIncyByaWdodHMsIEZhbWlseSBsYXctLWNoaWxkIGN1c3RvZHksIHN1cHBvcnQsIHZpc2l0YXRpb24sIGd1YXJkaWFuc2hpcCwgTGFuZGxvcmQvVGVuYW50L0ZhaXIgaG91c2luZywgUHVibGljIGJlbmVmaXRzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVgPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC1UaHVyc2RheTogOTowMCBhbSAtIDU6MDAgcG0sICBGcmlkYXk6IDk6MDAgYW0gLTEyOjAwIHBtPGJyIC8+ZGQCDw8PFgIfAgVbPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5EQyBSZXNpZGVudHMgbGl2aW5nIHdpdGggY2hpbGRyZW47IERpc2FibGVkOyBTZW5pb3JzIDYwKzxiciAvPmRkAhEPDxYCHwIFaDxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UGhvdG8gSUQsIFByb29mIG9mOiBzcG91c2UgYW5kL29yIGRlcGVuZGVudHMsIGFnZSwgZGlzYWJpbGl0eSwgaW5jb21lPGJyIC8+ZGQCEw8PFgIfAgX1GzxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIG1pc3Npb24gb2YgQnJlYWQgZm9yIHRoZSBDaXR5IGlzIHRvIHByb3ZpZGUgdnVsbmVyYWJsZSByZXNpZGVudHMgb2YgV2FzaGluZ3RvbiwgREMsIHdpdGggY29tcHJlaGVuc2l2ZSBzZXJ2aWNlcywgaW5jbHVkaW5nIGZvb2QsIGNsb3RoaW5nLCBtZWRpY2FsIGNhcmUsIGFuZCBsZWdhbCBhbmQgc29jaWFsIHNlcnZpY2VzLCBpbiBhbiBhdG1vc3BoZXJlIG9mIGRpZ25pdHkgYW5kIHJlc3BlY3QuDQo8YnIgLz4NCjxiciAvPg0KTUVESUNBTCBDTElOSUM6DQo8YnIgLz4NCkJyZWFkIGZvciB0aGUgQ2l0eeKAmXMgbWVkaWNhbCBjbGluaWMgcHJvdmlkZXMgcHJpbWFyeSBtZWRpY2FsIGNhcmUgdG8gdW5pbnN1cmVkIGFuZCBsb3ctaW5jb21lIGNoaWxkcmVuIGFuZCBhZHVsdHMuIFRoZSBtZWRpY2FsIHN0YWZmIGluY2x1ZGVzIHR3byBmdWxsIHRpbWUgcGh5c2ljaWFucywgYSBwaHlzaWNpYW4gYXNzaXN0YW50LCBhIGZhbWlseSBudXJzZSBwcmFjdGl0aW9uZXIsIGFuZCBtb3JlIHRoYW4gMjAgdm9sdW50ZWVyIHBoeXNpY2lhbnMsIG51cnNlcywgbnVyc2UgcHJhY3RpdGlvbmVycywgcmVzaWRlbnRzLCBzdHVkZW50cyBhbmQgb3RoZXJzLiBUaGUgY2xpbmljcyBtZWRpY2FsIHNlcnZpY2VzIGluY2x1ZGU6IE1lZGljYWwgZXhhbWluYXRpb25zLCBQZWRpYXRyaWMgY2FyZSwgRGVudGFsIGNhcmUsIEpvYiBwaHlzaWNhbHMsIFNjcmVlbmluZ3MsIGFuZCBHeW5lY29sb2dpY2FsIGNhcmUuIFRoZSBjbGluaWMgYWxzbyBwcm92aWRlcyBleGFtaW5hdGlvbnMsIG1lZGljYXRpb25zLCBsYWIgdGVzdHMsIGFuZCByZWZlcnJhbHMgYXQgbm8gY2hhcmdlLiAoVGhlIFNvdXRoZWFzdCBDZW50ZXIgbG9jYXRpb24sIG1lZGljYWwgY2xpbmljIGlzIG9wZXJhdGVkIG9uLXNpdGUgYnkgcGFydG5lcnMgYXQgVW5pdHkgSGVhbHRoIENhcmUpLg0KPGJyIC8+DQo8YnIgLz4NCkRFTlRBTCBDTElOSUMg4oCUUHJvdmlkZXMgc2VydmljZXMgcmFuZ2luZyBmcm9tIHJvdXRpbmUgY2xlYW5pbmdzIHRvIHJvb3QgY2FuYWxzLCBhbmQgZXZlcnl0aGluZyBpbiBiZXR3ZWVuLiANCjxiciAvPg0KU09DSUFMIFNFUlZJQ0VTOg0KPGJyIC8+DQpBbnkgRGlzdHJpY3QgcmVzaWRlbnQsIHJlZ2FyZGxlc3Mgb2YgaW5jb21lLCBtYXkgc3BlYWsgd2l0aCBhIGNhc2UgbWFuYWdlciBkdXJpbmcgd2Fsay1pbiBob3Vycy4gQnJlYWQgZm9yIHRoZSBDaXR5IGlzIGFibGUgdG8gcHJvdmlkZSBhIHdpZGUgcmFuZ2Ugb2YgY2xpZW50LWNlbnRlcmVkIHNlcnZpY2VzIGFuZCBhcmUgZmxleGlibGUgdG8gdGhlIHZhcnlpbmcgbmVlZHMgb2YgdGhlIERpc3RyaWN04oCZcyB2dWxuZXJhYmxlIHJlc2lkZW50cy4gQ2xpZW50cyBhcmUgYXNzZXNzZWQgdGhyb3VnaCB0aGUgaW4tdGFrZSBwcm9jZXNzIGFuZCBwcm92aWRlZCB3aXRoIGluZm9ybWF0aW9uIGFuZCByZWZlcnJhbHMgdG8gaGVscCBsaW5rIGluZGl2aWR1YWxzIHdpdGggdGhlIGFwcHJvcHJpYXRlIHNlcnZpY2VzLg0KQ2FzZSBtYW5hZ2VycyB3b3JrIG9uZS1vbi1vbmUgd2l0aCBjbGllbnRzIHRvIGFkZHJlc3MgaXNzdWVzIHN1Y2ggYXMgdW5lbXBsb3ltZW50LCBzdWJzdGFuY2UgYWJ1c2UsIGEgaG91c2luZyBjcmlzaXMsIG9yIG1lbnRhbCBvciBwaHlzaWNhbCBoZWFsdGggY2hhbGxlbmdlcy4gQXNzaXN0YW5jZSBpcyBhbHNvIGF2YWlsYWJsZSB0byBpbmRpdmlkdWFscyB3aG8gYXJlIGFwcGx5aW5nIGZvciBhIHZhcmlldHkgb2YgcHVibGljIGJlbmVmaXQgcHJvZ3JhbXMgd2hlbiBhcHByb3ByaWF0ZS4gQWRkaXRpb25hbGx5LCBzZXJ2aWNlcyBhcmUgcHJvdmlkZWQgaW4gam9iIHJlYWRpbmVzcyB0cmFpbmluZyB0aHJvdWdoIHRoZSBQcmUtRW1wbG95bWVudCBQcm9ncmFtLg0KPGJyIC8+DQo8YnIgLz4NCkxFR0FMIENMSU5JQzoNCjxiciAvPg0KVGhlIGxlZ2FsIGNsaW5pYyBoYXMgZm91ciBzcGVjaWFsIHByb2plY3RzOiB0aGUgQ29tbXVuaXR5IExhd3llcmluZyBQcm9qZWN0LCB0aGUgQ291cnQtQmFzZWQgTGVnYWwgU2VydmljZXMgUHJvZ3JhbSwgdGhlIENoaWxkIFN1cHBvcnQgQ29tbXVuaXR5IExlZ2FsIFNlcnZpY2VzIFByb2plY3QsIGFuZCB0aGUgRG9tZXN0aWMgVmlvbGVuY2UgQ29tbXVuaXR5IExlZ2FsIFNlcnZpY2VzIFByb2plY3QuIFNlcnZpY2VzIG1heSBpbmNsdWRlOiBkaXJlY3QgcmVwcmVzZW50YXRpb24sIGFkdm9jYWN5LCBjb21tdW5pdHkgZWR1Y2F0aW9uIGFuZCBjb21tdW5pdHkgYnVpbGRpbmcgb24gaXNzdWVzIG9mIGFmZm9yZGFibGUgaG91c2luZywgcHVibGljIGJlbmVmaXRzLCBhbmQgZWNvbm9taWMgZGV2ZWxvcG1lbnQuDQo8YnIgLz4NCjxiciAvPg0KVGhlIENoaWxkIFN1cHBvcnQgQ29tbXVuaXR5IExlZ2FsIFNlcnZpY2VzIFByb2plY3QgKHdoaWNoIGlzIG1vZGVsZWQgYWZ0ZXIgdGhlIENvdXJ0LUJhc2VkIExlZ2FsIFNlcnZpY2VzIFByb2dyYW0pLCBwYXJ0bmVycyB3aXRoIExlZ2FsIEFpZCB0byBwcm92aWRlIHNhbWUtZGF5IGFkdmljZSBhbmQgdGVtcG9yYXJ5IHJlcHJlc2VudGF0aW9uIGFuZCBpbiBzb21lIGNhc2VzLCBleHRlbmRlZCByZXByZXNlbnRhdGlvbiB0byBsb3ctaW5jb21lIERpc3RyaWN0IHJlc2lkZW50cyB3aG8gbmVlZCBhc3Npc3RhbmNlIHdpdGggY2hpbGQgc3VwcG9ydCBtYXR0ZXJzLg0KPGJyIC8+DQo8YnIgLz4NClRoZSBEb21lc3RpYyBWaW9sZW5jZSBDb21tdW5pdHkgTGVnYWwgU2VydmljZXMgUHJvamVjdCBwcm92aWRlcyB0aGUgbGVnYWwgc2VydmljZXMgbmVjZXNzYXJ5IChDaXZpbCBQcm90ZWN0aW9uIE9yZGVycywgZGl2b3JjZSBwcm9jZWVkaW5ncywgY2hpbGQgY3VzdG9keSwgZXRjLikgdG8gYXNzaXN0IGxvdy1pbmNvbWUgRGlzdHJpY3QgcmVzaWRlbnRzIHdobyBhcmUgZXhwZXJpZW5jaW5nIGRvbWVzdGljIHZpb2xlbmNlIGFuZCBzZXh1YWwgYXNzYXVsdC4NCjxiciAvPg0KPGJyIC8+DQpGT09EIFBBTlRSWSAoRW1lcmdlbmN5IEZvb2QgcHJvZ3JhbSkNCjxiciAvPg0KQnJlYWQgZm9yIHRoZSBDaXR5IHVzZXMgdGhlIEZvb2QgUGFudHJ5IHRvIGRpc3RyaWJ1dGUgZ3JvY2VyeSBiYWdzIGNvbnNpc3Rpbmcgb2YgYSB0aHJlZS1kYXkgc3VwcGx5IG9mIGZvb2QgYWRqdXN0ZWQgdG8gaG91c2Vob2xkIHNpemUuIEVsaWdpYmxlIGNsaWVudHMgYXJlIHJlc2lkZW50cyBvZiB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEsIHdobyBoYXZlIGluY29tZXMgb2YgMjAwJSBvciBsZXNzIG9mIHRoZSBmZWRlcmFsIHBvdmVydHkgbGluZSwgYW5kL29yIGVsZGVybHksIGRpc2FibGVkLCBvciBmYW1pbGllcyB3aXRoIGRlcGVuZGVudCBjaGlsZHJlbi4gRWxpZ2libGUgY2xpZW50cyBtYXkgcmVjZWl2ZSB0aHJlZSBkYXlzIHdvcnRoIG9mIGZvb2QgZWFjaCBtb250aCwgcGlja2luZyB1cCBhdCBlaXRoZXIgY2VudGVyLg0KPGJyIC8+DQo8YnIgLz4NCkRDIFJlc2lkZW50cywgbXVzdCBoYXZlIGNoaWxkcmVuIHVuZGVyIHRoZSBhZ2Ugb2YgMTggbGl2aW5nIGF0IGhvbWUgd2l0aCB5b3U7IE9SIGFyZSBkaXNhYmxlZDsgT1IgYXJlIG92ZXIgNjAgeWVhcnMgb2YgYWdlLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0MzQeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWR3JadwD3azxwk/YwObfcWr0G45Jw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLx1vnlDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXLV6h+x1IRO0nnPekPM6CzIETm5" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1525 7th Street Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Bread for the City" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1525 7th Street Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 332-0440<br /><b>Phone No2:</b>(202) 265-2400<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.breadforthecity.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Legal, Medical, Mental Health, Social Services, Volunteer Opportunities<br \><b>Services : </b> Case management, e.g. representative payee service, Community health, Legal, Nutritional services, Social services, Volunteer opportunities<br \><b>Type Of Care : </b> Dental, Family planning, Primary (Adult, Family &amp; Pediatrics)<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Domestic Violence, Emergency food/groceries, Employment Law--disputes &amp; worker's rights, Family law--child custody, support, visitation, guardianship, Landlord/Tenant/Fair housing, Public benefits, Referrals for social services<br \><b>Population : </b> Families<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday -Thursday: 9:00 am - 5:00 pm,  Friday: 9:00 am -12:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>DC Residents living with children; Disabled; Seniors 60+<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID, Proof of: spouse and/or dependents, age, disability, income<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The mission of Bread for the City is to provide vulnerable residents of Washington, DC, with comprehensive services, including food, clothing, medical care, and legal and social services, in an atmosphere of dignity and respect.
+<br />
+<br />
+MEDICAL CLINIC:
+<br />
+Bread for the City’s medical clinic provides primary medical care to uninsured and low-income children and adults. The medical staff includes two full time physicians, a physician assistant, a family nurse practitioner, and more than 20 volunteer physicians, nurses, nurse practitioners, residents, students and others. The clinics medical services include: Medical examinations, Pediatric care, Dental care, Job physicals, Screenings, and Gynecological care. The clinic also provides examinations, medications, lab tests, and referrals at no charge. (The Southeast Center location, medical clinic is operated on-site by partners at Unity Health Care).
+<br />
+<br />
+DENTAL CLINIC —Provides services ranging from routine cleanings to root canals, and everything in between. 
+<br />
+SOCIAL SERVICES:
+<br />
+Any District resident, regardless of income, may speak with a case manager during walk-in hours. Bread for the City is able to provide a wide range of client-centered services and are flexible to the varying needs of the District’s vulnerable residents. Clients are assessed through the in-take process and provided with information and referrals to help link individuals with the appropriate services.
+Case managers work one-on-one with clients to address issues such as unemployment, substance abuse, a housing crisis, or mental or physical health challenges. Assistance is also available to individuals who are applying for a variety of public benefit programs when appropriate. Additionally, services are provided in job readiness training through the Pre-Employment Program.
+<br />
+<br />
+LEGAL CLINIC:
+<br />
+The legal clinic has four special projects: the Community Lawyering Project, the Court-Based Legal Services Program, the Child Support Community Legal Services Project, and the Domestic Violence Community Legal Services Project. Services may include: direct representation, advocacy, community education and community building on issues of affordable housing, public benefits, and economic development.
+<br />
+<br />
+The Child Support Community Legal Services Project (which is modeled after the Court-Based Legal Services Program), partners with Legal Aid to provide same-day advice and temporary representation and in some cases, extended representation to low-income District residents who need assistance with child support matters.
+<br />
+<br />
+The Domestic Violence Community Legal Services Project provides the legal services necessary (Civil Protection Orders, divorce proceedings, child custody, etc.) to assist low-income District residents who are experiencing domestic violence and sexual assault.
+<br />
+<br />
+FOOD PANTRY (Emergency Food program)
+<br />
+Bread for the City uses the Food Pantry to distribute grocery bags consisting of a three-day supply of food adjusted to household size. Eligible clients are residents of the District of Columbia, who have incomes of 200% or less of the federal poverty line, and/or elderly, disabled, or families with dependent children. Eligible clients may receive three days worth of food each month, picking up at either center.
+<br />
+<br />
+DC Residents, must have children under the age of 18 living at home with you; OR are disabled; OR are over 60 years of age.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

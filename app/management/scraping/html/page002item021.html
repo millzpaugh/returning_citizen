@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSc5MzAgTi4gSGVucnkgU3RyZWV0IEFsZXhhbmRyaWEgVkEgMjIzMTRkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUoOTMwIE4uIEhlbnJ5IFN0cmVldCBBbGV4YW5kcmlhLCBWQSAyMjMxNGRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oNzAzKSA1NDgtMDQ1MjxiciAvPmRkAgUPDxYCHwIFMDxiPldlYnNpdGU6IDwvYj53d3cuY2FycGVudGVyc3NoZWx0ZXIub3JnLzxiciAvPmRkAgcPDxYCHwIFhQE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTaGVsdGVyczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBNZW4sIFdvbWVuLCBXb21lbiB3aXRoIGNoaWxkcmVuPGJyIFw+ZGQCCQ8PFgIfAmVkZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBUo8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlNpbmdsZSBtZW4sIHNpbmdsZSB3b21lbiwgYW5kIGZhbWlsaWVzLjxiciAvPmRkAhEPDxYCHwIFygE8Yj5Eb2N1bWVudGF0aW9uIE5lZWRlZDogPC9iPkZhbWlseSByZWZlcnJhbHMgbmVlZGVkIGZyb20gQWxleGFuZHJpYSBEZXBhcnRtZW50IG9mIEh1bWFuIFNlcnZpY2VzLiBJbmRpdmlkdWFscyBtdXN0IHNjaGVkdWxlIGFuIGFwcG9pbnRtZW50IHdpdGggSG9tZWxlc3MgU2VydmljZXMgQXNzZXNzbWVudCBDZW50ZXIgKDcwMy41NDguMDQ1MikuPGJyIC8+ZGQCEw8PFgIfAgWvBzxiPkRlc2NyaXB0aW9uOiA8L2I+Q2FycGVudGVy4oCZcyBTaGVsdGVy4oCZcyBjb21wcmVoZW5zaXZlIGNvbnRpbnV1bSBvZiBjYXJlIG9mZmVycyBjb250aW51b3VzIHNlcnZpY2VzLCBhaWRpbmcgdGhlIGNocm9uaWNhbGx5IGhvbWVsZXNzIGFuZCBzaGVsdGVyIHJlc2lkZW50cyB0aHJvdWdoIHRoZWlyIHRyYW5zaXRpb24gYmFjayBpbnRvIGluZGVwZW5kZW50IGxpdmluZy4gQ2FycGVudGVyJ3MgU2hlbHRlcidzIHN0cml2ZSB0byBlbXBvd2VyIGNsaWVudHMgdG8gYWRkcmVzcyB0aGUgaXNzdWVzLCB3aGljaCBsZWQgdGhlbSB0byBob21lbGVzc25lc3MsIGFuZCBwcm92aWRlIHRoZSB0b29scyBuZWNlc3NhcnkgdG8gYWNoaWV2ZSBsYXN0aW5nIGluZGVwZW5kZW5jZS4gOTAlIG9mIHRob3NlIHdobyBjb21wbGV0ZSB0aGUgcHJvZ3JhbSBuZXZlciByZXR1cm4gdG8gaG9tZWxlc3NuZXNzIGFnYWluLg0KPGJyIC8+IA0KPGJyIC8+ICANCkNhcnBlbnRlcidzIFNoZWx0ZXIgb2ZmZXJzIHN1YnN0YW5jZSBhYnVzZSBhbmQgbWVudGFsIGhlYWx0aCBjb3Vuc2VsaW5nLCBjYXNlIG1hbmFnZW1lbnQsIGFuZCBqb2IgcmVhZGluZXNzIHRyYWluaW5nLiBSZXNpZGVudHMgYXJlIHJlcXVpcmVkIHRvIGVpdGhlciBzZWVrIG9yIG1haW50YWluIGZ1bGwgdGltZSBlbXBsb3ltZW50LiBUaGUgYXZlcmFnZSBzdGF5IGlzIDYgbW9udGhzLg0KPGJyIC8+DQo8YnIgLz4NCkFsbCBwb3RlbnRpYWwgY2xpZW50cyBzaG91bGQgYmUgYXdhcmUgdGhhdCBmYW1pbHkgcmVmZXJyYWxzIG5lZWQgdG8gYmUgb2J0YWluZWQgZnJvbSBBbGV4YW5kcmlhIERlcGFydG1lbnQgb2YgSHVtYW4gU2VydmljZXMuIEluZGl2aWR1YWxzIG11c3Qgc2NoZWR1bGUgYW4gYXBwb2ludG1lbnQgd2l0aCBIb21lbGVzcyBTZXJ2aWNlcyBBc3Nlc3NtZW50IENlbnRlciAoNzAzLjU0OC4wNDUyKS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzMwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk5o6zlt0cnQDzomnl6WkDDFCkiXo=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLT3dPxAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcbL0UmoH1XqlOebccf5BZikNiR8" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="930 N. Henry Street Alexandria VA 22314" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Carpenter Shelter" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">930 N. Henry Street Alexandria, VA 22314</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(703) 548-0452<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.carpentersshelter.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Shelters<br \><b>Population : </b> Families, Men, Women, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Single men, single women, and families.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Family referrals needed from Alexandria Department of Human Services. Individuals must schedule an appointment with Homeless Services Assessment Center (703.548.0452).<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Carpenter’s Shelter’s comprehensive continuum of care offers continuous services, aiding the chronically homeless and shelter residents through their transition back into independent living. Carpenter's Shelter's strive to empower clients to address the issues, which led them to homelessness, and provide the tools necessary to achieve lasting independence. 90% of those who complete the program never return to homelessness again.
+<br /> 
+<br />  
+Carpenter's Shelter offers substance abuse and mental health counseling, case management, and job readiness training. Residents are required to either seek or maintain full time employment. The average stay is 6 months.
+<br />
+<br />
+All potential clients should be aware that family referrals need to be obtained from Alexandria Department of Human Services. Individuals must schedule an appointment with Homeless Services Assessment Center (703.548.0452).<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

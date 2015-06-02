@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8yNTUgUm9ja3ZpbGxlIFBpa2UsIFNURS4gMTQ1IFJvY2t2aWxsZSBNRCAyMDg1MGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAyNTUgUm9ja3ZpbGxlIFBpa2UsIFNURS4gMTQ1IFJvY2t2aWxsZSwgTUQgMjA4NTBkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDI0MCkgNzc3LTE3NzA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyNDApIDc3Ny00NzEwPGJyIC8+ZGQCBQ8PFgIfAgVaPGI+V2Vic2l0ZTogPC9iPnd3dzYubW9udGdvbWVyeWNvdW50eW1kLmdvdi9oaHN0bXBsLmFzcD91cmw9L2NvbnRlbnQvaGhzL2JoY3MvYXMuYXNwPGJyIC8+ZGQCBw8PFgIfAgWGAjxiPkNhdGVnb3J5IDogPC9iPiBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQXNzZXNzbWVudCAmYW1wOyByZWZlcnJhbCB0byBzdWJzdGFuY2UgYWJ1c2Ugc2VydmljZXM8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPjxiPlBheW1lbnQgQXNzaXN0YW5jZSA6IDwvYj4gU2xpZGluZyBmZWUgc2NhbGUgKEZlZSBpcyBiYXNlZCBvbiBpbmNvbWUgJmFtcDsgb3RoZXIgZmFjdG9ycyk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBYIBPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IDk6MDAgYW0tMTA6MDAgYW0gJiAxOjAwIHBtLSAzOjAwIHBtOyAgVHVlc2RheSDigJMgRnJpZGF5IDk6MDAgYW0tMTE6MDAgYW0gJiAxOjAwcG0tMzowMCBwbTxiciAvPmRkAg8PDxYCHwIFczxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWFyeWxhbmQgcmVzaWRlbnRzIGFuZCBub24tTWFyeWxhbmQgcmVzaWRlbnRzIChubyBmZWUgd2FpdmVyIGZvciBub24tcmVzaWRlbnRzKS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF5gY8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBNb250Z29tZXJ5IENvdW50eSBEZXBhcnRtZW50IG9mIEhlYWx0aCBhbmQgSHVtYW4gU2VydmljZXMgb2ZmZXJzIHZhcmlvdXMgbGV2ZWxzIG9mIHRyZWF0bWVudCBmb3IgYWR1bHRzIHdpdGggZGVwZW5kZW5jZSBvbiBhbGNvaG9sIG9yIG90aGVyIGRydWdzLiBUaGUgRGVwYXJ0bWVudCBhbHNvIGNvbGxhYm9yYXRlcyB3aXRoIHByb3ZpZGVycyBpbiB0aGUgY29tbXVuaXR5IHRvIHByb3ZpZGUgY29udGludW91cyBhbmQgY29tcHJlaGVuc2l2ZSB0cmVhdG1lbnQgZm9yIGNvbnN1bWVycyB3aXRoIGNvLW9jY3VycmluZyBkaXNvcmRlcnMgKHN1YnN0YW5jZSBhYnVzZSBhbmQgbWVudGFsIGhlYWx0aCkuIA0KPGJyIC8+DQo8YnIgLz4NClRocm91Z2ggdGhlIEFkdWx0IEFkZGljdGlvbiBTZXJ2aWNlcyBvZmZlcmVkIE1vbnRnb21lcnkgY291bnR5IHJlc2lkZW50cyBjYW4gcmVjZWl2ZSBhc3Nlc3NtZW50cyBhbmQgcmVmZXJyYWxzIGF0IHRoZSBDZW50ZXIgZm9yIEFkZGljdGlvbiBhbmQgTWVudGFsIEhlYWx0aCBTZXJ2aWNlcy4gQWRkaXRpb25hbGx5LCB0aHJvdWdoIHRoZSBvdXRwYXRpZW50IGFkZGljdGlvbiBzZXJ2aWNlcywgd2hpY2ggYXJlIGFic3RpbmVuY2Utb3JpZW50ZWQgYW5kIHByb3ZpZGUgaW5kaXZpZHVhbCwgZ3JvdXAgYW5kIGZhbWlseSBjb3Vuc2VsaW5nOyB1cmluZSBtb25pdG9yaW5nOyBhbmQgY2FzZSBtYW5hZ2VtZW50IHBhcnRpY2lwYW50cyBjYW4gYmUgYmFjayBvbiBhIHJvYWQgdG8gd2VsbG5lc3MuIE1hcnlsYW5kIHJlc2lkZW5jeSBub3QgcmVxdWlyZWQsIGJ1dCBub24tTWFyeWxhbmQgcmVzaWRlbnRzIG5vdCBlbGlnaWJsZSBmb3IgZmVlIHdhaXZlci48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjkwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkktVWq8fH4EWpgR0/bqHLN337/uI=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLDp9/WCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdFAJUwEblxfjj9iD1vXRmK7Jf0E" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="255 Rockville Pike, STE. 145 Rockville MD 20850" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Montgomery County (MD) Addiction &amp; Co-occurring Disorders Service" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">255 Rockville Pike, STE. 145 Rockville, MD 20850</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(240) 777-1770<br /><b>Phone No2:</b>(240) 777-4710<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www6.montgomerycountymd.gov/hhstmpl.asp?url=/content/hhs/bhcs/as.asp<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Assessment &amp; referral to substance abuse services<br \><b>Forms Of Payment : </b> Public funding<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday 9:00 am-10:00 am & 1:00 pm- 3:00 pm;  Tuesday – Friday 9:00 am-11:00 am & 1:00pm-3:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Maryland residents and non-Maryland residents (no fee waiver for non-residents).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Montgomery County Department of Health and Human Services offers various levels of treatment for adults with dependence on alcohol or other drugs. The Department also collaborates with providers in the community to provide continuous and comprehensive treatment for consumers with co-occurring disorders (substance abuse and mental health). 
+<br />
+<br />
+Through the Adult Addiction Services offered Montgomery county residents can receive assessments and referrals at the Center for Addiction and Mental Health Services. Additionally, through the outpatient addiction services, which are abstinence-oriented and provide individual, group and family counseling; urine monitoring; and case management participants can be back on a road to wellness. Maryland residency not required, but non-Maryland residents not eligible for fee waiver.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

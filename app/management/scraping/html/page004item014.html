@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTQ3NjAzIEdlb3JnaWEgQXZlbnVlLCBOVyBTVEUuIDEwMCBXYXNoaW5ndG9uIERDIDIwMDEyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFNTc2MDMgR2VvcmdpYSBBdmVudWUsIE5XIFNURS4gMTAwIFdhc2hpbmd0b24sIERDIDIwMDEyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDcyNi0wODAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA3MjYtNzQzNjxiciAvPmRkAgUPDxYCHwIFMjxiPldlYnNpdGU6IDwvYj53d3cuZXRoaW9waWFuY29tbXVuaXR5ZGMub3JnPGJyIC8+ZGQCBw8PFgIfAgXIAzxiPkNhdGVnb3J5IDogPC9iPiBFZHVjYXRpb24sIEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEVkdWNhdGlvbmFsIHNlcnZpY2VzLCBFbXBsb3ltZW50IHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIEVuZ2xpc2ggYXMgYSBTZWNvbmQgTGFuZ3VhZ2UgKEVTTCksIEpvYiBzZWFyY2ggJmFtcDsgcGxhY2VtZW50IGFzc2lzdGFuY2UsIEpvYiBza2lsbHMgYXNzZXNzbWVudCAmYW1wOyByZWFkaW5lc3MsIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gSW1taWdyYW50cy9SZWZ1Z2VlcywgTWVuLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFZTxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoLCBBbWhhcmljPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFYzxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheS1GcmlkYXkgOTowMCBhbSB0byAxMjowMCBub29uOyBTYXR1cmRheSAxMDowMCBhbSB0byA0OjAwIHBtLjxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBcIfPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgRXRoaW9waWFuIENvbW11bml0eSBDZW50ZXIsIEluYy4gKEVDQyksIGlzIGEgbm9uLXByb2ZpdCAoNTAxKSAoYykgKDMpIGNvbW1pdHRlZCB0byBtZWV0aW5nIHRoZSBjdWx0dXJhbCwgc29jaWFsLCBlY29ub21pYyBhbmQgcHN5Y2hvbG9naWNhbCBuZWVkcyBvZiB0aGUgaW1taWdyYW50IGNvbW11bml0eSBpbiB0aGVpciBlZmZvcnQgdG8gYmVjb21lIHNlbGYtc3VmZmljaWVudCBhbmQgY29udHJpYnV0aW5nIG1lbWJlcnMgb2Ygc29jaWV0eSBpbiB0aGVpciBuZXcgY291bnRyeS4NCjxiciAvPg0KPGJyIC8+DQpFbmdsaXNoIGFzIGEgU2Vjb25kIExhbmd1YWdlIChFU0wpOg0KPGJyIC8+DQpFQ0MgcHJvdmlkZXMgZm91ciBsZXZlbHMgb2YgRW5nbGlzaCBhcyBhIFNlY29uZCBMYW5ndWFnZXMgY2xhc3Nlcy4gVGhlIGNsYXNzZXMgZW5hYmxlIHBhcnRpY2lwYW50cyB0byBkZXZlbG9wIHRoZSBsYW5ndWFnZSBhbmQgbGl0ZXJhY3kgc2tpbGxzIHRoZXkgbmVlZCB0byBpbnRlcmFjdCwgZW5nYWdlIGFuZCBzdWNjZWVkIGFzIHdvcmtlcnMgYW5kIG1lbWJlcnMgb2YgdGhlIGNvbW11bml0eS4gVGhlIGVtcGhhc2lzIG9mIHRoZSBMZXZlbCAxIHRvIExldmVsIDMgY2xhc3NlcyBpcyBvbiBMaWZlIFNraWxscyBhbmQgdGhlIExldmVsIDQgY2xhc3Mgc3RyZXNzZXMgY2l2aWNzIGFuZCBBbWVyaWNhbiBDdWx0dXJlLiBDbGFzc2VzIGFyZSBvcGVuIHRvIGFkdWx0IHBhcnRpY2lwYW50cyBvZiBhbnkgbmF0aW9uYWxpdHkgc2Vla2luZyB0byBpbXByb3ZlIHRoZWlyIHNwZWFraW5nLCB3cml0aW5nIGFuZCBsaXN0ZW5pbmcgc2tpbGxzLiBBbGwgY2xhc3NlcyBhcmUgdGF1Z2h0IGJ5IGhpZ2hseSBtb3RpdmF0ZWQsIHdlbGwtdHJhaW5lZCB0ZWFjaGVycyB3aG8gaGVscCBzdHVkZW50cyBnYWluIGEgcmljaGVyIHVuZGVyc3RhbmRpbmcgb2YgVS5TLiBjdWx0dXJlIGFuZCBzb2NpZXR5Lg0KPGJyIC8+DQpDbGFzc2VzIG1lZXQgb24gVHVlc2RheSBhbmQgVGh1cnNkYXkgZXZlbmluZ3MgZnJvbSA2OjAwIHBtIHRvIDk6MDAgcG0gYW5kIFNhdHVyZGF5cyBmcm9tIDEwOjAwIGEubS4gdG8gNDowMCBwLm0uIFBsZWFzZSBjYWxsICgyMDIpIDcyNi0wODAwIGZvciBpbmZvcm1hdGlvbiBhbmQgcmVnaXN0cmF0aW9uDQo8YnIgLz4NCkNPTVBVVEVSIFRSQUlOSU5HOg0KPGJyIC8+DQpUaGUgQ29tcHV0ZXIgVHJhaW5pbmcgQ2VudGVyIHdhcyBlc3RhYmxpc2hlZCBpbiAxOTk4IHRvIHByb3ZpZGUgbG93IGNvc3QgY29tcHV0ZXIgdHJhaW5pbmcgZm9yIHRob3NlIHdpdGggbGl0dGxlIG9yIG5vIHByZXZpb3VzIGV4cGVyaWVuY2Ugd2l0aCBjb21wdXRlcnMuIEN1cnJlbnRseSB0aGUgQ2VudGVyIHByb3ZpZGVzIGJlZ2lubmVyIHRvIGFkdmFuY2UgbGV2ZWxzIG9mIFdpbmRvd3MgYXBwbGljYXRpb25zLiBBbGwgdHJhaW5pbmdzIGFyZSBwcm92aWRlZCBieSBxdWFsaWZpZWQgaW5zdHJ1Y3RvcnMgaW4gdGhlIElUIGZpZWxkLiANCjxiciAvPg0KQ2xhc3NlcyBhcmUgb2ZmZXJlZCBNb25kYXkgYW5kIFR1ZXNkYXksIDk6MDAgYW0g4oCTIDEyOjAwIHBtOyBXZWRuZXNkYXkgYW5kIFRodXJzZGF5LCA5OjAwIGFtIOKAkyAxMjowMCBwbTsgTW9uZGF5IGFuZCBUdWVzZGF5LCA2OjAwIHBtIOKAkyA5OjAwIHBtOyBXZWRuZXNkYXkgYW5kIFRodXJzZGF5LCA2OjAwIHBtIOKAkyA5OjAwIHBtOyBTYXR1cmRheXMg4oCTIDEwOjAwIGFtIOKAkyA0OjAwIHBtLiBGb3IgcmVnaXN0cmF0aW9uIGluZm9ybWF0aW9uIHBsZWFzZSBjYWxsICgyMDIpIDcyNiAwODAwLg0KPGJyIC8+DQo8YnIgLz4NCklNTUlHUkFUSU9OIFNFUlZJQ0VTOg0KPGJyIC8+DQpFQ0MgcHJvdmlkZXMgaW5mb3JtYXRpb24sIGFkdmljZSBhbmQgcmVmZXJyYWwgc2VydmljZXMgdG8gY2xpZW50cyBvbiBhIHdpZGUgcmFuZ2Ugb2YgaW1taWdyYXRpb24gaXNzdWVzLiBJbW1pZ3JhdGlvbiBzZXJ2aWNlcyBpbmNsdWRlIGFzc2lzdGFuY2UgaW46IGFwcGxpY2F0aW9ucyBmb3IgcGVybWFuZW50IHJlc2lkZW5jZSAoR3JlZW4gY2FyZCk7IGNpdGl6ZW5zaGlwIGFuZCBuYXR1cmFsaXphdGlvbjsgZW1wbG95bWVudCBhdXRob3JpemF0aW9uOyBmYW1pbHkgcmV1bmlmaWNhdGlvbiBhbmQgbWFycmlhZ2UtYmFzZWQgcGV0aXRpb25zOyBhcHBsaWNhdGlvbiBmb3IgdHJhdmVsIGRvY3VtZW50OyBhbmQgRUNDIHBhcnRuZXJzIHdpdGggbGF3IGZpcm1zLCBsYXd5ZXJzIGFuZCBwcm8gYm9ubyBzZXJ2aWNlIHByb3ZpZGVycy4NCjxiciAvPg0KVFJBTlNMQVRJT04gQU5EIElOVEVSUFJFVEFUSU9OIFNFUlZJQ0VTOg0KPGJyIC8+DQpQcm9mZXNzaW9uYWwgdHJhbnNsYXRvcnMgd2hvc2UgbmF0aXZlIGxhbmd1YWdlIGlzIEFtaGFyaWMgYW5kIHdobyBhcmUgcHJvZmljaWVudCBpbiB0aGUgRW5nbGlzaCBsYW5ndWFnZSBwZXJmb3JtIG91ciBFbmdsaXNoIHRvIEFtaGFyaWMgYW5kIHZpY2UgdmVyc2EgdHJhbnNsYXRpb24gYW5kIGludGVycHJldGF0aW9uIHNlcnZpY2VzLiBXZSBwcm92aWRlIHRyYW5zbGF0aW9uIGFuZCBpbnRlcnByZXRhdGlvbiBzZXJ2aWNlcyB0byBpbmRpdmlkdWFscywgZ292ZXJubWVudCBhZ2VuY2llcywgbGVnYWwgY2xpbmljcywgaG9zcGl0YWxzIGFuZCBvdGhlciBidXNpbmVzc2VzLg0KPGJyIC8+DQpDQVJFRVIgQU5EIFBFUlNPTkFMIENPVU5TRUxJTkcgU0VSVklDRVM6DQo8YnIgLz4NCkNhcmVlciBjb3Vuc2VsaW5nIGFuZCB0cmFpbmluZyBpcyBwcm92aWRlZCB0byBjbGllbnRzIHNlZWtpbmcgZW1wbG95bWVudCBhc3Npc3RhbmNlLiBUaGlzIGlzIGFjY29tcGxpc2hlZCB0aHJvdWdoIGNvdW5zZWxpbmcsIGpvYiByZWFkaW5lc3MgdHJhaW5pbmcsIHJlc3VtZSB3cml0aW5nLCBqb2Igc2VhcmNoIGFuZCBpbnRlcnZpZXcgc2tpbGxzIGFzc2lzdGFuY2UsIGpvYiBwbGFjZW1lbnQgYW5kIHJlZmVycmFsLg0KPGJyIC8+DQpIRUFMVEggU0VSVklDRVM6DQo8YnIgLz4NCkVDQyBpcyBjb21taXR0ZWQgdG8gaW1wcm92aW5nIHRoZSBoZWFsdGggb2YgaXRzIHN0YWtlaG9sZGVycyBieSBpbmNyZWFzaW5nIGFjY2VzcyB0byBoZWFsdGggY2FyZS4gVGhlIENlbnRlciBwcm92aWRlcyBpbXBvcnRhbnQgaGVhbHRoIGluZm9ybWF0aW9uIHRvIHRoZSBjb21tdW5pdHkgdGhyb3VnaCBjb2xsYWJvcmF0aW9uIHdpdGggb3RoZXIgb3JnYW5pemF0aW9ucy4gRUND4oCZcyBoZWFsdGggc2VydmljZXMgZ2l2ZSBlbXBoYXNpcyBvbiBhd2FyZW5lc3MgY3JlYXRpb24gYW5kIHByZXZlbnRpb24gZWR1Y2F0aW9uLiBUaGlzIGlzIGFjY29tcGxpc2hlZCB0aHJvdWdoIG9yZ2FuaXppbmcgaGVhbHRoIGZhcmUsIHRyYW5zbGF0aW9uIGFuZCBkaXN0cmlidXRpb24gb2YgaGVhbHRoIHJlbGF0ZWQgZWR1Y2F0aW9uYWwgbWF0ZXJpYWxzLCBvcmdhbml6aW5nIHNlbWluYXJzIG9uIEhJVi9BSURTLCBudXRyaXRpb24sIGNob2xlc3Rlcm9sIGFuZCBvdGhlciBoZWFsdGggcmVsYXRlZCB0b3BpY3MuIEVDQyBhbHNvIHByb3ZpZGVzIGluZm9ybWF0aW9uIG9uIGhvdyB0byBvYnRhaW4gbG93IGNvc3QgaGVhbHRoIGluc3VyYW5jZSBhbmQgcmVmZXJzIGNsaWVudHMgdG8gYXBwcm9wcmlhdGUgaGVhbHRoIGNsaW5pY3MsIGhvc3BpdGFscyBhbmQgb3RoZXIgYWdlbmNpZXMuDQo8YnIgLz4NClNVTU1FUiBDQU1QOg0KPGJyIC8+DQpFQ0Mgb3JnYW5pemVzIFN1bW1lciBDYW1wIHByb2dyYW1zIGVhY2ggeWVhciBmb3IgY2hpbGRyZW4gYWdlcyA1IOKAkyAxNS4gVGhlIHByb2dyYW0gcHJvdmlkZXMgY3VsdHVyYWwgYWN0aXZpdGllcywgaG9tZXdvcmsgYXNzaXN0YW5jZSwgQW1oYXJpYyBsYW5ndWFnZSBjbGFzc2VzLCBhcnRzIGFuZCBjcmFmdHMsIHNwb3J0cyBhY3Rpdml0aWVzIGFuZCB0cmlwcyB0byBtdXNldW1zLCB0aGVhdGVycywgc3dpbW1pbmcgcG9vbHMgYW5kIGFtdXNlbWVudCBwYXJrcy4gVGhlIHByb2dyYW0gZW1waGFzaXplcyB0aGUgZGV2ZWxvcG1lbnQgb2Ygc2VsZi1hd2FyZW5lc3MgYW5kIGNvbmZpZGVuY2UgaW4gY3VsdHVyYWwgaWRlbnRpdHk8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjY1Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkUmNmxF/ei9ZOy4XYMazU0fbcSko=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLW6sy/BgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYgYhdMyFosAwSQXlwa4sYcRTSX5" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="7603 Georgia Avenue, NW STE. 100 Washington DC 20012" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Ethiopian Community Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">7603 Georgia Avenue, NW STE. 100 Washington, DC 20012</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 726-0800<br /><b>Fax No:</b>(202) 726-7436<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.ethiopiancommunitydc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Employment &amp; Vocational Training, Social Services<br \><b>Services : </b> Educational services, Employment services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, English as a Second Language (ESL), Job search &amp; placement assistance, Job skills assessment &amp; readiness, Referrals for social services<br \><b>Population : </b> Immigrants/Refugees, Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Amharic<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday-Friday 9:00 am to 12:00 noon; Saturday 10:00 am to 4:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Ethiopian Community Center, Inc. (ECC), is a non-profit (501) (c) (3) committed to meeting the cultural, social, economic and psychological needs of the immigrant community in their effort to become self-sufficient and contributing members of society in their new country.
+<br />
+<br />
+English as a Second Language (ESL):
+<br />
+ECC provides four levels of English as a Second Languages classes. The classes enable participants to develop the language and literacy skills they need to interact, engage and succeed as workers and members of the community. The emphasis of the Level 1 to Level 3 classes is on Life Skills and the Level 4 class stresses civics and American Culture. Classes are open to adult participants of any nationality seeking to improve their speaking, writing and listening skills. All classes are taught by highly motivated, well-trained teachers who help students gain a richer understanding of U.S. culture and society.
+<br />
+Classes meet on Tuesday and Thursday evenings from 6:00 pm to 9:00 pm and Saturdays from 10:00 a.m. to 4:00 p.m. Please call (202) 726-0800 for information and registration
+<br />
+COMPUTER TRAINING:
+<br />
+The Computer Training Center was established in 1998 to provide low cost computer training for those with little or no previous experience with computers. Currently the Center provides beginner to advance levels of Windows applications. All trainings are provided by qualified instructors in the IT field. 
+<br />
+Classes are offered Monday and Tuesday, 9:00 am – 12:00 pm; Wednesday and Thursday, 9:00 am – 12:00 pm; Monday and Tuesday, 6:00 pm – 9:00 pm; Wednesday and Thursday, 6:00 pm – 9:00 pm; Saturdays – 10:00 am – 4:00 pm. For registration information please call (202) 726 0800.
+<br />
+<br />
+IMMIGRATION SERVICES:
+<br />
+ECC provides information, advice and referral services to clients on a wide range of immigration issues. Immigration services include assistance in: applications for permanent residence (Green card); citizenship and naturalization; employment authorization; family reunification and marriage-based petitions; application for travel document; and ECC partners with law firms, lawyers and pro bono service providers.
+<br />
+TRANSLATION AND INTERPRETATION SERVICES:
+<br />
+Professional translators whose native language is Amharic and who are proficient in the English language perform our English to Amharic and vice versa translation and interpretation services. We provide translation and interpretation services to individuals, government agencies, legal clinics, hospitals and other businesses.
+<br />
+CAREER AND PERSONAL COUNSELING SERVICES:
+<br />
+Career counseling and training is provided to clients seeking employment assistance. This is accomplished through counseling, job readiness training, resume writing, job search and interview skills assistance, job placement and referral.
+<br />
+HEALTH SERVICES:
+<br />
+ECC is committed to improving the health of its stakeholders by increasing access to health care. The Center provides important health information to the community through collaboration with other organizations. ECC’s health services give emphasis on awareness creation and prevention education. This is accomplished through organizing health fare, translation and distribution of health related educational materials, organizing seminars on HIV/AIDS, nutrition, cholesterol and other health related topics. ECC also provides information on how to obtain low cost health insurance and refers clients to appropriate health clinics, hospitals and other agencies.
+<br />
+SUMMER CAMP:
+<br />
+ECC organizes Summer Camp programs each year for children ages 5 – 15. The program provides cultural activities, homework assistance, Amharic language classes, arts and crafts, sports activities and trips to museums, theaters, swimming pools and amusement parks. The program emphasizes the development of self-awareness and confidence in cultural identity<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

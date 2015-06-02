@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS8xMjAwIFUgU3RyZWV0LCBOVyAzcmQgRmxvb3IgV2FzaGluZ3RvbiBEQyAyMDAwOWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTAxMjAwIFUgU3RyZWV0LCBOVyAzcmQgRmxvb3IgV2FzaGluZ3RvbiwgREMgMjAwMDlkZAIDDw8WAh8CBYMBPGI+Q29udGFjdCBQZXJzb246PC9iPlBhdHJpY2lhIE11bGxhaHkgRnVnZXJlLSBEaXJlY3RvcjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSAzMjgtNTUwMDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgMzI4LTU1MTU8YnIgLz5kZAIFDw8WAh8CBSk8Yj5XZWJzaXRlOiA8L2I+d3d3LmxlZ2FsY2xpbmljLm9yZzxiciAvPmRkAgcPDxYCHwIFjgI8Yj5DYXRlZ29yeSA6IDwvYj4gTGVnYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTGVnYWw8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBFbXBsb3ltZW50IExhdy0tZGlzcHV0ZXMgJmFtcDsgd29ya2VyJ3MgcmlnaHRzLCBMYW5kbG9yZC9UZW5hbnQvRmFpciBob3VzaW5nLCBQdWJsaWMgYmVuZWZpdHM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBJbW1pZ3JhbnRzL1JlZnVnZWVzPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBS48Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5TcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVIPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Mb3ctaW5jb21lIGFuZCBuby1pbmNvbWUgaW5kaXZpZHVhbHMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBdQHPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgV2FzaGluZ3RvbiBMZWdhbCBDbGluaWMgZm9yIHRoZSBIb21lbGVzcyBpcyBjb21wb3NlZCBvZiBleHBlcnQgc3RhZmYgYW5kIG5ldHdvcmsgb2Ygdm9sdW50ZWVyIGF0dG9ybmV5cyB3aG8gcHJvdmlkZSBsb3cgYmFycmllciwgY29tcHJlaGVuc2l2ZSBsZWdhbCBzZXJ2aWNlcyBhdCBpbnRha2Ugc2l0ZXMgdGhyb3VnaG91dCB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEsIGFuZCBoZWxwIG91ciBjbGllbnRzIHRvIGFjY2VzcyBob3VzaW5nLCBzaGVsdGVyLCBhbmQgbGlmZS1zYXZpbmcgc2VydmljZXMuIA0KPGJyLyA+DQo8YnIvID4NClRoZSBXYXNoaW5ndG9uIExlZ2FsIENsaW5pYyBmb3IgdGhlIEhvbWVsZXNzIG9wZXJhdGVzIHRocm91Z2ggcHJvdmlzaW9ucyBvZiByZXByZXNlbnRhdGlvbiBmb3IgcGVyc29ucyB3aXRoIGxvdy1pbmNvbWUgb3Igbm8taW5jb21lIGluIGFsbCBjaXZpbCBsZWdhbCBtYXR0ZXJzLiBDaXZpbCBtYXR0ZXJzIGluY2x1ZGU6IHB1YmxpYyBiZW5lZml0cywgaG91c2luZywgZW1wbG95bWVudCwgaW1taWdyYXRpb24sIGV0Yy47IGltcGFjdCBsaXRpZ2F0aW9uLCBhcyB3ZWxsIGFzIGxlZ2lzbGF0aXZlIGFuZCBwb2xpY3ktcmVsYXRlZCBpc3N1ZXMuIFRoZSBjbGluaWMgcHJvdmlkZXMgYWR2aWNlIGFuZCBhZHZvY2FjeS4gVGhlIGNsaW5pYyBoYXMgbXVsdGlwbGUgbG9jYXRpb25zIGFuZCBpbnRlcnZpZXdzIGFyZSB1c3VhbGx5IGNvbmR1Y3RlZCBhdCBhbiBpbmRpdmlkdWFs4oCZcyBkZXNpZ25hdGVkIHNoZWx0ZXJzL3NvdXAga2l0Y2hlbnMuIEZvciBtb3JlIGluZm9ybWF0aW9uIGNvbmNlcm5pbmcgc2VydmljZXMgcHJvdmlkZWQgYnkgdGhlIFdhc2hpbmd0b24gTGVnYWwgQ2xpbmljIGZvciB0aGUgSG9tZWxlc3MgcGxlYXNlIGNhbGwgYW5kIHJlcXVlc3QgYWRkcmVzc2VzIG9mIGRlc2lnbmF0ZWQgc2hlbHRlcnMvc291cCBraXRjaGVucy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMjEwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkFWt+h/waAYP9tu8Y7NSkDL9TuJQ=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK/2+qsCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQBLDeAWj2SMO7vtWeXBYvIyng/q" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1200 U Street, NW 3rd Floor Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Washington Legal Clinic for the Homeless" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1200 U Street, NW 3rd Floor Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Patricia Mullahy Fugere- Director<br /><b>Phone No:</b>(202) 328-5500<br /><b>Fax No:</b>(202) 328-5515<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.legalclinic.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Employment Law--disputes &amp; worker's rights, Landlord/Tenant/Fair housing, Public benefits<br \><b>Population : </b> Immigrants/Refugees<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low-income and no-income individuals.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Washington Legal Clinic for the Homeless is composed of expert staff and network of volunteer attorneys who provide low barrier, comprehensive legal services at intake sites throughout the District of Columbia, and help our clients to access housing, shelter, and life-saving services. 
+<br/ >
+<br/ >
+The Washington Legal Clinic for the Homeless operates through provisions of representation for persons with low-income or no-income in all civil legal matters. Civil matters include: public benefits, housing, employment, immigration, etc.; impact litigation, as well as legislative and policy-related issues. The clinic provides advice and advocacy. The clinic has multiple locations and interviews are usually conducted at an individual’s designated shelters/soup kitchens. For more information concerning services provided by the Washington Legal Clinic for the Homeless please call and request addresses of designated shelters/soup kitchens.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

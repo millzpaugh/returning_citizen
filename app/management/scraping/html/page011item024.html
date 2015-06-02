@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSg3NDAxIExlZXNidXJnIFBpa2UgRmFsbHMgQ2h1cmNoIFZBIDIyMDQzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTc0MDEgTGVlc2J1cmcgUGlrZSBGYWxscyBDaHVyY2gsIFZBIDIyMDQzZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPig3MDMpIDY5OC01MDI2PGJyIC8+PGI+RmF4IE5vOjwvYj4oNzAzKSA2OTgtNzEyMTxiciAvPmRkAgUPDxYCHwIFJTxiPldlYnNpdGU6IDwvYj53d3cubHNzbmNhLm9yZy88YnIgLz5kZAIHDw8WAh8CBZ8CPGI+Q2F0ZWdvcnkgOiA8L2I+IFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBBYnVzZSAmYW1wOyBuZWdsZWN0IHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIEh1bWFuIHRyYWZmaWNraW5nLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEltbWlncmFudHMvUmVmdWdlZXM8YnIgXD5kZAIJDw8WAh8CBWU8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaCwgQW1oYXJpYzxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBWo8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkg4oCTIFNhdHVyZGF5IGZyb20gOTozMCBhbSB0byA0OjAwIHBtIChSZWZ1Z2VlL0ltbWlncmFudCBzZXJ2aWNlcykuPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIF5Qg8Yj5EZXNjcmlwdGlvbjogPC9iPkx1dGhlcmFuIFNvY2lhbCBTZXJ2aWNlcyBoYXMgZm91ciBsb2NhdGlvbnMgdGhhdCBwcm92aWRlIHNlcnZpY2VzIGluIGFkb3B0aW9uLCBmb3N0ZXIgY2FyZSwgZGlzYXN0ZXIgcHJlcGFyYXRpb24gYW5kIHJlc3BvbnNlLCBhbmQgcmVmdWdlZS9pbW1pZ3JhbnQgc2VydmljZXMuIFRoZSBOb3J0aGVybiBWaXJnaW5pYSBvZmZpY2Ugb2ZmZXJzIHJlZnVnZWUvaW1taWdyYW50IHNlcnZpY2VzIGFuZCBWaXJnaW5pYSBhZG9wdGlvbnMuDQo8YnIgLz4NCjxiciAvPg0KUkVGVUdFRS9JTU1JR1JBTlQgU0VSVklDRVMNCjxiciAvPg0KUmVmdWdlZSAmIEltbWlncmFudCBTZXJ2aWNlIHByb2dyYW1zIGluY2x1ZGU6IHJlZnVnZWUgcmVzZXR0bGVtZW50IGZvciBuZXdseS1hcnJpdmVkIHJlZnVnZWVzLCBhc3lsZWVzIGFuZCB2aWN0aW1zIG9mIGh1bWFuIHRyYWZmaWNraW5nLCByZWZ1Z2VlIGVtcGxveW1lbnQgc2VydmljZXMsIHNwZWNpYWwgc29jaWFsIHByb2dyYW1taW5nIGFuZCBpbW1pZ3JhdGlvbiAmIGNpdGl6ZW5zaGlwIGNvdW5zZWxpbmcgc2VydmljZXMuIFNlcnZpY2VzIG9mZmVyZWQgZm9jdXMgb24gaW1taWdyYW50cyBmcm9tOiBJcmFxLCBTaWVycmEgTGVvbmUsIEVyaXRyZWEsIEJ1cm1hLCBWaWV0bmFtLCBTb21hbGlhLCBFdGhpb3BpYSwgYW5kIFN1ZGFuLiBTZXJ2aWNlcyBhcmUgb2ZmZXJlZCBNb25kYXkg4oCTIFNhdHVyZGF5IGZyb20gOTozMCBhbSB0byA0OjAwIHBtLg0KPGJyIC8+DQo8YnIgLz4NCkFET1BUSU9OIFNFUlZJQ0VTDQo8YnIgLz4NClRoZSBhZG9wdGlvbiBwcm9ncmFtIGhhcyB0d28gbWFpbiBjb21wb25lbnRzOiBob21lIHN0dWR5IGFuZCBwb3N0LXBsYWNlbWVudCB2aXNpdHMgZm9yIGRvbWVzdGljIGFuZCBpbnRlcm5hdGlvbmFsIGFkb3B0aW9ucy4gVHJhaW5lZCBwcm9mZXNzaW9uYWxzIHdpbGwgaGVscCB5b3UgbmF2aWdhdGUgZXZlcnkgc3RlcCBvZiB0aGUgYWRvcHRpb24gcHJvY2VzcyBhbmQgY29uZHVjdCB5b3VyIGhvbWUgc3R1ZHkgYW5kIHBvc3QtcGxhY2VtZW50IHZpc2l0cy4gRm9yIG1vcmUgaW5mb3JtYXRpb24gY29udGFjdCBLYXJlbiBSYWlueSAoZW1haWw6IFJhaW5leUtAbHNzbmNhLm9yZyk8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNzM3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkvPGc07GvH6LKxKNBI5lsQDTGpSY=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKX2piHCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAQYalxTFvWnAad8PMHOKmi/4PWg6" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="7401 Leesburg Pike Falls Church VA 22043" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Lutheran Social Services (Refugee &amp; Immigrant Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">7401 Leesburg Pike Falls Church, VA 22043</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(703) 698-5026<br /><b>Fax No:</b>(703) 698-7121<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.lssnca.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Abuse &amp; neglect services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Human trafficking, Referrals for social services<br \><b>Population : </b> Immigrants/Refugees<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Amharic<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday – Saturday from 9:30 am to 4:00 pm (Refugee/Immigrant services).<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Lutheran Social Services has four locations that provide services in adoption, foster care, disaster preparation and response, and refugee/immigrant services. The Northern Virginia office offers refugee/immigrant services and Virginia adoptions.
+<br />
+<br />
+REFUGEE/IMMIGRANT SERVICES
+<br />
+Refugee & Immigrant Service programs include: refugee resettlement for newly-arrived refugees, asylees and victims of human trafficking, refugee employment services, special social programming and immigration & citizenship counseling services. Services offered focus on immigrants from: Iraq, Sierra Leone, Eritrea, Burma, Vietnam, Somalia, Ethiopia, and Sudan. Services are offered Monday – Saturday from 9:30 am to 4:00 pm.
+<br />
+<br />
+ADOPTION SERVICES
+<br />
+The adoption program has two main components: home study and post-placement visits for domestic and international adoptions. Trained professionals will help you navigate every step of the adoption process and conduct your home study and post-placement visits. For more information contact Karen Rainy (email: RaineyK@lssnca.org)<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

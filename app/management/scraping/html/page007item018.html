@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgxNiAtIDE3dGggU3RyZWV0LCBORSBXYXNoaW5ndG9uIERDIDIwMDAyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTE2IC0gMTd0aCBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDAyZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU0My00NTU4PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA1NDMtNDU3OTxiciAvPmRkAgUPDxYCHwIFMjxiPldlYnNpdGU6IDwvYj53d3cuY29tbXVuaXR5YWN0aW9uZ3JvdXAub3JnPGJyIC8+ZGQCBw8PFgIfAgW5AzxiPkNhdGVnb3J5IDogPC9iPiBTdWJzdGFuY2UgQWJ1c2U8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gUmVzaWRlbnRpYWwgc2hvcnQtdGVybSB0cmVhdG1lbnQgKDMwIGRheXMgb3IgbGVzcyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgVHJhdW1hLS1zZXh1YWwgYWJ1c2UvUFRTRC92aWN0aW1zIG9mIGNyaW1lPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgTWVuLCBQZXJzb25zIHdpdGggSElWL0FJRFM8YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFODxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjI0IGhvdXJzLzcgZGF5cyBhIHdlZWsuPGJyIC8+ZGQCDw8PFgIfAgUzPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gaW4gcmVjb3ZlcnkuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBfwNPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgSG9seSBDb21mb3J0ZXIgQ29tbXVuaXR5IEFjdGlvbiBHcm91cCAoQ0FHKSB3YXMgZm91bmRlZCBieSBtZW1iZXJzIG9mIFRoZSBIb2x5IENvbWZvcnRlci1TdC4gQ3lwcmlhbiBDYXRob2xpYyBDaHVyY2guIFRoaXMgZmFpdGgtYmFzZWQsIGNvbW11bml0eSBhbmQgZmFtaWx5LW9yaWVudGVkIG9yZ2FuaXphdGlvbiBwcm92aWRlcyBzdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50LCByZXNpZGVudGlhbCB0cmFuc2l0aW9uYWwgaG91c2luZywgYW5kIG91dHBhdGllbnQgcHJvZ3JhbXMgdGhyb3VnaG91dCB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEuIENBRyBvZmZlcnMgdGhyZWUgbWFpbiB0cmVhdG1lbnQgcHJvZ3JhbXM6IEFuIE91dHBhdGllbnQgZHJ1ZyB0cmVhdG1lbnQgZmFjaWxpdHksIGEgTWVu4oCZcyByZXNpZGVudGlhbCB0cmVhdG1lbnQgZmFjaWxpdHksIGFuZCBhIFdvbWVu4oCZcyByZXNpZGVudGlhbCB0cmVhdG1lbnQgZmFjaWxpdHkgd2l0aCBhIHRyYW5zaXRpb25hbCBob3VzaW5nIGNvbXBvbmVudC4gDQo8YnIgLz4NCjxiciAvPg0KVGhlIE1lbuKAmXMgUmVzaWRlbnRpYWwgVHJlYXRtZW50IFByb2dyYW0gb2ZmZXJzIGludGVuc2l2ZSBzaG9ydCB0ZXJtICgzMCBkYXkpIHJlc2lkZW50aWFsIGRydWcgdHJlYXRtZW50IDI0IGhvdXJzIGEgZGF5LCA3IGRheXMgYSB3ZWVrLiAgQ2VydGlmaWVkIGFkZGljdGlvbnMgY291bnNlbG9ycywgY2FzZSBtYW5hZ2Vycywgc29jaWFsIHdvcmtlcnMsIGFuZCBvdGhlciBhZ2VuY3kgcHJvZmVzc2lvbmFscyBjb2xsYWJvcmF0ZSBmb3IgYSBtdWx0aS1kaXNjaXBsaW5hcnkgYXBwcm9hY2ggdG8gdHJlYXRtZW50IHBsYW5uaW5nIG9uIGEgbW9udGhseSBvciBhcyBuZWVkZWQgYmFzaXMgaW4gb3JkZXIgdG8gYXNzZXNzIHByb2dyZXNzIG9yIGZ1cnRoZXIgaW50ZXJ2ZW50aW9uIG5lZWRzLiBFdmlkZW5jZSBiYXNlZCB0cmVhdG1lbnQgbW9kYWxpdGllcyBmb3IgcmVsYXBzZSBwcmV2ZW50aW9uLCBhbmQgY29nbml0aXZlIGJlaGF2aW9yYWwgdGhlcmFweSBhcmUgdXRpbGl6ZWQuIFRoZSBjdXJyaWN1bHVtIGluY2x1ZGVzOiBiZWhhdmlvciBtb2RpZmljYXRpb24sIGRydWcgZWR1Y2F0aW9uLCByZWxhcHNlIHByZXZlbnRpb24sIGFuZ2VyIG1hbmFnZW1lbnQsIGluZGl2aWR1YWwgY291bnNlbGluZywgdHJhdW1hIGdyb3VwcywgYW5kIGxpZmUgc2tpbGxzIHRyYWluaW5nLiBUcmFpbmVkIHN0YWZmIGFsc28gYWNjb21wYW5pZXMgY2xpZW50cyBpbnZvbHZlZCB3aXRoIHRoZSBjcmltaW5hbCBqdXN0aWNlIHN5c3RlbSB0byBjb3VydCBhcHBlYXJhbmNlcyBhcyB3ZWxsIGFzIGFjY29tcGFueSBjbGllbnRzIHdpdGggb3RoZXIgbWFuZGF0ZXMgdG8gdGhlaXIgYXBwb2ludG1lbnRzLiBTcGVjaWFsaXplZCBzZXNzaW9ucyBmb3IgY2xpZW50cyB3aG8gaGF2ZSBiZWVuIGR1YWxseS1kaWFnbm9zZWQgYXJlIGFsc28gYXZhaWxhYmxlLiAgICANCjxiciAvPg0KPGJyIC8+DQpUaGlzIGZhY2lsaXR5IGlzIG1ldHJvIGFjY2Vzc2libGUgZnJvbSB0aGUgU3RhZGl1bS1Bcm1vcnkgc3RhdGlvbiBvbiB0aGUgQmx1ZS9PcmFuZ2UgbGluZSwgYXMgd2VsbCBhcyBzZXZlcmFsIGJ1cyByb3V0ZXMgaW5jbHVkaW5nIGJ1dCBub3QgbGltaXRlZCB0byB0aGUgMzIsIDM0LCAzNiwgOTYsIDk3LCBBbGwsIEIyLCBENiwgSzExLCBNNiwgVjgsIFgyLCBhbmQgWDguIFRyYW5zcG9ydGF0aW9uIG9mZmVyZWQgaW4gc29tZSBpbnN0YW5jZXMuICBDYWxsIGZvciBtb3JlIGRldGFpbHMuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzc0NR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZJU8hBCxhKfy6oMBxj1RFH25LnSU" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK/m/WZDQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATh4Oe2+pnFqcqMJ9pY5zYAIShCr" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="16 - 17th Street, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Holy Comforter Community Action Group - Men" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">16 - 17th Street, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 543-4558<br /><b>Fax No:</b>(202) 543-4579<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.communityactiongroup.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential short-term treatment (30 days or less)<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Men, Persons with HIV/AIDS<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24 hours/7 days a week.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men in recovery.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Holy Comforter Community Action Group (CAG) was founded by members of The Holy Comforter-St. Cyprian Catholic Church. This faith-based, community and family-oriented organization provides substance abuse treatment, residential transitional housing, and outpatient programs throughout the District of Columbia. CAG offers three main treatment programs: An Outpatient drug treatment facility, a Men’s residential treatment facility, and a Women’s residential treatment facility with a transitional housing component. 
+<br />
+<br />
+The Men’s Residential Treatment Program offers intensive short term (30 day) residential drug treatment 24 hours a day, 7 days a week.  Certified addictions counselors, case managers, social workers, and other agency professionals collaborate for a multi-disciplinary approach to treatment planning on a monthly or as needed basis in order to assess progress or further intervention needs. Evidence based treatment modalities for relapse prevention, and cognitive behavioral therapy are utilized. The curriculum includes: behavior modification, drug education, relapse prevention, anger management, individual counseling, trauma groups, and life skills training. Trained staff also accompanies clients involved with the criminal justice system to court appearances as well as accompany clients with other mandates to their appointments. Specialized sessions for clients who have been dually-diagnosed are also available.    
+<br />
+<br />
+This facility is metro accessible from the Stadium-Armory station on the Blue/Orange line, as well as several bus routes including but not limited to the 32, 34, 36, 96, 97, All, B2, D6, K11, M6, V8, X2, and X8. Transportation offered in some instances.  Call for more details.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSs1MjUgRWFzdGVybiBBdmVudWUgQ2FwaXRvbCBIZWlnaHRzIE1EIDIwNzQzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDUyNSBFYXN0ZXJuIEF2ZW51ZSBDYXBpdG9sIEhlaWdodHMsIE1EIDIwNzQzZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDkyNS0yMjU1PGJyIC8+PGI+RmF4IE5vOjwvYj4oMzAxKSA5MjUtMjAyMDxiciAvPmRkAgUPDxYCHwIFJDxiPldlYnNpdGU6IDwvYj53d3cucm1ncnRjLm9yZzxiciAvPmRkAgcPDxYCHwIFuQM8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEludGVuc2l2ZSBvdXRwYXRpZW50LCBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIERVSS9EV0kgZWR1Y2F0aW9uIHByb2dyYW08YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBDcmltaW5hbCBqdXN0aWNlIGludm9sdmVkLCBNZW4sIFBlcnNvbnMgd2l0aCBpbnRlbGxlY3R1YWwgZGlzYWJpbGl0eSwgU2VuaW9ycyAoNTUrKSwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBTZWxmLXBheW1lbnQ8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFOjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+QWR1bHRzIGFuZCBhZG9sZXNjZW50cy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFxQU8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBSZW5haXNzYW5jZSBUcmVhdG1lbnQgQ2VudGVyIG9mZmVycyBhZmZvcmRhYmxlLCBjb25maWRlbnRpYWwgc3Vic3RhbmNlIGFidXNlIHJlbGF0ZWQgcHJvZ3JhbXMuIFRoZSBDZW50ZXIgcHJvdmlkZXMgb3V0LXBhdGllbnQgc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCBhbmQgcmVsYXRlZCBzZXJ2aWNlczsgYW5kIHRoZSBDZW50ZXIgaXMgbGljZW5zZWQgYW5kIGNlcnRpZmllZCBieSB0aGUgTWFyeWxhbmQgQWxjb2hvbCBhbmQgRHJ1ZyBBYnVzZSBBZG1pbmlzdHJhdGlvbiB0byBwcm92aWRlIG91dC1wYXRpZW50IHN1YnN0YW5jZSBhYnVzZSBzZXJ2aWNlcyB0byBhZHVsdHMgYW5kIGFkb2xlc2NlbnRzLiBUaGUgc2VydmljZXMgcHJvdmlkZWQgaW5jbHVkZTogSW50ZW5zaXZlIG91dC1wYXRpZW50IHN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ7IFRyYWRpdGlvbmFsIG91dC1wYXRpZW50IHN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ7IE1WQSBhcHByb3ZlZCBEV0kgcHJvZ3JhbXM7IEFsY29ob2wgYW5kIGRydWcgZWR1Y2F0aW9uIHdvcmtzaG9wczsgYW5kIFN1YnN0YW5jZSBhYnVzZSBldmFsdWF0aW9ucy4NCjxiciAvPg0KPGJyIC8+DQpMb2NhdGlvbiBpcyBhbHNvIGEgTWFyeWxhbmQgJiBEQyBEVUkvRFdJIGFuZCBzdWJzdGFuY2UgYWJ1c2UgZWR1Y2F0aW9uIGNvbnRhY3QgcHJvdmlkZXIuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzY4OR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZDYmE1eGFzzhi4rxjepXdY3CfbEF" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK5nIm3DwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASFlySGxA3H+ufBq4+aViQQuzJgO" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="525 Eastern Avenue Capitol Heights MD 20743" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Renaissance Treatment Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">525 Eastern Avenue Capitol Heights, MD 20743</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 925-2255<br /><b>Fax No:</b>(301) 925-2020<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.rmgrtc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, DUI/DWI education program<br \><b>Population : </b> Criminal justice involved, Men, Persons with intellectual disability, Seniors (55+), Women<br \><b>Forms Of Payment : </b> Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Adults and adolescents.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Renaissance Treatment Center offers affordable, confidential substance abuse related programs. The Center provides out-patient substance abuse treatment and related services; and the Center is licensed and certified by the Maryland Alcohol and Drug Abuse Administration to provide out-patient substance abuse services to adults and adolescents. The services provided include: Intensive out-patient substance abuse treatment; Traditional out-patient substance abuse treatment; MVA approved DWI programs; Alcohol and drug education workshops; and Substance abuse evaluations.
+<br />
+<br />
+Location is also a Maryland & DC DUI/DWI and substance abuse education contact provider.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSk0NjIwIE1lbHdvb2QgUm9hZCBVcHBlciBNYXJsYm9ybyBNRCAyMDc3MmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSo0NjIwIE1lbHdvb2QgUm9hZCBVcHBlciBNYXJsYm9ybywgTUQgMjA3NzJkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgNTY4LTQ4MjI8YnIgLz5kZAIFDw8WAh8CBSw8Yj5XZWJzaXRlOiA8L2I+d3d3LnNlY29uZGdlbmVzaXMub3JnLzxiciAvPmRkAgcPDxYCHwIFywQ8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFJlc2lkZW50aWFsIGxvbmctdGVybSB0cmVhdG1lbnQgKG1vcmUgdGhhbiAzMCBkYXlzKSwgUmVzaWRlbnRpYWwgc2hvcnQtdGVybSB0cmVhdG1lbnQgKDMwIGRheXMgb3IgbGVzcyk8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgUmVzaWRlbnRpYWwgYmVkcyBmb3IgY2xpZW50J3MgY2hpbGRyZW4sIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgUHJlZ25hbnQvcG9zdHBhcnR1bSB3b21lbiwgVmV0ZXJhbnMsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmcsIFNlbGYtcGF5bWVudDxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgU2PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbiBhbmQgQ2hpbGRyZW4uPGJyIC8+ZGQCEQ8PFgIfAgVMPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5BZ2VuY3kgUmVmZXJyYWxzOiBDU09TQSwgUFNBLCBISURUQSwgQVBSQTxiciAvPmRkAhMPDxYCHwIFhBM8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBtaXNzaW9uIG9mIFNlY29uZCBHZW5lc2lzIGlzIHRvIGVtcG93ZXIgaW5kaXZpZHVhbHMgYW5kIGZhbWlsaWVzIHRvIG1ha2UgY2hvaWNlcyB0aGF0IHdpbGwgZW5hYmxlIHRoZW0gdG8gZXhwZXJpZW5jZSBhIGhlYWx0aHksIHJlc3BvbnNpYmxlIGxpZmUgZnJlZSBmcm9tIGFsY29ob2wsIGRydWdzLCBjcmltZSwgdmlvbGVuY2UgYW5kIGV4cGxvaXRhdGlvbi4gU2Vjb25kIEdlbmVzaXMgb2ZmZXJzIHJlc2lkZW50aWFsIHRoZXJhcGV1dGljIHRyZWF0bWVudCBwcm9ncmFtcyBhbmQgc2VydmljZXMgYXJlIGF2YWlsYWJsZSB0aHJvdWdoIGdvdmVybm1lbnQgY29udHJhY3RzIGFuZCBwcml2YXRlIHBheS4gUG90ZW50aWFsIGNsaWVudHMgd2hvIGludm9sdmVkIGluIHRoZSBEQyBjcmltaW5hbCBqdXN0aWNlIHN5c3RlbSBhcmUgYWRtaXR0ZWQgdGhyb3VnaCAoUFNBKSwgQVBSQSBvciBDU09TQS4NCjxiciAvPg0KPGJyIC8+DQpTZWNvbmQgR2VuZXNpcyBoYXMgYSB2YXJpZXR5IG9mIHByb2dyYW1zIHRvIGRlYWwgd2l0aCBzdWJzdGFuY2UgYWJ1c2Ugd2hpY2ggaW5jbHVkZTogdGhlIFdvbWVu4oCZcyBQcmlzb24gUHJvZ3JhbSwgTWFyeWxhbmQvREMgRHJ1ZyBhbmQgQWxjb2hvbCBUcmVhdG1lbnQgQ2VudGVyIGFuZCByZXNpZGVudGlhbCBwcm9ncmFtcy4gVGhlIHByb2dyYW0gYWRoZXJlcyB0byB0cmVhdG1lbnQgcGhhc2VzIGZvciBhZGRpY3Rpb24gYXMgZm9sbG93czoNCjxiciAvPg0KPGJyIC8+DQpQaGFzZSBJOiBBc3Nlc3NtZW50IGFuZCBPcmllbnRhdGlvbiBpcyBhIG1pbmltdW0gb2YgNCB3ZWVrcyBsb25nLiBEdXJpbmcgdGhpcyBwaGFzZSwgY2xpZW50cyBjb21wbGV0ZSBvcmllbnRhdGlvbiBhbmQgYW55IG90aGVyIGFzc2Vzc21lbnRzIG5lZWRlZCB0byBkZXZlbG9wIHRoZWlyIHRyZWF0bWVudCBwbGFuLiBDbGllbnRzIHN0YXkgYXQgdGhlIHJlc2lkZW50aWFsIGZhY2lsaXR5IDI0IGhvdXJzLCA3IGRheXMgYSB3ZWVrIGR1cmluZyB0aGlzIHBoYXNlLiBDbGllbnRzIGFyZSBkcnVnIHRlc3RlZCBvbiBhIHJhbmRvbSBiYXNpcy4NCjxiciAvPg0KPGJyIC8+DQpQaGFzZSBJSTogU3RhYmlsaXphdGlvbiBhbmQgUmVoYWJpbGl0YXRpb24gaXMgdXN1YWxseSBtaW5pbXVtIG9mIDEyIHdlZWtzIGluIGxlbmd0aC4gRHVyaW5nIHRoaXMgcGhhc2UsIHJlc2lkZW50cyB3b3JrIHRoZWlyIHRyZWF0bWVudCBwbGFucyBidW5kbGVkIHdpdGggYSB3aWRlIHJhbmdlIG9mIHNlcnZpY2VzIGluY2x1ZGluZyBpbmRpdmlkdWFsLCBncm91cCwgZmFtaWx5LCBhbmQgdHJhdW1hIHRoZXJhcHkuIFNlcnZpY2VzIGFyZSBkZWxpdmVyZWQgdGhyb3VnaCBkaWRhY3RpYyBhcHByb2FjaGVzIHN1Y2ggYXMgcHN5Y2hvLWVkdWNhdGlvbiwgYWRkaWN0aW9ucyB0cmVhdG1lbnQsIHJlbGFwc2UgcHJldmVudGlvbiwgZ3JvdXAgdGhlcmFweSBhbmQgY29waW5nIHN0cmF0ZWdpZXMuIENvZ25pdGl2ZSB0aGVyYXB5IGFuZCBtb3RpdmF0aW9uYWwgaW50ZXJ2aWV3aW5nIGFyZSBpbnRlZ3JhdGVkIHdpdGggYSAxMi1zdGVwIGJhc2VkIHJlY292ZXJ5IHByb2dyYW0uIE91ciB0aGVyYXBldXRpYyBjb21tdW5pdHkgaW5jb3Jwb3JhdGVzIHZvY2F0aW9uYWwgdHJhaW5pbmcsIGVkdWNhdGlvbmFsL0dFRCB0cmFpbmluZywgbGlmZSBza2lsbHMsIGNvZ25pdGl2ZSBiZWhhdmlvcmFsIGludGVydmVudGlvbnMgYW5kIGNvbW11bml0eSBzZXJ2aWNlIHdvcmsuIEVhY2ggcmVzaWRlbnQgcGVyZm9ybXMgY29tbXVuaXR5IHNlcnZpY2Ugd29yayB3aGlsZSBpbiB0aGUgcmVzaWRlbnRpYWwgcHJvZ3JhbS4gRHVyaW5nIHRoaXMgcGhhc2UsIHJlc2lkZW50cyBhcmUgc2xvd2x5IGludGVncmF0ZWQgaW50byB0aGUgY29tbXVuaXR5IGJ5IGF0dGVuZGluZyBvdXRzaWRlIHN1cHBvcnQgbWVldGluZ3Mgb2YgQUEvTkEvQ0EuIFJlc2lkZW50cyByZWNlaXZlIG5vIGxlc3MgdGhhbiAyIHJhbmRvbSBkcnVnIHNjcmVlbnMgcGVyIG1vbnRoIGR1cmluZyB0aGlzIHBoYXNlLg0KPGJyIC8+DQo8YnIgLz4NClBoYXNlIElJSTogUmUtRW50cnkgYW5kIEVtcGxveW1lbnQgaXMgdXN1YWxseSBhIG1pbmltdW0gb2YgMTIgd2Vla3MgaW4gbGVuZ3RoLiBEdXJpbmcgdGhpcyBwaGFzZSwgdGhlIHJlc2lkZW50cyBkZXZlbG9wIGFuIGluaXRpYWwgYWZ0ZXJjYXJlIHBsYW4gd2l0aCB0aGUgY291bnNlbG9yLCBiZWdpbiBlbXBsb3ltZW50IG9yIHZvY2F0aW9uYWwgdHJhaW5pbmcgYW5kIG1haW50YWluIGVkdWNhdGlvbmFsIHB1cnN1aXRzLiBQYXNzIHRpbWUgaXMgZWFybmVkIHRvIGJlZ2luIHRoZSBpbnRlZ3JhdGlvbiBwcm9jZXNzIGJhY2sgaW50byB0aGUgY29tbXVuaXR5LiBEcnVnIHNjcmVlbnMgZHVyaW5nIHRoaXMgcGhhc2UgYXJlIHZlcnkgaW1wb3J0YW50IGZvciBhY2NvdW50YWJpbGl0eS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNDQyHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkitkJ1FIJosOiadBCTxh22Ky1aGQ=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK3rrTGAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAfI7PkqlVmegIesBh1lW7YruIueN" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4620 Melwood Road Upper Marlboro MD 20772" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Second Genesis" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4620 Melwood Road Upper Marlboro, MD 20772</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 568-4822<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.secondgenesis.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days), Residential short-term treatment (30 days or less)<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Residential beds for client's children, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Persons with HIV/AIDS, Pregnant/postpartum women, Veterans, Women<br \><b>Forms Of Payment : </b> Public funding, Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women and Children.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Agency Referrals: CSOSA, PSA, HIDTA, APRA<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The mission of Second Genesis is to empower individuals and families to make choices that will enable them to experience a healthy, responsible life free from alcohol, drugs, crime, violence and exploitation. Second Genesis offers residential therapeutic treatment programs and services are available through government contracts and private pay. Potential clients who involved in the DC criminal justice system are admitted through (PSA), APRA or CSOSA.
+<br />
+<br />
+Second Genesis has a variety of programs to deal with substance abuse which include: the Women’s Prison Program, Maryland/DC Drug and Alcohol Treatment Center and residential programs. The program adheres to treatment phases for addiction as follows:
+<br />
+<br />
+Phase I: Assessment and Orientation is a minimum of 4 weeks long. During this phase, clients complete orientation and any other assessments needed to develop their treatment plan. Clients stay at the residential facility 24 hours, 7 days a week during this phase. Clients are drug tested on a random basis.
+<br />
+<br />
+Phase II: Stabilization and Rehabilitation is usually minimum of 12 weeks in length. During this phase, residents work their treatment plans bundled with a wide range of services including individual, group, family, and trauma therapy. Services are delivered through didactic approaches such as psycho-education, addictions treatment, relapse prevention, group therapy and coping strategies. Cognitive therapy and motivational interviewing are integrated with a 12-step based recovery program. Our therapeutic community incorporates vocational training, educational/GED training, life skills, cognitive behavioral interventions and community service work. Each resident performs community service work while in the residential program. During this phase, residents are slowly integrated into the community by attending outside support meetings of AA/NA/CA. Residents receive no less than 2 random drug screens per month during this phase.
+<br />
+<br />
+Phase III: Re-Entry and Employment is usually a minimum of 12 weeks in length. During this phase, the residents develop an initial aftercare plan with the counselor, begin employment or vocational training and maintain educational pursuits. Pass time is earned to begin the integration process back into the community. Drug screens during this phase are very important for accountability.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

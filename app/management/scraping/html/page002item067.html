@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSY0MjUgMm5kIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSc0MjUgMm5kIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzkzLTE5MDk8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDM5My00NDA5PGJyIC8+ZGQCBQ8PFgIfAgUlPGI+V2Vic2l0ZTogPC9iPnd3dy50aGVjY252Lm9yZzxiciAvPmRkAgcPDxYCHwIFkgE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTaGVsdGVycywgVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFMDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjI0LWhvdXIgc2hlbHRlcjxiciAvPmRkAg8PDxYCHwIFPzxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+TWVuIGFuZCBXb21lbiAoMTggLSA1MCB5cnMpLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXNBjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIENvbW11bml0eSBmb3IgQ3JlYXRpdmUgTm9udmlvbGVuY2UoQ0NOVikgc3RyaXZlcyB0byBlbnN1cmUgdGhhdCB0aGUgcmlnaHRzIG9mIHRoZSBob21lbGVzcyBhbmQgcG9vciBhcmUgbm90IGluZnJpbmdlZCB1cG9uLCBhbmQgdGhhdCBldmVyeSBwZXJzb24gaGFzIGFjY2VzcyB0byBsaWZl4oCZcyBiYXNpYyBlc3NlbnRpYWxzIOKAkyBmb29kLCBzaGVsdGVyLCBjbG90aGluZyBhbmQgbWVkaWNhbCBjYXJlLiBUaGUgQ0NOViBpcyBhbHNvIGNvbW1pdHRlZCB0byBwcm90ZWN0aW5nIHRoZSByaWdodHMgb2YgdGhlIGhvbWVsZXNzLCBhZHZvY2F0aW5nIG9uIGJlaGFsZiBvZiB0aGUgdW5kZXNlcnZlZCBhbmQgcHJlcGFyaW5nIGhvbWVsZXNzIG1lbiBhbmQgd29tZW4gdG8gcmUtZW50ZXIgaW50byBtYWluc3RyZWFtIHNvY2lldHkgYXMgc2tpbGxlZCBhbmQgcHJvZHVjdGl2ZSBjaXRpemVucy4NCjxiciAvPiANCjxiciAvPiAgDQpUaGUgMSwzNTAtQmVkIEZlZGVyYWwgQ2l0eSBTaGVsdGVyIGlzIHRoZSBsYXJnZXN0IGFuZCBtb3N0IGNvbXByZWhlbnNpdmUgZmFjaWxpdHkgb2YgaXRzIGtpbmQgaW4gQW1lcmljYS4gVGhleSBhbHNvIHByb3ZpZGUgY2xvdGhpbmcgdG8gcmVzaWRlbnRzLiBEb25vcnMsIGluY2x1ZGluZyBzdG9yZXMsIGNvbnRyaWJ1dGUgdGhvdXNhbmRzIG9mIHBvdW5kcyBvZiBjbG90aGluZyBhbmQgc2hvZXMgdG8gQ0NOVidzIHJlc2lkZW50cyBlYWNoIHllYXIuIFN1cnBsdXMgY2xvdGhpbmcgaXMgc29sZCBpbiBUaGUgVHJlYXN1cmUgQ2hlc3QgVGhyaWZ0IFN0b3JlIHdoZW4gc28gZGVzaWduYXRlZCBieSBkb25vcnMuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzE0MB4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZJPgKRjw8Ni8QMsc91XvewymNYUT" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLVu/mDBwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVEYU8YqlBhbJ1NDioRJ7XmtHk0n" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="425 2nd Street, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Community for Creative Nonviolence (CCNV)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">425 2nd Street, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 393-1909<br /><b>Phone No2:</b>(202) 393-4409<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.theccnv.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Shelters, Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24-hour shelter<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and Women (18 - 50 yrs).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Community for Creative Nonviolence(CCNV) strives to ensure that the rights of the homeless and poor are not infringed upon, and that every person has access to life’s basic essentials – food, shelter, clothing and medical care. The CCNV is also committed to protecting the rights of the homeless, advocating on behalf of the undeserved and preparing homeless men and women to re-enter into mainstream society as skilled and productive citizens.
+<br /> 
+<br />  
+The 1,350-Bed Federal City Shelter is the largest and most comprehensive facility of its kind in America. They also provide clothing to residents. Donors, including stores, contribute thousands of pounds of clothing and shoes to CCNV's residents each year. Surplus clothing is sold in The Treasure Chest Thrift Store when so designated by donors.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

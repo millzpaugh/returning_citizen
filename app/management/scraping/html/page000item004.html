@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSc1MDAxIFNpbHZlciBIaWxsIFJvYWQgU3VpdGxhbmQgTUQgMjA3NDZkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUoNTAwMSBTaWx2ZXIgSGlsbCBSb2FkIFN1aXRsYW5kLCBNRCAyMDc0NmRkAgMPDxYCHwIFKjxiciAvPjxiPlBob25lIE5vOjwvYj4oMzAxKSA4MTctMTkwMDxiciAvPmRkAgUPDxYCHwIFaTxiPldlYnNpdGU6IDwvYj53d3cucHJpbmNlZ2Vvcmdlc2NvdW50eW1kLmdvdi9Hb3Zlcm5tZW50L0FnZW5jeUluZGV4L0hlYWx0aC9zcG9ydHNfbWFsZXdlbGxuZXNzLmFzcDxiciAvPmRkAgcPDxYCHwIF7AM8Yj5DYXRlZ29yeSA6IDwvYj4gTWVkaWNhbCwgUGFyZW50aW5nLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ29tbXVuaXR5IGhlYWx0aCwgRmFtaWx5IHN1cHBvcnQgc2VydmljZXMsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gRmFtaWx5IHBsYW5uaW5nLCBISVYvQUlEUzxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdm9jYWN5LCBjYXNlIG1hbmFnZW1lbnQsIGNvdW5zZWxpbmcsIGVtZXJnZW5jeSBzZXJ2aWNlcywgQW5nZXIgbWFuYWdlbWVudCwgQ2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBwYXJlbnRhbCByZXVuaWZpY2F0aW9uLCBEb21lc3RpYyBWaW9sZW5jZSwgUGFyZW50aW5nIHN1cHBvcnQsIGUuZy4gY2xhc3NlcywgZ3JvdXBzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQ8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBWE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgdGhyb3VnaCBGcmlkYXkgODowMCBhLm0uIHRvIDQ6MzAgcC5tLiBleGNsdWRpbmcgaG9saWRheXMuPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIF8wg8Yj5EZXNjcmlwdGlvbjogPC9iPkFkYW3igJlzIEhvdXNlIGlzIGEgZnJpZW5kbHkgYW5kIGNvbWZvcnRhYmxlIHBsYWNlIGxvY2F0ZWQgYXQgdGhlIFN1aXRsYW5kIEhlYWx0aCBhbmQgV2VsbG5lc3MgQ2VudGVyIHdoZXJlIG1hbGVzIGFuZCBmZW1hbGVzIGxpdmluZyBpbiBQcmluY2UgR2Vvcmdl4oCZcyBDb3VudHkgYXJlIGFibGUgdG8gY29tZSBhbmQgZ2V0IG1hbnkgaGVhbHRoIGFuZCBzb2NpYWwgc2VydmljZXMuIEFkYW3igJlzIEhvdXNlIFJlLUVudHJ5IFByb2dyYW0gb2ZmZXJzIG1hbGUgYW5kIGZlbWFsZSBleC1vZmZlbmRlcnMgYXNzaXN0YW5jZSBpbiBzdWNjZXNzZnVsbHkgdHJhbnNpdGlvbmluZyBiYWNrIHRvIHRoZSBjb21tdW5pdHkuDQoNClNlcnZpY2VzIHByb3ZpZGVkIGF0IEFkYW3igJlzIGhvdXNlIG1lZXQgYm90aCBpbmRpdmlkdWFsIGFuZCBncm91cCBuZWVkcyBhcyBmb2xsb3dzOg0KDQpJbmRpdmlkdWFsIFNlcnZpY2VzIGluY2x1ZGU6IGNvdW5zZWxpbmcsIHBhcmVudCBvdXRyZWFjaCwgY2hpbGQgc3VwcG9ydCBhZHZvY2FjeSwgSElWL0FJRFMgdGVzdGluZywgYmlydGggY29udHJvbCwgU1RJIChTZXh1YWxseSB0cmFuc21pdHRlZCBpbmZlY3Rpb25zKSB0ZXN0aW5nIGFuZCB0cmVhdG1lbnQsIGhlYWx0aCBhc3Nlc3NtZW50cywgc3BvcnRzIHBoeXNpY2FscywgaGVhbHRoIGVkdWNhdGlvbiwgam9iIHByZXBhcmF0aW9uLCBmYW1pbHkgY291cnQgc2VydmljZXMsIGNyaXNpcyBpbnRlcnZlbnRpb24sIGFuZCBhbmdlciBtYW5hZ2VtZW50Lg0KPGJyIC8+DQo8YnIgLz4NCkdyb3VwIFNlcnZpY2VzIGluY2x1ZGU6IG1hbGUgaW52b2x2ZW1lbnQsIGZhdGhlcmhvb2QgZGV2ZWxvcG1lbnQsIG1vdGhlcmhvb2QgZGV2ZWxvcG1lbnQsIHBhcmVudGluZywgYW5nZXIgbWFuYWdlbWVudCwgZmFtaWx5IGNvdW5zZWxpbmcsIHlvdXRoIGdyb3VwIHNlc3Npb25zLCBkb21lc3RpYyB2aW9sZW5jZSBjb3Vuc2VsaW5nLCBhbmQgZmFtaWx5IGNvdXJ0IHNlcnZpY2VzLg0KPGJyIC8+DQo8YnIgLz4NCkFkYW3igJlzIEhvdXNlIGhvdXJzIG9mIG9wZXJhdGlvbiBhcmUgTW9uZGF5IHRocm91Z2ggRnJpZGF5IGZyb20gODowMCBhbSB0byA0OjMwIHBtIChleGNsdWRpbmcgaG9saWRheXMpLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM3MTQeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRZDraguUoYTWGb08omBqFx3WDHNQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLI36TCDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVuF41dya9e1PGL5oQbpG0XtunAH" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="5001 Silver Hill Road Suitland MD 20746" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Adam's House Re-entry Program - Suitland Health and Wellness Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">5001 Silver Hill Road Suitland, MD 20746</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 817-1900<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.princegeorgescountymd.gov/Government/AgencyIndex/Health/sports_malewellness.asp<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical, Parenting, Social Services<br \><b>Services : </b> Community health, Family support services, Social services<br \><b>Type Of Care : </b> Family planning, HIV/AIDS<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Anger management, Case management, counseling, parental reunification, Domestic Violence, Parenting support, e.g. classes, groups, Referrals for social services<br \><b>Population : </b> Criminal justice involved<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday through Friday 8:00 a.m. to 4:30 p.m. excluding holidays.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Adam’s House is a friendly and comfortable place located at the Suitland Health and Wellness Center where males and females living in Prince George’s County are able to come and get many health and social services. Adam’s House Re-Entry Program offers male and female ex-offenders assistance in successfully transitioning back to the community.
+
+Services provided at Adam’s house meet both individual and group needs as follows:
+
+Individual Services include: counseling, parent outreach, child support advocacy, HIV/AIDS testing, birth control, STI (Sexually transmitted infections) testing and treatment, health assessments, sports physicals, health education, job preparation, family court services, crisis intervention, and anger management.
+<br />
+<br />
+Group Services include: male involvement, fatherhood development, motherhood development, parenting, anger management, family counseling, youth group sessions, domestic violence counseling, and family court services.
+<br />
+<br />
+Adam’s House hours of operation are Monday through Friday from 8:00 am to 4:30 pm (excluding holidays).<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsyNDY1IEFsYWJhbWEgQXZlbnVlLCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDI0NjUgQWxhYmFtYSBBdmVudWUsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY3OC02MDM4PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2NzgtODEwMDxiciAvPmRkAgUPDxYCHwIFKDxiPldlYnNpdGU6IDwvYj53d3cucmFwcG9ubGluZS5vcmc8YnIgLz5kZAIHDw8WAh8CBaYDPGI+Q2F0ZWdvcnkgOiA8L2I+IFBhcmVudGluZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIEFuZ2VyIG1hbmFnZW1lbnQsIENhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgcGFyZW50YWwgcmV1bmlmaWNhdGlvbiwgRG9tZXN0aWMgVmlvbGVuY2UsIE1lbnRvcmluZywgUGFyZW50aW5nIHN1cHBvcnQsIGUuZy4gY2xhc3NlcywgZ3JvdXBzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQ8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBZ4VPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgUmVpbnRlZ3JhdGluZyBBbHRlcm5hdGl2ZXMgUGVyc29uYWwgUHJvZ3JhbSAoUi5BLlAuUC4pIHByZXBhcmVzIGFuZCBhc3Npc3RzIHRob3NlIHJldHVybmluZyBmcm9tIHByaXNvbiB3aXRoIHN1cHBvcnQgYW5kIHJlZmVycmFscyBmb3IgZW1wbG95bWVudCBhc3Npc3RhbmNlLCBhY2FkZW1pYyBlbnJpY2htZW50LCBtZW50b3JpbmcsIGNvdW5zZWxpbmcgc2VydmljZXMuIFByb3ZpZGUgY291cnQgb3JkZXJlZCBhbmQgdm9sdW50ZWVyIGFuZ2VyIG1hbmFnZW1lbnQsIGRvbWVzdGljIHZpb2xlbmNlLCBhbmQgcGFyZW50aW5nIGNsYXNzZXMuIFByb3ZpZGUgYXNzaXN0YW5jZSB0byBEQyBmYXRoZXJzIHVuZGVyIHRoZSBESFMgRmF0aGVyaG9vZCBJbml0aWF0aXZlIFByb2dyYW0uIENhc2Ugd29ya2VyIGdldHMgaW52b2x2ZWQgd2l0aCB0aGUgaW5tYXRlIHByaW9yIHRvIGFuZCBhZnRlciByZWxlYXNlLiBFZHVjYXRlcyBhbmQgcHJlcGFyZXMgaW5tYXRlcyBhbmQgZmFtaWx5IGFib3V0IHdoYXQgdG8gZXhwZWN0IHdoZW4gY2xpZW50IHJldHVybnMgdG8gdGhlIGNvbW11bml0eS4gQ2FzZSBtYW5hZ2VtZW50IHNlcnZpY2VzIHdvcmsgaW4gY29uanVuY3Rpb24gd2l0aCBjb25kaXRpb25zIG9mIHByb2JhdGlvbiBvciBwYXJvbGUsIHRvIGluY2x1ZGUgcmVwb3J0aW5nIG5vbi1jb21wbGlhbmNlIGluIHRoZSBSQVBQIHByb2dyYW0gdG8gQ1NPLiBSZWZlcnJhbHMgYWNjZXB0ZWQgZnJvbSBhbGwgc291cmNlcy4NCjxiciAvPg0KPGJyIC8+DQpNRU5UT1JJTkc6DQo8YnIgLz4NCk1lbnRvcmluZyByZXBsYWNlcyBmZWVsaW5ncyBvZiBpc29sYXRpb24gYW5kIGFub21pZSB3aXRoIHN0cm9uZyBtZW50b3JpbmcgcmVsYXRpb25zaGlwcyBtYXJrZWQgYnkgdW5jb25kaXRpb25hbCBsb3ZlIGFuZCByZXNwZWN0LiBSQVBQ4oCZcyBzaWduYXR1cmUgbWVudG9yaW5nIHByb2dyYW0gZW1wb3dlcnMgY2xpZW50cyB0byBtYWtlIGJldHRlciBhbmQgc21hcnRlciBjaG9pY2VzIGJ5IHBvc2l0aXZlIHJlaW5mb3JjZW1lbnQgZnJvbSBoaWdobHktdHJhaW5lZCBhbmQgd2VsbC1zdXBlcnZpc2VkIG1lbnRvcnMuIFJhcCBncm91cHMgYmVnaW4gdGhlIGJvbmRpbmcgd2l0aCBtZW50b3JzLCByZWZsZWN0aW5nIGEgbmV3IG91dGxvb2sgb24gbGlmZSBhbmQgbmV3bHkgbGVhcm5lZCBoZWFsdGh5IHZhbHVlcy4NCjxiciAvPg0KPGJyIC8+DQpDT01NVU5JQ0FUSU9OIFdPUktTSE9QUzoNCjxiciAvPg0KVHJhaW5pbmcgc2Vzc2lvbnMgaW4gYW5nZXIgbWFuYWdlbWVudCwgcmlzayBhbmQgdmlvbGVuY2UgYXZvaWRhbmNlIHRlY2huaXF1ZXMgd2lsbCBlcXVpcCBjbGllbnRzIHdpdGggYWx0ZXJuYXRpdmUgbWV0aG9kcyB0byByZXNvbHZpbmcgZGlzcHV0ZXMgd2l0aG91dCByZXNvcnRpbmcgdG8gdmlvbGVuY2UuIEVmZmVjdGl2ZSBjb21tdW5pY2F0aW9uIGNhbiBoZWxwIHByZXZlbnQgZnV0dXJlIGFsdGVyY2F0aW9ucyBhbmQgY3JpbWluYWwgb2ZmZW5zZXMgbGVhZGluZyANCnRvIGFycmVzdCBhbmQgaW5jYXJjZXJhdGlvbi4NCjxiciAvPg0KPGJyIC8+DQpWSUNUSU0gU1VQUE9SVCBTRVJWSUNFOg0KPGJyIC8+DQpQcm9tb3RlcyByZWNvbmNpbGlhdGlvbiBhbmQgcmVzdG9yYXRpb24gdG8gY3JpbWUgdmljdGltcywgZmFtaWx5IG1lbWJlcnMgYW5kIG90aGVycyBzdWZmZXJpbmcgbG9zcyBkdWUgdG8gdmlvbGVuY2UuIFRyYWluZWQgY291bnNlbG9ycyB3aWxsIHRyZWF0IGFsbCB2aWN0aW1zIGFuZCB0aGVpciBmYW1pbGllcyB3aXRoIGRlc2VydmVkIGRpZ25pdHkgYW5kIHJlc3BlY3QuIFRoZWlyIGZvY3VzIGFuZCBjb25jZXJuIGZvc3RlciBhIHNwaXJpdCBvZiBjb21wYXNzaW9uIGFuZCBzZW5zaXRpdml0eSB3aGlsZSBwcm92aWRpbmcgYXNzaXN0YW5jZSB0byB0aG9zZSBzdWZmZXJpbmcgYSBsb3NzLiBDb3Vuc2Vsb3JzIG1haW50YWluIGNvbmZpZGVudGlhbGl0eSB3aGlsZSBoZWxwaW5nIGluZGl2aWR1YWxzIHRocm91Z2ggdGhlIGdyaWVmIHByb2Nlc3Mgd2l0aCBjYXJpbmcgc3VwcG9ydCBhbmQgYXBwcm9wcmlhdGUgZm9sbG93LXVwLg0KPGJyIC8+DQo8YnIgLz4NCkNPVU5TRUxJTkc6DQo8YnIgLz4NCkNvbmZpZGVudGlhbCBjb3Vuc2VsaW5nIHdpbGwgcHJvdmlkZSBjbGllbnRzIHdpdGggYW4gYXJyYXkgb2Ygc2tpbGxzIHRoYXQgd2lsbCBmYWNpbGl0YXRlIHRoZSByZWhhYmlsaXRhdGlvbiBwcm9jZXNzIGFuZCBpbXByb3ZlIHF1YWxpdHkgb2YgbGlmZS4gQWxzbywgc3Vic3RhbmNlIGFidXNlIGNsaWVudHMgd2lsbCBiZSBhc3Npc3RlZCBpbiB0aGUgZGV2ZWxvcG1lbnQgb2YgaGVhbHRoeSBhbmQgcmVzcG9uc2libGUgbGlmZXN0eWxlcy4gUkFQUCB3aWxsIGhlbHAgdG8gcGxhY2UgY2xpZW50cyB3aXRoIGFwcHJvcHJpYXRlIG9yZ2FuaXphdGlvbnMgdG8gYWRkcmVzcyBjaGVtaWNhbCBkZXBlbmRlbmN5LCBkcnVnIGVkdWNhdGlvbiBhbmQgaW4tcGF0aWVudCBhbmQgb3V0cGF0aWVudCB0cmVhdG1lbnQuIENsaWVudHMgd2lsbCBiZSBhZmZvcmRlZCBjb21wcmVoZW5zaXZlIGFzc2Vzc21lbnRzIGFuZCBjb25zdWx0YXRpb24gc2VydmljZXMuIEJyb2FkLWJhc2VkIGNvdW5zZWxpbmcgc2Vzc2lvbnMgd2l0aCBleHBlcmllbmNlZCBhbmQgdHJhaW5lZCBzdGFmZiB3aWxsIGFsc28gc3RyZW5ndGhlbiBzcGlyaXR1YWwgYW5kIGVtb3Rpb25hbCB2YWx1ZXMuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzcxNh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZMsEFCpiiCB2JOGT0oSWAsyOb5kF" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKjw7P+DwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARZ/nDDhIMPS0+nMBiYfCjLg2Nk/" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2465 Alabama Avenue, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="R.A.P.P. (Reintegrating Alternatives Personal Program)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2465 Alabama Avenue, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 678-6038<br /><b>Fax No:</b>(202) 678-8100<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.rapponline.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Parenting, Social Services<br \><b>Services : </b> Family support services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Anger management, Case management, counseling, parental reunification, Domestic Violence, Mentoring, Parenting support, e.g. classes, groups, Referrals for social services<br \><b>Population : </b> Criminal justice involved<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Reintegrating Alternatives Personal Program (R.A.P.P.) prepares and assists those returning from prison with support and referrals for employment assistance, academic enrichment, mentoring, counseling services. Provide court ordered and volunteer anger management, domestic violence, and parenting classes. Provide assistance to DC fathers under the DHS Fatherhood Initiative Program. Case worker gets involved with the inmate prior to and after release. Educates and prepares inmates and family about what to expect when client returns to the community. Case management services work in conjunction with conditions of probation or parole, to include reporting non-compliance in the RAPP program to CSO. Referrals accepted from all sources.
+<br />
+<br />
+MENTORING:
+<br />
+Mentoring replaces feelings of isolation and anomie with strong mentoring relationships marked by unconditional love and respect. RAPP’s signature mentoring program empowers clients to make better and smarter choices by positive reinforcement from highly-trained and well-supervised mentors. Rap groups begin the bonding with mentors, reflecting a new outlook on life and newly learned healthy values.
+<br />
+<br />
+COMMUNICATION WORKSHOPS:
+<br />
+Training sessions in anger management, risk and violence avoidance techniques will equip clients with alternative methods to resolving disputes without resorting to violence. Effective communication can help prevent future altercations and criminal offenses leading 
+to arrest and incarceration.
+<br />
+<br />
+VICTIM SUPPORT SERVICE:
+<br />
+Promotes reconciliation and restoration to crime victims, family members and others suffering loss due to violence. Trained counselors will treat all victims and their families with deserved dignity and respect. Their focus and concern foster a spirit of compassion and sensitivity while providing assistance to those suffering a loss. Counselors maintain confidentiality while helping individuals through the grief process with caring support and appropriate follow-up.
+<br />
+<br />
+COUNSELING:
+<br />
+Confidential counseling will provide clients with an array of skills that will facilitate the rehabilitation process and improve quality of life. Also, substance abuse clients will be assisted in the development of healthy and responsible lifestyles. RAPP will help to place clients with appropriate organizations to address chemical dependency, drug education and in-patient and outpatient treatment. Clients will be afforded comprehensive assessments and consultation services. Broad-based counseling sessions with experienced and trained staff will also strengthen spiritual and emotional values.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

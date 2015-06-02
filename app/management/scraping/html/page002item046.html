@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkzNjAxIDE0IHRoIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSozNjAxIDE0IHRoIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjkxLTA5NDk8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDI5MS0yMzc0PGJyIC8+ZGQCBQ8PFgIfAgU6PGI+V2Vic2l0ZTogPC9iPnd3dy5hbmRyb21lZGF0cmFuc2N1bHR1cmFsaGVhbHRoLm9yZzxiciAvPmRkAgcPDxYCHwIF/gI8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IEludGVuc2l2ZSBvdXRwYXRpZW50LCBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIERVSS9EV0kgZWR1Y2F0aW9uIHByb2dyYW08YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZywgU2VsZi1wYXltZW50PGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgWsATxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1lZXRpbmcgdGltZXM6IE1vbiDigJMgU2F0OiA5OjMwIGFtIHRvIDEwOjAwIGFtLCAxMDowMCBhbSB0byAxMTowMCBhbSBhbmQgMTE6MDAgYW0gdG8gbm9vbiwgNTowMCBwbSB0byA3OjAwIHBtLCBTYXQgMTA6MDAgYW0gdG8gMTI6MDAgbm9vbi48YnIgLz5kZAIPDw8WAh8CBTg8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkFQUkEgVm91Y2hlciBQcm9ncmFtLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXRBzxiPkRlc2NyaXB0aW9uOiA8L2I+Q2lyY3VsbyBkZSBBbmRyb21lZGEgcHJvdmlkZXMgb3V0cGF0aWVudCBhbmQgaW50ZW5zaXZlIG91dHBhdGllbnQgYWxjb2hvbCBhbmQgZHJ1ZyAobm9uLW9waWF0ZSkgcHJldmVudGlvbiwgb3V0cmVhY2gsIGFuZCB0cmVhdG1lbnQgdW5kZXIgYSBIdW1hbiBDYXJlIGFncmVlbWVudCB3aXRoIHRoZSBBZGRpY3Rpb24gUHJldmVudGlvbiBhbmQgUmVjb3ZlcnkgQWRtaW5pc3RyYXRpb24gKEFQUkEpIHRoYXQgaXMgZnJlZSB0byBEQyByZXNpZGVudHMuICBUcmVhdG1lbnQgc2VydmljZXMgaW5jbHVkZTogaW5kaXZpZHVhbCB0aGVyYXB5LCBmYW1pbHkgdGhlcmFweSwgTWVu4oCZcyBHcm91cCB0aGVyYXB5LCBXb21lbuKAmXMgR3JvdXAgdGhlcmFweSwgQ28tZWQgR3JvdXAgdGhlcmFweSwgbWVudGFsIGhlYWx0aC9jby1vY2N1cnJpbmcgdHJlYXRtZW50LCBEVUkvRFdJIGVkdWNhdGlvbi4gIFRoZXJhcHkgaXMgcHJvdmlkZWQgdmlhIGV2aWRlbmNlIGJhc2VkIHRyZWF0bWVudCBtb2RlbHMgaW5jbHVkaW5nIGNvZ25pdGl2ZSBiZWhhdmlvcmFsIHRoZXJhcHkgYW5kIHRyYW5zLWN1bHR1cmFsLCB0aGVyYXBldXRpYywgYW5kIHRyYW5zYWN0aW9uYWwgdGhlcmFweS4gICBTcGFuaXNoIHNwZWFraW5nIHN0YWZmIGF2YWlsYWJsZS4gIFB1YmxpYyBmdW5kaW5nLCBzZWxmLXBheW1lbnQsIGFuZCBBUFJBIHZvdWNoZXJzIGFjY2VwdGVkLiAgDQo8YnIgLz4gDQo8YnIgLz4gIA0KQ2lyY3VsbyBkZSBBbmRyb21lZGEgaXMgY29udmVuaWVudGx5IGxvY2F0ZWQgb24gdGhlIGdyZWVuIGFuZCB5ZWxsb3cgbGluZSAoQ29sdW1iaWEgSGVpZ2h0cyBzdGF0aW9uKSBhbmQgdGhlIDQyLCA1NCwgNzAsIDc5LCBIMSwgSDgsIFMxLCBTNCwgYW5kIERDIDk4IGJ1cyByb3V0ZXMuICBUcmFuc3BvcnRhdGlvbiBvZmZlcmVkIGluIHNvbWUgaW5zdGFuY2VzIOKAkyBjYWxsIGZvciBtb3JlIGRldGFpbHMuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzQzMh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZK5WqOTuiqMgqgj3f3MB4/Aqk3a7" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLIha+CCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAeYSgJ52nfH4kpkC6IVAlIpwXZpz" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3601 14 th Street, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Circulo de Andromeda" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3601 14 th Street, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 291-0949<br /><b>Fax No:</b>(202) 291-2374<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.andromedatransculturalhealth.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders, DUI/DWI education program<br \><b>Population : </b> Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Public funding, Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Meeting times: Mon – Sat: 9:30 am to 10:00 am, 10:00 am to 11:00 am and 11:00 am to noon, 5:00 pm to 7:00 pm, Sat 10:00 am to 12:00 noon.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>APRA Voucher Program.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Circulo de Andromeda provides outpatient and intensive outpatient alcohol and drug (non-opiate) prevention, outreach, and treatment under a Human Care agreement with the Addiction Prevention and Recovery Administration (APRA) that is free to DC residents.  Treatment services include: individual therapy, family therapy, Men’s Group therapy, Women’s Group therapy, Co-ed Group therapy, mental health/co-occurring treatment, DUI/DWI education.  Therapy is provided via evidence based treatment models including cognitive behavioral therapy and trans-cultural, therapeutic, and transactional therapy.   Spanish speaking staff available.  Public funding, self-payment, and APRA vouchers accepted.  
+<br /> 
+<br />  
+Circulo de Andromeda is conveniently located on the green and yellow line (Columbia Heights station) and the 42, 54, 70, 79, H1, H8, S1, S4, and DC 98 bus routes.  Transportation offered in some instances – call for more details.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

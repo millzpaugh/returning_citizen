@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkxNzI1IExpbmNvbG4gUm9hZCwgTkUgV2FzaGluZ3RvbiBEQyAyMDAwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoxNzI1IExpbmNvbG4gUm9hZCwgTkUgV2FzaGluZ3RvbiwgREMgMjAwMDJkZAIDDw8WAh8CBX48Yj5Db250YWN0IFBlcnNvbjo8L2I+WGF2aWVyIFBhcmtlciwgTGF2ZXJuZSBMdWNhczxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA2MzUtMTA0MTxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNjM1LTAzMDI8YnIgLz5kZAIFDw8WAh8CBTA8Yj5XZWJzaXRlOiA8L2I+d3d3LmRjY2ZoLm9yZy9FbWVyeUhzZS5waHA8YnIgLz5kZAIHDw8WAh8CBa8CPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFbXBsb3ltZW50IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gSm9iIHNlYXJjaCAmYW1wOyBwbGFjZW1lbnQgYXNzaXN0YW5jZSwgSm9iIHNraWxscyBhc3Nlc3NtZW50ICZhbXA7IHJlYWRpbmVzczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyBpbiByZWNvdmVyeTxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBbMBPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj4oMTggeXJzICspLCBtdXN0IGJlIGVtcGxveWVkIGF0IGxlYXN0IDIwIGhvdXJzIHBlciB3ZWVrIChhbmQgcHJvdmlkZSAzIHBheXN0dWJzKSwgbGV0dGVyIGZyb20gZW1wbG95ZXIsIHJlY2VudCBUQiByZXN1bHRzLCBhbmQgcG9saWNlIGNsZWFyYW5jZS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFzAU8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBDb2FsaXRpb24gZm9yIHRoZSBIb21lbGVzcyAoRW1wbG95bWVudCBTZXJ2aWNlcyBDZW50ZXIpIHByb3ZpZGVzIGpvYi1yZWFkaW5lc3MgdHJhaW5pbmcgYW5kIGEgd29yay10by1iZWQgcHJvZ3JhbS4gVGhlIEpvYi1yZWFkaW5lc3MgdHJhaW5pbmcgcHJvZ3JhbSBpcyBmb3IgaG9tZWxlc3Mgc2hlbHRlciBtZW4uIFRoZSBwcm9ncmFtIHByb3ZpZGVzIHBhcnRpY2lwYW50cyB3aXRoIGNhc2UgbWFuYWdlbWVudCwgc3Vic3RhbmNlIGFidXNlIGNvdW5zZWxpbmcsIGFuZCByZXN1bWUgcHJlcGFyYXRpb24uIEFkZGl0aW9uYWxseSwgdGhlIHByb2dyYW0gaGVscHMgcGFydGljaXBhbnRzIHdpdGggaW50ZXJ2aWV3aW5nIHNraWxscywgbGlmZSBza2lsbHMsIGFuZCBlbXBsb3ltZW50IHJlZmVycmFscyBmb3IgaG9tZWxlc3MgaW5kaXZpZHVhbHMgb3IgdGhvc2Ugb24gdGhlIHZlcmdlIG9mIGJlY29taW5nIGhvbWVsZXNzLiANCjxiciAvPiANCjxiciAvPiAgDQpUaGUgV29yay10by1CZWQgcHJvZ3JhbSBhY2NlcHRzIGFwcGxpY2FudHMgd2hvIGFyZSAxOCB5cnMgKyB0aGF0IGFyZSBlbXBsb3llZCAoYXQgbGVhc3QgMjAgaG91cnMgcGVyIHdlZWspIGFuZCBjYW4gcHJvdmlkZSAzIHBheXN0dWJzLCBhIGxldHRlciBmcm9tIGVtcGxveWVyLCByZWNlbnQgVEIgcmVzdWx0cyBhbmQgYSBwb2xpY2UgY2xlYXJhbmNlLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQIzNR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZBHG4HOqUDkbpbn5lP+lY0mp3asm" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLFufmkCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAfn8rVbGxlLm8fB5esE/iD74RijH" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1725 Lincoln Road, NE Washington DC 20002" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Coalition for the Homeless (Employment Services Center)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1725 Lincoln Road, NE Washington, DC 20002</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Xavier Parker, Laverne Lucas<br /><b>Phone No:</b>(202) 635-1041<br /><b>Fax No:</b>(202) 635-0302<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dccfh.org/EmeryHse.php<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Job search &amp; placement assistance, Job skills assessment &amp; readiness<br \><b>Population : </b> Men, Persons in recovery<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>(18 yrs +), must be employed at least 20 hours per week (and provide 3 paystubs), letter from employer, recent TB results, and police clearance.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Coalition for the Homeless (Employment Services Center) provides job-readiness training and a work-to-bed program. The Job-readiness training program is for homeless shelter men. The program provides participants with case management, substance abuse counseling, and resume preparation. Additionally, the program helps participants with interviewing skills, life skills, and employment referrals for homeless individuals or those on the verge of becoming homeless. 
+<br /> 
+<br />  
+The Work-to-Bed program accepts applicants who are 18 yrs + that are employed (at least 20 hours per week) and can provide 3 paystubs, a letter from employer, recent TB results and a police clearance.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

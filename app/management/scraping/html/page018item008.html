@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSszMzA0IEtlbmlsd29ydGggQXZlbnVlIEh5YXR0c3ZpbGxlIE1EIDIwNzgxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDMzMDQgS2VuaWx3b3J0aCBBdmVudWUgSHlhdHRzdmlsbGUsIE1EIDIwNzgxZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDI3Ny03ODc4PGJyIC8+ZGQCBQ8PFgIfAgU4PGI+V2Vic2l0ZTogPC9iPnNhdHJ1Y2sub3JnL3JlaGFiaWxpdGF0aW9uLXByb2dyYW08YnIgLz5kZAIHDw8WAh8CBfcBPGI+Q2F0ZWdvcnkgOiA8L2I+IFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBSZXNpZGVudGlhbCBsb25nLXRlcm0gdHJlYXRtZW50IChtb3JlIHRoYW4gMzAgZGF5cyk8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFQTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIFNhdHVyZGF5OiA4OjAwYW0tNjowMHBtPGJyIC8+ZGQCDw8PFgIfAgWUATxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+QXBwbGljYW50cyogd2l0aCBhIGRlc2lyZSB0byBnZXQgaGVscCBtYXkgYmUgcmVmZXJyZWQgYnkgZmFtaWxpZXMsIGZyaWVuZHMsIGNvdXJ0cywgY2xlcmd5IGFuZCBjb21tdW5pdHkgbGVhZGVycy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFxgQ8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBTYWx2YXRpb24gQXJteeKAmXMgQWR1bHQgUmVoYWJpbGl0YXRpb24gQ2VudGVycyBwcm92aWRlIHNwaXJpdHVhbCwgc29jaWFsIGFuZCBlbW90aW9uYWwgYXNzaXN0YW5jZSBmb3IgbWVuIGFuZCB3b21lbiB3aG8gaGF2ZSBsb3N0IHRoZSBhYmlsaXR5IHRvIGNvcGUgd2l0aCB0aGVpciBwcm9ibGVtcyBhbmQgcHJvdmlkZSBmb3IgdGhlbXNlbHZlcy4gRWFjaCBjZW50ZXIgb2ZmZXJzIHJlc2lkZW50aWFsIGhvdXNpbmcsIHdvcmssIGFuZCBncm91cCBhbmQgaW5kaXZpZHVhbCB0aGVyYXB5LCBhbGwgaW4gYSBjbGVhbiwgd2hvbGVzb21lIGVudmlyb25tZW50LiBUaGUgcGh5c2ljYWwgYW5kIHNwaXJpdHVhbCBjYXJlIHRoYXQgcHJvZ3JhbSBwYXJ0aWNpcGFudHMgcmVjZWl2ZSBwcmVwYXJlcyB0aGVtIHRvIHJlLWVudGVyIHNvY2lldHkgYW5kIHJldHVybiB0byBnYWluZnVsIGVtcGxveW1lbnQuIE1hbnkgb2YgdGhvc2Ugd2hvIGhhdmUgYmVlbiByZWhhYmlsaXRhdGVkIGFyZSByZXVuaXRlZCB3aXRoIHRoZWlyIGZhbWlsaWVzIGFuZCByZXN1bWUgYSBub3JtYWwgbGlmZS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNDQ2Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkMI6WGBMM9+DBeVWr0S8vXo4vdKc=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKPptvpAgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAaeQRuotbkcSsNkgrJDDQpBKSD1G" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3304 Kenilworth Avenue Hyattsville MD 20781" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Salvation Army Adult Rehabilitation Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3304 Kenilworth Avenue Hyattsville, MD 20781</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 277-7878<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>satruck.org/rehabilitation-program<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days)<br \><b>Population : </b> Men<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Saturday: 8:00am-6:00pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Applicants* with a desire to get help may be referred by families, friends, courts, clergy and community leaders.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Salvation Army’s Adult Rehabilitation Centers provide spiritual, social and emotional assistance for men and women who have lost the ability to cope with their problems and provide for themselves. Each center offers residential housing, work, and group and individual therapy, all in a clean, wholesome environment. The physical and spiritual care that program participants receive prepares them to re-enter society and return to gainful employment. Many of those who have been rehabilitated are reunited with their families and resume a normal life.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxNzE1IFYgU3RyZWV0LCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjE3MTUgViBTdHJlZXQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVuPGI+Q29udGFjdCBQZXJzb246PC9iPlJvYmJ5biBUeWxlcjxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA4ODktNTAwMDxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgODg5LTUwMzU8YnIgLz5kZAIFDw8WAh8CBSg8Yj5XZWJzaXRlOiA8L2I+d3d3LmJldGhhbnlpbmMub3JnPGJyIC8+ZGQCBw8PFgIfAgWwATxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFRyYW5zaXRpb25hbCBob3VzaW5nL1NpbmdsZSBSb29tIE9jY3VwYW5jeTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBQZXJzb25zIGluIHJlY292ZXJ5LCBXb21lbiB3aXRoIGNoaWxkcmVuPGJyIFw+ZGQCCQ8PFgIfAmVkZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBV88Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkZvcm1lcmx5IGhvbWVsZXNzIGZhbWlsaWVzIGluIHJlY292ZXJ5IGZyb20gc3Vic3RhbmNlIGFidXNlLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWzBDxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIEdvb2QgSG9wZSBIb3VzZSBpcyBhIDIteWVhciB0cmFuc2l0aW9uYWwgaG91c2luZyBwcm9ncmFtLCBmb3IgZm9ybWVybHkgaG9tZWxlc3MgZmFtaWxpZXMgaW4gcmVjb3ZlcnkgZnJvbSBzdWJzdGFuY2UgYWJ1c2UuIFRoZSBwcm9ncmFtIHByb3ZpZGVzIGluZGl2aWR1YWwgY291bnNlbGluZywgYXMgd2VsbCBhcywgZ3JvdXAgYW5kIGZhbWlseSBjb3Vuc2VsaW5nOyAxMi1zdGVwIE5hcmNvdGljcyBBbm9ueW1vdXMgYW5kIEFsY29ob2xpY3MgQW5vbnltb3VzIHBhcnRpY2lwYXRpb247IGNhc2UgbWFuYWdlbWVudCBhbmQgcmVmZXJyYWxzLiBGYW1pbGllcyB3aWxsIGFsc28gaGF2ZSBhY2Nlc3MgdG8gYWZ0ZXIgc2Nob29sIHR1dG9yaW5nIGZvciBjaGlsZHJlbiBhbmQgZW5jb3VyYWdlZCBwYXJ0aWNpcGF0aW9uIGluIHNjaG9vbCBhbmQgY29tbXVuaXR5IGFjdGl2aXRpZXMuIFJlZmVycmFscyBmcm9tIDkwIGRheSBzaGVsdGVyIHByb2dyYW1zIGFuZCBzdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50IHByb2dyYW1zIGFyZSBhY2NlcHRlZC4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzE1MR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZC+foE54NGoUHR1jhmGxDYNKOMRX" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLkzfr1DQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVtmSSR++9s7IXnYR9aJvT2sVchc" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1715 V Street, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Good Hope House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1715 V Street, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Robbyn Tyler<br /><b>Phone No:</b>(202) 889-5000<br /><b>Fax No:</b>(202) 889-5035<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.bethanyinc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Families, Persons in recovery, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Formerly homeless families in recovery from substance abuse.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Good Hope House is a 2-year transitional housing program, for formerly homeless families in recovery from substance abuse. The program provides individual counseling, as well as, group and family counseling; 12-step Narcotics Anonymous and Alcoholics Anonymous participation; case management and referrals. Families will also have access to after school tutoring for children and encouraged participation in school and community activities. Referrals from 90 day shelter programs and substance abuse treatment programs are accepted. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

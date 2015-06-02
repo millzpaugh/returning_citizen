@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTIyNDEwIDE3dGggU3RyZWV0LCBOVyAgU1RFLiAxMDAgV2FzaGluZ3RvbiBEQyAyMDAwOWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTMyNDEwIDE3dGggU3RyZWV0LCBOVyAgU1RFLiAxMDAgV2FzaGluZ3RvbiwgREMgMjAwMDlkZAIDDw8WAh8CBXE8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjY3LTI2ODE8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDY2Ny03MDA2PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2NjctMDg2MjxiciAvPmRkAgUPDxYCHwIFKDxiPldlYnNpdGU6IDwvYj53d3cuaG91c2luZ2V0Yy5vcmc8YnIgLz5kZAIHDw8WAh8CBeUCPGI+Q2F0ZWdvcnkgOiA8L2I+IFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNb25ldGFyeSBhc3Npc3RhbmNlLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIEZpbmFuY2lhbCBjb3Vuc2VsaW5nIChtb25leSBtYW5hZ2VtZW50LCBob3VzaW5nICZhbXA7IGNyZWRpdCksIE1vcnRnYWdlL1JlbnQgKEVSQVApLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlcywgVXRpbGl0aWVzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gUGVyc29ucyB3aXRoIEhJVi9BSURTPGJyIFw+ZGQCCQ8PFgIfAgVlPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2gsIENoaW5lc2U8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVCPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDk6MDAgYW0gLSA1OjAwIHBtPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFswM8Yj5EZXNjcmlwdGlvbjogPC9iPkhvdXNpbmcgQ291bnNlbGluZyBTZXJ2aWNlcywgSW5jLiBpcyBhbiBpbmRlcGVuZGVudCBsaXZpbmcsIHN1cHBvcnRpdmUsIGFuZCBlbWVyZ2VuY3kgaG91c2luZyBhc3Npc3RhbmNlIHByb2dyYW0gZm9yIGluZGl2aWR1YWxzIGFuZCBmYW1pbGllcyBsaXZpbmcgd2l0aCBISVYvQUlEUyBpbiBXYXNoaW5ndG9uLCBEQy4gSG91c2luZyBDb3Vuc2VsaW5nIFNlcnZpY2VzLCBJbmMuIHByb3ZpZGVzIHNob3J0LXRlcm0gZmluYW5jaWFsIGFzc2lzdGFuY2UgdG93YXJkIGhvdXNpbmcgcmVsYXRlZCBleHBlbnNlcyAocmVudC9tb3J0Z2FnZSwgdXRpbGl0aWVzKS4gVGhleSBhbHNvIG1haW50YWluIGEgZGF0YWJhc2Ugb2Ygc3VwcG9ydCBzZXJ2aWNlcyBhdmFpbGFibGUgdG8gcGVyc29ucyBsaXZpbmcgd2l0aCBISVYvQUlEUy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTU5Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk8sRMIN8+/AFFPs0CG7HHXVdMyjo=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLqxpeJDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdEQXqIeebR0cWKqEddeGRSSFbD/" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2410 17th Street, NW  STE. 100 Washington DC 20009" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Housing Counseling Services, Inc. (HIV/AIDS Gatekeeper Program)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2410 17th Street, NW  STE. 100 Washington, DC 20009</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 667-2681<br /><b>Phone No2:</b>(202) 667-7006<br /><b>Fax No:</b>(202) 667-0862<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.housingetc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Monetary assistance, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Financial counseling (money management, housing &amp; credit), Mortgage/Rent (ERAP), Referrals for social services, Utilities<br \><b>Population : </b> Persons with HIV/AIDS<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish, Chinese<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am - 5:00 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Housing Counseling Services, Inc. is an independent living, supportive, and emergency housing assistance program for individuals and families living with HIV/AIDS in Washington, DC. Housing Counseling Services, Inc. provides short-term financial assistance toward housing related expenses (rent/mortgage, utilities). They also maintain a database of support services available to persons living with HIV/AIDS.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

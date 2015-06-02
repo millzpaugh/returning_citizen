@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS85MDEgUmhvZGUgSXNsYW5kIEF2ZW51ZSwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTA5MDEgUmhvZGUgSXNsYW5kIEF2ZW51ZSwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNjY3LTkxMDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDMxOS0zNTk1PGJyIC8+ZGQCBQ8PFgIfAgUlPGI+V2Vic2l0ZTogPC9iPnd3dy5wd3l3Y2Eub3JnLzxiciAvPmRkAgcPDxYCHwIFiAE8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFdvbWVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBVo8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk1lbiBhbmQgV29tZW4gMTggeXJzICsuIEVtcGxveWVkIG9yIGZ1bGwtdGltZSBzdHVkZW50cy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF2QU8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBQaHlsbGlzIFdoZWF0bGV5IFlvdW5nIFdvbWVu4oCZcyBDaHJpc3RpYW4gQXNzb2NpYXRpb24gKFlXQ0EpIHByb3ZpZGVzIHByb3ZpZGUgYWZmb3JkYWJsZSBob3VzaW5nIGFuZCBwcm9ncmFtcyB0byB3b21lbiBpbiB0cmFuc2l0aW9uIHRvIHByZXZlbnQgaG9tZWxlc3NuZXNzLiBXZSBhbHNvIHByb3ZpZGUgb3V0cmVhY2ggc2VydmljZXMgdG8gY2hpbGRyZW4gaW4gdGhlIGNvbW11bml0eS4gIFBoeWxsaXMgV2hlYXRsZXkgWVdDQSBvcGVyYXRlcyBhcyBhbiBpbmRlcGVuZGVudCBsaXZpbmcgZmFjaWxpdHkuDQo8YnIvID4NCjxici8gPg0KUGh5bGxpcyBXaGVhdGxleSwgWVdDQSBwcm92aWRlcyBwcml2YXRlIGZ1cm5pc2hlZCByb29tcywgc2hhcmVkIGtpdGNoZW4sIGJhdGggYW5kIGxhdW5kcnkuIEhvdXNpbmcgc2VydmVzIGVtcGxveWVkIG9yIGZ1bGwtdGltZSBzdHVkZW50cy4gUm9vbSByYXRlcyBhcmUgJDQ5MCwgJDU1MCBhbmQgJDYwMC9tb250aCwgdGhlcmUgaXMgYWxzbyBhICQxMCBtZW1iZXJzaGlwIGZlZSwgYSAkMjUgbm9uLXJlZnVuZGFibGUgYXBwbGljYXRpb24gZmVlLCBhbmQgYSAkMTAwIHNlY3VyaXR5IGRlcG9zaXQuIFRoZSBkaXJlY3RvciBtdXN0IGFwcHJvdmUgY29tcGxldGVkIGFwcGxpY2F0aW9uLiBUeXBpY2FsbHksIHBlcnNvbnMgb24gcHJvYmF0aW9uIG9yIHBhcm9sZSBhcmUgbm90IGFjY2VwdGVkLiA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMjQwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk9fi3Ak+A6Xd4j1IHdlh/zhtNqnI=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKd3prXDwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAW3KUB29RDMhJUSUuoRcLCidzSb1" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="901 Rhode Island Avenue, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Phyllis Wheatley, YWCA" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">901 Rhode Island Avenue, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 667-9100<br /><b>Fax No:</b>(202) 319-3595<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.pwywca.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and Women 18 yrs +. Employed or full-time students.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Phyllis Wheatley Young Women’s Christian Association (YWCA) provides provide affordable housing and programs to women in transition to prevent homelessness. We also provide outreach services to children in the community.  Phyllis Wheatley YWCA operates as an independent living facility.
+<br/ >
+<br/ >
+Phyllis Wheatley, YWCA provides private furnished rooms, shared kitchen, bath and laundry. Housing serves employed or full-time students. Room rates are $490, $550 and $600/month, there is also a $10 membership fee, a $25 non-refundable application fee, and a $100 security deposit. The director must approve completed application. Typically, persons on probation or parole are not accepted. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

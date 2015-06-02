@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxODAxIEUgU3RyZWV0LCBTRSBXYXNoaW5ndG9uIERDIDIwMDAzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjE4MDEgRSBTdHJlZXQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDAzZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDU0My0wNTM5PGJyIC8+ZGQCBQ8PFgIfAgUzPGI+V2Vic2l0ZTogPC9iPnd3dy5jb25ncmVzc2lvbmFsY2VtZXRlcnkub3JnPGJyIC8+ZGQCBw8PFgIfAgWXATxiPkNhdGVnb3J5IDogPC9iPiBWb2x1bnRlZXIgT3Bwb3J0dW5pdGllczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBWb2x1bnRlZXIgb3Bwb3J0dW5pdGllczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IENvdXJ0IG9yZGVyZWQgY29tbXVuaXR5IHNlcnZpY2U8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBaEIPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgbWlzc2lvbiBvZiB0aGUgQXNzb2NpYXRpb24gZm9yIHRoZSBQcmVzZXJ2YXRpb24gb2YgSGlzdG9yaWMgQ29uZ3Jlc3Npb25hbCBDZW1ldGVyeSBpcyB0byBzZXJ2ZSB0aGUgY29tbXVuaXR5IGFzIGFuIGFjdGl2ZSBidXJpYWwgZ3JvdW5kIGFuZCBjb25zZXJ2ZSB0aGUgcGh5c2ljYWwgYXJ0aWZhY3RzLCBidWlsZGluZ3MsIGFuZCBpbmZyYXN0cnVjdHVyZSBvZiB0aGUgY2VtZXRlcnk7IHRvIGNlbGVicmF0ZSB0aGUgQW1lcmljYW4gaGVyaXRhZ2UgcmVwcmVzZW50ZWQgYnkgdGhvc2UgaW50ZXJyZWQgaGVyZTsgcmVzdG9yZSBhbmQgc3VzdGFpbiB0aGUgbGFuZHNjYXBlLCBwcm90ZWN0IHRoZSBBbmFjb3N0aWEgUml2ZXIgd2F0ZXJzaGVkLCBhbmQgbWFuYWdlIHRoZSBncm91bmRzIGFzIGFjY2Vzc2libGUgY29tbXVuaXR5IHJlc291cmNlLg0KPGJyIC8+IA0KPGJyIC8+ICANCkJ1cmlhbCBzaXRlcyBhcmUgc3RpbGwgYXZhaWxhYmxlIHRvIHRoZSBnZW5lcmFsIHB1YmxpYy4NCjxiciAvPiANCjxiciAvPiAgDQpDb25ncmVzc2lvbmFsIENlbWV0ZXJ5IGlzIG9wZW4gdG8gdGhlIHB1YmxpYyBldmVyeWRheSBmcm9tIGRhd24gdG8gZHVzay4gVW5sZXNzIHNwZWNpYWwgY2lyY3Vtc3RhbmNlcyByZXF1aXJlIGl0LCB3ZSBkbyBub3QgYWxsb3cgY2FycyB0byBkcml2ZSBpbiwgYnV0IHdlbGNvbWUgdmlzaXRvcnMgdG8gd2FsayBhcm91bmQgdGhlIGdyb3VuZHMgYW5kIGV4cGxvcmUgdGhlIGhpc3RvcnkgdGhhdCBpcyBoZXJlLiAgDQo8YnIgLz4gDQo8YnIgLz4gIA0KVG91ciBncm91cHMgYXJlIHdlbGNvbWUuIFdlIGRvIGFzayBob3dldmVyIHRoYXQgdGhlIGdyb3VwIG9yZ2FuaXplciBvciB0b3VyIGd1aWRlIGNhbGwgb3VyIG9mZmljZSB0byBhbGVydCB1cyB0byB5b3VyIGFycml2YWwgYW5kIHRvIGNvbmZpcm0gdGhhdCB0aGVyZSBhcmUgbm8gc3BlY2lhbCBldmVudHMgc2NoZWR1bGVkIHRoYXQgbWF5IGNvbmZsaWN0IHdpdGggeW91ciB2aXNpdC4gT3VyIG9mZmljZSBudW1iZXIgaXMgMjAyLTU0My0wNTM5LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMzNTgeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQYiBO4NKXv72RDLhfjshmU7zjgjQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLHgdabCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAVqzE+y6c+UZy68kA2BR43atTB8f" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1801 E Street, SE Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Congressional Cemetary" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1801 E Street, SE Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 543-0539<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.congressionalcemetery.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Volunteer Opportunities<br \><b>Services : </b> Volunteer opportunities<br \><b>Program : </b> Court ordered community service<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The mission of the Association for the Preservation of Historic Congressional Cemetery is to serve the community as an active burial ground and conserve the physical artifacts, buildings, and infrastructure of the cemetery; to celebrate the American heritage represented by those interred here; restore and sustain the landscape, protect the Anacostia River watershed, and manage the grounds as accessible community resource.
+<br /> 
+<br />  
+Burial sites are still available to the general public.
+<br /> 
+<br />  
+Congressional Cemetery is open to the public everyday from dawn to dusk. Unless special circumstances require it, we do not allow cars to drive in, but welcome visitors to walk around the grounds and explore the history that is here.  
+<br /> 
+<br />  
+Tour groups are welcome. We do ask however that the group organizer or tour guide call our office to alert us to your arrival and to confirm that there are no special events scheduled that may conflict with your visit. Our office number is 202-543-0539.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

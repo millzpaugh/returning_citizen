@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSU2MTEgTiBTdHJlZXQsIE5XICBXYXNoaW5ndG9uIERDIDIwMDAxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjYxMSBOIFN0cmVldCwgTlcgIFdhc2hpbmd0b24sIERDIDIwMDAxZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY4Mi01ODI1PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSAzNzEtNTY1MzxiciAvPmRkAgUPDxYCHwIFHzxiPldlYnNpdGU6IDwvYj5uZWJ3Lm9yZy88YnIgLz5kZAIHDw8WAh8CBZgBPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gUGVyc29ucyBpbiByZWNvdmVyeSwgV29tZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIF4QE8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPldvbWVuIGluIHJlY292ZXJ5LiBNdXN0IGJlIGRydWctZnJlZSAzMCBkYXlzLCBpbnRlcmVzdGVkLCB3aWxsaW5nLCBjYXBhYmxlIG9mIGxpdmluZyBpbmRlcGVuZGVudGx5LCBhbmQgd29yayB0b3dhcmQgZ29hbHMuIE11c3Qgc2F2ZSA3NSUgb2YgaW5jb21lLCB3aGljaCBpcyByZXR1cm5lZCB1cG9uIHByb2dyYW0gY29tcGxldGlvbi48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFuwk8Yj5EZXNjcmlwdGlvbjogPC9iPk5ldyBFbmRlYXZvcnMgYnkgV29tZW4gKE5FVykgc3RyaXZlcyB0byBhdHRhaW4gdGhlaXIgdmlzaW9uIG9mIGhlYWxpbmcgdGhlIGxpdmVzIG9mIHdvbWVuIGFuZCBjaGlsZHJlbiBieSBwYXJ0bmVyaW5nIHdpdGggaG9tZWxlc3Mgd29tZW4gdG8gY3JlYXRlIG5ldyBmdXR1cmVzLiBORVcgcHJvdmlkZXMgYSBudXJ0dXJpbmcgZW52aXJvbm1lbnQgc28gdGhhdCB3b21lbiBjYW4gcmVjb2duaXplIHRoZWlyIHdvcnRoLiBORVcgdHJhbnNmb3JtcyBsaXZlcywgYnkgcHJvdmlkaW5nIGhvdXNpbmcsIGZvc3RlcmluZyB0aGUgZGV2ZWxvcG1lbnQgb2YgbGlmZSBza2lsbHMsIGFuZCBwcm9tb3RpbmcgZWR1Y2F0aW9uIGFuZCBlbXBsb3ltZW50LCB0byBlbmQgdGhlIGN5Y2xlIG9mIGhvbWVsZXNzbmVzcy4NCjxiciAvPg0KPGJyIC8+DQpOZXcgRW5kZWF2b3JzIGJ5IFdvbWVuIG9wZXJhdGVzIGEgMjQtaG91ciBzdHJ1Y3R1cmVkLCB0cmFuc2l0aW9uYWwgaG91c2luZyBmYWNpbGl0eS4gVGhlIGF2ZXJhZ2Ugc3RheSBpcyBmcm9tIDMtNiBtb250aHMuIFRoZSBwcm9ncmFtIHRlYWNoZXMgaW5kZXBlbmRlbnQgc2tpbGxzIHRocm91Z2ggaG91c2luZywgZW1wbG95bWVudCwgbGl2aW5nIHNraWxscyBhbmQgZWR1Y2F0aW9uYWwgcHJvZ3JhbXMsIGFuZCBwYXJ0aWNpcGFudHMgcmVjZWl2ZSBjYXNlIG1hbmFnZW1lbnQgYW5kIHN1YnN0YW5jZSBhYnVzZSBjb3Vuc2VsaW5nLiBJbiBvcmRlciB0byBwYXJ0aWNpcGF0ZSB3b21lbiBtdXN0IGJlIGRydWctZnJlZSBmb3IgMzAgZGF5cywgYXMgd2VsbCBhcywgaW50ZXJlc3RlZCBhbmQgd2lsbGluZywgY2FwYWJsZSBvZiBsaXZpbmcgaW5kZXBlbmRlbnRseSwgY2FwYWJsZSBvZiBzZXR0aW5nIGFuZCB3b3JraW5nIHRvd2FyZCBhY2hpZXZpbmcgc2V0IGdvYWxzLiBBbGwgcGFydGljaXBhbnRzIG11c3QgYWxzbyBzYXZlIDc1JSBvZiB0aGVpciBpbmNvbWUsIHdoaWNoIHdpbGwgYmUgcmV0dXJuZWQgdXBvbiBwcm9ncmFtIGNvbXBsZXRpb24uIFByaXZhdGUgcm9vbXMgYXJlIHByb3ZpZGVkKHdpdGggcGFydGlhbCB3YWxscyk7IGFuZCBhcmUgcmVxdWlyZWQgdG8gcGxhbiBhbmQgcHJlcGFyZSBtZWFscy4gUmVmZXJyYWxzIHRocm91Z2ggYWdlbmN5IG9yIHBlcnNvbiBoYXZpbmcgc3Ryb25nIGtub3dsZWRnZSBvZiBjYW5kaWRhdGUgYXJlIGFjY2VwdGVkLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMyMzUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRER7SUdRvfCjNu5uw6dsot1WrDRg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLz+umBAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAV8Nr+FsI09XTAOLQtCNPaKNLRmA" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="611 N Street, NW  Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="New Endeavors by Women" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">611 N Street, NW  Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 682-5825<br /><b>Fax No:</b>(202) 371-5653<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>nebw.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Persons in recovery, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women in recovery. Must be drug-free 30 days, interested, willing, capable of living independently, and work toward goals. Must save 75% of income, which is returned upon program completion.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>New Endeavors by Women (NEW) strives to attain their vision of healing the lives of women and children by partnering with homeless women to create new futures. NEW provides a nurturing environment so that women can recognize their worth. NEW transforms lives, by providing housing, fostering the development of life skills, and promoting education and employment, to end the cycle of homelessness.
+<br />
+<br />
+New Endeavors by Women operates a 24-hour structured, transitional housing facility. The average stay is from 3-6 months. The program teaches independent skills through housing, employment, living skills and educational programs, and participants receive case management and substance abuse counseling. In order to participate women must be drug-free for 30 days, as well as, interested and willing, capable of living independently, capable of setting and working toward achieving set goals. All participants must also save 75% of their income, which will be returned upon program completion. Private rooms are provided(with partial walls); and are required to plan and prepare meals. Referrals through agency or person having strong knowledge of candidate are accepted.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

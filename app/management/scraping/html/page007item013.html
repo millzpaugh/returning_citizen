@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSw5MTUgUmhvZGUgSXNsYW5kIEF2ZSwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS05MTUgUmhvZGUgSXNsYW5kIEF2ZSwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDFkZAIDDw8WAh8CBXE8Yj5Db250YWN0IFBlcnNvbjo8L2I+VGVubmlsbGUgQ29vbWJzPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDIzMi02MTAwPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA0ODMtNDU2MDxiciAvPmRkAgUPDxYCHwIFKjxiPldlYnNpdGU6IDwvYj53d3cuaGlsbGNyZXN0LWRjLm9yZzxiciAvPmRkAgcPDxYCHwIFngQ8Yj5DYXRlZ29yeSA6IDwvYj4gTWVudGFsIEhlYWx0aCwgU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1lbnRhbCBoZWFsdGggdHJlYXRtZW50LCBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBJbnRlbnNpdmUgb3V0cGF0aWVudCwgT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQsIENvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzLCBDb21tdW5pdHkgU2VydmljZSBBZ2VuY3kgKENTQSksIEZhbWlseSBpc3N1ZXMtLWNvdW5zZWxpbmcsIG1hcnJpYWdlLCBwYXJlbnRpbmc8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBNZW4sIFVuZGVyIGFnZSAxOCwgVW5kZXIgYWdlIDIxLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBQdWJsaWMgZnVuZGluZywgU3RhdGUgZmluYW5jZWQgaW5zdXJhbmNlIChvdGhlciB0aGFuIE1lZGljYWlkKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIFpRc8Yj5EZXNjcmlwdGlvbjogPC9iPkhpbGxjcmVzdCBDaGlsZHJlbuKAmXMgQ2VudGVyIChIQ0MpIGlzIGEgbm9uLXByb2ZpdCwgZnJlZXN0YW5kaW5nIG91dHBhdGllbnQgbWVudGFsIGhlYWx0aCBmYWNpbGl0eSBsb2NhdGVkIGluIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYS4gSENDIHByb3ZpZGVzIGEgZnVsbCByYW5nZSBvZiBzZXJ2aWNlcyBpbiBhIHZhcmlldHkgb2Ygc2V0dGluZ3MgZGVzaWduZWQgdG8gbWVldCB0aGUgcHN5Y2hvbG9naWNhbCBuZWVkcyBvZiBjaGlsZHJlbiwgYWRvbGVzY2VudHMsIGFuZCBmYW1pbGllcyB3aG8gYXJlIGNvbmZyb250ZWQgd2l0aCBlbW90aW9uYWwgaXNzdWVzIGluIHRvZGF54oCZcyBzb2NpZXR5LiBIQ0PigJlzIHRlYW0gb2YgcHJvZmVzc2lvbmFscyBpcyBjb21taXR0ZWQgdG8gcHJvdmlkaW5nIHNlcnZpY2VzIHRoYXQgcHJvbW90ZSB0aGUgd2VsbC1iZWluZyBvZiBjaGlsZHJlbiBhbmQgZmFtaWxpZXMgdG8gZW5zdXJlIHRoYXQgdGhlaXIgbWVudGFsIGhlYWx0aCBuZWVkcyBhcmUgbWV0IHdpdGhpbiB0aGVpciBob21lcywgc2Nob29sLCBhbmQgY29tbXVuaXR5IGVudmlyb25tZW50cy4NCjxiciAvPg0KPGJyIC8+DQpIQ0MgaXMgY2VydGlmaWVkIGJ5IHRoZSBEQyBEZXBhcnRtZW50IG9mIE1lbnRhbCBIZWFsdGggYXMgYSBDb3JlIFNlcnZpY2UgQWdlbmN5IChDU0EpIGFuZCBwcm92aWRlcyBvdXRwYXRpZW50IG1lbnRhbCBoZWFsdGggc2VydmljZXMgcHJpbWFyaWx5IHRvIGNoaWxkIGFuZCB0aGVpciBmYW1pbGllcywgYnV0IGFsc28gYWNjZXB0cyBhZHVsdCBtZW50YWwgaGVhbHRoIGNsaWVudHMgYXMgd2VsbCB0aHJvdWdoIHRoZSBBY2Nlc3MgSGVscGxpbmUuICBDb250YWN0IHRoZSBBY2Nlc3MgSGVscGxpbmUgMS04NzctNzkzLTQzNTcgdG8gaW5xdWlyZSBhYm91dCBhZHVsdCBlbnJvbGxtZW50LiAgSENDIGFjY2VwdHMgQVBSQSB2b3VjaGVycywgTWVkaWNhaWQsIENoYXJ0ZXJlZCBIZWFsdGgsIEhlYWx0aHJpZ2h0LCBhbmQgVW5pc29uLg0KPGJyIC8+DQo8YnIgLz4NClNFUlZJQ0VTOg0KPGJyIC8+DQpJbmRpdmlkdWFsLCBHcm91cCwgYW5kIEZhbWlseSBUaGVyYXB5OiBDb3Vuc2VsaW5nIGZvciBpbmRpdmlkdWFscywgZ3JvdXBzIGFuZCBmYW1pbGllcyB0byByZXNvbHZlIHN5bXB0b21zIG9mIGJlaGF2aW9yYWwsIGVtb3Rpb25hbCwgc29jaWFsLCBhbmQgY29nbml0aXZlIGRpc29yZGVycy4NCjxiciAvPg0KPGJyIC8+DQpQc3ljaGlhdHJpYyBFdmFsdWF0aW9uOiBBbiBpbnRlbnNpdmUgcHN5Y2hpYXRyaWMgYW5kIHBzeWNoby1zb2NpYWwgZXZhbHVhdGlvbiBvZiB0aGUgY2hpbGTigJlzIGVtb3Rpb25hbCBhbmQgYmVoYXZpb3JhbCBwcm9ibGVtcy4NCjxiciAvPg0KPGJyIC8+DQpQYXJlbnRpbmcgRWR1Y2F0aW9uOiBJbmRpdmlkdWFscyBhbmQgZ3JvdXBzIGxlYXJuIGFuZCBwcmFjdGljZSBza2lsbHMgZXNzZW50aWFsIHRvIHN1Y2Nlc3NmdWwgY2hpbGQgcmVhcmluZyBhbmQgaGVhbHRoeSBmYW1pbHkgcmVsYXRpb25zaGlwcy4NCjxiciAvPg0KPGJyIC8+DQpBbmdlciBhbmQgU3RyZXNzIE1hbmFnZW1lbnQ6IEluZGl2aWR1YWwgYW5kIGdyb3VwIGNvdW5zZWxpbmcgaXMgb2ZmZXJlZCB0byB5b3V0aHMgd2hvc2UgYW5nZXIgaXMgb3V0IG9mIGNvbnRyb2wgYW5kIGlzIGNvbnRyaWJ1dGluZyB0byBwcm9ibGVtcyBhdCBzY2hvb2wsIHdvcmssIGFuZCBpbiB0aGVpciBwZXJzb25hbCByZWxhdGlvbnNoaXBzLg0KPGJyIC8+DQo8YnIgLz4NCllvdXRoIFN1YnN0YW5jZSBBYnVzZSBUcmVhdG1lbnQ6IFR1cm5pbmcgUG9pbnQgaXMgYSA5MC1kYXkgaW50ZW5zaXZlIG91dHBhdGllbnQgcHJvZ3JhbSBmb3IgeW91dGhzIGFuZCBmYW1pbGllcy4gWW91dGhzIGFyZSByZXF1aXJlZCB0byBhdHRlbmQgZ3JvdXAgc2Vzc2lvbnMgYW5kIHVuZGVyZ28gaW5kaXZpZHVhbCBjb3Vuc2VsaW5nLiBDYXNlIG1hbmFnZW1lbnQgc2VydmljZXMgZW5nYWdlIGFuZCBzdXBwb3J0IHRoZSBmYW1pbHkuDQo8YnIgLz4NCjxiciAvPg0KWW91dGggU3Vic3RhbmNlIEFidXNlIFByZXZlbnRpb246IFByb2plY3QgU3VjY2VzcyBpcyBhIHNjaWVuY2UtYmFzZWQgcHJvZ3JhbSBjb25kdWN0ZWQgaW4gdGhlIHNjaG9vbHMgYW5kIG5hdHVyYWwgZ3JvdXAgc2V0dGluZ3MgZm9yIHlvdXRoIGFnZXMgMTIgdG8gMTguIEluIGFkZGl0aW9uIHRvIGVkdWNhdGlvbiwgZGlzY3Vzc2lvbiwgYW5kIGJvdGggaW5kaXZpZHVhbCBhbmQgZ3JvdXAgY291bnNlbGluZywgdGhlIHByb2dyYW0gb2ZmZXJzIHRyYWluaW5nIGFuZCBjb25zdWx0YXRpb24gZm9yIGZhY3VsdHkgYW5kIHBhcmVudHMuDQo8YnIgLz4NCjxiciAvPg0KQ29tbXVuaXR5IFN1cHBvcnQgU2VydmljZXM6IFBzeWNoby1lZHVjYXRpb24sIHNjaG9vbCBhbmQgY29tbXVuaXR5IGNvbnN1bHRhdGlvbiwgYW5kIGludGVydmVudGlvbnMgaW4gdGhlIGhvbWUsIHNjaG9vbCwgYW5kIG90aGVyIGVudmlyb25tZW50YWwgc2V0dGluZ3MgdG8gaW1wcm92ZSBwYXJlbnRpbmcsIGFjYWRlbWljLCBkYWlseSBsaXZpbmcsIGFuZCBiZWhhdmlvcmFsIG1hbmFnZW1lbnQgc2tpbGxzLg0KPGJyIC8+DQo8YnIgLz4NCkRlcHJlc3Npb24gSW50ZXJ2ZW50aW9uIFByb2dyYW06IE9mZmVyaW5nIHRyZWF0bWVudHMgdW5pcXVlIHRvIGluZGl2aWR1YWxzIHRvIGltcHJvdmUgdGhlIHF1YWxpdHkgb2YgbGlmZSBvZiBpbmRpdmlkdWFscyBhbmQgZmFtaWxpZXMgc3RydWdnbGluZyB3aXRoIG1vb2QgZGlzb3JkZXJzLg0KPGJyIC8+DQo8YnIgLz4NCkNyaXNpcyBJbnRlcnZlbnRpb24gYW5kIEVtZXJnZW5jeSBTZXJ2aWNlczogQ3Jpc2lzIHN0YWJpbGl6YXRpb24sIGNvbmZsaWN0IHJlc29sdXRpb24sIGFuZCB0ZWxlcGhvbmUgcmVzcG9uc2UgMjQgaG91cnMgYSBkYXkvNyBkYXlzIGEgd2Vlay4NCjxiciAvPg0KPGJyIC8+DQpNZWRpY2FpZDogQ2hhcnRlcmVkLCBIZWFsdGggUmlnaHQsIFVuaXNvbjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2NDMeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWS4lZo4LQBzQj4U3ACTLuoov4oIQQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK7x5trApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBS/rlprTaRLfcWxuXhmEtLULEYLo=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="915 Rhode Island Ave, NW Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Hillcrest Children and Family Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">915 Rhode Island Ave, NW Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Tennille Coombs<br /><b>Phone No:</b>(202) 232-6100<br /><b>Fax No:</b>(202) 483-4560<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.hillcrest-dc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health, Substance Abuse<br \><b>Services : </b> Mental health treatment, Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Community Service Agency (CSA), Family issues--counseling, marriage, parenting<br \><b>Population : </b> Men, Under age 18, Under age 21, Women<br \><b>Forms Of Payment : </b> Medicaid, Public funding, State financed insurance (other than Medicaid)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Hillcrest Children’s Center (HCC) is a non-profit, freestanding outpatient mental health facility located in the District of Columbia. HCC provides a full range of services in a variety of settings designed to meet the psychological needs of children, adolescents, and families who are confronted with emotional issues in today’s society. HCC’s team of professionals is committed to providing services that promote the well-being of children and families to ensure that their mental health needs are met within their homes, school, and community environments.
+<br />
+<br />
+HCC is certified by the DC Department of Mental Health as a Core Service Agency (CSA) and provides outpatient mental health services primarily to child and their families, but also accepts adult mental health clients as well through the Access Helpline.  Contact the Access Helpline 1-877-793-4357 to inquire about adult enrollment.  HCC accepts APRA vouchers, Medicaid, Chartered Health, Healthright, and Unison.
+<br />
+<br />
+SERVICES:
+<br />
+Individual, Group, and Family Therapy: Counseling for individuals, groups and families to resolve symptoms of behavioral, emotional, social, and cognitive disorders.
+<br />
+<br />
+Psychiatric Evaluation: An intensive psychiatric and psycho-social evaluation of the child’s emotional and behavioral problems.
+<br />
+<br />
+Parenting Education: Individuals and groups learn and practice skills essential to successful child rearing and healthy family relationships.
+<br />
+<br />
+Anger and Stress Management: Individual and group counseling is offered to youths whose anger is out of control and is contributing to problems at school, work, and in their personal relationships.
+<br />
+<br />
+Youth Substance Abuse Treatment: Turning Point is a 90-day intensive outpatient program for youths and families. Youths are required to attend group sessions and undergo individual counseling. Case management services engage and support the family.
+<br />
+<br />
+Youth Substance Abuse Prevention: Project Success is a science-based program conducted in the schools and natural group settings for youth ages 12 to 18. In addition to education, discussion, and both individual and group counseling, the program offers training and consultation for faculty and parents.
+<br />
+<br />
+Community Support Services: Psycho-education, school and community consultation, and interventions in the home, school, and other environmental settings to improve parenting, academic, daily living, and behavioral management skills.
+<br />
+<br />
+Depression Intervention Program: Offering treatments unique to individuals to improve the quality of life of individuals and families struggling with mood disorders.
+<br />
+<br />
+Crisis Intervention and Emergency Services: Crisis stabilization, conflict resolution, and telephone response 24 hours a day/7 days a week.
+<br />
+<br />
+Medicaid: Chartered, Health Right, Unison<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgxMzE1IEFwcGxlIEF2ZW51ZSBTaWx2ZXIgU3ByaW5nIE1EIDIwOTEwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTEzMTUgQXBwbGUgQXZlbnVlIFNpbHZlciBTcHJpbmcsIE1EIDIwOTEwZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDU4Ny05NTE2PGJyIC8+PGI+RmF4IE5vOjwvYj4oMzAxKSA1ODctODA2NTxiciAvPmRkAgUPDxYCHwIFLDxiPldlYnNpdGU6IDwvYj53d3cuY2VudHJvdGVwZXlhYy5vcmcvPGJyIC8+ZGQCBw8PFgIfAgWNAjxiPkNhdGVnb3J5IDogPC9iPiBQYXJlbnRpbmcsIFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBGYW1pbHkgc3VwcG9ydCBzZXJ2aWNlcywgTWF0ZXJpYWwgbmVlZHM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBDbG90aGluZywgUGFyZW50aW5nIHN1cHBvcnQsIGUuZy4gY2xhc3NlcywgZ3JvdXBzLCBQcmVnbmFuY3kgdGVzdGluZywgUHJlbmF0YWwvUG9zdG5hdGFsIGNsYXNzZXM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBJbmZhbnRzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVjPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IDg6MDAgYW0gdG8gNTowMCBwbTsgVHVlc2RheSAtIFRodXJzZGF5IDEwOjAwIGFtIHRvIDQ6MDAgcG0uPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CZWRkAhMPDxYCHwIF1gs8Yj5EZXNjcmlwdGlvbjogPC9iPkNlbnRybyBUZXBleWFjIFNpbHZlciBTcHJpbmcgV29tZW4ncyBDZW50ZXIgKENlbnRybyBUZXBleWFjKSBpcyBhIG5vbnByb2ZpdCBDYXRob2xpYyBhZ2VuY3ksIHNlcnZpbmcgZ3JlYXRlciBXYXNoaW5ndG9uLCBEQyBhcmVhIHdvbWVuIGFuZCBtZW4gaW4gcHJlZ25hbmN5LXJlbGF0ZWQgY3Jpc2VzIGFuZCBvZmZlcmluZyB0aGVtIGEgbWVhbmluZ2Z1bCBhbHRlcm5hdGl2ZSB0byBhYm9ydGlvbi4gQWx0aG91Z2ggdGhlIGNlbnRlciB3YXMgZm91bmRlZCB0byBwcm92aWRlIGFzc2lzdGFuY2UgcHJpbWFyaWx5IHRvIEhpc3BhbmljIHdvbWVuIGFuZCB0aGVpciBmYW1pbGllcywgaXQgc2VydmVzIGFsbCBwZXJzb25zIGluIG5lZWQuIEF0IENlbnRybyBUZXBleWFjLCBjb3Vuc2VsaW5nIGlzIGdlbnRsZSwgY2hhcml0YWJsZSwgY29tcGFzc2lvbmF0ZSwgdHJ1dGhmdWwgYW5kIGluZm9ybWF0aXZlLiBGb2xsb3dpbmcgdGhlIGV4YW1wbGUgb2YgQ2hyaXN04oCZcyBsb3ZlLCBDZW50cm8gVGVwZXlhYyBzZWVrcyB0byBtZWV0IHRoZSBlbW90aW9uYWwsIHBoeXNpY2FsIGFuZCBzcGlyaXR1YWwgbmVlZHMsIGZvciBlbmFibGluZyBhbmQgZW5jb3VyYWdpbmcgd29tZW4gdG8gY2hvb3NlIGxpZmUuIFRoZSBjbGluaWMgcHJvdmlkZXMgcHJlZ25hbmN5IHRlc3RpbmcsIHJlZmVycmFsIHNlcnZpY2VzLCBjb25maWRlbnRpYWwgY291bnNlbGluZywgc2V4dWFsIGludGVncml0eSBlZHVjYXRpb24sIHBhcmVudGluZyBpbmZvcm1hdGlvbiBhbmQgcG9zdC1hYm9ydGlvbiBndWlkYW5jZS4gQWxsIHNlcnZpY2VzIGFyZSBmcmVlIGFuZCBjb25maWRlbnRpYWwgYW5kIGF2YWlsYWJsZSBpbiBTcGFuaXNoIGFuZCBFbmdsaXNoLg0KPGJyIC8+IA0KPGJyIC8+ICANClByYWN0aWNhbCBTZXJ2aWNlcyBpbmNsdWRlIHRoZSBmb2xsb3dpbmc6IA0KQmlsaW5ndWFsIGFkdmljZSwgT25nb2luZyBzdXBwb3J0LCBkdXJpbmcgcHJlZ25hbmN5LCBjaGlsZGJpcnRoIGFuZCBhZnRlciBiaXJ0aDsgd2l0aCBwYXJlbnRzLCBib3lmcmllbmQgb3IgaHVzYmFuZCwgYXMgbmVlZGVkOyBQcmVuYXRhbCAmIFBhcmVudGluZyBDbGFzc2VzLCBzdXBwb3J0IGdyb3VwcyBhbmQgY2hpbGQtY2FyZSBwcm9ncmFtcywgTWF0ZXJuaXR5IGFuZCBiYWJ5IGNsb3RoaW5nLCBmdXJuaXR1cmUgYW5kIHN1cHBsaWVzLCBQb3N0IGFib3J0aW9uIGNvdW5zZWxpbmcgJiBwZWVyIHN1cHBvcnQsIGFuZCBJbnN0cnVjdGlvbiBpbiBuYXR1cmFsIGZhbWlseSBwbGFubmluZy4NCjxiciAvPiANCjxiciAvPiAgDQpJZiB5b3UgaGF2ZSBxdWVzdGlvbnMgb3Igd2lzaCBmdXJ0aGVyIGluZm9ybWF0aW9uIGFib3V0IG91ciBwcm9ncmFtcywgb3IganVzdCB3aXNoIHRvIHRhbGsgdG8gb25lIG9mIG91ciBjb3Vuc2Vsb3JzLCBwbGVhc2UgY2FsbCB1cyBhdCAoMzAxKSA1ODctOTUxNiwgb3IgZW1haWwgdXMgYXQgaW5mb0BjZW50cm90ZXBleWFjLm9yZy48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjY3Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFknBz8TEKTqRR1Z/KC1A13AHF7QUk=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKP5Y3pDgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAdczMMYqRe1uEvar906RqhT2JZc8" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1315 Apple Avenue Silver Spring MD 20910" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Centro Tepeyac" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1315 Apple Avenue Silver Spring, MD 20910</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 587-9516<br /><b>Fax No:</b>(301) 587-8065<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.centrotepeyac.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Parenting, Social Services<br \><b>Services : </b> Family support services, Material needs<br \><b>Program : </b> Clothing, Parenting support, e.g. classes, groups, Pregnancy testing, Prenatal/Postnatal classes<br \><b>Population : </b> Infants<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday 8:00 am to 5:00 pm; Tuesday - Thursday 10:00 am to 4:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Centro Tepeyac Silver Spring Women's Center (Centro Tepeyac) is a nonprofit Catholic agency, serving greater Washington, DC area women and men in pregnancy-related crises and offering them a meaningful alternative to abortion. Although the center was founded to provide assistance primarily to Hispanic women and their families, it serves all persons in need. At Centro Tepeyac, counseling is gentle, charitable, compassionate, truthful and informative. Following the example of Christ’s love, Centro Tepeyac seeks to meet the emotional, physical and spiritual needs, for enabling and encouraging women to choose life. The clinic provides pregnancy testing, referral services, confidential counseling, sexual integrity education, parenting information and post-abortion guidance. All services are free and confidential and available in Spanish and English.
+<br /> 
+<br />  
+Practical Services include the following: 
+Bilingual advice, Ongoing support, during pregnancy, childbirth and after birth; with parents, boyfriend or husband, as needed; Prenatal & Parenting Classes, support groups and child-care programs, Maternity and baby clothing, furniture and supplies, Post abortion counseling & peer support, and Instruction in natural family planning.
+<br /> 
+<br />  
+If you have questions or wish further information about our programs, or just wish to talk to one of our counselors, please call us at (301) 587-9516, or email us at info@centrotepeyac.org.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

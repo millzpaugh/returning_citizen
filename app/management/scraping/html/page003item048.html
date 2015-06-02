@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTE0MDAxIFNvdXRoIENhcGl0b2wgU3RyZWV0LCBTVyBXYXNoaW5ndG9uIERDIDIwMDMyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjQwMDEgU291dGggQ2FwaXRvbCBTdHJlZXQsIFNXIFdhc2hpbmd0b24sIERDIDIwMDMyZGQCAw8PFgIfAgVxPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDcyNy0wMjg0PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA2NDUtNDU0NjxiciAvPjxiPkZheCBObzo8L2I+KDIwMikgNjQ1LTQ1MjQ8YnIgLz5kZAIFDw8WAh8CBSQ8Yj5XZWJzaXRlOiA8L2I+d3d3LmRocy5kYy5nb3Y8YnIgLz5kZAIHDw8WAh8CBY0BPGI+Q2F0ZWdvcnkgOiA8L2I+IFNvY2lhbCBTZXJ2aWNlczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBBcHBseSBmb3IgYmVuZWZpdHMvU3Vic2lkaWVzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRGF5IGNhcmUgdm91Y2hlciBwcm9ncmFtPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgWNATxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSwgVHVlc2RheSAmIFdlZG5lc2RheSwgZnJvbSA4OjE1IGFtIC0gMzozMCBwbS4gQWxsIG90aGVycyBhcHBsaWNhbnRzIGFyZSBzY2hlZHVsZWQgZm9yIGFuIGFwcG9pbnRtZW50LjxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAgWmATxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+TXVzdCBzaG93IHByb29mIG9mIGVucm9sbG1lbnQgaW4gYW4gYWNjcmVkaXRlZCBwcm9ncmFtLCBiaXJ0aCBjZXJ0aWZpY2F0ZSAmIFNTTiBmb3IgZWFjaCBjaGlsZCBuZWVkaW5nIGNhcmUsIHByb29mIG9mIERDIHJlc2lkZW5jZS48YnIgLz5kZAITDw8WAh8CBfEEPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgRGVwYXJ0bWVudCBvZiBIdW1hbiBTZXJ2aWNlcy9FY29ub21pYyBTZWN1cml0eSBBZG1pbmlzdHJhdGlvbiBEYXkgQ2FyZSBWb3VjaGVyIHByb2dyYW0gcHJvdmlkZXMgcGF5bWVudCBzdWJzaWRpZXMgZm9yIGNoaWxkIGNhcmUgKGNoaWxkcmVuIHVuZGVyIGFnZSAxMykgd2hpbGUgdGhlIGN1c3RvZGlhbCBwYXJlbnQgd29ya3Mgb3IgYXR0ZW5kcyBhIHZvY2F0aW9uYWwgdHJhaW5pbmcgcHJvZ3JhbS4gUmVjaXBpZW50cyBzZWxlY3QgZnJvbSBhIGxpc3Qgb2YgcHJlLWFwcHJvdmVkIGNoaWxkIGNhcmUgcHJvdmlkZXJzLiANCjxiciAvPg0KPGJyIC8+DQpUbyBhcHBseSB3YWxrLWluIHRvIHRoZSBJbmNvbWUgTWFpbnRlbmFuY2UgQWRtaW5pc3RyYXRpb24gKElNQSkgQ29uZ3Jlc3MgSGVpZ2h0cyBDZW50ZXIsIFNXLiBPbmNlIHRoZSB2b3VjaGVyIGlzIGF3YXJkZWQgYnkgSU1BIHRoZSBwYXJlbnQgbXVzdCBjb250YWN0IFdhc2hpbmd0b24gQ2hpbGQgRGV2ZWxvcG1lbnQgQ291bmNpbCwgMTQwMCAxNnRoIFN0cmVldCwgTlcgIzcxNSAoMjAyKSAzODctMDAwMiBmb3IgYSByZWZlcnJhbCB0byBhbiBhcHByb3ZlZCBjaGlsZCBjYXJlIHByb3ZpZGVyLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1NTQeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTFo+ggR43AglJjC4eFLYH8vBPDMg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKYpZ/sBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARkIG0DCize9EHX5B4KwUjgi6W3x" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4001 South Capitol Street, SW Washington DC 20032" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Department of Human Services/Economic Security Administration Day Care Voucher Program" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4001 South Capitol Street, SW Washington, DC 20032</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 727-0284<br /><b>Phone No2:</b>(202) 645-4546<br /><b>Fax No:</b>(202) 645-4524<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dhs.dc.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Apply for benefits/Subsidies<br \><b>Program : </b> Day care voucher program<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday, Tuesday & Wednesday, from 8:15 am - 3:30 pm. All others applicants are scheduled for an appointment.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Must show proof of enrollment in an accredited program, birth certificate & SSN for each child needing care, proof of DC residence.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Department of Human Services/Economic Security Administration Day Care Voucher program provides payment subsidies for child care (children under age 13) while the custodial parent works or attends a vocational training program. Recipients select from a list of pre-approved child care providers. 
+<br />
+<br />
+To apply walk-in to the Income Maintenance Administration (IMA) Congress Heights Center, SW. Once the voucher is awarded by IMA the parent must contact Washington Child Development Council, 1400 16th Street, NW #715 (202) 387-0002 for a referral to an approved child care provider.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

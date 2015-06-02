@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSw5NDc1IExvdHRzZm9yZCBSb2FkLCBTVEUuIDI1MCBMYXJnbyBNRCAyMDc3MmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS05NDc1IExvdHRzZm9yZCBSb2FkLCBTVEUuIDI1MCBMYXJnbywgTUQgMjA3NzJkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgNjM2LTY1MDQ8YnIgLz48Yj5GYXggTm86PC9iPigzMDEpIDYzNi02NTA5PGJyIC8+ZGQCBQ8PFgIfAgUoPGI+V2Vic2l0ZTogPC9iPnd3dy5xY2loZWFsdGguY29tLzxiciAvPmRkAgcPDxYCHwIFvwU8Yj5DYXRlZ29yeSA6IDwvYj4gTWVudGFsIEhlYWx0aDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBNZW50YWwgaGVhbHRoIHRyZWF0bWVudDxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gQXNzZXJ0aXZlIENvbW11bml0eSBUcmVhdG1lbnQsIE91dHBhdGllbnQ8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBbmdlciBtYW5hZ2VtZW50LCBDby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgRmFtaWx5IGlzc3Vlcy0tY291bnNlbGluZywgbWFycmlhZ2UsIHBhcmVudGluZywgU3VwcG9ydGVkIGVtcGxveW1lbnQsIFN1cHBvcnRlZCBob3VzaW5nPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBTZW5pb3JzICg1NSspLCBVbmRlciBhZ2UgMTgsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIE1lZGljYXJlLCBNaWxpdGFyeSBpbnN1cmFuY2UgKGUuZy4gVkEsIFRSSUNBUkUpLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQsIFN0YXRlIGZpbmFuY2VkIGluc3VyYW5jZSAob3RoZXIgdGhhbiBNZWRpY2FpZCk8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVyPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+OTowMGFtIC0gNTowMHBtIE0gLSBGcmksIFNhdCBhcHBvaW50bWVudCBvbmx5LCBNb2JpbGUgVHJlYXRtZW50IFNlcnZpY2VzLTI0IGhvdXJzPGJyIC8+ZGQCDw8PFgIfAgVDPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5QcmluY2UgR2VvcmdlJ3MgY291bnR5IHJlc2lkZW50czxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWGBTxiPkRlc2NyaXB0aW9uOiA8L2I+UUNJIG9mZmVycyBhbiBPdXRwYXRpZW50IE1lbnRhbCBIZWFsdGggQ2xpbmljIHRoYXQgcHJvdmlkZXMgc2VydmljZXMgc3VjaCBhczogaW5kaXZpZHVhbCwgIGdyb3VwLCBhbmQgZmFtaWx5IGNvdW5zZWxpbmcgZm9yIGFueGlldHksIGRlcHJlc3Npb24sIGFkanVzdG1lbnQgdG8gZGl2b3JjZSBhbmQgc2VwYXJhdGlvbiwgYW5nZXIgbWFuYWdlbWVudCwgIGdlbmRlciBpZGVudGl0eSBpc3N1ZXMsIHRyYXVtYSBjb3Vuc2VsaW5nLCBncmllZiAmIGxvc3MsIHJlbGF0aW9uc2hpcCBpc3N1ZXMsIHdvbWVu4oCZcyBpc3N1ZXMsIGFuZCBvdGhlcnMuIFRoZXkgYWxzbyBoYXZlIGEgbW9iaWxlIHRyZWF0bWVudCBzZXJ2aWNlcyB1bml0IHRoYXQgb2ZmZXJzIEFzc2VydGl2ZSBDb21tdW5pdHkgVHJlYXRtZW50IChBQ1QpLiBQYXJlbnRpbmcgY2xhc3NlcyBhcmUgb2ZmZXJlZCBhcyB3ZWxsLiAgT0NJIHNlcnZlcyBib3RoIHlvdXRoIGFuZCBhZHVsdHMuICBUaGV5IGFjY2VwdCBNZWRpY2FpZCwgTWVkaWNhcmUsIHNlbGYtcGF5bWVudHMsIG1pbGl0YXJ5IGluc3VyYW5jZSwgc3RhdGUgZmluYW5jZWQgaW5zdXJhbmNlLCBwcml2YXRlIGluc3VyYW5jZSwgYW5kICBzbGlkaW5nIHNjYWxlIGZlZXMuICA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTc5Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk39wTyz7ZPhk0q30u9CLq2/sEJtc=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLai4pgApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oBNL+6vzKJJuCUZWRZZ9PMSRwLkbw=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="9475 Lottsford Road, STE. 250 Largo MD 20772" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="QCI Behavioral Health" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">9475 Lottsford Road, STE. 250 Largo, MD 20772</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 636-6504<br /><b>Fax No:</b>(301) 636-6509<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.qcihealth.com/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Assertive Community Treatment, Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Family issues--counseling, marriage, parenting, Supported employment, Supported housing<br \><b>Population : </b> Men, Seniors (55+), Under age 18, Women<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Military insurance (e.g. VA, TRICARE), Private health insurance, Public funding, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>9:00am - 5:00pm M - Fri, Sat appointment only, Mobile Treatment Services-24 hours<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Prince George's county residents<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>QCI offers an Outpatient Mental Health Clinic that provides services such as: individual,  group, and family counseling for anxiety, depression, adjustment to divorce and separation, anger management,  gender identity issues, trauma counseling, grief & loss, relationship issues, women’s issues, and others. They also have a mobile treatment services unit that offers Assertive Community Treatment (ACT). Parenting classes are offered as well.  OCI serves both youth and adults.  They accept Medicaid, Medicare, self-payments, military insurance, state financed insurance, private insurance, and  sliding scale fees.  <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BR8zNjAgQ2VudGVyIExhbmUgTGF1cmVsIE1EIDIwMjA3ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFIDM2MCBDZW50ZXIgTGFuZSBMYXVyZWwsIE1EIDIwMjA3ZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDY0MS04NzYyPGJyIC8+ZGQCBQ8PFgIfAgUlPGI+V2Vic2l0ZTogPC9iPnd3dy5yYXBpbmMub3JnLzxiciAvPmRkAgcPDxYCHwIFuAM8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFN1YnN0YW5jZSBhYnVzZSB0cmVhdG1lbnQ8YnIgXD48Yj5UeXBlIE9mIENhcmUgOiA8L2I+IFJlc2lkZW50aWFsIHNob3J0LXRlcm0gdHJlYXRtZW50ICgzMCBkYXlzIG9yIGxlc3MpPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgUGVyc29ucyB3aXRoIEhJVi9BSURTLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IE1lZGljYWlkLCBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFJTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjI0Lzc8YnIgLz5kZAIPDw8WAh8CBT48Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlJlZmVycmVkIGJ5IENTT1NBIGFuZCBBUFJBLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgXlBTxiPkRlc2NyaXB0aW9uOiA8L2I+UmVnaW9uYWwgQWRkaWN0aW9uIFByZXZlbnRpb24gKFJBUCksIEluYy4gc3BlY2lhbGl6ZXMgaW4gcmVzaWRlbnRpYWwgc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCwgSElWL0FJRFMsIGFuZCBtZW50YWwgaGVhbHRoIHNlcnZpY2VzLiBSQVAncyBtaXNzaW9uIGlzIHRvIHByb21vdGUgYW5kIGVuaGFuY2UgaHVtYW4gaGVhbHRoPXBoeXNpY2FsbHksIHNwaXJpdHVhbGx5LCBlbW90aW9uYWxseSwgYW5kIHNvY2lhbGx5LiBSQVAgdXNlcyB0aGUgdGhlcmFwZXV0aWMgY29tbXVuaXR5IChUQykgYXBwcm9hY2ggdG8gc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCBhbmQgb2ZmZXJzIGEgZHJ1ZyBhbmQgYWxjb2hvbC1mcmVlIHJlc2lkZW50aWFsIHNldHRpbmdzIHRoYXQgdXNlcyB0aGUgaW5mbHVlbmNlIG9mIHRoZSBjb21tdW5pdHkgYXMga2V5IGFnZW50cyBvZiBjaGFuZ2UuIENsaWVudHMgd2lsbCByZWNlaXZlIGFuIGluZGl2aWR1YWxpemVkIGNvbXByZWhlbnNpdmUgYXNzZXNzbWVudCBhbmQgY2FzZSBtYW5hZ2VtZW50IHRvIGd1YXJhbnRlZSBhbGwgaW5jbHVzaXZlIGNhcmUgYW5kIHRyZWF0bWVudCBwbGFuLiANCjxiciAvPg0KPGJyIC8+DQpBbm5leCBmYWNpbGl0eSwgbXVsdGktc2VydmljZSByZXNpZGVudGlhbCB0aGVyYXBldXRpYyBjb21tdW5pdHkgZm9yIHBlcnNvbnMgd2l0aCBkcnVnLCBhbGNvaG9sIHByb2JsZW1zLldhbGstaW5zIGFjY2VwdGVkIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0NTAeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRHHktO0XJ/IROAbaVt3OzZACfGBw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLH1uy4AQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAayp49a6FdE1E28hQEdtwuItdOsy" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="360 Center Lane Laurel MD 20207" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Regional Addiction Prevention (RAP) Inc." id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">360 Center Lane Laurel, MD 20207</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 641-8762<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.rapinc.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential short-term treatment (30 days or less)<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Men, Persons with HIV/AIDS, Women<br \><b>Forms Of Payment : </b> Medicaid, Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24/7<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Referred by CSOSA and APRA.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Regional Addiction Prevention (RAP), Inc. specializes in residential substance abuse treatment, HIV/AIDS, and mental health services. RAP's mission is to promote and enhance human health=physically, spiritually, emotionally, and socially. RAP uses the therapeutic community (TC) approach to substance abuse treatment and offers a drug and alcohol-free residential settings that uses the influence of the community as key agents of change. Clients will receive an individualized comprehensive assessment and case management to guarantee all inclusive care and treatment plan. 
+<br />
+<br />
+Annex facility, multi-service residential therapeutic community for persons with drug, alcohol problems.Walk-ins accepted <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

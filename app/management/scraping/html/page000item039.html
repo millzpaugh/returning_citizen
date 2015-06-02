@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSNQLk8uIEJveCA0MTQ0IEdhaXRoZXJzYnVyZyBNRCAyMDg4NWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSRQLk8uIEJveCA0MTQ0IEdhaXRoZXJzYnVyZywgTUQgMjA4ODVkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgOTYzLTI0NzM8YnIgLz48Yj5GYXggTm86PC9iPigzMDEpIDI3OS0wMDY5PGJyIC8+ZGQCBQ8PFgIfAgUtPGI+V2Vic2l0ZTogPC9iPnd3dy5hbmdlcm1hbmFnZW1lbnQub3JnPGJyIC8+ZGQCBw8PFgIfAgWSAjxiPkNhdGVnb3J5IDogPC9iPiBNZW50YWwgSGVhbHRoPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1lbnRhbCBoZWFsdGggdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudDxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIE1lbiwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBTZWxmLXBheW1lbnQ8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBT88Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5DYWxsIGZvciBsb2NhdGlvbnMgYW5kIHRpbWVzLiA8YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgXmCDxiPkRlc2NyaXB0aW9uOiA8L2I+QW5nZXIgTWFuYWdlbWVudCBUZWNobmlxdWVzIG9mZmVycyBwcm9ncmFtcyB0aGF0IGZvY3VzIG9uIGludGVydmVudGlvbnMgZm9yIHZpb2xlbmNlIHByZXZlbnRpb24gYW5kIGNvbmZsaWN0IHJlc29sdXRpb24uIFRoZWlyIGhpZ2hseSBxdWFsaWZpZWQgc3RhZmYgaXMgY29tcHJpc2VkIG9mIGNvbnN1bHRhbnRzIHRyYWluZWQgaW4gbXVsdGlwbGUgZGlzY2lwbGluZXMgaW5jbHVkaW5nIG1lbnRhbCBoZWFsdGggYW5kIGJ1c2luZXNzLiBFYWNoIGNvdXJzZSBtZWV0cyBmb3IgMyB3ZWVrcyBmb3IgYSB0b3RhbCBvZiA4IGhvdXJzLiBUbyByZWNlaXZlIGZ1bGwgY3JlZGl0IGZvciB0aGUgY291cnNlIHlvdSBtdXN0IHBhcnRpY2lwYXRlIGluIGNsYXNzLCBhdHRlbmQgYWxsIGNsYXNzZXMgaW4gb3JkZXIsIGFycml2ZSBvbiB0aW1lIGZvciBlYWNoIGNsYXNzLCBjb21wbGV0ZSBhbGwgaG9tZXdvcmsgYW5kIHF1aXp6ZXMsIGFuZCBmb2xsb3cgcHJvZ3JhbSBydWxlcy4gT25jZSB0aGUgcmVxdWlyZW1lbnRzIGFyZSBtZXQsIGEgY2VydGlmaWNhdGUgb2YgY29tcGxldGlvbiB3aWxsIGJlIGlzc3VlZCBvbiB0aGUgZmluYWwgbmlnaHQgb2YgY2xhc3MuIA0KPGJyIC8+DQo8YnIgLz4NClRoaXMgaW5pdGlhbCBjbGFzcyBtZWV0cyBhdCB0aGUgUXVhbGl0eSBTdWl0ZXMgSG90ZWwgKDEzNTAgUGljY2FyZCBEcml2ZSwgUm9ja3ZpbGxlLCBNRCAgMjA4NTApIG5lYXIgdGhlIFNoYWR5IEdyb3ZlIE1ldHJvIHN0b3Agb24gdGhlIHJlZCBsaW5lIGZyb20gNjozMHBtIOKAkyA5OjMwcG0uIA0KPGJyIC8+DQo8YnIgLz4NCkZvbGxvdyB1cCBjbGFzc2VzIG1heSBiZSBoZWxkIGF0IGFsdGVybmF0ZSBsb2NhdGlvbnMgc28gY29udGFjdCBBbmdlciBNYW5hZ2VtZW50IFRlY2huaXF1ZXMgYnkgcGhvbmUgb3Igb25saW5lIHRvIHZlcmlmeSBjbGFzcyBsb2NhdGlvbnMuIFRoZSBmZWUgZm9yIHRoZSBjb3Vyc2UgYW5kIG1hdGVyaWFscyBpcyAkMjkwIHBheWFibGUgYnkgY2FzaCBvciBtb25leSBvcmRlci4gVGhpcyBjb3Vyc2UgbWVldHMgbW9zdCBjb3VydC1vcmRlcmVkIHJlcXVpcmVtZW50cy4gT25zaXRlIHRyYWluaW5nIGlzIGFsc28gYXZhaWxhYmxlLiA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNDk0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkZWWH8/YpNkI1jX31CvGLCVRii00=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKurqnVBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAe9shSZom/ZbpVt7n9I/hCugRFp3" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="P.O. Box 4144 Gaithersburg MD 20885" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Anger Management Techniques" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">P.O. Box 4144 Gaithersburg, MD 20885</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 963-2473<br /><b>Fax No:</b>(301) 279-0069<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.angermanagement.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health<br \><b>Services : </b> Mental health treatment<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management<br \><b>Population : </b> Criminal justice involved, Men, Women<br \><b>Forms Of Payment : </b> Self-payment<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Call for locations and times. <br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Anger Management Techniques offers programs that focus on interventions for violence prevention and conflict resolution. Their highly qualified staff is comprised of consultants trained in multiple disciplines including mental health and business. Each course meets for 3 weeks for a total of 8 hours. To receive full credit for the course you must participate in class, attend all classes in order, arrive on time for each class, complete all homework and quizzes, and follow program rules. Once the requirements are met, a certificate of completion will be issued on the final night of class. 
+<br />
+<br />
+This initial class meets at the Quality Suites Hotel (1350 Piccard Drive, Rockville, MD  20850) near the Shady Grove Metro stop on the red line from 6:30pm – 9:30pm. 
+<br />
+<br />
+Follow up classes may be held at alternate locations so contact Anger Management Techniques by phone or online to verify class locations. The fee for the course and materials is $290 payable by cash or money order. This course meets most court-ordered requirements. Onsite training is also available. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

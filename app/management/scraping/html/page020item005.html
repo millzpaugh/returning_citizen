@@ -1,0 +1,185 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BQUgIFZBIGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBQYgLCBWQSBkZAIDDw8WAh8CBQw8YnIgLz48YnIgLz5kZAIFDw8WAh8CZWRkAgcPDxYCHwIFzAI8Yj5DYXRlZ29yeSA6IDwvYj4gSG91c2luZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3k8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBEb21lc3RpYyBWaW9sZW5jZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBNZW4sIFBlcnNvbnMgaW4gcmVjb3ZlcnksIFBlcnNvbnMgd2l0aCBjby1vY2N1cnJpbmcgbWVudGFsIGlsbG5lc3MgJmFtcDsgc3Vic3RhbmNlIGFidXNlIGRpc29yZGVycywgUGVyc29ucyB3aXRoIG1lbnRhbCBpbGxuZXNzLCBXb21lbiwgV29tZW4gd2l0aCBjaGlsZHJlbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFXDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA5OjAwIGFtIHRvIDEyOjAwIG5vb24gYW5kIDE6MzBwbSB0byA1OjMwcG0uPGJyIC8+ZGQCDw8PFgIfAgU8PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5GYWlyZmF4IENvdW50eSByZXNpZGVudHMuPGJyIC8+ZGQCEQ8PFgIfAgU2PGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5Qcm9vZiBvZiByZXNpZGVuY3kuPGJyIC8+ZGQCEw8PFgIfAgW5GDxiPkRlc2NyaXB0aW9uOiA8L2I+VW5pdGVkIENvbW11bml0eSBNaW5pc3RyaWVzIChVQ00pIHByb3ZpZGVzIEZhaXJmYXggQ291bnR5IHJlc2lkZW50cyBvZiBSb3V0ZSAxIENvcnJpZG9yIHdpdGggYXNzaXN0YW5jZSBmb3IgZm9vZCwgY2xvdGhpbmcsIGZpbmFuY2lhbCAmIGFkdm9jYWN5IGFzc2lzdGFuY2Ugd2l0aCBob3VzaW5nIGFuZCB1dGlsaXRpZXMsIGZ1cm5pdHVyZSwgbWVkaWNhbCBzZXJ2aWNlcyBhbmQgdHJhbnNwb3J0YXRpb24gdG8gYXBwb2ludG1lbnRzLCBqb2IgYXNzaXN0YW5jZSwgbGVnYWwgYXNzaXN0YW5jZSwgY2hpbGQgZGF5IGNhcmUgYW5kIHJlZmVycmFscy4gTk9URTogUmVmZXJyYWxzIG5vdCByZXF1aXJlZCB0byByZWNlaXZlIHNlcnZpY2VzIGJ1dCwgcHJvb2Ygb2YgcmVzaWRlbmN5IGlzIHJlcXVpcmVkLg0KPGJyIC8+DQo8YnIgLz4NClVDTSBoYXMgNCBob3VzaW5nIHByb2dyYW1zIHRvIG1lZXQgdGhlIG5lZWRzIG9mIGZhbWlsaWVzIGFuZCBzaW5nbGUgYWR1bHRzLiBUaGUgcHJvZ3JhbXMgYXJlIGFzIGZvbGxvd3MsIEZhbWlseSBSZW5ld2FsLCBUaGUgSm91cm5leXMgSG91c2luZyBQcm9ncmFtLCBDb21tdW5pdHkgUmVzb3VyY2UgSG91c2luZywgYW5kIEJyaWRnZSBIb3VzaW5nIFByb2dyYW0uDQo8YnIgLz4NCjxiciAvPg0KVEhFIEZBTUlMWSBSRU5FV0FMIFBST0dSQU06DQo8YnIgLz4NClRoZSBGYW1pbHkgUmVuZXdhbCBwcm9ncmFtIGlzIGEgY29tcHJlaGVuc2l2ZSBwcm9ncmFtIHRoYXQgYXNzaXN0cyBmYW1pbGllcyB0aGF0IGFyZSBob21lbGVzcyBvciBhdCB0aHJlYXQgb2YgaG9tZWxlc3NuZXNzIHRvIGFjaGlldmUgc3RhYmxlIGhvdXNpbmcsIHByZXZlbnQgY2hpbGQgYWJ1c2UsIGltcHJvdmUgcGFyZW50aW5nIHNraWxscywgZW5oYW5jZSBjaGlsZCBoZWFsdGggYW5kIGRldmVsb3BtZW50LCBsZWFybiBpbXBvcnRhbnQgbGlmZSBza2lsbHMsIHByb21vdGUgd2VsbC1jaGlsZCBjYXJlIGluY2x1ZGluZyB0aW1lbHkgaW1tdW5pemF0aW9ucyBhbmQgdG8gYXNzaXN0IGlzb2xhdGVkIGhvbWVsZXNzIGZhbWlsaWVzIGluIGRldmVsb3BpbmcgYSBjb21tdW5pdHkgc3VwcG9ydCBuZXR3b3JrLiANCjxiciAvPg0KPGJyIC8+DQpUSEUgSk9VUk5FWSdTIEhPVVNJTkcgUFJPR1JBTToNCjxiciAvPg0KVGhlIEpvdXJuZXlzIFN1cHBvcnRpdmUgSG91c2luZyBQcm9ncmFtIGlzIGZ1bmRlZCB0aHJvdWdoIEhVRCBhbmQgaXMgYSBwYXJ0IG9mIHRoZSBjb3VudHl3aWRlIENvbnRpbnV1bSBvZiBDYXJlIGFwcGxpY2F0aW9uIHByb2Nlc3MuIFRocm91Z2ggdGhlIEpvdXJuZXlzIHByb2dyYW0sIFVDTSBwcm92aWRlcyBzdXBwb3J0aXZlIGhvdXNpbmcgc2VydmljZXMgYXQgdGhlIHBvaW50IG9mIGRpc3BsYWNlbWVudCBmb3IgZmFtaWxpZXMgd2hvIGhhdmUgZmxlZCBhIGRvbWVzdGljIHZpb2xlbmNlIHNpdHVhdGlvbi4gTm90IG9ubHkgYXJlIGZhbWlsaWVzIHByb3ZpZGVkIGhvdXNpbmcsIGJ1dCBhbHNvIHN1cHBvcnRpdmUgc2VydmljZXMgYWltZWQgYXQgdGVhY2hpbmcgdGhlbSB0byBiZWNvbWUgc2VsZi1zdWZmaWNpZW50LiBOaW5lIGZhbWlsaWVzIGFyZSBob3VzZWQgdGhyb3VnaCB0aGlzIHByb2dyYW0uIFJlZmVycmFscyBmb3IgdGhpcyBwcm9ncmFtIGFyZSBwcmltYXJpbHkgdGFrZW4gZnJvbSBhcmVhIGRvbWVzdGljIHZpb2xlbmNlIGFuZCBmYW1pbHkgc2hlbHRlcnMuIA0KPGJyIC8+DQo8YnIgLz4NClRIRSBDT01NVU5JVFkgUkVTT1VSQ0UgSE9VU0lORyBQUk9HUkFNOg0KPGJyIC8+DQpUaGUgQ29tbXVuaXR5IEhvdXNpbmcgUmVzb3VyY2UgUHJvZ3JhbSAoQ0hSUCkgaXMgYSBjb2xsYWJvcmF0aXZlIGVmZm9ydCB3aXRoIFVDTSwgRmFpcmZheCBDb3VudHkgRGVwYXJ0bWVudCBvZiBGYW1pbHkgU2VydmljZXMsIE5vcnRoZXJuIFZpcmdpbmlhIEZhbWlseSBTZXJ2aWNlIGFuZCBSZXN0b24gSW50ZXJmYWl0aCwgd2hpY2ggb2ZmZXJzIGNvdW50eSB3aWRlIHN1cHBvcnQgc2VydmljZXMgdG8gaG9tZWxlc3MgZmFtaWxpZXMuDQo8YnIgLz4NCkEgc2Vjb25kIGNvbXBvbmVudCBvZiBDSFJQIGlzIEZhbWlsaWVzIEFjaGlldmluZyBTdGFiaWxpdHkgKEZBUykuIEZBUyBoZWxwcyBob21lbGVzcyBmYW1pbGllcyBncmFkdWF0aW5nIGZyb20gdGhlIENvbW11bml0eSBIb3VzaW5nIFJlc291cmNlIHRyYW5zaXRpb25hbCBob3VzaW5nIHByb2dyYW0uIFVwb24gY29tcGxldGluZyAyIHllYXJzIG9mIHRyYW5zaXRpb25hbCBob3VzaW5nIGZhbWlsaWVzIHJlY2VpdmUgb25lIHllYXIgb2YgYWZ0ZXJjYXJlLiBVQ00gaXMgcmVzcG9uc2libGUgZm9yIDE4IHVuaXRzIGxvY2F0ZWQgaW4gdGhlIHNvdXRoIGNvdW50eSBhcmVhOyB0aGVyZSBhcmUgNTQgdW5pdHMgY291bnR5d2lkZS4gQm90aCBwcm9ncmFtcyBhcmUgZnVuZGVkIGFzIGEgY29sbGFib3JhdGlvbiB0aHJvdWdoIEhVRCBhcyBhIHBhcnQgb2YgdGhlIGNvdW50eXdpZGUgQ29udGludXVtIG9mIENhcmUgYXBwbGljYXRpb24gcHJvY2Vzcy4NCjxiciAvPg0KPGJyIC8+DQpUSEUgQlJJREdFIEhPVVNJTkcgUFJPR1JBTToNCjxiciAvPg0KVGhlIEJyaWRnZSBpcyBhIHNob3J0LXRlcm0gdHJhbnNpdGlvbmFsIGhvdXNpbmcgcHJvZ3JhbSBmb3IgaG9tZWxlc3MsIHNpbmdsZSBhZHVsdHMgd2hvIGhhdmUgbWVudGFsIGhlYWx0aCBhbmQvb3Igc3Vic3RhbmNlIGFidXNlIGlzc3Vlcy4gVGhlIHByb2dyYW0gaXMgZnVuZGVkIHVuZGVyIHRoZSBGYWlyZmF4L0ZhbGxzIENodXJjaCBDb21tdW5pdHkgU2VydmljZXMgQm9hcmQgKENTQikuIFVDTSBoYXMgYSBjb250cmFjdCBmb3IgMjAgaG91cnMgYSB3ZWVrIHRvIHByb3ZpZGUgY2FzZSBtYW5hZ2VtZW50IGZvciB0aGUgY2xpZW50cyBhbmQgdGhlIENTQiBpcyB0byBwcm92aWRlIHdlZWtseSBtZW50YWwgaGVhbHRoIHNlcnZpY2VzIHRvIGNsaWVudHMuIFRoZSBwcm9ncmFtIGhlbHBzIGNsaWVudHMgdG8gYnVpbGQgdGhlIHNraWxscyBhbmQgZmluYW5jaWFsIHN0YWJpbGl0eSB0byBicmlkZ2UgdGhlIGdhcCBiZXR3ZWVuIGhvbWVsZXNzbmVzcyBhbmQgYSBzdGFibGUgbGl2aW5nIGVudmlyb25tZW50LiBUaGUgcHJvZ3JhbSBjdXJyZW50bHkgc2VydmVzIHNpeCBwZW9wbGUuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM3MjceDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQ+W7ukC7Cb67zt/XUsAuHvUxRHwg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKZzZHwDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAa6cqkwqpD1bLo5yAaL0c1knE1cL" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="  VA " id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="United Community Ministries" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel"> , VA </span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Program : </b> Domestic Violence<br \><b>Population : </b> Families, Men, Persons in recovery, Persons with co-occurring mental illness &amp; substance abuse disorders, Persons with mental illness, Women, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 9:00 am to 12:00 noon and 1:30pm to 5:30pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Fairfax County residents.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Proof of residency.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>United Community Ministries (UCM) provides Fairfax County residents of Route 1 Corridor with assistance for food, clothing, financial & advocacy assistance with housing and utilities, furniture, medical services and transportation to appointments, job assistance, legal assistance, child day care and referrals. NOTE: Referrals not required to receive services but, proof of residency is required.
+<br />
+<br />
+UCM has 4 housing programs to meet the needs of families and single adults. The programs are as follows, Family Renewal, The Journeys Housing Program, Community Resource Housing, and Bridge Housing Program.
+<br />
+<br />
+THE FAMILY RENEWAL PROGRAM:
+<br />
+The Family Renewal program is a comprehensive program that assists families that are homeless or at threat of homelessness to achieve stable housing, prevent child abuse, improve parenting skills, enhance child health and development, learn important life skills, promote well-child care including timely immunizations and to assist isolated homeless families in developing a community support network. 
+<br />
+<br />
+THE JOURNEY'S HOUSING PROGRAM:
+<br />
+The Journeys Supportive Housing Program is funded through HUD and is a part of the countywide Continuum of Care application process. Through the Journeys program, UCM provides supportive housing services at the point of displacement for families who have fled a domestic violence situation. Not only are families provided housing, but also supportive services aimed at teaching them to become self-sufficient. Nine families are housed through this program. Referrals for this program are primarily taken from area domestic violence and family shelters. 
+<br />
+<br />
+THE COMMUNITY RESOURCE HOUSING PROGRAM:
+<br />
+The Community Housing Resource Program (CHRP) is a collaborative effort with UCM, Fairfax County Department of Family Services, Northern Virginia Family Service and Reston Interfaith, which offers county wide support services to homeless families.
+<br />
+A second component of CHRP is Families Achieving Stability (FAS). FAS helps homeless families graduating from the Community Housing Resource transitional housing program. Upon completing 2 years of transitional housing families receive one year of aftercare. UCM is responsible for 18 units located in the south county area; there are 54 units countywide. Both programs are funded as a collaboration through HUD as a part of the countywide Continuum of Care application process.
+<br />
+<br />
+THE BRIDGE HOUSING PROGRAM:
+<br />
+The Bridge is a short-term transitional housing program for homeless, single adults who have mental health and/or substance abuse issues. The program is funded under the Fairfax/Falls Church Community Services Board (CSB). UCM has a contract for 20 hours a week to provide case management for the clients and the CSB is to provide weekly mental health services to clients. The program helps clients to build the skills and financial stability to bridge the gap between homelessness and a stable living environment. The program currently serves six people. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

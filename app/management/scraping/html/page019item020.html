@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTE5MjAtQSBSaG9kZSBJc2xhbmQgQXZlbnVlLCBORSBXYXNoaW5ndG9uIERDIDIwMDE4ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjkyMC1BIFJob2RlIElzbGFuZCBBdmVudWUsIE5FIFdhc2hpbmd0b24sIERDIDIwMDE4ZGQCAw8PFgIfAgVPPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDUyNi0wMDE3PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA1MjYtMTg4MzxiciAvPmRkAgUPDxYCHwJlZGQCBw8PFgIfAgVmPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQXNzZXNzbWVudCAmYW1wOyByZWZlcnJhbCB0byBob3VzaW5nIHNlcnZpY2VzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVgPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+SW50YWtlOiBNb25kYXkgLSBGcmlkYXkgODozMCBhbSAtIDQ6MDAgcG0gKDFzdCBjb21lLTFzdCBzZXJ2ZSkuPGJyIC8+ZGQCDw8PFgIfAmVkZAIRDw8WAh8CBfQBPGI+RG9jdW1lbnRhdGlvbiBOZWVkZWQ6IDwvYj5QaG90byBJRCwgU1MgY2FyZCwgYmlydGggY2VydGlmaWNhdGUgKGZvciBlYWNoIGZhbWlseSBtZW1iZXIpLCBzdGF0ZW1lbnQgb2YgaW5jb21lIChTU0ksIFRBTkYgZWxpZ2liaWxpdHksIFctMiBmb3JtIGFuZCBwYXkgc3R1YiksIHdyaXQgb2YgZXZpY3Rpb24gb3Igc3RhdGVtZW50IG9mIGhvbWVsZXNzbmVzcyBpZiBsaXZpbmcgd2l0aCBmYW1pbHkgb3IgZnJpZW5kLjxiciAvPmRkAhMPDxYCHwIFhQc8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBWaXJnaW5pYSBXaWxsaWFtcyBGYW1pbHkgUmVzb3VyY2UgQ2VudGVyIHByb3ZpZGVzIGludGFrZSBmb3IgREMgaG9tZWxlc3MgZmFtaWxpZXMgaW4gbmVlZCBvZiBzaGVsdGVyLiBUbyBiZSBhZG1pdHRlZCBmb3Igc2hlbHRlciBpbmRpdmlkdWFscyBhcmUgcmVxdWlyZWQgdG8gc2hvdyB0aGUgZm9sbG93aW5nIGRvY3VtZW50KHMpOiBwaWN0dXJlIElELCBTUyBjYXJkLCBiaXJ0aCBjZXJ0aWZpY2F0ZSAoZm9yIGVhY2ggZmFtaWx5IG1lbWJlciksIHN0YXRlbWVudCBvZiBpbmNvbWUgKFNTSSwgVEFORiBlbGlnaWJpbGl0eSwgVy0yIGZvcm0gYW5kIHBheSBzdHViKSwgd3JpdCBvZiBldmljdGlvbiBvciBzdGF0ZW1lbnQgb2YgaG9tZWxlc3NuZXNzIGlmIGxpdmluZyB3aXRoIGZhbWlseSBvciBmcmllbmQuIENoaWxkcmVuIG5lZWQgTk9UIGJlIHByZXNlbnQgYXQgaW5pdGlhbCBpbnRlcnZpZXcuIEludGFrZSBob3VycyBhcmUgTW9uZGF5IOKAkyBGcmlkYXksIGJlZ2lubmluZyBhdCA4OjMwYW0gKGZpcnN0LWNvbWUsIGZpcnN0LXNlcnZlZCkgYW5kIHRoZSBvZmZpY2UgY2xvc2VzIGF0IDQ6MDBwbS4gV2FzaGluZ3RvbiBMZWdhbCBDbGluaWMgZm9yIHRoZSBIb21lbGVzcyBwcm92aWRlcyBvbi1zaXRlIGNvbnN1bHRhdGlvbnMgb24gV2VkbmVzZGF5cyAxMjozMHBtLg0KPGJyIC8+DQo8YnIgLz4NCk5PVEU6DQo8YnIgLz4NCkN1cnJlbnRseSwgdGhlIFZpcmdpbmlhIFdpbGxpYW1zIEZhbWlseSBSZXNvdXJjZSBDZW50ZXIgaXMgb3BlcmF0aW5nIGF0IGEgdGVtcG9yYXJ5IGxvY2F0aW9uLiAgVGhlIHRlbXBvcmFyeSBsb2NhdGlvbiBjYW4gYmVlbiBmb3VuZCBhdCAzMDMzIE4gU3RyZWV0LCBOVywgV2FzaGluZ3RvbiwgREMgMjAwMDIuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzMyNR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZEdFPVrWAaFmCP+NJzNFwMnJj0GU" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKHlJ27DQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAesfIWHy/D8Xbzik0hJX7Qiursn8" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="920-A Rhode Island Avenue, NE Washington DC 20018" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="The Virginia Williams Family Resource Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">920-A Rhode Island Avenue, NE Washington, DC 20018</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 526-0017<br /><b>Phone No2:</b>(202) 526-1883<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Assessment &amp; referral to housing services<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Intake: Monday - Friday 8:30 am - 4:00 pm (1st come-1st serve).<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Photo ID, SS card, birth certificate (for each family member), statement of income (SSI, TANF eligibility, W-2 form and pay stub), writ of eviction or statement of homelessness if living with family or friend.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Virginia Williams Family Resource Center provides intake for DC homeless families in need of shelter. To be admitted for shelter individuals are required to show the following document(s): picture ID, SS card, birth certificate (for each family member), statement of income (SSI, TANF eligibility, W-2 form and pay stub), writ of eviction or statement of homelessness if living with family or friend. Children need NOT be present at initial interview. Intake hours are Monday – Friday, beginning at 8:30am (first-come, first-served) and the office closes at 4:00pm. Washington Legal Clinic for the Homeless provides on-site consultations on Wednesdays 12:30pm.
+<br />
+<br />
+NOTE:
+<br />
+Currently, the Virginia Williams Family Resource Center is operating at a temporary location.  The temporary location can been found at 3033 N Street, NW, Washington, DC 20002.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

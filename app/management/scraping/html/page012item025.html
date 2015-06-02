@@ -1,0 +1,178 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkyNDAxIFZpcmdpbmlhIEF2ZSwgTlcgV2FzaGluZ3RvbiBEQyAyMDAzN2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoyNDAxIFZpcmdpbmlhIEF2ZSwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMzdkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNDUyLTg5MjY8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDgzNS04Mzc2PGJyIC8+ZGQCBQ8PFgIfAgUsPGI+V2Vic2l0ZTogPC9iPnd3dy5taXJpYW1za2l0Y2hlbi5vcmc8YnIgLz5kZAIHDw8WAh8CBZEDPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBTb2NpYWwgU2VydmljZXMsIFZvbHVudGVlciBPcHBvcnR1bml0aWVzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXMsIFZvbHVudGVlciBvcHBvcnR1bml0aWVzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBDb3VydCBvcmRlcmVkIGNvbW11bml0eSBzZXJ2aWNlLCBGcmVlIG1lYWxzL1NvdXAga2l0Y2hlbnMsIE1haWwgJmFtcDsgcGhvbmUgc2VydmljZXMsIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gSG9tZWxlc3M8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBXc8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5Nb25kYXkgLSBGcmlkYXkgKEJyZWFrZmFzdCkgNjozMCBhbS04OjAwIGFtOyBzZWUgYmVsb3cgZm9yIGFkZGl0aW9uYWwgcHJvZ3JhbSBkZXRhaWxzLjxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBZIOPGI+RGVzY3JpcHRpb246IDwvYj5NaXJpYW3igJlzIEtpdGNoZW4gaXMgY29tbWl0dGVkIHRvIGVuZGluZyBjaHJvbmljIGhvbWVsZXNzbmVzcyBpbiBEQyBieSBjcmVhdGluZyBtZWFuaW5nZnVsIGNvbm5lY3Rpb25zIHdpdGggY2hyb25pY2FsbHkgaG9tZWxlc3MgaW5kaXZpZHVhbHMsIHBsYWNpbmcgdGhlbSBpbiBwZXJtYW5lbnQgc3VwcG9ydGl2ZSBob3VzaW5nLCBhbmQgZW5zdXJpbmcgdGhleSBoYXZlIHRoZSBuZWNlc3Nhcnkgc3VwcG9ydCB0byByZW1haW4gaW4gaG91c2luZy4gTWlyaWFt4oCZcyBLaXRjaGVuIGFkdm9jYXRlcyBmb3IgcGVybWFuZW50IHN1cHBvcnRpdmUgaG91c2luZyBhcyBhIGxvbmctdGVybSBzb2x1dGlvbiwgd2hpbGUgbWVldGluZyBzaG9ydC10ZXJtIG5lZWRzIGJ5IHByb3ZpZGluZyBoZWFsdGh5IG1lYWxzIGFuZCBoaWdoLXF1YWxpdHkgc29jaWFsIHNlcnZpY2VzIHRvIG1vcmUgdGhhbiAzLDUwMCBjaHJvbmljYWxseSBob21lbGVzcyBpbmRpdmlkdWFscyBlYWNoIHllYXIuDQo8YnIgLz4NCjxiciAvPg0KRU1FUkdFTkNZIEZPT0QNCjxiciAvPg0KTWVhbHMgYXJlIHNlcnZlZCBhdCBNaXJpYW0ncyBLaXRjaGVuIGV2ZXJ5IHdlZWtkYXkuIEJyZWFrZmFzdCBpcyBzZXJ2ZWQgYmV0d2VlbiA2OjMwLTg6MDAgYW0gYW5kIGRpbm5lciBpcyBzZXJ2ZWQgYmV0d2VlbiA0OjQ1LTU6NDUgcG0uIEFkZGl0aW9uYWxseSwgYSBsaWdodCBsdW5jaCBpcyBzZXJ2ZWQgZHVyaW5nIE1pcmlhbSdzIENhZmUgZXZlcnkgV2VkbmVzZGF5IGJldHdlZW4gMTI6MDAtMjowMCBwbS4gQWxsIG9mIE1pcmlhbeKAmXMgS2l0Y2hlbuKAmXMgZm9vZCBpcyBtYWRlIHdpdGggZnJlc2ggaW5ncmVkaWVudHMgdGhhdCBpbmNsdWRlIHdob2xlIGdyYWlucywgZnJlc2ggbWVhdHMsIGFuZCBsb2NhbCBhbmQgb3JnYW5pYyBmcnVpdCBhbmQgdmVnZXRhYmxlcy4NCjxiciAvPg0KPGJyIC8+DQpTT0NJQUwgU0VSVklDRVMNCjxiciAvPg0KTWlyaWFtJ3MgS2l0Y2hlbiBvZmZlcnMgY2FzZSBtYW5hZ2VtZW50IHNlcnZpY2VzLCBwcm92aWRlcyByZWZlcnJhbHMgdG8gYWRkaWN0aW9uIGFuZCBtZW50YWwgaGVhbHRoIHNlcnZpY2VzLCBpbmZvcm1hdGlvbiBvbiBlbXBsb3ltZW50IGFuZCBob3VzaW5nIHByb2dyYW1zLCBmcmVlIG1haWxpbmcgYWRkcmVzcyAmIHZvaWNlLW1haWwgc3lzdGVtLiBUaGV5IGFsc28gb2ZmZXIgYSB3ZWVrbHkgbGVnYWwgY2xpbmljIChXZWRuZXNkYXlzIGZyb20gNzozMC04OjMwIGFtKSwgcHN5Y2hpYXRyaWMgc2VydmljZXMgb24gVGh1cnNkYXlzIGZyb20gNjozMC05OjMwIGFtLCBoZWFsdGggY2FyZSBzZXJ2aWNlcyBvbiBGcmlkYXlzIGZyb20gNzo0NS05OjE1IGFtLCBhbmQgYmxvb2QgcHJlc3N1cmUgY2hlY2tzLiBOZWFyZXN0IE1ldHJvIFN0YXRpb246IEZvZ2d5IEJvdHRvbSBNZXRybyBTdGF0aW9uLiANCjxiciAvPg0KPGJyIC8+DQpUaGUgbGVnYWwgY2xpbmljIGlzIGVudGl0bGVkLCAiVGhlIFdhc2hpbmd0b24gTGVnYWwgQ2xpbmljIGZvciB0aGUgSG9tZWxlc3MuIiBJdCBwcm92aWRlcyByZXByZXNlbnRhdGlvbiBpbiBhbGwgY2l2aWwgbGVnYWwgbWF0dGVycyAoaS5lLiBwdWJsaWMgYmVuZWZpdHMsIGhvdXNpbmcsIGVtcGxveW1lbnQsIGltbWlncmF0aW9uLCBpbXBhY3QgbGl0aWdhdGlvbiwgbGVnaXNsYXRpdmUgYW5kIHBvbGljeS1yZWxhdGVkIGlzc3VlcykuDQo8YnIgLz4NCjxiciAvPg0KVk9MVU5URUVSIE9QUE9SVFVOSVRJRVMNCjxiciAvPg0KVm9sdW50ZWVycyBoZWxwIHNlcnZlIGJyZWFrZmFzdCwgbHVuY2gsIGFuZCBkaW5uZXIuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2MjIeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWROSgc6otSlLh7FcDg987QNnoKppQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgK72IW+CQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUQtNdrfm3Fhc5c7OkA2UQKV1fP+" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="2401 Virginia Ave, NW Washington DC 20037" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Miriam’s Kitchen" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">2401 Virginia Ave, NW Washington, DC 20037</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 452-8926<br /><b>Fax No:</b>(202) 835-8376<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.miriamskitchen.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Social Services, Volunteer Opportunities<br \><b>Services : </b> Nutritional services, Social services, Volunteer opportunities<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Court ordered community service, Free meals/Soup kitchens, Mail &amp; phone services, Referrals for social services<br \><b>Population : </b> Homeless<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday (Breakfast) 6:30 am-8:00 am; see below for additional program details.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Miriam’s Kitchen is committed to ending chronic homelessness in DC by creating meaningful connections with chronically homeless individuals, placing them in permanent supportive housing, and ensuring they have the necessary support to remain in housing. Miriam’s Kitchen advocates for permanent supportive housing as a long-term solution, while meeting short-term needs by providing healthy meals and high-quality social services to more than 3,500 chronically homeless individuals each year.
+<br />
+<br />
+EMERGENCY FOOD
+<br />
+Meals are served at Miriam's Kitchen every weekday. Breakfast is served between 6:30-8:00 am and dinner is served between 4:45-5:45 pm. Additionally, a light lunch is served during Miriam's Cafe every Wednesday between 12:00-2:00 pm. All of Miriam’s Kitchen’s food is made with fresh ingredients that include whole grains, fresh meats, and local and organic fruit and vegetables.
+<br />
+<br />
+SOCIAL SERVICES
+<br />
+Miriam's Kitchen offers case management services, provides referrals to addiction and mental health services, information on employment and housing programs, free mailing address & voice-mail system. They also offer a weekly legal clinic (Wednesdays from 7:30-8:30 am), psychiatric services on Thursdays from 6:30-9:30 am, health care services on Fridays from 7:45-9:15 am, and blood pressure checks. Nearest Metro Station: Foggy Bottom Metro Station. 
+<br />
+<br />
+The legal clinic is entitled, "The Washington Legal Clinic for the Homeless." It provides representation in all civil legal matters (i.e. public benefits, housing, employment, immigration, impact litigation, legislative and policy-related issues).
+<br />
+<br />
+VOLUNTEER OPPORTUNITIES
+<br />
+Volunteers help serve breakfast, lunch, and dinner. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

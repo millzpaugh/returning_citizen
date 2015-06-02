@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSsxNDMzLTM1IFNwcmluZyBSb2FkLCBOVyBXYXNoaW5ndG9uIERDIDIwMDEwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLDE0MzMtMzUgU3ByaW5nIFJvYWQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDEwZGQCAw8PFgIfAgVPPGI+Q29udGFjdCBQZXJzb246PC9iPk1pY2hhZWwgRmVycmVsbDxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA3MjYtMjIwMzxiciAvPmRkAgUPDxYCHwIFIzxiPldlYnNpdGU6IDwvYj53d3cuZGNjZmgub3JnPGJyIC8+ZGQCBw8PFgIfAgXNATxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFRyYW5zaXRpb25hbCBob3VzaW5nL1NpbmdsZSBSb29tIE9jY3VwYW5jeTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBQZXJzb25zIGluIHJlY292ZXJ5LCBQZXJzb25zIHdpdGggbWVudGFsIGlsbG5lc3MsIFdvbWVuIHdpdGggY2hpbGRyZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFoAE8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkZhbWlsaWVzIHdobyBoYXZlIGJlY29tZSB0ZW1wb3JhcmlseSBob21lbGVzczsgYWxsIGZhbWlsaWVzIG11c3QgYmUgcmVmZXJyZWQgYnkgdGhlIFZpcmdpbmlhIFdpbGxpYW1zIEZhbWlseSBSZXNvdXJjZSBDZW50ZXIuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBaQMPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgQ29hbGl0aW9uIGZvciB0aGUgSG9tZWxlc3MgaXMgYSBub24tcHJvZml0IG9yZ2FuaXphdGlvbiB0aGF0IGhhcyBzZXJ2ZWQgdGhlIFdhc2hpbmd0b24gbWV0cm9wb2xpdGFuIGFyZWEgc2luY2UgMTk4MC4gSXRzIG1pc3Npb24gaXMgdG8gaGVscCBob21lbGVzcywgYXQtcmlzayBpbmRpdmlkdWFscyBhbmQgZmFtaWxpZXMgcmV0dXJuIHRvIHNlbGYtc3VmZmljaWVuY3kgYW5kIGluZGVwZW5kZW50IGxpdmluZywgdGhyb3VnaCBhIHJhbmdlIG9mIHJlc2lkZW50aWFsIGFuZCBzb2NpYWwgc2VydmljZXMuDQo8YnIgLz4gDQo8YnIgLz4gIA0KU3ByaW5nIFJvYWQgRmFtaWx5IEFwYXJ0bWVudCBQcm9ncmFtIGlzIHBhcnQgb2YgdGhlIENvYWxpdGlvbiBmb3IgdGhlIEhvbWVsZXNzLCBGYW1pbHkgU2VydmljZXMgcHJvZ3JhbS4gVGhlIHByb2dyYW0gcHJvdmlkZXMgc2hlbHRlciBhbmQgcHJvZ3JhbXMgdGhhdCBoZWxwIGhvbWVsZXNzIGZhbWlsaWVzIHJlZ2FpbiBzdGFiaWxpdHkgaW4gdGhlaXIgbGl2ZXMgYW5kIGFkZHJlc3MgdGhlIHJvb3QgY2F1c2Ugb2YgcG92ZXJ0eSwgZHlzZnVuY3Rpb24sIGFuZCBob21lbGVzc25lc3MuIFRoZSBwcm9ncmFtIGZvY3VzZXMgb24gc3Vic3RhbmNlIGFidXNlLCBtZW50YWwgaGVhbHRoLCBlbXBsb3ltZW50IGFuZCB0cmFpbmluZywgaG91c2luZyBpc3N1ZXMsIGFuZCB0aGUgZGV2ZWxvcG1lbnQgYW5kIGVkdWNhdGlvbmFsIG5lZWRzIG9mIHRoZSBjaGlsZHJlbi4NCjxiciAvPiANCjxiciAvPiAgDQpEdXJpbmcgYSBmYW1pbHnigJlzIHN0YXkgYXQgU3ByaW5nIFJvYWQsIHBhcmVudHMgYXJlIGFibGUgdG8gd29yayB0b3dhcmQgc2VsZi1zdWZmaWNpZW5jeSBpbiBhIHNhZmUsIHJlZ2ltZW50ZWQgYXRtb3NwaGVyZS4gRmFtaWxpZXMgcHJlcGFyZSB0aGVpciBvd24gbWVhbHMgYW5kIG1haW50YWluIHRoZWlyIGFwYXJ0bWVudHMsIHdoaWxlIHBhcnRpY2lwYXRpbmcgaW4gc2VsZi1lbXBvd2VyaW5nIGFjdGl2aXRpZXMuIEZhbWlsaWVzIHJlY2VpdmUgY29tcHJlaGVuc2l2ZSBzZXJ2aWNlcywgd2hpY2ggd2lsbCBlbmFibGUgdGhlbSB0byBiZWNvbWUgZWNvbm9taWNhbGx5IHNlbGYtc3VmZmljaWVudC4gVGhlIHN0YWZmIG9mZmVycyBzdXBwb3J0IHRvIHJlc2lkZW50cyB0aHJvdWdoIHN1YnN0YW5jZSBhYnVzZSBjb3Vuc2VsaW5nLCBtZW50YWwgaGVhbHRoLCBhbmQgaG91c2luZyBhbmQgZW1wbG95bWVudCBzZXJ2aWNlcy4gDQo8YnIgLz4gDQo8YnIgLz4gIA0KU3ByaW5nIFJvYWQgRmFtaWx5IEFwYXJ0bWVudHMgcHJvdmlkZXMgMjggYXBhcnRtZW50IHVuaXRzIGRlZGljYXRlZCB0byBzZXJ2aW5nIGZhbWlsaWVzIHdobyBoYXZlIHRlbXBvcmFyaWx5IGJlY29tZSBob21lbGVzcy4gQWxsIGZhbWlsaWVzIGFyZSByZWZlcnJlZCBieSB0aGUgVmlyZ2luaWEgV2lsbGlhbXMgRmFtaWx5IFJlc291cmNlIENlbnRlciwgd2hpY2ggaXMgdGhlIGNlbnRyYWwgaW50YWtlIG9mZmljZSBpbiB0aGUgRGlzdHJpY3QgZm9yIGZhbWlsaWVzIHJlcXVlc3RpbmcgZW1lcmdlbmN5IGhvdXNpbmcuPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzEzNh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZK8rcz2OdtdNRUmbvYQcaD8AIp1x" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLi4sWyDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcsQFurZOEJBa438RryH2kInwIgQ" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1433-35 Spring Road, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Coalition for the Homeless (Spring Road Family Apartments)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1433-35 Spring Road, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Michael Ferrell<br /><b>Phone No:</b>(202) 726-2203<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dccfh.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Families, Persons in recovery, Persons with mental illness, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Families who have become temporarily homeless; all families must be referred by the Virginia Williams Family Resource Center.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Coalition for the Homeless is a non-profit organization that has served the Washington metropolitan area since 1980. Its mission is to help homeless, at-risk individuals and families return to self-sufficiency and independent living, through a range of residential and social services.
+<br /> 
+<br />  
+Spring Road Family Apartment Program is part of the Coalition for the Homeless, Family Services program. The program provides shelter and programs that help homeless families regain stability in their lives and address the root cause of poverty, dysfunction, and homelessness. The program focuses on substance abuse, mental health, employment and training, housing issues, and the development and educational needs of the children.
+<br /> 
+<br />  
+During a family’s stay at Spring Road, parents are able to work toward self-sufficiency in a safe, regimented atmosphere. Families prepare their own meals and maintain their apartments, while participating in self-empowering activities. Families receive comprehensive services, which will enable them to become economically self-sufficient. The staff offers support to residents through substance abuse counseling, mental health, and housing and employment services. 
+<br /> 
+<br />  
+Spring Road Family Apartments provides 28 apartment units dedicated to serving families who have temporarily become homeless. All families are referred by the Virginia Williams Family Resource Center, which is the central intake office in the District for families requesting emergency housing.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

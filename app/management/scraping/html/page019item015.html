@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTcxOTE5IFBlbm5zeWx2YW5pYSBBdmVudWUsIE5XIDJuZCBGTCBXYXNoaW5ndG9uIERDIDIwMDUyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFODE5MTkgUGVubnN5bHZhbmlhIEF2ZW51ZSwgTlcgMm5kIEZMIFdhc2hpbmd0b24sIERDIDIwMDUyZGQCAw8PFgIfAgWWATxiPkNvbnRhY3QgUGVyc29uOjwvYj5QaHlsbGlzIEdvbGRmYXJkLSBBc3NvY2lhdGUgRGVhbiBvZiBDbGluaWNhbCBBZmZhaXJzPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDk5NC03NDYzPGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA5OTQtNDk0NjxiciAvPmRkAgUPDxYCHwIFJTxiPldlYnNpdGU6IDwvYj53d3cubGF3Lmd3dS5lZHU8YnIgLz5kZAIHDw8WAh8CBe4CPGI+Q2F0ZWdvcnkgOiA8L2I+IExlZ2FsPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IExlZ2FsPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ3JpbWluYWwgbGF3LS1hZHVsdHMgJmFtcDsganV2ZW5pbGUsIEVtcGxveW1lbnQgTGF3LS1kaXNwdXRlcyAmYW1wOyB3b3JrZXIncyByaWdodHMsIEZhbWlseSBsYXctLWNoaWxkIGN1c3RvZHksIHN1cHBvcnQsIHZpc2l0YXRpb24sIGd1YXJkaWFuc2hpcCwgUHVibGljIGJlbmVmaXRzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZCwgSW1taWdyYW50cy9SZWZ1Z2VlczxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBVg8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk11c3QgbWVldCBpbmRpZ2VudCBpbmNvbWUgZ3VpZGVsaW5lcyAoaWYgYXBwbGljYWJsZSkuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBd4JPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgSmFjb2IgQnVybnMgQ29tbXVuaXR5IExlZ2FsIENsaW5pY3MgKEdlb3JnZSBXYXNoaW5ndG9uIExhdyBTY2hvb2wpIHByb3ZpZGVzIHNlcnZpY2VzIENpdmlsIGFuZCBGYW1pbHkgTGl0aWdhdGlvbjsgRmVkZXJhbCwgQ3JpbWluYWwgYW5kIEFwcGVsbGF0ZSBzZXJ2aWNlczsgSGVhbHRoIFJpZ2h0cyBMYXc7IEltbWlncmF0aW9uOyBhbmQgUHVibGljIEp1c3RpY2UgQWR2b2NhY3kuIA0KPGJyIC8+DQo8YnIgLz4NCkFkdm9jYWN5IHNlcnZpY2VzIGZvciBDaXZpbCBhbmQgRmFtaWx5IExpdGlnYXRpb24gaW5jbHVkZSByZXByZXNlbnRhdGlvbiBpbiBmYW1pbHkgbGF3LCBkaXZvcmNlLCBjdXN0b2R5LCBjaGlsZCBzdXBwb3J0IGFuZCBsaW1pdGVkIHNtYWxsIGNsYWltcy4NCjxiciAvPg0KPGJyIC8+DQpGZWRlcmFsLCBDcmltaW5hbCBhbmQgQXBwZWxsYXRlIExpdGlnYXRpb24gc2VydmljZXMgaW5jbHVkZSBkaXJlY3QgcmVwcmVzZW50YXRpb24gaW4gcHJvY2VlZGluZ3MgZm9sbG93aW5nIGNyaW1pbmFsIGNvbnZpY3Rpb25zLg0KDQpIZWFsdGggUmlnaHRzIExhdyBzZXJ2aWNlcyBpbmNsdWRlIGRpcmVjdCBhZHZvY2FjeSBmb3Igc2VjdXJpbmcgaGVhbHRoIGJlbmVmaXRzIHRocm91Z2ggTWVkaWNhaWQsIEhNTyBvciBvdGhlciBtYW5hZ2VkIGNhcmUgYmVuZWZpdHM7IGFzc2lzdGFuY2Ugd2l0aCBoZWFsdGggaW5zdXJhbmNlIGRpc3B1dGVzIGFuZCBjb2xsZWN0aW9uIGFnZW5jaWVzLg0KPGJyIC8+DQo8YnIgLz4NCkltbWlncmF0aW9uIExhdyBzZXJ2aWNlcyBpbmNsdWRlIGRpcmVjdCBhc3Npc3RhbmNlIGluIGhlbHBpbmcgYWxpZW5zIG9idGFpbiBlbGlnaWJsZSBwdWJsaWMgYmVuZWZpdHMgYW5kIGRlcG9ydGF0aW9uIHByZXZlbnRpb24uDQo8YnIgLz4NCjxiciAvPg0KUHVibGljIEp1c3RpY2UgQWR2b2NhY3kgc2VydmljZXMgaW5jbHVkZSBjbGFzcyBhbmQgaW5kaXZpZHVhbCByZXByZXNlbnRhdGlvbiBpbiBlbXBsb3ltZW50IHRlcm1pbmF0aW9uLCB3YWdlIGFuZCBob3VyIGRpc3B1dGVzLCBwdWJsaWMgZWR1Y2F0aW9uIGFuZCBpbmp1cmVkIHdvcmtlcnMuDQo8YnIgLz4NCjxiciAvPg0KSW4gb3JkZXIgdG8gYmUgZWxpZ2libGUgZm9yIHNlcnZpY2VzIHRocm91Z2ggdGhpcyBsYXcgY2xpbmljIGFsbCBwb3RlbnRpYWwgY2xpZW50cyBtdXN0IG1lZXQgdGhlIGluZGlnZW50IGluY29tZSBndWlkZWxpbmVzLCBpZiBhcHBsaWNhYmxlLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMxOTceDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWSx4NWjJKjiX1aLaj70Hb1bJVWswg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKHubjvDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAd3tyyprC/ReVP8ZE+lFoPIfzm4f" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1919 Pennsylvania Avenue, NW 2nd FL Washington DC 20052" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="The Jacob Burns Community Legal Clinics (George Washington University Law School)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1919 Pennsylvania Avenue, NW 2nd FL Washington, DC 20052</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Phyllis Goldfard- Associate Dean of Clinical Affairs<br /><b>Phone No:</b>(202) 994-7463<br /><b>Fax No:</b>(202) 994-4946<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.law.gwu.edu<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Criminal law--adults &amp; juvenile, Employment Law--disputes &amp; worker's rights, Family law--child custody, support, visitation, guardianship, Public benefits<br \><b>Population : </b> Criminal justice involved, Immigrants/Refugees<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Must meet indigent income guidelines (if applicable).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Jacob Burns Community Legal Clinics (George Washington Law School) provides services Civil and Family Litigation; Federal, Criminal and Appellate services; Health Rights Law; Immigration; and Public Justice Advocacy. 
+<br />
+<br />
+Advocacy services for Civil and Family Litigation include representation in family law, divorce, custody, child support and limited small claims.
+<br />
+<br />
+Federal, Criminal and Appellate Litigation services include direct representation in proceedings following criminal convictions.
+
+Health Rights Law services include direct advocacy for securing health benefits through Medicaid, HMO or other managed care benefits; assistance with health insurance disputes and collection agencies.
+<br />
+<br />
+Immigration Law services include direct assistance in helping aliens obtain eligible public benefits and deportation prevention.
+<br />
+<br />
+Public Justice Advocacy services include class and individual representation in employment termination, wage and hour disputes, public education and injured workers.
+<br />
+<br />
+In order to be eligible for services through this law clinic all potential clients must meet the indigent income guidelines, if applicable.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

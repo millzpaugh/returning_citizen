@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkxMTAgSXJ2aW5nIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoxMTAgSXJ2aW5nIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNDc2LTI4MDA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDg3Ny03MDAwPGJyIC8+ZGQCBQ8PFgIfAgUmPGI+V2Vic2l0ZTogPC9iPnd3dy53aGNlbnRlci5vcmc8YnIgLz5kZAIHDw8WAh8CBdECPGI+Q2F0ZWdvcnkgOiA8L2I+IE1lZGljYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gQ29tbXVuaXR5IGhlYWx0aCwgSG9zcGl0YWwvUmVzaWRlbnRpYWwgY2FyZSwgVXJnZW50IGNhcmUvV2Fsay1pbiBzZXJ2aWNlPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBQcmltYXJ5IChBZHVsdCwgRmFtaWx5ICZhbXA7IFBlZGlhdHJpY3MpPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhaWQsIE1lZGljYXJlLCBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFNlbGYtcGF5bWVudCwgU3RhdGUgZmluYW5jZWQgaW5zdXJhbmNlIChvdGhlciB0aGFuIE1lZGljYWlkKTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFJTxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPjI0Lzc8YnIgLz5kZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgXCBjxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIFdhc2hpbmd0b24gSG9zcGl0YWwgQ2VudGVy4oCZcyBEZXBhcnRtZW50IG9mIEVtZXJnZW5jeSBNZWRpY2luZSBoYXMgb3BlcmF0aW9uYWwgcmVzcG9uc2liaWxpdHkgZm9yIHRoZSBNZWRTdGFyIFdhc2hpbmd0b24gSG9zcGl0YWwgQ2VudGVyJ3MgY2xpbmljYWwgRW1lcmdlbmN5IERlcGFydG1lbnQgYW5kIGZvciBpdHMgbmF0aW9uYWxseSBhY2NsYWltZWQgTWVkU1RBUiBUcmFuc3BvcnQgc2VydmljZS4NCjxici8gPg0KPGJyLyA+DQpUaGUgRW1lcmdlbmN5IERlcGFydG1lbnQgcHJvdmlkZXMgMjQtaG91ci1hLWRheSBjYXJlIGZvciBwYXRpZW50cyB3aXRoIGFsbCB0eXBlcyBvZiBhY3V0ZSBpbGxuZXNzIG9yIGluanVyeS4gVGhlIGRlcGFydG1lbnQgaXMgc3RhZmZlZCBieSBhdHRlbmRpbmcgZW1lcmdlbmN5IHBoeXNpY2lhbnMsIHBoeXNpY2lhbnMgYXNzaXN0YW50cyBhbmQgcmVnaXN0ZXJlZCBudXJzZXMgc3BlY2lhbGl6aW5nIGluIGVtZXJnZW5jeSBtZWRpY2luZS4gRXhwZXJ0cyBpbiBhbGwgb3RoZXIgbWVkaWNhbCBhbmQgc3VyZ2ljYWwgc3BlY2lhbHRpZXMgYXJlIGF2YWlsYWJsZSBmb3IgYWN1dGUgY2xpbmljYWwgY29uc3VsdGF0aW9uIG9uIGEgMjQtaG91ciBiYXNpcy4NCjxici8gPg0KPGJyLyA+DQpUaGUgcmVub3duZWQgTWVkU1RBUiBUcmFuc3BvcnQgU2VydmljZSBwcm92aWRlcyBoZWxpY29wdGVyIGFuZCBncm91bmQgdHJhbnNwb3J0IGZvciBjcml0aWNhbCBjYXJlIHBhdGllbnRzIHdpdGhpbiBhIDE1MC1taWxlIHJhZGl1cyBvZiBNZWRTdGFyIFdhc2hpbmd0b24gSG9zcGl0YWwgQ2VudGVyLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM0MTYeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWS3AcL1NGn8EKz2NTLnLGRx9RD5sw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLYhIzgDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYEkWGMgaPqqKE2+rjd+gvuWGX2V" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="110 Irving Street, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Washington Hospital Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">110 Irving Street, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 476-2800<br /><b>Phone No2:</b>(202) 877-7000<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.whcenter.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Medical<br \><b>Services : </b> Community health, Hospital/Residential care, Urgent care/Walk-in service<br \><b>Type Of Care : </b> Primary (Adult, Family &amp; Pediatrics)<br \><b>Forms Of Payment : </b> Medicaid, Medicare, Private health insurance, Self-payment, State financed insurance (other than Medicaid)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>24/7<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Washington Hospital Center’s Department of Emergency Medicine has operational responsibility for the MedStar Washington Hospital Center's clinical Emergency Department and for its nationally acclaimed MedSTAR Transport service.
+<br/ >
+<br/ >
+The Emergency Department provides 24-hour-a-day care for patients with all types of acute illness or injury. The department is staffed by attending emergency physicians, physicians assistants and registered nurses specializing in emergency medicine. Experts in all other medical and surgical specialties are available for acute clinical consultation on a 24-hour basis.
+<br/ >
+<br/ >
+The renowned MedSTAR Transport Service provides helicopter and ground transport for critical care patients within a 150-mile radius of MedStar Washington Hospital Center.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

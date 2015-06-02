@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMTEgRiBTdHJlZXQsIE5XICBXYXNoaW5ndG9uIERDIDIwMDAxZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjExMSBGIFN0cmVldCwgTlcgIFdhc2hpbmd0b24sIERDIDIwMDAxZGQCAw8PFgIfAgWTATxiPkNvbnRhY3QgUGVyc29uOjwvYj5Kb2huIENvcGFjaW5vLURpcmVjdG9yIG9mIENyaW1pbmFsIEp1c3RpY2UgQ2xpbmljPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDY2Mi05NTc0PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA2NjItOTY4MTxiciAvPmRkAgUPDxYCHwIFiAE8Yj5XZWJzaXRlOiA8L2I+d3d3Lmxhdy5nZW9yZ2V0b3duLmVkdS9hY2FkZW1pY3MvYWNhZGVtaWMtcHJvZ3JhbXMvY2xpbmljYWwtcHJvZ3JhbXMvb3VyLWNsaW5pY3MvQ3JpbWluYWwtSnVzdGljZS1DbGluaWMvaW5kZXguY2ZtPGJyIC8+ZGQCBw8PFgIfAgXaATxiPkNhdGVnb3J5IDogPC9iPiBMZWdhbDxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBMZWdhbDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IENyaW1pbmFsIGxhdy0tYWR1bHRzICZhbXA7IGp1dmVuaWxlPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZDxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFB1YmxpYyBmdW5kaW5nPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CZWRkAhEPDxYCHwJlZGQCEw8PFgIfAgWhAjxiPkRlc2NyaXB0aW9uOiA8L2I+R2VvcmdldG93biBVbml2ZXJzaXR5IENyaW1pbmFsIEp1c3RpY2UgQ2xpbmljIHByb3ZpZGVzIHJlcHJlc2VudGF0aW9uIHRvIGFkdWx0cyBjaGFyZ2VkIHdpdGggbWlzZGVtZWFub3Igb2ZmZW5zZXMgaW4gdGhlIERpc3RyaWN0IG9mIENvbHVtYmlhIFN1cGVyaW9yIENvdXJ0LiBMYXcgc3R1ZGVudHMgbWFuYWdlIHRoZSBjYXNlcyB1bmRlciB0aGUgc3VwZXJ2aXNpb24gb2YgYSBsaWNlbnNlZCBhdHRvcm5leS4gQ2FzZXMgYXJlIGFzc2lnbmVkIGJ5IENvdXJ0LiA8YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMjAwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFksqDWhx17AEyJTmp7sw/hoVb3ELQ=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLIpNHmAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUeivUde+3PZvuZxSaDlWz7teIJ0" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="111 F Street, NW  Washington DC 20001" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Georgetown University Criminal Justice Clinic" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">111 F Street, NW  Washington, DC 20001</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>John Copacino-Director of Criminal Justice Clinic<br /><b>Phone No:</b>(202) 662-9574<br /><b>Fax No:</b>(202) 662-9681<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.law.georgetown.edu/academics/academic-programs/clinical-programs/our-clinics/Criminal-Justice-Clinic/index.cfm<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Criminal law--adults &amp; juvenile<br \><b>Population : </b> Criminal justice involved<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Georgetown University Criminal Justice Clinic provides representation to adults charged with misdemeanor offenses in the District of Columbia Superior Court. Law students manage the cases under the supervision of a licensed attorney. Cases are assigned by Court. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

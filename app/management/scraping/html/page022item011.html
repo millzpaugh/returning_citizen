@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMTY1MSBOZWJlbCBTdHJlZXQgUm9ja3ZpbGxlIE1EIDIwODUyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjExNjUxIE5lYmVsIFN0cmVldCBSb2NrdmlsbGUsIE1EIDIwODUyZGQCAw8PFgIfAgXKATxiPkNvbnRhY3QgUGVyc29uOjwvYj5GcmVkIENoYW5kbGVyPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyNDApIDc3My00MjA4PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSA3NzItNDMwMCA8Yj5FeHQyOjwvYj4wNDA8YnIgLz48Yj5Ub2xsIEZyZWU6IDwvYj4oMjQwKSA3NzMtNDIwOTxiciAvPjxiPkZheCBObzo8L2I+KDMwMSkgNDY4LTQ0MjA8YnIgLz5kZAIFDw8WAh8CBTQ8Yj5XZWJzaXRlOiA8L2I+d3d3LnByaXNvbm91dHJlYWNobWluaXN0cnkub3JnPGJyIC8+ZGQCBw8PFgIfAgX/ATxiPkNhdGVnb3J5IDogPC9iPiBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBNZW50b3JpbmcsIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gQ3JpbWluYWwganVzdGljZSBpbnZvbHZlZDxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVHPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4gYW5kIHdvbWVuIHJldHVybmluZyBmcm9tIHByaXNvbi48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFqQY8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBXZWxjb21lIEhvbWUgUHJvZ3JhbSBpcyBhbiBhaWQgdG8gbWVuIGFuZCB3b21lbiByZXR1cm5pbmcgaG9tZSB0byBXYXNoaW5ndG9uIEQuQy4sIE1vbnRnb21lcnkgQ291bnR5IGFuZCBQcmluY2UgR2VvcmdlJ3MgQ291bnR5IGFmdGVyIGJlaW5nIHJlbGVhc2VkIGZyb20gaW5jYXJjZXJhdGlvbi4gTW9zdCBvZiB0aGVzZSBpbmRpdmlkdWFscyB3aWxsIGZhY2UgYSB2YXJpZXR5IG9mIGJhcnJpZXJzIGFuZCBoYXZlIGdyZWF0IGRpZmZpY3VsdHkgbWFuYWdpbmcgdGhlIG1vc3QgYmFzaWMgbmVjZXNzaXRpZXMgZm9yIHN1Y2Nlc3NmdWwgcmVpbnRlZ3JhdGlvbi1yZWNvbm5lY3Rpbmcgd2l0aCBqb2JzLCBob3VzaW5nLCBhbmQgdGhlaXIgZmFtaWxpZXMsIGFzIHdlbGwgYXMgZ2FpbmluZyBhY2Nlc3MgdG8gbmVlZGVkIHN1YnN0YW5jZSBhYnVzZSBhbmQgaGVhbHRoIGNhcmUgdHJlYXRtZW50LiBUbyBoZWxwIGFzc2lzdCBpbiB0aGUgbmF2aWdhdGlvbiBvZiBzZXJ2aWNlcyBQcmlzb24gTWluaXN0cmllcyBvZmZlcnMgYXNzaXN0YW5jZSB0aGF0IGluY2x1ZGUgYXNzaXN0YW5jZSB3aXRoIGJhcnJpZXJzIHRvIGVtcGxveW1lbnQsIGJ1cm50IGJyaWRnZXMgd2l0aCBmYW1pbHkvZnJpZW5kcywgZGlmZmljdWx0eSBhY3F1aXJpbmcgaG91c2luZywgbGFjayBvZiBzdXBwb3J0IGFuZCBlbmNvdXJhZ2VtZW50IGFuZCBvdmVyYWxsIG5hdmlnYXRpb24gaW4gdGhlIOKAnGZyZWUgd29ybGQu4oCdDQo8YnIgLz4NCjxiciAvPg0KMjQtSG91ciBIb3RsaW5lOiAoMjQwKSA3NzMtNDIwOTxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM3MTMeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTnfq09qmF2ONwz1FC3x4CeuMKnyQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKS74GNBAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qATh6AfdCylSxVTOG31101mk3zp0F" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="11651 Nebel Street Rockville MD 20852" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Welcome Home Program (Prison Outreach Ministry) Montgomery County Pre-Release Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">11651 Nebel Street Rockville, MD 20852</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Fred Chandler<br /><b>Phone No:</b>(240) 773-4208<br /><b>Phone No2:</b>(202) 772-4300 <b>Ext2:</b>040<br /><b>Toll Free: </b>(240) 773-4209<br /><b>Fax No:</b>(301) 468-4420<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.prisonoutreachministry.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Social Services<br \><b>Services : </b> Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Mentoring, Referrals for social services<br \><b>Population : </b> Criminal justice involved<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men and women returning from prison.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Welcome Home Program is an aid to men and women returning home to Washington D.C., Montgomery County and Prince George's County after being released from incarceration. Most of these individuals will face a variety of barriers and have great difficulty managing the most basic necessities for successful reintegration-reconnecting with jobs, housing, and their families, as well as gaining access to needed substance abuse and health care treatment. To help assist in the navigation of services Prison Ministries offers assistance that include assistance with barriers to employment, burnt bridges with family/friends, difficulty acquiring housing, lack of support and encouragement and overall navigation in the “free world.”
+<br />
+<br />
+24-Hour Hotline: (240) 773-4209<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

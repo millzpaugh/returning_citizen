@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTExOTA4IE5vcnRoIENhcGl0b2wgU3RyZWV0LCBORSBXYXNoaW5ndG9uIERDIDIwMDAzZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFMjE5MDggTm9ydGggQ2FwaXRvbCBTdHJlZXQsIE5FIFdhc2hpbmd0b24sIERDIDIwMDAzZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDIzMi0xMTQ0PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA4MzItNjc3MjxiciAvPmRkAgUPDxYCHwIFLDxiPldlYnNpdGU6IDwvYj53d3cuc3RtYXJ0aW5jZW50ZXIub3JnPGJyIC8+ZGQCBw8PFgIfAgXUATxiPkNhdGVnb3J5IDogPC9iPiBFbWVyZ2VuY3kgRm9vZCwgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1hdGVyaWFsIG5lZWRzLCBOdXRyaXRpb25hbCBzZXJ2aWNlczxiciBcPjxiPlByb2dyYW0gOiA8L2I+IENsb3RoaW5nLCBFbWVyZ2VuY3kgZm9vZC9ncm9jZXJpZXMsIEZyZWUgbWVhbHMvU291cCBraXRjaGVucywgRnVybml0dXJlPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgV4PGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5cywgVHVlc2RheXMsIEZyaWRheXMgODozMCBhbSAtIDc6MzAgcG07IFdlZG5lc2RheXMgJiBUaHVyc2RheXMgODozMCBhbSAtIDQ6MzAgcG0uPGJyIC8+ZGQCDw8PFgIfAgVEPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5GYW1pbGllcyBhbmQgaW5kaXZpZHVhbHMgaW4gbmVlZC48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF1A88Yj5EZXNjcmlwdGlvbjogPC9iPlN0LiBNYXJ0aW4gQ2VudGVyIHByb3ZpZGVzIGEgdmFyaWV0eSBvZiBlbWVyZ2VuY3kgc2VydmljZXMgdG8gZmFtaWxpZXMgYW5kIGluZGl2aWR1YWxzLiBUaG9zZSBpbiBuZWVkIG1heSByZWNlaXZlIGVtZXJnZW5jeSBmb29kIHRocm91Z2ggdGhlIGluLWhvdXNlIGZvb2QgcGFudHJ5OyB2b3VjaGVycyBmb3IgY2xvdGhpbmcgaXRlbXM7IGFzc2lzdGFuY2UgZm9yIHJlbnQsIG1vcnRnYWdlIGFuZCB1dGlsaXRpZXM7IGFzc2lzdGFuY2Ugd2l0aCBsaWZlLXN1c3RhaW5pbmcgcHJlc2NyaXB0aW9uczsgdHJhbnNwb3J0YXRpb24gaW4gdGhlIGZvcm0gb2YgYnVzIHBhc3NlcyBhbmQgZ2Fzb2xpbmUgdm91Y2hlcnM7IGFzc2lzdGFuY2Ugd2l0aCBjb21wbGV0aW5nIFBlbmVsZWPigJlzIEN1c3RvbWVyIEFzc2lzdGFuY2UgUHJvZ3JhbSBhcHBsaWNhdGlvbiBhbmQgZ3VpZGFuY2Ugd2l0aCBjcmVhdGluZyBhbmQgbWFpbnRhaW5pbmcgYSBidWRnZXQuDQo8YnIgLz4NCjxiciAvPg0KU1QuIE1BUlRJTidTIEJJU0hPUCBCUkVBS0ZBU1QgUFJPR1JBTTogDQpTdC4gTWFydGluIENlbnRlciBvZmZlcnMgdGhlIEJpc2hvcCdzIEJyZWFrZmFzdCBQcm9ncmFtIHdlZWtkYXkgbW9ybmluZ3MgYXQgNzowMCBBTSBhdCBTdC4gUGF1bCdzIFVuaXRlZCBDaHVyY2ggb2YgQ2hyaXN0IChQZWFjaCBTdHJlZXQgYmV0d2VlbiAxMHRoIGFuZCAxMXRoIFN0cmVldHMpLiBBIGhvdCBicmVha2Zhc3QgaXMgc2VydmVkLCBhbmQgb25jZSBhIG1vbnRoIG91ciBjYXNld29ya2VycyBnbyB0byBTdC4gUGF1bCdzIHRvIGRpc2N1c3MgdGhlIGltbWVkaWF0ZSBuZWVkcyBvZiB0aGUgbWVuIGFuZCB3b21lbiByZWNlaXZpbmcgYnJlYWtmYXN0LiBUaHJvdWdoIHRoaXMgcHJvZ3JhbSwgd2UgaGF2ZSBiZWVuIGFibGUgdG8gcHJvdmlkZSBjbG90aGluZywgdG9pbGV0cmllcywgZXllZ2xhc3NlcyBhbmQgbGF1bmRyeSB2b3VjaGVycy4NCjxiciAvPg0KPGJyIC8+DQpGT09EIFBBTlRSWToNCjxiciAvPg0KU3QuIE1hcnRpbidzIGluLWhvdXNlIGVtZXJnZW5jeSBmb29kIHBhbnRyeSBwcm92aWRlcyBhbiBvcHRpb24gZm9yIGZhbWlsaWVzIHRoYXQgZmluZCB0aGVtc2VsdmVzIGluIGEgYmluZCBhbmQgY2Fubm90IGFmZm9yZCB0byBwdXJjaGFzZSBmb29kIGl0ZW1zIG9uIHRoZWlyIG93bi4gT25jZSBhIG1vbnRoLCBmYW1pbGllcyBvciBpbmRpdmlkdWFscyBjYW4gbWFrZSBhbiBhcHBvaW50bWVudCB0byByZWNlaXZlIGZvb2QuIFdoZW4gZG9uYXRpb25zIGFyZSBhdmFpbGFibGUsIHBlcnNvbmFsIGNhcmUgaXRlbXMgYXJlIGdpdmVuIG91dCwgdG9vLg0KPGJyIC8+DQo8YnIgLz4NClNPQ0lBTCBTRVJWSUNFUzoNCjxiciAvPg0KU3QuIE1hcnRpbnMgU29jaWFsIFNlcnZpY2VzJyBjbGllbnRzIG11c3QgcGVyZm9ybSAyIGhvdXJzIGNvbW11bml0eSBzZXJ2aWNlIHRvIHJlY2VpdmUgYXBwcm94aW1hdGVseSAkNDUgd29ydGggb2YgZm9vZC4gRm9vZCBiYWdzIGFyZSBkaXN0cmlidXRlZCBvbmNlIGEgbW9udGggb24gdGhlIDJuZCBTYXR1cmRheSBvZiB0aGF0IG1vbnRoLiBDbGllbnRzIG11c3QgcGljayB1cCB0aGVpciBmb29kIGJhZ3MgdGhhdCBTYXR1cmRheS4gU2FuZHdpY2hlcyB0byBuZWVkeSBwZXJzb25zIGFyZSBkaXN0cmlidXRlZCBvbiBUdWVzZGF5cywgV2VkbmVzZGF5cywgYW5kIFRodXJzZGF5cyBmcm9tIDk6MzAgYW0gdG8gMTE6MzAgYW0uIA0KPGJyIC8+DQo8YnIgLz4NCkNMT1RISU5HOg0KPGJyIC8+DQpDbG90aGluZyBhbmQgaG91c2Vob2xkIGl0ZW1zIGFyZSBkaXN0cmlidXRlZCBvbiBUdWVzZGF5cywgV2VkbmVzZGF5cywgYW5kIFRodXJzZGF5cyBmcm9tIDk6MzAgYW0gdG8gMTE6MzAgYW0uIEFBIGFuZCBOQSBtZWV0aW5ncyBhcmUgaGVsZCBNb25kYXlzIC0gRnJpZGF5cyBhdCAxMjowMCBub29uIGFuZCBvbiBUdWVzZGF5cyAtIEZyaWRheXMgYXQgNjowMCBwbS4gTWV0cm8gYnVzOiBHOCwgUDYgJiA4MC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDNjAzHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkW3Dn7dRXX5YZk0OhEFS0NwHSfCY=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKVrdP/AwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAS66AJfoiUeEQmEhhsuVieCuXeR9" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1908 North Capitol Street, NE Washington DC 20003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="St. Martin's Social Services" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1908 North Capitol Street, NE Washington, DC 20003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 232-1144<br /><b>Fax No:</b>(202) 832-6772<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.stmartincenter.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Social Services<br \><b>Services : </b> Material needs, Nutritional services<br \><b>Program : </b> Clothing, Emergency food/groceries, Free meals/Soup kitchens, Furniture<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Mondays, Tuesdays, Fridays 8:30 am - 7:30 pm; Wednesdays & Thursdays 8:30 am - 4:30 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Families and individuals in need.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>St. Martin Center provides a variety of emergency services to families and individuals. Those in need may receive emergency food through the in-house food pantry; vouchers for clothing items; assistance for rent, mortgage and utilities; assistance with life-sustaining prescriptions; transportation in the form of bus passes and gasoline vouchers; assistance with completing Penelec’s Customer Assistance Program application and guidance with creating and maintaining a budget.
+<br />
+<br />
+ST. MARTIN'S BISHOP BREAKFAST PROGRAM: 
+St. Martin Center offers the Bishop's Breakfast Program weekday mornings at 7:00 AM at St. Paul's United Church of Christ (Peach Street between 10th and 11th Streets). A hot breakfast is served, and once a month our caseworkers go to St. Paul's to discuss the immediate needs of the men and women receiving breakfast. Through this program, we have been able to provide clothing, toiletries, eyeglasses and laundry vouchers.
+<br />
+<br />
+FOOD PANTRY:
+<br />
+St. Martin's in-house emergency food pantry provides an option for families that find themselves in a bind and cannot afford to purchase food items on their own. Once a month, families or individuals can make an appointment to receive food. When donations are available, personal care items are given out, too.
+<br />
+<br />
+SOCIAL SERVICES:
+<br />
+St. Martins Social Services' clients must perform 2 hours community service to receive approximately $45 worth of food. Food bags are distributed once a month on the 2nd Saturday of that month. Clients must pick up their food bags that Saturday. Sandwiches to needy persons are distributed on Tuesdays, Wednesdays, and Thursdays from 9:30 am to 11:30 am. 
+<br />
+<br />
+CLOTHING:
+<br />
+Clothing and household items are distributed on Tuesdays, Wednesdays, and Thursdays from 9:30 am to 11:30 am. AA and NA meetings are held Mondays - Fridays at 12:00 noon and on Tuesdays - Fridays at 6:00 pm. Metro bus: G8, P6 & 80.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

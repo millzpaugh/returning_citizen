@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSw3MSBPZ2xldGhvcnBlIFN0cmVldCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS03MSBPZ2xldGhvcnBlIFN0cmVldCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTFkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzI2LTI1NTY8YnIgLz5kZAIFDw8WAh8CBSI8Yj5XZWJzaXRlOiA8L2I+d3d3Lndhcmwub3JnPGJyIC8+ZGQCBw8PFgIfAgVgPGI+Q2F0ZWdvcnkgOiA8L2I+IFZvbHVudGVlciBPcHBvcnR1bml0aWVzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFZvbHVudGVlciBvcHBvcnR1bml0aWVzPGJyIFw+ZGQCCQ8PFgIfAgUuPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+U3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBdABPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TWVkaWNhbCBDZW50ZXIgSG91cnM6IFR1ZXNkYXk6IDg6MDAgYW0g4oCTIDU6MzAgcG0gV2VkbmVzZGF5OiA4OjAwIGFtIOKAkyAzOjMwIHBtICBWYWNjaW5lIENsaW5pYyA0OjAwIHBtIOKAkyA3OjAwIHBtIFRodXJzZGF5OiA4OjAwIGFtIOKAkyA1OjMwIHBtIEZyaWRheTogODowMCBhbSDigJMgNTozMCBwbTxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBZIHPGI+RGVzY3JpcHRpb246IDwvYj4NClRoZSBXYXNoaW5ndG9uIEFuaW1hbCBSZXNjdWUgTGVhZ3VlJ3MgKFdBUkwpIG1pc3Npb24gaXMgdG8gcmVzY3VlLCByZWhhYmlsaXRhdGUsIGFuZCByZWhvbWUgYW5pbWFscyB3aG8gaGF2ZSBub3doZXJlIGVsc2UgdG8gZ28uIFdlIGFyZSBjb21taXR0ZWQgdG8gc3RyZW5ndGhlbmluZyBhbmQgcHJlc2VydmluZyB0aGUgaHVtYW4tYW5pbWFsIGJvbmQgYnkgc3VwcG9ydGluZyBhbmltYWxzIGluIHRoZWlyIGhvbWVzIHRocm91Z2ggYWZmb3JkYWJsZSB2ZXRlcmluYXJ5IGNhcmUsIGNvbW11bml0eSBvdXRyZWFjaCwgYW5kIGVkdWNhdGlvbi4gVm9sdW50ZWVycyBhcmUgbmVlZGVkIHRvIHByb3ZpZGUgY2FyZSBmb3IgYW5pbWFscyBhbmQgcGVyZm9ybSBnZW5lcmFsIG1haW50ZW5hbmNlIGR1dGllcy4gIA0KPGJyLyA+DQo8YnIvID4NCk1FRElDQUwgQ0VOVEVSIEhPVVJTDQpNb25kYXk6IENsb3NlZA0KVHVlc2RheTogODowMCBhbSDigJMgNTozMCBwbQ0KV2VkbmVzZGF5OiA4OjAwIGFtIOKAkyAzOjMwIHBtDQogVmFjY2luZSBDbGluaWMgNDowMCBwbSDigJMgNzowMCBwbQ0KVGh1cnNkYXk6IDg6MDAgYW0g4oCTIDU6MzAgcG0NCkZyaWRheTogODowMCBhbSDigJMgNTozMCBwbQ0KU2F0dXJkYXkg4oCTIFN1bmRheTogQ2xvc2VkDQo8YnIvID4NCjxici8gPg0KQURPUFRJT04gSE9VUlMNCk1vbmRheTogQ2xvc2VkDQpUdWVzZGF5OiBOb29u4oCTNzowMCBwbQ0KV2VkbmVzZGF5OiBOb29u4oCTNzowMCBwbQ0KVmFjY2luZSBDbGluaWMgNDowMCBwbSDigJMgNzowMCBwbQ0KVGh1cnNkYXk6IE5vb24g4oCTIDc6MDAgcG0NCkZyaWRheTogTm9vbiAg4oCTIDc6MDAgcG0NClNhdHVyZGF5OiBOb29uIOKAkyA1OjAwIHBtDQpTdW5kYXk6IE5vb24g4oCTIDU6MDAgcG08YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMzc0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkm4T/gM56TZfTs2GltNrqetPQrTE=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLAnd2PCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAUT9ozV1AO0KmbLXaXPH2rV8OZew" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="71 Oglethorpe Street, NW Washington DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Washington Animal Rescue League" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">71 Oglethorpe Street, NW Washington, DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 726-2556<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.warl.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Volunteer Opportunities<br \><b>Services : </b> Volunteer opportunities<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Medical Center Hours: Tuesday: 8:00 am – 5:30 pm Wednesday: 8:00 am – 3:30 pm  Vaccine Clinic 4:00 pm – 7:00 pm Thursday: 8:00 am – 5:30 pm Friday: 8:00 am – 5:30 pm<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>
+The Washington Animal Rescue League's (WARL) mission is to rescue, rehabilitate, and rehome animals who have nowhere else to go. We are committed to strengthening and preserving the human-animal bond by supporting animals in their homes through affordable veterinary care, community outreach, and education. Volunteers are needed to provide care for animals and perform general maintenance duties.  
+<br/ >
+<br/ >
+MEDICAL CENTER HOURS
+Monday: Closed
+Tuesday: 8:00 am – 5:30 pm
+Wednesday: 8:00 am – 3:30 pm
+ Vaccine Clinic 4:00 pm – 7:00 pm
+Thursday: 8:00 am – 5:30 pm
+Friday: 8:00 am – 5:30 pm
+Saturday – Sunday: Closed
+<br/ >
+<br/ >
+ADOPTION HOURS
+Monday: Closed
+Tuesday: Noon–7:00 pm
+Wednesday: Noon–7:00 pm
+Vaccine Clinic 4:00 pm – 7:00 pm
+Thursday: Noon – 7:00 pm
+Friday: Noon  – 7:00 pm
+Saturday: Noon – 5:00 pm
+Sunday: Noon – 5:00 pm<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS80MzA2IEV2ZXJncmVlbiBMYW5lIFNURS4gMjA0IEFubmFuZGFsZSBWQSAyMjAwM2RkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTA0MzA2IEV2ZXJncmVlbiBMYW5lIFNURS4gMjA0IEFubmFuZGFsZSwgVkEgMjIwMDNkZAIDDw8WAh8CBSo8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDcwMykgNzUwLTEyOTI8YnIgLz5kZAIFDw8WAh8CBS88Yj5XZWJzaXRlOiA8L2I+d3d3LmxpdmluZ2ZyZWVoZWFsdGguY29tLzxiciAvPmRkAgcPDxYCHwIFngU8Yj5DYXRlZ29yeSA6IDwvYj4gTWVudGFsIEhlYWx0aCwgU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IE1lbnRhbCBoZWFsdGggdHJlYXRtZW50LCBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBJbnRlbnNpdmUgb3V0cGF0aWVudCwgT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFuZ2VyIG1hbmFnZW1lbnQsIENvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzLCBEVUkvRFdJIGVkdWNhdGlvbiBwcm9ncmFtLCBGYW1pbHkgaXNzdWVzLS1jb3Vuc2VsaW5nLCBtYXJyaWFnZSwgcGFyZW50aW5nLCBUcmF1bWEtLXNleHVhbCBhYnVzZS9QVFNEL3ZpY3RpbXMgb2YgY3JpbWU8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBDcmltaW5hbCBqdXN0aWNlIGludm9sdmVkLCBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgVW5kZXIgYWdlIDIxLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IFByaXZhdGUgaGVhbHRoIGluc3VyYW5jZSwgU2VsZi1wYXltZW50PGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBQYXltZW50IGFzc2lzdGFuY2UgKENoZWNrIHdpdGggZmFjaWxpdHkgZm9yIGRldGFpbHMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBTo8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkFkdWx0cyBhbmQgYWRvbGVzY2VudHMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBeMLPGI+RGVzY3JpcHRpb246IDwvYj5MaXZpbmcgRnJlZSBpcyBhbiBvcmdhbml6YXRpb24gdGhhdCBpcyBkZWRpY2F0ZWQgdG8gYmVpbmcgYWJsZSB0byBwcm92aWRlIE91dHBhdGllbnQgU3Vic3RhbmNlIEFidXNlIGFuZCBNZW50YWwgSGVhbHRoIFRyZWF0bWVudCBTZXJ2aWNlcyBmb3IgYWR1bHRzIGFuZCBhZG9sZXNjZW50cy4gV2l0aCBoaWdobHkgdHJhaW5lZCBhbmQgZXhwZXJpZW5jZWQgcHJvZmVzc2lvbmFsIHN0YWZmLCBjbGllbnRzIGFyZSBvZmZlcmVkIGluZGl2aWR1YWxpemVkIHNlcnZpY2VzLiBNb3N0IGluc3VyYW5jZSBjb21wYW5pZXMsIHN0YXRlIGFuZCBmZWRlcmFsIGNvbnRyYWN0b3JzIHByb3ZpZGUgYmVuZWZpdHMgZm9yIExpdmluZyBGcmVl4oCZcyBzZXJ2aWNlcy4NCjxiciAvPg0KPGJyIC8+DQpTVUJTVEFOQ0UgQUJVU0UgUFJPR1JBTQ0KPGJyIC8+DQpUaGUgTGl2aW5nIEZyZWUgUHJvZ3JhbSBpbnRyb2R1Y2VzIHRoZSBwaGlsb3NvcGh5IG9mIHRoZSAxMiBTdGVwIFByb2dyYW1zIHRvIGluY2x1ZGUgQUEgKEFsY2hvbG9pY3MgQW5vbnltb3VzKSBhbmQgTkEgKE5hcmNvdGljcyBBbm9ueW1vdXMpLiBUaGUgcHJvZ3JhbSwgYWRkaXRpb25hbGx5IG9mZmVycyBhIGNvbXByZWhlbnNpdmUgc3Vic3RhbmNlIGFidXNlL2RlcGVuZGVuY2UgYXNzZXNzbWVudCBwcmlvciB0byBhbnkgdHJlYXRtZW50IHJlY29tbWVuZGF0aW9ucy4gVGhlIGFzc2Vzc21lbnQgaW5jbHVkZXMgYSBwc3ljaG8tc29jaWFsIGV2YWx1YXRpb24sIGFsY29ob2wgZHJ1ZyBoaXN0b3J5IGFuZCB1c2Ugb2Ygc3RhbmRhcmRpemVkIHN1YnN0YW5jZSBhYnVzZSBpbnZlbnRvcmllcyB0byBkZXRlcm1pbmUgYSBmaW5hbCBkaWFnbm9zaXMuIFRoZXJlIGlzIGFuIGFkdWx0IHByb2dyYW0sIGEgcHJpbWFyeSB0cmVhdG1lbnQgZ3JvdXAsIGVkdWNhdGlvbiBncm91cCwgcmVsYXBzZSBncm91cCwgYW5kIHRoZXJhcHkgZm9yIGluZGl2aWR1YWxzLCBjb3VwbGVzLCBhbmQgZmFtaWx54oCZcy4NCjxiciAvPg0KPGJyIC8+DQpNRU5UQUwgSEVBTFRIIFBST0dSQU0NCjxiciAvPg0KTGl2aW5nIEZyZWUgcHJvdmlkZXMgdGhlIGhpZ2hlc3QgcXVhbGl0eSBtZW50YWwgaGVhbHRoIGNhcmUgZm9yIGluZGl2aWR1YWxzLCBjb3VwbGVzIGFuZCBmYW1pbGllcyBleHBlcmllbmNpbmcgc29jaWFsLCBlbW90aW9uYWwgYW5kL29yIGJlaGF2aW9yYWwgcHJvYmxlbXMuIFRoZSB0YXJnZXQgcG9wdWxhdGlvbiBpcyBtYWxlIGFuZCBmZW1hbGUgYWR1bHRzIHdobyBoYXZlIHByb2JsZW1zIHdpdGggbW9vZCBkaXNvcmRlcnMsIGFueGlldHkgYW5kIHN0cmVzcywgY3Jpc2lzLCBjby1kZXBlbmRlbmN5IGlzc3VlcywgY29tcHVsc2lvbiBkaXNvcmRlcnMsIGFkanVzdG1lbnQgZGlzb3JkZXJzLCBtYXJpdGFsIGNvbmZsaWN0LCBwYXJlbnQtY2hpbGQgY29uZmxpY3QsIGZhbWlseSBpc3N1ZXMsIGxvdyBzZWxmLWVzdGVlbSwgcG9zdCB0cmF1bWF0aWMgc3RyZXNzIGFuZCBISVYgaXNzdWVzLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM3NDceDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQUsHWP7qYdBEQ+HWYvWa8qGr+vOg==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKwlanSBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcDIonqvfE2b3aRkOmXbFZ/QP2qH" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4306 Evergreen Lane STE. 204 Annandale VA 22003" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Living Free" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4306 Evergreen Lane STE. 204 Annandale, VA 22003</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(703) 750-1292<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.livingfreehealth.com/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Mental Health, Substance Abuse<br \><b>Services : </b> Mental health treatment, Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, DUI/DWI education program, Family issues--counseling, marriage, parenting, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Men, Persons with HIV/AIDS, Under age 21, Women<br \><b>Forms Of Payment : </b> Private health insurance, Self-payment<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Adults and adolescents.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Living Free is an organization that is dedicated to being able to provide Outpatient Substance Abuse and Mental Health Treatment Services for adults and adolescents. With highly trained and experienced professional staff, clients are offered individualized services. Most insurance companies, state and federal contractors provide benefits for Living Free’s services.
+<br />
+<br />
+SUBSTANCE ABUSE PROGRAM
+<br />
+The Living Free Program introduces the philosophy of the 12 Step Programs to include AA (Alcholoics Anonymous) and NA (Narcotics Anonymous). The program, additionally offers a comprehensive substance abuse/dependence assessment prior to any treatment recommendations. The assessment includes a psycho-social evaluation, alcohol drug history and use of standardized substance abuse inventories to determine a final diagnosis. There is an adult program, a primary treatment group, education group, relapse group, and therapy for individuals, couples, and family’s.
+<br />
+<br />
+MENTAL HEALTH PROGRAM
+<br />
+Living Free provides the highest quality mental health care for individuals, couples and families experiencing social, emotional and/or behavioral problems. The target population is male and female adults who have problems with mood disorders, anxiety and stress, crisis, co-dependency issues, compulsion disorders, adjustment disorders, marital conflict, parent-child conflict, family issues, low self-esteem, post traumatic stress and HIV issues.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

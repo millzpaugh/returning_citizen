@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS80MjAwIENvbm5lY3RpY3V0IEF2ZW51ZSwgTlcgV2FzaGluZ3RvbiBEQyAyMDAwOGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTA0MjAwIENvbm5lY3RpY3V0IEF2ZW51ZSwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMDhkZAIDDw8WAh8CBX88Yj5Db250YWN0IFBlcnNvbjo8L2I+S2FyZW4gRm9ybWFuLSBDbGluaWMgRGlyZWN0b3I8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMjc0LTc0MDA8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDcyNy01NTgzPGJyIC8+ZGQCBQ8PFgIfAgUlPGI+V2Vic2l0ZTogPC9iPnd3dy5sYXcudWRjLmVkdTxiciAvPmRkAgcPDxYCHwIFxAI8Yj5DYXRlZ29yeSA6IDwvYj4gTGVnYWw8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTGVnYWw8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBGYW1pbHkgbGF3LS1jaGlsZCBjdXN0b2R5LCBzdXBwb3J0LCB2aXNpdGF0aW9uLCBndWFyZGlhbnNoaXAsIExhbmRsb3JkL1RlbmFudC9GYWlyIGhvdXNpbmcsIFB1YmxpYyBiZW5lZml0czxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IFBlcnNvbnMgd2l0aCBISVYvQUlEUywgUGVyc29ucyB3aXRoIGludGVsbGVjdHVhbCBkaXNhYmlsaXR5PGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gUHVibGljIGZ1bmRpbmc8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwIFUjxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+UGVyc29ucyB3aXRoIEhJVi9BSURTOyBJbnRlbGxlY3R1YWwgZGlzYWJpbGl0eS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIFmAc8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBVbml2ZXJzaXR5IG9mIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSBTY2hvb2wgb2YgTGF3IHByb3ZpZGVzIHNlcnZpY2VzIHdpdGhpbiB0aGUgZm9sbG93aW5nIHByb2dyYW1zOiBISVYvQUlEUywgSG91c2luZyBhbmQgQ29uc3VtZXIsIEp1dmVuaWxlL05lZ2xlY3QvU3BlY2lhbCBFZHVjYXRpb24gYW5kIExvdyBJbmNvbWUgVGF4cGF5ZXIgbGF3Lg0KPGJyIC8+DQo8YnIgLz4NClRoZSBISVYvQUlEUyBDbGluaWNzIGhhbmRsZSBwdWJsaWMgZW50aXRsZW1lbnRzOyBkcmFmdGluZyBhbmQgZXhlY3V0aW5nIGxhc3Qgd2lsbCBhbmQgdGVzdGFtZW50czsgcG93ZXJzIG9mIGF0dG9ybmV5OyBhZHZhbmNlIGRpcmVjdGl2ZXM7IGFuZCBjb21wYXNzaW9uYXRlIHJlbGVhc2UgZnJvbSBpbnN0aXR1dGlvbnMuDQo8YnIgLz4NCjxiciAvPg0KVGhlIEhvdXNpbmcgYW5kIENvbnN1bWVyIENsaW5pYyAoZXZpY3Rpb25zOyBpbGxlZ2FsIHJlbnQgaW5jcmVhc2VzOyByZXBhaXJzOyBwcmVkYXRvcnkgbG9hbnM7IGZhaXIgaG91c2luZyBhbmQgcmVsYXRlZCB0b3J0cykgDQo8YnIgLz4NCjxiciAvPg0KVGhlIEp1dmVuaWxlL05lZ2xlY3QvU3BlY2lhbCBFZHVjYXRpb24gQ2xpbmljIGhhbmRsZXMgZGVsaW5xdWVuY3k7IGNoaWxkcmVuIGFuZCBwYXJlbnRzIGluIGNoaWxkIG5lZ2xlY3Q7IGFuZCBzcGVjaWFsIGVkdWNhdGlvbiBwbGFjZW1lbnRzKS4NCjxiciAvPg0KPGJyIC8+DQpUaGUgTG93IEluY29tZSBUYXhwYXllciBDbGluaWMgcHJvdmlkZXMgcmVwcmVzZW50YXRpb24gZm9yIGFjdGl2ZSB0YXggY29udHJvdmVyc2llczsgZWFybmVkIGluY29tZSB0YXggY3JlZGl0IGV4YW1pbmF0aW9ucywgZGlzLWFsbG93YW5jZSBvZiBkZXBlbmRlbnRzOyBmcm96ZW4gdGF4IHJlZnVuZHMuIDxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMyMDgeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWTheizklZGml7e6vjo/YC1QUHT5hA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLJnYPBCgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAWuiXE4bgMIS/BreSBHREdzS0MI+" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4200 Connecticut Avenue, NW Washington DC 20008" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="UDC (David A. Clarke) School of Law" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4200 Connecticut Avenue, NW Washington, DC 20008</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Karen Forman- Clinic Director<br /><b>Phone No:</b>(202) 274-7400<br /><b>Fax No:</b>(202) 727-5583<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.law.udc.edu<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Legal<br \><b>Services : </b> Legal<br \><b>Program : </b> Family law--child custody, support, visitation, guardianship, Landlord/Tenant/Fair housing, Public benefits<br \><b>Population : </b> Persons with HIV/AIDS, Persons with intellectual disability<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Persons with HIV/AIDS; Intellectual disability.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The University of the District of Columbia School of Law provides services within the following programs: HIV/AIDS, Housing and Consumer, Juvenile/Neglect/Special Education and Low Income Taxpayer law.
+<br />
+<br />
+The HIV/AIDS Clinics handle public entitlements; drafting and executing last will and testaments; powers of attorney; advance directives; and compassionate release from institutions.
+<br />
+<br />
+The Housing and Consumer Clinic (evictions; illegal rent increases; repairs; predatory loans; fair housing and related torts) 
+<br />
+<br />
+The Juvenile/Neglect/Special Education Clinic handles delinquency; children and parents in child neglect; and special education placements).
+<br />
+<br />
+The Low Income Taxpayer Clinic provides representation for active tax controversies; earned income tax credit examinations, dis-allowance of dependents; frozen tax refunds. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

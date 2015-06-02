@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSgzMzA5IDE2dGggU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDEwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFKTMzMDkgMTZ0aCBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDEwZGQCAw8PFgIfAgVMPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDI2NS0wMTQ5PGJyIC8+PGI+RmF4IE5vOjwvYj4oMjAyKSA0ODMtMDY1MDxiciAvPmRkAgUPDxYCHwIFLjxiPldlYnNpdGU6IDwvYj53d3cudGhlZmFtaWx5cGxhY2VkYy5vcmc8YnIgLz5kZAIHDw8WAh8CBbYFPGI+Q2F0ZWdvcnkgOiA8L2I+IEVkdWNhdGlvbiwgTWVudGFsIEhlYWx0aCwgUGFyZW50aW5nLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gRWR1Y2F0aW9uYWwgc2VydmljZXMsIEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzLCBNYXRlcmlhbCBuZWVkcywgTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQsIFNvY2lhbCBzZXJ2aWNlczxiciBcPjxiPlR5cGUgT2YgQ2FyZSA6IDwvYj4gT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IEFkdWx0IEJhc2ljIEVkdWNhdGlvbi9MaXRlcmFjeS9UdXRvcmluZywgQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBDbG90aGluZywgRG9tZXN0aWMgVmlvbGVuY2UsIEVuZ2xpc2ggYXMgYSBTZWNvbmQgTGFuZ3VhZ2UgKEVTTCksIEZ1cm5pdHVyZSwgSG9tZSB2aXNpdGF0aW9uLCBQYXJlbnRpbmcgc3VwcG9ydCwgZS5nLiBjbGFzc2VzLCBncm91cHMsIFByZW5hdGFsL1Bvc3RuYXRhbCBjbGFzc2VzLCBSZWZlcnJhbHMgZm9yIHNvY2lhbCBzZXJ2aWNlcywgU3VwcG9ydCBncm91cHM8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBGYW1pbGllcywgSW1taWdyYW50cy9SZWZ1Z2VlcywgSW5mYW50cywgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVIPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Mb3ctaW5jb21lIGZhbWlsaWVzIGluIFdhc2hpbmd0b24gREMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBeUNPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgRmFtaWx5IFBsYWNlIGhlbHBzIHByb21vdGUgc3RhYmlsaXR5IGFuZCB3ZWxsLWJlaW5nIGZvciBsb3cgaW5jb21lIGZhbWlsaWVzIGluIFdhc2hpbmd0b24gREMgYnkgb2ZmZXJpbmcgZWR1Y2F0aW9uLCBjcml0aWNhbCByZXNvdXJjZXMsIGFuZCBzb2NpYWwgc3VwcG9ydC4gTW9zdCBvZiB0aGUgb3JnYW5pemF0aW9ucyBjbGllbnRzIGFyZSBtb3RoZXJzIHdpdGggeW91bmcgY2hpbGRyZW4gdW5kZXIgdGhlIGFnZSBvZiBmaXZlIHllYXJzLiBBbGwgY2xhc3NlcyBhbmQgc2VydmljZXMgYXJlIG9mZmVyZWQgYXQgbm8gY29zdCB0byBmYW1pbGllcy4gVGhlIEZhbWlseSBQbGFjZSBwcm92aWRlcyBhIHdlbGNvbWluZywgbXVsdGktY3VsdHVyYWwgZW52aXJvbm1lbnQsIHdpdGggcHJvZ3JhbXMgdGhhdCBoZWxwIG1lZXQgZW1lcmdlbmN5IG5lZWRzOyBwcm92aWRlIGVkdWNhdGlvbiBhbmQgdHJhaW5pbmc7IGFuZCBvZmZlciBhY2Nlc3MgdG8gaW5mb3JtYXRpb24gYW5kIG90aGVyIHNvY2lhbCBzZXJ2aWNlcy4gV2l0aGluIHRoZSBjb21mb3J0cyBvZiB0aGUgTW91bnQgUGxlYXNhbnQgcm93IGhvdXNlIHBhcnRpY2lwYW50cyBub3Qgb25seSBmaW5kIGFjY2VzcyB0byBpbXBvcnRhbnQgc2VydmljZXMsIGJ1dCBhbHNvIGZvcm0gbXV0dWFsbHkgc3VwcG9ydGl2ZSBmcmllbmRzaGlwcy4NCjxiciAvPg0KPGJyIC8+DQpFRFVDQVRJT046DQpUaGUgRmFtaWx5IFBsYWNlIG9mZmVycyBhIEZhbWlseSBMaXRlcmFjeSBQcm9ncmFtIHdoZXJlIGl0IGFpbXMgdG8gc3VwcG9ydCBmYW1pbGllcyB0byBkZXZlbG9wIHRoZWlyIGZ1bGwgcG90ZW50aWFsIHdoaWxlIGRlbGl2ZXJpbmcgZGV2ZWxvcG1lbnRhbCBhcHByb3ByaWF0ZSBzZXJ2aWNlcyB0byBjaGlsZHJlbiBmcm9tIGFnZSB6ZXJvIHRvIGZpdmUgYW5kIHRoZWlyIHBhcmVudHMgaW4gdGhlIENvbHVtYmlhIEhlaWdodHMgYW5kIEJyb29rbGFuZCBhcmVhcy4gRW5nbGlzaCBhcyBhIFNlY29uZCBMYW5ndWFnZSwgQWR1bHQgRWR1Y2F0aW9uIGNsYXNzZXMsIGFuZCBFYXJseSBDaGlsZGhvb2QgRWR1Y2F0aW9uIGNsYXNzZXMgYXJlIG9mZmVyZWQuIA0KPGJyIC8+DQo8YnIgLz4NClNPQ0lBTCBTRVJWSUNFUzoNClRoZSBGYW1pbHkgUGxhY2Ugb2ZmZXJzIGNhc2UgbWFuYWdlbWVudCwgYmFieSBmdXJuaXNoaW5ncyBlcXVpcG1lbnQsIHBhcmVudGluZyBjbGFzc2VzLCBwcmVuYXRhbCBjbGFzc2VzLCBkb21lc3RpYyB2aW9sZW5jZSBjb3Vuc2VsaW5nLCBhbmQgbnV0cml0aW9uIGNsYXNzZXMuIENoaWxkY2FyZSBwcm92aWRlZCBmb3IgY2hpbGRyZW4gKDIgbW9udGhzIHRvIDUgeWVhcnMpIGZvciBwYXJ0aWNpcGFudHMgYXR0ZW5kaW5nIGNsYXNzZXMuIE5lYXJlc3QgTWV0cm86IENvbHVtYmlhIEhlaWdodHM7IE1ldHJvIEJ1czogUzIgJiBTNA0KPGJyIC8+DQo8YnIgLz4NCkVNRVJHRU5DWSBGT09EL0NMT1RISU5HOg0KVGhlIEZhbWlseSBQbGFjZSByZWxpZXMgZ3JlYXRseSBvbiBkb25hdGlvbnMgb2Ygbm9uLXBlcmlzaGFibGUgZm9vZHMsIGFkdWx0IGNoaWxkcmVuJ3MgY2xvdGhpbmcsIGFuZCBkaWFwZXJzIHRvIHByb3ZpZGUgdG8gb3VyIHBhcnRpY2lwYW50cy4gVGhlIEZhbWlseSBQbGFjZSBob2xkcyBhIGNsb3RoaW5nIGRyaXZlIG9uY2UgYSBtb250aCwgYWRkaXRpb25hbGx5IGRpc3RyaWJ1dGluZyBib29rcywgdG95cywgY2FyIHNlYXRzLCBzdHJvbGxlcnMsIGFuZCBmdXJuaXR1cmUgaWYgYXZhaWxhYmxlLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQI5Nh4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZE+uyBvjnoIdSLl6jWzuhE1ZiA4v" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLipIDODQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARZWglAyAuPPm8LxA5SFLkCQa0e2" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3309 16th Street, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="The Family Place" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3309 16th Street, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 265-0149<br /><b>Fax No:</b>(202) 483-0650<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.thefamilyplacedc.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Education, Mental Health, Parenting, Social Services<br \><b>Services : </b> Educational services, Family support services, Material needs, Mental health treatment, Social services<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Adult Basic Education/Literacy/Tutoring, Advocacy, case management, counseling, emergency services, Clothing, Domestic Violence, English as a Second Language (ESL), Furniture, Home visitation, Parenting support, e.g. classes, groups, Prenatal/Postnatal classes, Referrals for social services, Support groups<br \><b>Population : </b> Families, Immigrants/Refugees, Infants, Women<br \><b>Forms Of Payment : </b> Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Low-income families in Washington DC.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Family Place helps promote stability and well-being for low income families in Washington DC by offering education, critical resources, and social support. Most of the organizations clients are mothers with young children under the age of five years. All classes and services are offered at no cost to families. The Family Place provides a welcoming, multi-cultural environment, with programs that help meet emergency needs; provide education and training; and offer access to information and other social services. Within the comforts of the Mount Pleasant row house participants not only find access to important services, but also form mutually supportive friendships.
+<br />
+<br />
+EDUCATION:
+The Family Place offers a Family Literacy Program where it aims to support families to develop their full potential while delivering developmental appropriate services to children from age zero to five and their parents in the Columbia Heights and Brookland areas. English as a Second Language, Adult Education classes, and Early Childhood Education classes are offered. 
+<br />
+<br />
+SOCIAL SERVICES:
+The Family Place offers case management, baby furnishings equipment, parenting classes, prenatal classes, domestic violence counseling, and nutrition classes. Childcare provided for children (2 months to 5 years) for participants attending classes. Nearest Metro: Columbia Heights; Metro Bus: S2 & S4
+<br />
+<br />
+EMERGENCY FOOD/CLOTHING:
+The Family Place relies greatly on donations of non-perishable foods, adult children's clothing, and diapers to provide to our participants. The Family Place holds a clothing drive once a month, additionally distributing books, toys, car seats, strollers, and furniture if available.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

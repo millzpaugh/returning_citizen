@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSwxMTA0IEFsbGlzb24gU3RyZWV0LCBOVyAgV2FzaGluZ3RvbiBEQyAyMDAxMWRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBS0xMTA0IEFsbGlzb24gU3RyZWV0LCBOVyAgV2FzaGluZ3RvbiwgREMgMjAwMTFkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNzIyLTE4MTU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDcyMy0zMzAzPGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBdYDPGI+Q2F0ZWdvcnkgOiA8L2I+IFBhcmVudGluZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEZhbWlseSBzdXBwb3J0IHNlcnZpY2VzLCBTb2NpYWwgc2VydmljZXM8YnIgXD48Yj5Qcm9ncmFtIDogPC9iPiBBZHZvY2FjeSwgY2FzZSBtYW5hZ2VtZW50LCBjb3Vuc2VsaW5nLCBlbWVyZ2VuY3kgc2VydmljZXMsIENhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgcGFyZW50YWwgcmV1bmlmaWNhdGlvbiwgRmluYW5jaWFsIGNvdW5zZWxpbmcgKG1vbmV5IG1hbmFnZW1lbnQsIGhvdXNpbmcgJmFtcDsgY3JlZGl0KSwgSG9tZSB2aXNpdGF0aW9uLCBQYXJlbnRpbmcgc3VwcG9ydCwgZS5nLiBjbGFzc2VzLCBncm91cHMsIFJlZmVycmFscyBmb3Igc29jaWFsIHNlcnZpY2VzLCBTdXBwb3J0IGdyb3VwczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBZb3V0aCAoMTIgLSAyNCk8YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CZWRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBewGPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgR2VvcmdpYSBBdmVudWUvUm9jayBDcmVlayBFYXN0IChIZWFsdGh5IEZhbWlsaWVzIFRocml2aW5nIENvbW11bml0aWVzIENvdW5jaWwpKEdBUkNFQykgbWlzc2lvbiBpcyB0byB3b3JrIHdpdGggY29tbXVuaXR5LWJhc2VkIG9yZ2FuaXphdGlvbnMgYW5kIHJlc2lkZW50cyB0byBoZWxwIGNoaWxkcmVuLA0KeW91dGggYW5kIGZhbWlsaWVzIGJlY29tZSBoZWFsdGh5IGJ5IGNob2ljZSwgZW1wb3dlcmVkIGJ5IGtub3dsZWRnZSBhbmQNCmNvbm5lY3RlZCB0byBjb21tdW5pdHkgc3VwcG9ydC4NCjxiciAvPg0KPGJyIC8+DQpHQVJDRUMgYWxzbyBwcm92aWRlcyB3cmFwLWFyb3VuZCBzdXBwb3J0IHNlcnZpY2VzIHRvIGhlbHAgYXQtcmlzayBjaGlsZHJlbiwgeW91dGggYW5kIGZhbWlsaWVzIHByZXZlbnQsIGF2b2lkIGFuZCByZXBhaXIgYWR2ZXJzZSBzb2NpYWwgaXNzdWVzIGFmZmVjdGluZyB0aGVpciBsaXZlcywgZnVsbCBjYXNlIHJlc3BvbnNpYmlsaXR5LCBzdXBwb3J0IHNlcnZpY2VzIGFuZCByZWZlcnJhbHMgdG8gbGVnYWwgYW5kIHNvY2lhbCBzZXJ2aWNlIGFnZW5jaWVzLiBHQVJDRUMncyBzZXJ2aWNlcyBpbmNsdWRlIGNhc2UgbWFuYWdlbWVudCwgbGlmZS1za2lsbHMgdHJhaW5pbmcsIGVtZXJnZW5jeSBmaW5hbmNpYWwgYXNzaXN0YW5jZSwgZmluYW5jaWFsIHBsYW5uaW5nLCBob3VzaW5nIGFzc2lzdGFuY2UsIGluZm9ybWF0aW9uLCBhbmQgcmVmZXJyYWxzLiBDb2xsYWJvcmF0aXZlcyBhcmUgaW5kZXBlbmRlbnRseSBvcGVyYXRlZCBhbmQgc2VydmljZSByZWZlcnJhbHMgYXJlIHdhcmQtYmFzZWQuIEFnZW5jeSByZWZlcnJhbHMgYW5kIHdhbGstaW5zIGFyZSBhY2NlcHRlZC4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzYzNx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZIWJaNLZKqYUDQhS3LqRMoXUShsy" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL5/ai9DgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAWGm+zyQuBeAVcPnojNtNKnzaAnq" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1104 Allison Street, NW  Washington DC 20011" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Georgia Avenue/Rock Creek East (Healthy Families Thriving Communities Council)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1104 Allison Street, NW  Washington, DC 20011</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 722-1815<br /><b>Fax No:</b>(202) 723-3303<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Parenting, Social Services<br \><b>Services : </b> Family support services, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Case management, counseling, parental reunification, Financial counseling (money management, housing &amp; credit), Home visitation, Parenting support, e.g. classes, groups, Referrals for social services, Support groups<br \><b>Population : </b> Families, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Georgia Avenue/Rock Creek East (Healthy Families Thriving Communities Council)(GARCEC) mission is to work with community-based organizations and residents to help children,
+youth and families become healthy by choice, empowered by knowledge and
+connected to community support.
+<br />
+<br />
+GARCEC also provides wrap-around support services to help at-risk children, youth and families prevent, avoid and repair adverse social issues affecting their lives, full case responsibility, support services and referrals to legal and social service agencies. GARCEC's services include case management, life-skills training, emergency financial assistance, financial planning, housing assistance, information, and referrals. Collaboratives are independently operated and service referrals are ward-based. Agency referrals and walk-ins are accepted. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

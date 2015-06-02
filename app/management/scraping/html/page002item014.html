@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMzM4IEcgU3RyZWV0LCBTRSBXYXNoaW5ndG9uIERDIDIwMDIwZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjEzMzggRyBTdHJlZXQsIFNFIFdhc2hpbmd0b24sIERDIDIwMDIwZGQCAw8PFgIfAgVyPGI+Q29udGFjdCBQZXJzb246PC9iPlNoZWxhaCBXaWxjb3g8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgNTQ0LTMxNTA8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDU0Ni0wNDE5PGJyIC8+ZGQCBQ8PFgIfAgU2PGI+V2Vic2l0ZTogPC9iPnd3dy5jYXBpdG9saGlsbGdyb3VwbWluaXN0cnkub3JnPGJyIC8+ZGQCBw8PFgIfAgX+AzxiPkNhdGVnb3J5IDogPC9iPiBFbWVyZ2VuY3kgRm9vZCwgSG91c2luZywgU29jaWFsIFNlcnZpY2VzPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IERheSBwcm9ncmFtcy9Ecm9wLWluIGNlbnRlcnMsIE1vbmV0YXJ5IGFzc2lzdGFuY2UsIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTaGVsdGVycywgU29jaWFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQWR2b2NhY3ksIGNhc2UgbWFuYWdlbWVudCwgY291bnNlbGluZywgZW1lcmdlbmN5IHNlcnZpY2VzLCBFbWVyZ2VuY3kgZm9vZC9ncm9jZXJpZXMsIE1lZGljYWwgZXhwZW5zZXMsIGUuZy4gY29zdCBvZiBwcmVzY3JpcHRpb25zLCBNb3J0Z2FnZS9SZW50IChFUkFQKSwgT3RoZXIgYXNzaXN0YW5jZSwgZS5nLiB0cmFuc3BvcnRhdGlvbiwgUmVmZXJyYWxzIGZvciBzb2NpYWwgc2VydmljZXMsIFV0aWxpdGllczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBIb21lbGVzcywgV29tZW4gd2l0aCBjaGlsZHJlbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgVNPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Ib21lbGVzcyBXb21lbiB3aXRoIGNoaWxkcmVuIGFuZCBmYW1pbGllcy48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF4gs8Yj5EZXNjcmlwdGlvbjogPC9iPkNhcGl0b2wgSGlsbCBHcm91cCBNaW5pc3RyeSAoQ0hHTSkgaXMgYSBzaGVsdGVyIHRvIGZhbWlsaWVzIHdobyBhcmUgaG9tZWxlc3MgYW5kIG9uIHdhaXRpbmcgbGlzdCBmb3IgZW1lcmdlbmN5IHNoZWx0ZXIuIEZhbWlsaWVzIHN0YXkgaW4gY2h1cmNoZXMgb3IgY29uZ3JlZ2F0aW9uIG93bmVkIGJ1aWxkaW5ncy4gVGhlIHByb2dyYW0gcHJvdmlkZXMgY2FzZSBtYW5hZ2VtZW50IHNlcnZpY2VzIGFzIHdlbGwgYW5kIGlzIG9ubHkgYW4gb3Zlcm5pZ2h0IHNoZWx0ZXIuDQo8YnIgLz4gDQo8YnIgLz4gIA0KQ0hHTSB3b3JrcyB3aXRoIG5laWdoYm9ycywgY29uZ3JlZ2F0aW9ucywgYW5kIG9yZ2FuaXphdGlvbnMgaW4gdGhlIERDIGNvbW11bml0eSB0byBwcm92aWRlIHJlc291cmNlcyBmb3IgZmFtaWxpZXMgYW5kIGluZGl2aWR1YWxzIHdobyBhcmUgaG9tZWxlc3Mgb3IgaW4gY3Jpc2lzIHNvIHRoYXQgdGhleSBtYXkgbGVhZCBoZWFsdGh5LCBmdWxmaWxsaW5nIGFuZCBwcm9kdWN0aXZlIGxpdmVzLiBUaGUgc3VwcG9ydGl2ZSBzZXJ2aWNlcyBwcm9tb3RlIHNlbGYtcmVsaWFuY2Ugc28gdGhhdCBhbGwgb2Ygb3VyIG5laWdoYm9ycyBoYXZlIHRoZSBvcHBvcnR1bml0eSB0byBsaXZlIHNhZmVseSB3aXRoIG9wcG9ydHVuaXR5IGFuZCBqdXN0aWNlLg0KPGJyIC8+IA0KPGJyIC8+ICANCi1TaGlybGV54oCZcyBQbGFjZSBEYXkgSG9zcGl0YWxpdHkgRGF5IENlbnRlciBpcyB0aGUgb25seSBkYXl0aW1lIGRyb3AtaW4gY2VudGVyIGluIERDIGZvciBmYW1pbGllcyB3aXRoIGNoaWxkcmVuIG9mIGFsbCBhZ2VzLiBJbiBhZGRpdGlvbiB0byB0aGUgc2hvd2VycywgbGF1bmRyeSwgYW5kIHJlc3Ryb29tIGZhY2lsaXRpZXMsIHdlIG9mZmVyIGEgcGxhY2UgZm9yIHdvcmtzaG9wcywgcmVzcGl0ZSwgbGlnaHQgbWVhbHMsIGFuZCBjYXNlIG1hbmFnZW1lbnQuDQo8YnIgLz4gDQo8YnIgLz4gIA0KLVRoZSBTb2NpYWwgU2VydmljZXMgT2ZmaWNlIGxvY2F0ZWQgYXQgU2hpcmxleeKAmXMgUGxhY2UgYXNzaXN0cyBuZWlnaGJvcnMgaW4gY3Jpc2lzIHdpdGggcmVudCwgbW9ydGdhZ2UsIHV0aWxpdGllcywgZm9vZCwgdHJhbnNwb3J0YXRpb24sIGFuZCBtZWRpY2FsIGV4cGVuc2VzLCBhcyB3ZWxsIGFzIGNhc2UgbWFuYWdlbWVudCBhbmQgY3Jpc2lzIGludGVydmVudGlvbi4NCjxiciAvPiANCjxiciAvPiAgDQotT3VyIExpZmUgU2tpbGxzIGFuZCBKb2IgVHJhaW5pbmcgd29ya3Nob3BzIGFzc2lzdCBjbGllbnRzIGluIGxlYXJuaW5nIG9yIHNoYXJwZW5pbmcgdGhlIGFwcHJvcHJpYXRlIGFuZCByZXNwb25zaWJsZSBwcm9ibGVtLXNvbHZpbmcgYmVoYXZpb3JzIHVzZWQgaW4gdGhlIG1hbmFnZW1lbnQgb2YgdGhlaXIgcGVyc29uYWwgYWZmYWlycy4gUGVyc29uYWwgYWZmYWlycyBpbmNsdWRlIGhlYWx0aCwgZmluYW5jZXMsIHBhcmVudGluZywgbWVudGFsIGhlYWx0aCwgc29jaWFsIHNraWxscywgYW5kIG11Y2ggbW9yZS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTMwHg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFk3eW8Pd/INNJ9Js3yA+hdL4tOC3g=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLxgoWMCAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAT+Co4+mGogYTSwtRKJIkWs74X4F" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1338 G Street, SE Washington DC 20020" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Capitol Hill Group Ministry (Congregation Based Shelter Project/Homeless Services)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1338 G Street, SE Washington, DC 20020</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Shelah Wilcox<br /><b>Phone No:</b>(202) 544-3150<br /><b>Phone No2:</b>(202) 546-0419<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.capitolhillgroupministry.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing, Social Services<br \><b>Services : </b> Day programs/Drop-in centers, Monetary assistance, Nutritional services, Shelters, Social services<br \><b>Program : </b> Advocacy, case management, counseling, emergency services, Emergency food/groceries, Medical expenses, e.g. cost of prescriptions, Mortgage/Rent (ERAP), Other assistance, e.g. transportation, Referrals for social services, Utilities<br \><b>Population : </b> Families, Homeless, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless Women with children and families.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Capitol Hill Group Ministry (CHGM) is a shelter to families who are homeless and on waiting list for emergency shelter. Families stay in churches or congregation owned buildings. The program provides case management services as well and is only an overnight shelter.
+<br /> 
+<br />  
+CHGM works with neighbors, congregations, and organizations in the DC community to provide resources for families and individuals who are homeless or in crisis so that they may lead healthy, fulfilling and productive lives. The supportive services promote self-reliance so that all of our neighbors have the opportunity to live safely with opportunity and justice.
+<br /> 
+<br />  
+-Shirley’s Place Day Hospitality Day Center is the only daytime drop-in center in DC for families with children of all ages. In addition to the showers, laundry, and restroom facilities, we offer a place for workshops, respite, light meals, and case management.
+<br /> 
+<br />  
+-The Social Services Office located at Shirley’s Place assists neighbors in crisis with rent, mortgage, utilities, food, transportation, and medical expenses, as well as case management and crisis intervention.
+<br /> 
+<br />  
+-Our Life Skills and Job Training workshops assist clients in learning or sharpening the appropriate and responsible problem-solving behaviors used in the management of their personal affairs. Personal affairs include health, finances, parenting, mental health, social skills, and much more.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

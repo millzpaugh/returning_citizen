@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS42NjEwIE1vbnRyb3NlIFJvYWQsIFNURS4gMTAyIEJldGhlc2RhIE1EIDIwODE0ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFLzY2MTAgTW9udHJvc2UgUm9hZCwgU1RFLiAxMDIgQmV0aGVzZGEsIE1EIDIwODE0ZGQCAw8PFgIfAgVPPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDg5Ni0yMDM2PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMzAxKSA4OTYtNjYxMDxiciAvPmRkAgUPDxYCHwIFSzxiPldlYnNpdGU6IDwvYj53d3cuc3VidXJiYW5ob3NwaXRhbC5vcmcvc2VydmljZXMvYWRkaWN0dHJlYXRjdHIuYXNweDxiciAvPmRkAgcPDxYCHwIFsgQ8Yj5DYXRlZ29yeSA6IDwvYj4gU3Vic3RhbmNlIEFidXNlPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IEJ1cHJlbm9ycGhpbmUgKHN1Ym94b25lKSBhc3Npc3RlZCB0cmVhdG1lbnQsIERldG94aWZpY2F0aW9uLCBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBJbnRlbnNpdmUgb3V0cGF0aWVudCwgT3V0cGF0aWVudDxiciBcPjxiPlByb2dyYW0gOiA8L2I+IENvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gTWVuLCBVbmRlciBhZ2UgMjEsIFdvbWVuPGJyIFw+PGI+Rm9ybXMgT2YgUGF5bWVudCA6IDwvYj4gTWVkaWNhcmUsIFByaXZhdGUgaGVhbHRoIGluc3VyYW5jZSwgU2VsZi1wYXltZW50LCBTdGF0ZSBmaW5hbmNlZCBpbnN1cmFuY2UgKG90aGVyIHRoYW4gTWVkaWNhaWQpPGJyIFw+PGI+UGF5bWVudCBBc3Npc3RhbmNlIDogPC9iPiBQYXltZW50IGFzc2lzdGFuY2UgKENoZWNrIHdpdGggZmFjaWxpdHkgZm9yIGRldGFpbHMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAgVDPGI+IEhvdXJzIE9mIFNlcnZpY2VzOiA8L2I+TW9uZGF5IC0gRnJpZGF5IDg6MDAgYW0gLSA4OjAwIHBtLjxiciAvPmRkAg8PDxYCHwIFNTxiPkVsaWdpYmlsaXR5IENyaXRlcmlhOiA8L2I+U3Vic3RhbmNlIGFidXNlcnMuPGJyIC8+ZGQCEQ8PFgIfAmVkZAITDw8WAh8CBdYHPGI+RGVzY3JpcHRpb246IDwvYj5TdWJ1cmJhbiBIb3NwaXRhbOKAmXMgQWRkaWN0aW9uIFRyZWF0bWVudCBDZW50ZXIgb2ZmZXJzIGEgY29tcHJlaGVuc2l2ZSBwcm9ncmFtIGZvciB0aGUgZGV0b3hpZmljYXRpb24sIGNvdW5zZWxpbmcgYW5kIGVkdWNhdGlvbiBmb3IgdGhvc2Ugc3VmZmVyaW5nIGZyb20gYWRkaWN0aXZlIGRpc2Vhc2UuIExvY2F0ZWQgYXQgYSBjb252ZW5pZW50IHNpdGUgaW4gTW9udGdvbWVyeSBDb3VudHksIHRoZSBPdXRwYXRpZW50IEFkZGljdGlvbiBUcmVhdG1lbnQgUHJvZ3JhbSBvZmZlcnMgYSBicm9hZCByYW5nZSBvZiBhZGRpY3Rpb24gKGkuZS4sIGFsY29ob2wgYW5kL29yIHN1YnN0YW5jZSBhYnVzZSkgc2VydmljZXMgZm9yIGFkb2xlc2NlbnRzIGFuZCBhZHVsdHMsIGluY2x1ZGluZzogRXZhbHVhdGlvbiBTZXJ2aWNlcyBhbmQgSW5wYXRpZW50IERldG94aWZpY2F0aW9uLCBEdWFsIERpYWdub3NpcyBJbnRlbnNpdmUgT3V0cGF0aWVudCBQcm9ncmFtLCBTdHJ1Y3R1cmVkIE91dHBhdGllbnQgUHJvZ3JhbXMsIEFkb2xlc2NlbnQgU3Vic3RhbmNlIEFidXNlIEVkdWNhdGlvbiBhbmQgT3V0cGF0aWVudCBUcmVhdG1lbnQsIGFuZCBBZGRpdGlvbmFsIG1lZXRpbmdzIGZvciBwYXJlbnRzIG9mIHRlZW5zIGluIHRyb3VibGUgd2l0aCBhbGNvaG9sIG9yIG90aGVyIGRydWdzLg0KPGJyIC8+DQo8YnIgLz4NCkZvciBNb3JlIEluZm9ybWF0aW9uDQo8YnIgLz4NCk91ciBzZXJ2aWNlcyBhcmUgYXBwcm92ZWQgZm9yIGNvdmVyYWdlIGJ5IG1vc3QgaW5zdXJhbmNlIGNvbXBhbmllcyBhbmQgbWFuYWdlZC1jYXJlIHBsYW5zLiBGb3IgbW9yZSBpbmZvcm1hdGlvbiwgcGxlYXNlIGNvbnRhY3Qgb3VyIE91dHBhdGllbnQgQWRkaWN0aW9uIFRyZWF0bWVudCBQcm9ncmFtIGF0IDMwMS04OTYtMjAzNi4gIEJ1c2luZXNzIGhvdXJzIGFyZSBNb25kYXkg4oCTIEZyaWRheSA4OjAwIGFtIOKAkyA4OjAwIHBtLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM2OTkeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWRlEDFvOdQJ+kNhYVYsfcsFYvv4ZQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLspLUjApfFvuEJAtPwsagKAuLsk98FAsPb+dIJApqCr+oB6Mh1qOuVLNCfvikiyJlGZp9imhU=" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="6610 Montrose Road, STE. 102 Bethesda MD 20814" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Suburban Hospital Addiction Treatment Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">6610 Montrose Road, STE. 102 Bethesda, MD 20814</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 896-2036<br /><b>Phone No2:</b>(301) 896-6610<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.suburbanhospital.org/services/addicttreatctr.aspx<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Buprenorphine (suboxone) assisted treatment, Detoxification, Substance abuse treatment<br \><b>Type Of Care : </b> Intensive outpatient, Outpatient<br \><b>Program : </b> Co-occurring mental illness &amp; substance abuse disorders<br \><b>Population : </b> Men, Under age 21, Women<br \><b>Forms Of Payment : </b> Medicare, Private health insurance, Self-payment, State financed insurance (other than Medicaid)<br \><b>Payment Assistance : </b> Payment assistance (Check with facility for details)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 8:00 am - 8:00 pm.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Substance abusers.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Suburban Hospital’s Addiction Treatment Center offers a comprehensive program for the detoxification, counseling and education for those suffering from addictive disease. Located at a convenient site in Montgomery County, the Outpatient Addiction Treatment Program offers a broad range of addiction (i.e., alcohol and/or substance abuse) services for adolescents and adults, including: Evaluation Services and Inpatient Detoxification, Dual Diagnosis Intensive Outpatient Program, Structured Outpatient Programs, Adolescent Substance Abuse Education and Outpatient Treatment, and Additional meetings for parents of teens in trouble with alcohol or other drugs.
+<br />
+<br />
+For More Information
+<br />
+Our services are approved for coverage by most insurance companies and managed-care plans. For more information, please contact our Outpatient Addiction Treatment Program at 301-896-2036.  Business hours are Monday – Friday 8:00 am – 8:00 pm.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

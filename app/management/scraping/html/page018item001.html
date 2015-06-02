@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSU1ODM0IFJpZ2dzIFJvYWQgTHl0dG9uc3ZpbGxlIE1EIDIwNzg0ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjU4MzQgUmlnZ3MgUm9hZCBMeXR0b25zdmlsbGUsIE1EIDIwNzg0ZGQCAw8PFgIfAgUqPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDMzMC02NzQxPGJyIC8+ZGQCBQ8PFgIfAmVkZAIHDw8WAh8CBdUBPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmc8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gU2hlbHRlcnMsIFRyYW5zaXRpb25hbCBob3VzaW5nL1NpbmdsZSBSb29tIE9jY3VwYW5jeTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgUGVyc29ucyB3aXRoIGNvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBU08Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkhvbWVsZXNzIG1lbiB3aG8gYXJlIGR1YWxseS90cmktZGlhZ25vc2VkLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWYBDxiPkRlc2NyaXB0aW9uOiA8L2I+U2FmZSBIYXZlbiBpcyBhIHJlc2lkZW50aWFsIHN1YnN0YW5jZSBhYnVzZSBwcm9ncmFtLCB3aXRoIHRyYW5zaXRpb25hbCBob3VzaW5nIGFuZC9vciBpbmRlcGVuZGVudCBsaXZpbmcgYWZ0ZXJjYXJlIGNvbXBvbmVudC4gIFRoZSBwcm9ncmFtIGNhbiBiZSBhbnl3aGVyZSBmcm9tIDMwLTEyMCBkYXlzIGFuZCBzcGVjaWFsaXplcyBpbiB0cmVhdG1lbnQgb2YgZHVhbGx5IG9yIHRyaSBkaWFnbm9zZWQgcGVyc29ucyAoc3Vic3RhbmNlIGFidXNlLCBISVYvQUlEUywgbWVudGFsIGlsbG5lc3MgYW5kL29yIGludGVsbGVjdHVhbGx5IGNoYWxsZW5nZWQpLiANCjxiciAvPg0KPGJyIC8+DQpFbGlnaWJpbGl0eTogDQpSZWZlcnJhbHMgYXJlIGNvb3JkaW5hdGVkIHRocm91Z2ggQ1NPU0EsIFBTQSBhbmQgSFVEIChJbWFuaSBQcm9ncmFtKS4gVHJhbnN2ZXN0aXRlIGFuZCB0cmFuc3NleHVhbCBwZXJzb25zIGFjY2VwdGVkIGFuZCB0aGUgZmFjaWxpdGllcyBhcmUgd2hlZWxjaGFpciBhY2Nlc3NpYmxlLg0KPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzMzMx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZFZb7knc0xhtH/7jPPJpgHtDNseT" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKsiY63BQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYyUab9H2MKoch4WQCya5qLA8KfD" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="5834 Riggs Road Lyttonsville MD 20784" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Safe Haven" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">5834 Riggs Road Lyttonsville, MD 20784</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 330-6741<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Shelters, Transitional housing/Single Room Occupancy<br \><b>Population : </b> Men, Persons with co-occurring mental illness &amp; substance abuse disorders<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless men who are dually/tri-diagnosed.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Safe Haven is a residential substance abuse program, with transitional housing and/or independent living aftercare component.  The program can be anywhere from 30-120 days and specializes in treatment of dually or tri diagnosed persons (substance abuse, HIV/AIDS, mental illness and/or intellectually challenged). 
+<br />
+<br />
+Eligibility: 
+Referrals are coordinated through CSOSA, PSA and HUD (Imani Program). Transvestite and transsexual persons accepted and the facilities are wheelchair accessible.
+<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

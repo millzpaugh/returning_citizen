@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BS0xMTQwIE5vcnRoIENhcGl0b2wgU3RyZWV0LCBOVyBXYXNoaW5ndG9uICBEQyBkZAINDzwrAAoBAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZBYCZg9kFgZmDw8WAh8BaGRkAgEPZBYCZg9kFhQCAQ8PFgIfAgUuMTE0MCBOb3J0aCBDYXBpdG9sIFN0cmVldCwgTlcgV2FzaGluZ3RvbiAsIERDIGRkAgMPDxYCHwIFcTxiciAvPjxiPlBob25lIE5vOjwvYj4oMjAyKSA1ODktMDgwNDxiciAvPjxiPlBob25lIE5vMjo8L2I+KDIwMikgNTg5LTE1MDU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDU4OS0xNTM0PGJyIC8+ZGQCBQ8PFgIfAgU4PGI+V2Vic2l0ZTogPC9iPnd3dy5zYWZlaGF2ZW5vdXRyZWFjaG1pbmlzdHJ5Lm9yZy88YnIgLz5kZAIHDw8WAh8CBaQFPGI+Q2F0ZWdvcnkgOiA8L2I+IFN1YnN0YW5jZSBBYnVzZTxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBTdWJzdGFuY2UgYWJ1c2UgdHJlYXRtZW50PGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBSZXNpZGVudGlhbCBsb25nLXRlcm0gdHJlYXRtZW50IChtb3JlIHRoYW4gMzAgZGF5cyksIFJlc2lkZW50aWFsIHNob3J0LXRlcm0gdHJlYXRtZW50ICgzMCBkYXlzIG9yIGxlc3MpPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgQ28tb2NjdXJyaW5nIG1lbnRhbCBpbGxuZXNzICZhbXA7IHN1YnN0YW5jZSBhYnVzZSBkaXNvcmRlcnMsIFRyYXVtYS0tc2V4dWFsIGFidXNlL1BUU0QvdmljdGltcyBvZiBjcmltZTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IENyaW1pbmFsIGp1c3RpY2UgaW52b2x2ZWQsIExlc2JpYW4sIEdheSwgQmlzZXh1YWwsIFRyYW5zZ2VuZGVyICZhbXA7IFNleHVhbCBNaW5vcml0aWVzLCBNZW4sIFBlcnNvbnMgd2l0aCBISVYvQUlEUywgUGVyc29ucyB3aXRoIGludGVsbGVjdHVhbCBkaXNhYmlsaXR5LCBQZXJzb25zIHdpdGggcGh5c2ljYWwgZGlzYWJpbGl0eSwgVW5kZXIgYWdlIDIxLCBXb21lbjxiciBcPjxiPkZvcm1zIE9mIFBheW1lbnQgOiA8L2I+IEFjY2VzcyB0byByZWNvdmVyeSB2b3VjaGVyLCBQdWJsaWMgZnVuZGluZzxiciBcPmRkAgkPDxYCHwIFLjxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPlNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBW48Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPlNpbmdsZSwgZHVhbCBhbmQgdHJpcGx5IGRpYWdub3NlZCBleC1vZmZlbmRlcnMgd2l0aCBzdWJzdGFuY2UgYWJ1c2UgaXNzdWVzLjxiciAvPmRkAhEPDxYCHwIFWDxiPkRvY3VtZW50YXRpb24gTmVlZGVkOiA8L2I+UmVmZXJyYWxzIGFyZSBjb29yZGluYXRlZCB0aHJvdWdoIENTT1NBLCBQU0EgYW5kIEhVRC48YnIgLz5kZAITDw8WAh8CBdIMPGI+RGVzY3JpcHRpb246IDwvYj5TYWZlIEhhdmVuIE91dHJlYWNoIE1pbmlzdHJ5LCBJbmMuIChTSE9NKSB3b3JrcyB0byBpbXByb3ZlIHRoZSBxdWFsaXR5IGFuZCBsb25nZXZpdHkgb2YgbGlmZSBmb3IgaXRzJyBzaW5nbGUsIGR1YWwgb3IgbXVsdGlwbGUgZGlhZ25vc2VkIHByb2dyYW0gcGFydGljaXBhbnRzLiBUaGlzIGlzIHN1Y2Nlc3NmdWxseSBhY2NvbXBsaXNoZWQgYnkgcHJvdmlzaW9uIG9mICJub24tc3RvcCIgY29tcHJlaGVuc2l2ZSwgaG9saXN0aWMgc2VydmljZSBkZWxpdmVyeS4gVGhlIGNvbnRpbnVpdHkgb2YgY2FyZSBtb2RhbGl0aWVzIGluY2x1ZGU6IG91dHJlYWNoIGFuZCBwcmV2ZW50aW9uOyBlbWVyZ2VuY3kgY3Jpc2lzIGludGVydmVudGlvbjsgcmVmZXJyYWwgYW5kL29yIGludGFrZSBpbnRvIFNhZmUgSGF2ZW4ncyByZXNpZGVudGlhbCBzdWJzdGFuY2UgdHJlYXRtZW50OyB0cmFuc2l0aW9uOyBmYWl0aC1iYXNlZCB0cmFuc2l0aW9uOyBvdXRwYXRpZW50IGFmdGVyY2FyZSBzZXJ2aWNlcyBpbmNsdXNpdmUgb2YgYmlvLXBzeWNoby1zb2NpYWwgYXNzZXNzbWVudDsgcHJpbWFyeSBtZWRpY2FsOyBtZW50YWwgaGVhbHRoOyBjYXNlIG1hbmFnZW1lbnQ7IHJpc2sgcmVkdWN0aW9uL2VkdWNhdGlvbjsgYW5kIGxpdGVyYWN5IGFuZCBob3VzaW5nIHBsYWNlbWVudCBzZXJ2aWNlcy4NCjxiciAvPg0KPGJyIC8+DQpTSE9NJ3Mgc3Vic3RhbmNlIGFidXNlIHRyZWF0bWVudCBwcm9ncmFtIGZvciBzaW5nbGUsIGR1YWwsIGFuZCB0cmlwbHkgZGlhZ25vc2VkIGV4LW9mZmVuZGVycyB3aG8gYXJlIGdlbmVyYWxseSBjaHJvbmljLCBsb25nLXRlcm0sIG1pZGRsZS1hZ2VkLCB1bnNraWxsZWQsIGhvbWVsZXNzLCBzdHJlZXQtb3JpZW50ZWQsIGFuZCBuZXdseSBISVYtaW5mZWN0ZWQsIElEVXMgYW5kICJjcmFjayIgY29jYWluZSBhYnVzZXJzLiBDbGllbnRzIGFyZSBpbmRpZ2VudCwgbG93LWluY29tZSwgbm9uLWluc3VyZWQvdW5kZXItaW5zdXJlZCwgaGV0ZXJvc2V4dWFsLCBnYXksIGxlc2JpYW4sIHRyYW5zZ2VuZGVyLCBhbmQgYmlzZXh1YWwgQWZyaWNhbiBBbWVyaWNhbiwgYW5kIExhdGluby9hIHN1YnN0YW5jZSBhYnVzZXJzLiBTZXJ2aWNlcyBpbmNsdWRlOiBhc3Nlc3NtZW50cyBmb3IgbWVkaWNhbCBhbmQgbWVudGFsIGhlYWx0aCBwcm9ibGVtcywgaW5kaXZpZHVhbC9ncm91cCBhZGRpY3Rpb24gY291bnNlbGluZywgY2hlbWljYWwgZGVwZW5kZW5jeSBlZHVjYXRpb24sIHJlbGFwc2UgcHJldmVudGlvbiwgZGUtaW5zdGl0dXRpb25hbGl6YXRpb24sIGFuZ2VyIG1hbmFnZW1lbnQsIGNvbmZsaWN0IHJlc29sdXRpb24sIG1lZGljYXRpb24gYWRoZXJlbmNlL21hbmFnZW1lbnQsIGNhc2UgbWFuYWdlbWVudC9yZWZlcnJhbHMsIGhlYWx0aC9udXRyaXRpb24gZWR1Y2F0aW9uLCBISVYgcHJldmVudGlvbiBhbmQgcmlzayByZWR1Y3Rpb24sIEhJViBwZWVyIGVkdWNhdGlvbiBhbmQgc3VwcG9ydCBncm91cHMsIGFzIHdlbGwgYXMgcGh5c2ljYWwgZml0bmVzcyBhbmQgc3RyZXNzIHJlZHVjdGlvbi4NCjxiciAvPg0KPGJyIC8+DQpSZWZlcnJhbHMgYXJlIGNvb3JkaW5hdGVkIHRocm91Z2ggQ1NPU0EsIFBTQSBhbmQgSFVELjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM3MDEeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQUJqF/+3ZZo4u1zOWnrv6FSvwxJw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLkyfClCQKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAYT3ZDWmDhArGuklKmDK0yl7+hOt" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1140 North Capitol Street, NW Washington  DC " id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Safe Haven Outreach Ministry, Inc." id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1140 North Capitol Street, NW Washington , DC </span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 589-0804<br /><b>Phone No2:</b>(202) 589-1505<br /><b>Fax No:</b>(202) 589-1534<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.safehavenoutreachministry.org/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Substance Abuse<br \><b>Services : </b> Substance abuse treatment<br \><b>Type Of Care : </b> Residential long-term treatment (more than 30 days), Residential short-term treatment (30 days or less)<br \><b>Program : </b> Anger management, Co-occurring mental illness &amp; substance abuse disorders, Trauma--sexual abuse/PTSD/victims of crime<br \><b>Population : </b> Criminal justice involved, Lesbian, Gay, Bisexual, Transgender &amp; Sexual Minorities, Men, Persons with HIV/AIDS, Persons with intellectual disability, Persons with physical disability, Under age 21, Women<br \><b>Forms Of Payment : </b> Access to recovery voucher, Public funding<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Single, dual and triply diagnosed ex-offenders with substance abuse issues.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>Referrals are coordinated through CSOSA, PSA and HUD.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Safe Haven Outreach Ministry, Inc. (SHOM) works to improve the quality and longevity of life for its' single, dual or multiple diagnosed program participants. This is successfully accomplished by provision of "non-stop" comprehensive, holistic service delivery. The continuity of care modalities include: outreach and prevention; emergency crisis intervention; referral and/or intake into Safe Haven's residential substance treatment; transition; faith-based transition; outpatient aftercare services inclusive of bio-psycho-social assessment; primary medical; mental health; case management; risk reduction/education; and literacy and housing placement services.
+<br />
+<br />
+SHOM's substance abuse treatment program for single, dual, and triply diagnosed ex-offenders who are generally chronic, long-term, middle-aged, unskilled, homeless, street-oriented, and newly HIV-infected, IDUs and "crack" cocaine abusers. Clients are indigent, low-income, non-insured/under-insured, heterosexual, gay, lesbian, transgender, and bisexual African American, and Latino/a substance abusers. Services include: assessments for medical and mental health problems, individual/group addiction counseling, chemical dependency education, relapse prevention, de-institutionalization, anger management, conflict resolution, medication adherence/management, case management/referrals, health/nutrition education, HIV prevention and risk reduction, HIV peer education and support groups, as well as physical fitness and stress reduction.
+<br />
+<br />
+Referrals are coordinated through CSOSA, PSA and HUD.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

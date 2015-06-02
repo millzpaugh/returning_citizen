@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUzNjAxIFRheWxvciBTdHJlZXQgQnJlbnR3b29kIE1EIDIwNzIyZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjM2MDEgVGF5bG9yIFN0cmVldCBCcmVudHdvb2QsIE1EIDIwNzIyZGQCAw8PFgIfAgVPPGJyIC8+PGI+UGhvbmUgTm86PC9iPigzMDEpIDc3OS0yMTAwPGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMzAxKSA3MzEtMTIwMzxiciAvPmRkAgUPDxYCHwIFMTxiPldlYnNpdGU6IDwvYj5mYW1pbHljcmlzaXNjZW50ZXItcGdjby5vcmc8YnIgLz5kZAIHDw8WAh8CBdEDPGI+Q2F0ZWdvcnkgOiA8L2I+IEhvdXNpbmcsIE1lbnRhbCBIZWFsdGg8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWVudGFsIGhlYWx0aCB0cmVhdG1lbnQsIFNoZWx0ZXJzPGJyIFw+PGI+VHlwZSBPZiBDYXJlIDogPC9iPiBPdXRwYXRpZW50PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQW5nZXIgbWFuYWdlbWVudCwgRG9tZXN0aWMgVmlvbGVuY2U8YnIgXD48Yj5Qb3B1bGF0aW9uIDogPC9iPiBDcmltaW5hbCBqdXN0aWNlIGludm9sdmVkLCBNZW4sIFVuZGVyIGFnZSAxOCwgV29tZW48YnIgXD48Yj5Gb3JtcyBPZiBQYXltZW50IDogPC9iPiBQcml2YXRlIGhlYWx0aCBpbnN1cmFuY2UsIFB1YmxpYyBmdW5kaW5nLCBTZWxmLXBheW1lbnQ8YnIgXD48Yj5QYXltZW50IEFzc2lzdGFuY2UgOiA8L2I+IFNsaWRpbmcgZmVlIHNjYWxlIChGZWUgaXMgYmFzZWQgb24gaW5jb21lICZhbXA7IG90aGVyIGZhY3RvcnMpPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBXQ8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPk1lbiwgV29tZW4gYW5kIENoaWxkcmVuIGV4cGVyaWVuY2luZyBkb21lc3RpYyB2aW9sZW5jZSBpbiBQcmluY2UgR2VvcmdlJ3MgQ291bnR5LjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWuFjxiPkRlc2NyaXB0aW9uOiA8L2I+RmFtaWx5IENyaXNpcyBDZW50ZXIgKEZDQykgaXMgYSBwcml2YXRlLCA1MDEgKGMpIDMgbm9uLXByb2ZpdCwgaHVtYW4gc2VydmljZSBvcmdhbml6YXRpb24gdGhhdCBwcm92aWRlcyBhIHNhZmUgaG91c2UgZm9yIHZpY3RpbXMgb2YgYWJ1c2UsIGFuZCBpcyB0aGUgcHJpbWFyeSBzZXJ2aWNlIHByb3ZpZGVyIHRvIGZhbWlsaWVzIGV4cGVyaWVuY2luZyBkb21lc3RpYyB2aW9sZW5jZSBpbiBQcmluY2UgR2VvcmdlJ3MgQ291bnR5LiBUaGUgYWdlbmN5IHByb3ZpZGVzIG51bWVyb3VzIHByb2dyYW1zIHRvIG1lZXQgdGhlIG5lZWRzIG9mIHdvbWVuIGFuZCBjaGlsZHJlbiB0aGF0IGFyZSBleHBlcmllbmNpbmcgZG9tZXN0aWMgdmlvbGVuY2UgaW4gaW50aW1hdGUgcGFydG5lciByZWxhdGlvbnNoaXBzLiBNb3N0IHByb2dyYW1zIGFyZSBmcmVlLCBhbmQgdGhvc2UgdGhhdCBhcmUgbm90IHJlcXVpcmUgYSB2ZXJ5IG1pbmltYWwgZmVlLg0KPGJyIC8+DQo8YnIgLz4NCk1FTlRBTCBIRUFMVEggU0VSVklDRVMNCjxiciAvPg0KRkNDIG9mZmVycyBzZXJ2aWNlcyB0aHJvdWdoIGFuZ2VyIG1hbmFnZW1lbnQgY291cnNlcyBpbiB0aGUgZm9sbG93aW5nIGFyZWFzOiBOb24tRG9tZXN0aWMgVmlvbGVuY2UgQW5nZXIgTWFuYWdlbWVudCBhbmQgRmVtYWxlIEFidXNlIEludGVydmVudGlvbiBQcm9ncmFtLiANClRoZSBOb24tRG9tZXN0aWMgVmlvbGVuY2UgQW5nZXIgTWFuYWdlbWVudC0tIE5vbi1EViBBbmdlciBNYW5hZ2VtZW50IGlzIGEgMTIgd2VlayBwcm9ncmFtIHRoYXQgZm9jdXNlcyBvbiBoYW5kbGluZyBjb25mbGljdCBiZXR3ZWVuIHR3byBwZW9wbGUgd2hvIGFyZSBub3QgaW4gYW4gaW50aW1hdGUgcmVsYXRpb25zaGlwIChleGFtcGxlOiBwYXJlbnQgdG8gY2hpbGQ7IGJyb3RoZXIgYW5kIHNpc3Rlcjsgc2lzdGVyIGFuZCBzaXN0ZXI7IHN0cmFuZ2VyIGFuZCBzdHJhbmdlcikuIFBhcnRpY2lwYW50cyBhcmUgcmVxdWlyZWQgdG8gYnJpbmcgJDM1LCBhbGwgcGVydGluZW50IGNvdXJ0IGRvY3VtZW50cywgYW5kIHBob3RvIGlkZW50aWZpY2F0aW9uLiBQYXJ0aWNpcGFudHMgbXVzdCBhbHNvIGJyaW5nIHByb29mIG9mIGluY29tZS4gUGFydGljaXBhbnRzIGFyZSBnaXZlbiBjcmVkaXQgZm9yIG9yaWVudGF0aW9uIGFuZCB3aWxsIHJldHVybiBvbiB0aGUgZm9sbG93aW5nIHdlZWsgdG8gYmVnaW4gdGhlIHJlbWFpbmluZyAxMSB3ZWVrIHByb2dyYW0uDQo8YnIgLz4NCjxiciAvPg0KRkFNSUxZIEFCVVNFIElOVEVSVkVOVElPTiBQUk9HUkFNDQo8YnIgLz4NClRoZSBGZW1hbGUgQWJ1c2UgSW50ZXJ2ZW50aW9uIFByb2dyYW0tIGlzIGEgMjQgd2VlayBBYnVzZXIgSW50ZXJ2ZW50aW9uIHByb2dyYW0gZm9yIGZlbWFsZXMgb3ZlciB0aGUgYWdlIG9mIDE4IHdobyBoYXZlIGJlZW4gY2hhcmdlZCB3aXRoIGFuIGFzc2F1bHQgd2l0aCBhbiBpbnRpbWF0ZSBwYXJ0bmVyIChleGFtcGxlOiBodXNiYW5kL3dpZmU7IGZvcm1lciBnaXJsZnJpZW5kOyBib3lmcmllbmQ7IHNhbWUgc2V4IHJlbGF0aW9uc2hpcHMpLiBUaGVyZSBpcyBhIGZlZSBpbnZvbHZlZCB3aXRoIHBhcnRpY2lwYXRpb24gaW4gdGhpcyBwcm9ncmFtLiBGZWVzIGFyZSBiYXNlZCBvbiBhIHNsaWRpbmcgc2NhbGUgYW5kIGFyZSBkZXRlcm1pbmVkIGF0IGludGFrZS4gQ2xpZW50cyBhcmUgcmVxdWlyZWQgdG8gYnJpbmcgcHJvb2Ygb2YgaW5jb21lIHRvIHRoZWlyIGludGFrZSBhcHBvaW50bWVudC4NCjxiciAvPg0KPGJyIC8+DQpOT04tUkVTSURFTlRJQUwgUEFSVElDSVBBTlRTDQo8YnIgLz4NCkZvciBub24tcmVzaWRlbnRpYWwgcGFydGljaXBhbnRzLCB0aGUgRmFtaWx5IFZpb2xlbmNlIEludGVydmVudGlvbiBDbGluaWMgKEZBTVZJQykgcHJvdmlkZXMgaW50ZW5zaXZlIGdyb3VwIHRoZXJhcHkgc2Vzc2lvbnMsIHNlcGFyYXRlbHkgZm9yIHZpY3RpbXMgYW5kIHBlcnBldHJhdG9ycyBvZiB2aW9sZW5jZSwgdGhhdCBhcmUgZGVzaWduZWQgdG8gYXNzZXNzIGFuZCBwcm92aWRlIHRyZWF0bWVudCB0byByZWR1Y2UgdGhlIGluY2lkZW5jZSBvZiBkb21lc3RpYyB2aW9sZW5jZSBpbiBvdXIgY29tbXVuaXRpZXMuIFRoZXNlIGNsYXNzZXMgYXJlIGhlbGQgYXQgY29udmVuaWVudCB0aW1lcyB0byBhbGxvdyB0aG9zZSB0aGF0IHdvcmsgdG8gYXR0ZW5kIHRoZSAyNi13ZWVrIHByb2dyYW0uIE1hbnkgb2YgdGhlIHBlcnNvbnMgYXR0ZW5kaW5nIHRoZXNlIGNsYXNzZXMgYXJlIGNvdXJ0IG1hbmRhdGVkLiAgQ2xhc3NlcyBhcmUgdXN1YWxseSBzbWFsbCBhbmQgcGVyc29uYWJsZSBzbyB0aGF0IHRoZXJlIGlzIGEgZ29vZCBleGNoYW5nZSBiZXR3ZWVuIHRoZSBwYXJ0aWNpcGFudHMuDQo8YnIgLz4NCjxiciAvPg0KU0FURUxMSVRFIE9GRklDRQ0KPGJyIC8+DQpUaGUgRmFtaWx5IENyaXNpcyBDZW50ZXIgYWxzbyBoYXMgYSBzYXRlbGxpdGUgb2ZmaWNlIGxvY2F0ZWQgaW4gTGFuZ2xleSBQYXJrLCBNYXJ5bGFuZCB0byBwcm92aWRlIFNlcnZpY2VzIGluIFNwYW5pc2ggZm9yIExhdGluYSBTdXJ2aXZvcnMgb2YgZG9tZXN0aWMgdmlvbGVuY2UsIGFuZCB0byBzZXJ2ZSB0aGUgSGlzcGFuaWMgcG9wdWxhdGlvbiBpbiB0aGF0IGFyZWEuIEV4cGVyaWVuY2VkIGNvdW5zZWxvcnMgY29uZHVjdCBTdXJ2aXZvcnMnIG9yaWVudGF0aW9uIHNlc3Npb25zLCBpbnRha2VzLCBhbmQgY291bnNlbGluZyBzdXBwb3J0IGdyb3Vwcy4gRmVtYWxlIHN1cnZpdm9ycyBpbnRlcmVzdGVkIGluIHRoZXNlIHNlcnZpY2VzIHNob3VsZCBjb250YWN0IHRoZSBtYWluIG9mZmljZSBpbiBCcmVudHdvb2QgYXQgKDMwMSk3NzktMjEwMCB0byByZXF1ZXN0IGFuIGFwcG9pbnRtZW50LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQMyOTUeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQJH52m+0zTDSdt5+4JGKV7Q0nyQQ==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLRt6aEBwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAXV4yR6pXiSpStmCPABmpDoJxpkz" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="3601 Taylor Street Brentwood MD 20722" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Family Crisis Center, Inc. of P.G. County" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">3601 Taylor Street Brentwood, MD 20722</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 779-2100<br /><b>Phone No2:</b>(301) 731-1203<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>familycrisiscenter-pgco.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Mental Health<br \><b>Services : </b> Mental health treatment, Shelters<br \><b>Type Of Care : </b> Outpatient<br \><b>Program : </b> Anger management, Domestic Violence<br \><b>Population : </b> Criminal justice involved, Men, Under age 18, Women<br \><b>Forms Of Payment : </b> Private health insurance, Public funding, Self-payment<br \><b>Payment Assistance : </b> Sliding fee scale (Fee is based on income &amp; other factors)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men, Women and Children experiencing domestic violence in Prince George's County.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Family Crisis Center (FCC) is a private, 501 (c) 3 non-profit, human service organization that provides a safe house for victims of abuse, and is the primary service provider to families experiencing domestic violence in Prince George's County. The agency provides numerous programs to meet the needs of women and children that are experiencing domestic violence in intimate partner relationships. Most programs are free, and those that are not require a very minimal fee.
+<br />
+<br />
+MENTAL HEALTH SERVICES
+<br />
+FCC offers services through anger management courses in the following areas: Non-Domestic Violence Anger Management and Female Abuse Intervention Program. 
+The Non-Domestic Violence Anger Management-- Non-DV Anger Management is a 12 week program that focuses on handling conflict between two people who are not in an intimate relationship (example: parent to child; brother and sister; sister and sister; stranger and stranger). Participants are required to bring $35, all pertinent court documents, and photo identification. Participants must also bring proof of income. Participants are given credit for orientation and will return on the following week to begin the remaining 11 week program.
+<br />
+<br />
+FAMILY ABUSE INTERVENTION PROGRAM
+<br />
+The Female Abuse Intervention Program- is a 24 week Abuser Intervention program for females over the age of 18 who have been charged with an assault with an intimate partner (example: husband/wife; former girlfriend; boyfriend; same sex relationships). There is a fee involved with participation in this program. Fees are based on a sliding scale and are determined at intake. Clients are required to bring proof of income to their intake appointment.
+<br />
+<br />
+NON-RESIDENTIAL PARTICIPANTS
+<br />
+For non-residential participants, the Family Violence Intervention Clinic (FAMVIC) provides intensive group therapy sessions, separately for victims and perpetrators of violence, that are designed to assess and provide treatment to reduce the incidence of domestic violence in our communities. These classes are held at convenient times to allow those that work to attend the 26-week program. Many of the persons attending these classes are court mandated.  Classes are usually small and personable so that there is a good exchange between the participants.
+<br />
+<br />
+SATELLITE OFFICE
+<br />
+The Family Crisis Center also has a satellite office located in Langley Park, Maryland to provide Services in Spanish for Latina Survivors of domestic violence, and to serve the Hispanic population in that area. Experienced counselors conduct Survivors' orientation sessions, intakes, and counseling support groups. Female survivors interested in these services should contact the main office in Brentwood at (301)779-2100 to request an appointment.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

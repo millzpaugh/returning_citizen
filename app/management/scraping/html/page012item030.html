@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSkxMjI1MC1DIFdpbGtpbnMgQXZlbnVlIFJvY2t2aWxsZSBNRCAyMDg1MmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSoxMjI1MC1DIFdpbGtpbnMgQXZlbnVlIFJvY2t2aWxsZSwgTUQgMjA4NTJkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDMwMSkgOTg0LTc3NjU8YnIgLz48Yj5GYXggTm86PC9iPigzMDEpIDk4NC0wOTAyPGJyIC8+ZGQCBQ8PFgIfAgUmPGI+V2Vic2l0ZTogPC9iPnd3dy5tYXdjdHIuaW5mby88YnIgLz5kZAIHDw8WAh8CBcsBPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IERheSBwcm9ncmFtcy9Ecm9wLWluIGNlbnRlcnMsIE51dHJpdGlvbmFsIHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gRnJlZSBtZWFscy9Tb3VwIGtpdGNoZW5zPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gV29tZW48YnIgXD5kZAIJDw8WAh8CBVw8Yj5TcGVjaWFsIExhbmd1YWdlIFNlcnZpY2VzOjwvYj5BU0wgb3Igb3RoZXIgYXNzaXN0YW5jZSBmb3IgaGVhcmluZyBpbXBhaXJlZCwgU3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBXE8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5EYXkgU2hlbHRlcjogTW9uZGF5IC0gRnJpZGF5IDg6MDAgYW0gdG8gNjowMCBwbTsgc2VlIGJlbG93IGZvciBhZGRpdGlvbmFsIGhvdXJzLjxiciAvPmRkAg8PDxYCHwJlZGQCEQ8PFgIfAmVkZAITDw8WAh8CBYMLPGI+RGVzY3JpcHRpb246IDwvYj5UaGUgTW9udGdvbWVyeSBBdmVudWUgV29tZW7igJlzIENlbnRlciBpcyBhIHVuaXF1ZSBkYXkgcHJvZ3JhbSB0byB0aGUgbW9zdCB2dWxuZXJhYmxlIHdvbWVuIGluIHRoZSBSb2NrdmlsbGUsIE1hcnlsYW5kIGNvbW11bml0eS4gVGhlIHdvbWFuIGFyZSB1c3VhbGx5IGZhY2VkIHdpdGggdGhlIGNoYWxsZW5nZSBvZiBiZWluZyBob21lbGVzcywgYnV0IHRocm91Z2ggdGhlIFdvbWVu4oCZcyBDZW50ZXJzIG1pc3NpbmcgdGhlIHByb2dyYW0gaGVscHMgdG8gZW1wb3dlciBlYWNoIGluZGl2aWR1YWwgd29tYW4gd2l0aCBhY2Nlc3MgdG8gc3VwcG9ydGl2ZSBzZXJ2aWNlcyBhbmQgbGlmZXN0eWxlIG9wdGlvbnMgdGhhdCBjYW4gZW5oYW5jZSBoZXIgc2FmZXR5IGFuZCB3ZWxsLWJlaW5nLiBUaGUgcHJvZ3JhbSBpcyBkZXNpZ25lZCB0byBoZWxwIHdvbWVuIGJlY29tZSBzZWxmLXN1ZmZpY2llbnQgYW5kIGluY2x1ZGVzIGRhaWx5IGNvdXJzZSB3b3JrLCBncm91cCBzZXNzaW9ucywgY291bnNlbGluZyBhbmQgbGlmZSBza2lsbHMgY291cnNlLiBUaGUgQ2VudGVyIHByb3ZpZGVzIHdvbWVuIHdpdGggYSBzZXJ2aWNlIGVudmlyb25tZW50IHRoYXQgaXMgY2xlYW4sIGhlYWx0aHksIGNhcmluZyBhbmQgcGxlYXNhbnQsIHVzaW5nIGNhc2UgbWFuYWdlbWVudCBhbmQgc3VwcG9ydGl2ZSBzZXJ2aWNlcy4NCjxiciAvPg0KPGJyIC8+DQpEYXkgYWN0aXZpdGllcyBpbmNsdWRlOiBzdWJzdGFuY2UgYWJ1c2UgY291bnNlbGluZzsgbGlmZSBza2lsbHM7IGpvYiByZWFkaW5lc3MgYW5kIA0KY29tcHV0ZXIgY2xhc3NlczsgeW9nYTsgY3JvY2hldGluZzsgamV3ZWxyeSBtYWtpbmcgYW5kIGdhbWVzLiAgUmVmZXJyYWxzIGFyZSBhY2NlcHRlZCBmcm9tIHBvbGljZSBhbmQgb3RoZXIgYWdlbmNpZXMuIFNob3dlcnMgYW5kIGxhdW5kcnkgaXMgYXZhaWxhYmxlLChzZXZlbiBkYXlzIHdlZWspIGZvciBzdHJlZXQgaG9tZWxlc3Mgb25seS4gU2VydmljZXMgYXJlIGhhbmRpY2FwIGFjY2Vzc2libGUgYW5kIHRoZSBuZWFyZXN0IE1ldHJvIFN0YXRpb24gaXMgVHdpbmJyb29rIE1ldHJvIHN0YXRpb24sIG9yIE1ldHJvIGJ1cyBsaW5lOiBKNS4gDQo8YnIgLz4NCjxiciAvPg0KSG91cnMgb2YgT3BlcmF0aW9uOg0KPGJyIC8+DQpEYXkgU2hlbHRlci4gTW9uZGF5IC0gRnJpZGF5IDg6MDAgYW0gdG8gNjowMCBwbTsgYW5kIFNhdHVyZGF5LVN1bmRheSA4OjAwIGFtIHRvIDI6MDAgcG07ICANCjxiciAvPg0KQnJlYWtmYXN0IFN0cmVldCAoaG9tZWxlc3Mgd29tZW4gb25seSkgODowMCBhbSAtIDk6MDAgYW07IA0KPGJyIC8+DQpMdW5jaCAxMjowMCBub29uIHRvIDE6MDAgcG07IA0KPGJyIC8+DQpTbmFjayBNb25kYXkgLSBGcmlkYXkgMzowMCBwbSB0byA0OjAwIHBtLjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQM1MjgeDlBhcmFtZXRlclZhbHVlZBYBAgNkZBgBBQlGb3JtVmlldzIPFCsAB2RkZGRkFgACAWQvZnM1SAyRphj2ZYq3cYIcncqyWA==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKb9uD8CgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAZ8orRCkZR5USQd6VLO6iW1qeIIz" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="12250-C Wilkins Avenue Rockville MD 20852" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Montgomery Avenue Women’s Center" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">12250-C Wilkins Avenue Rockville, MD 20852</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(301) 984-7765<br /><b>Fax No:</b>(301) 984-0902<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.mawctr.info/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing<br \><b>Services : </b> Day programs/Drop-in centers, Nutritional services<br \><b>Program : </b> Free meals/Soup kitchens<br \><b>Population : </b> Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Day Shelter: Monday - Friday 8:00 am to 6:00 pm; see below for additional hours.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Montgomery Avenue Women’s Center is a unique day program to the most vulnerable women in the Rockville, Maryland community. The woman are usually faced with the challenge of being homeless, but through the Women’s Centers missing the program helps to empower each individual woman with access to supportive services and lifestyle options that can enhance her safety and well-being. The program is designed to help women become self-sufficient and includes daily course work, group sessions, counseling and life skills course. The Center provides women with a service environment that is clean, healthy, caring and pleasant, using case management and supportive services.
+<br />
+<br />
+Day activities include: substance abuse counseling; life skills; job readiness and 
+computer classes; yoga; crocheting; jewelry making and games.  Referrals are accepted from police and other agencies. Showers and laundry is available,(seven days week) for street homeless only. Services are handicap accessible and the nearest Metro Station is Twinbrook Metro station, or Metro bus line: J5. 
+<br />
+<br />
+Hours of Operation:
+<br />
+Day Shelter. Monday - Friday 8:00 am to 6:00 pm; and Saturday-Sunday 8:00 am to 2:00 pm;  
+<br />
+Breakfast Street (homeless women only) 8:00 am - 9:00 am; 
+<br />
+Lunch 12:00 noon to 1:00 pm; 
+<br />
+Snack Monday - Friday 3:00 pm to 4:00 pm.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

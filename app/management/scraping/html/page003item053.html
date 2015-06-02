@@ -1,0 +1,180 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSk0MDEwIFJhbmRvbHBoIFJvYWQgU2lsdmVyIFNwcmluZyBNRCAyMDkwMmRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBSo0MDEwIFJhbmRvbHBoIFJvYWQgU2lsdmVyIFNwcmluZywgTUQgMjA5MDJkZAIDDw8WAh8CBU48Yj5Db250YWN0IFBlcnNvbjo8L2I+UGFtZWxhIEFtYnJvc2U8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDI0MCkgNzc3LTgwNzE8YnIgLz5kZAIFDw8WAh8CBTA8Yj5XZWJzaXRlOiA8L2I+d3d3Lm1vbnRnb21lcnljb3VudHltZC5nb3Y8YnIgLz5kZAIHDw8WAh8CBcoBPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtcGxveW1lbnQgJmFtcDsgVm9jYXRpb25hbCBUcmFpbmluZzxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBFbXBsb3ltZW50IHNlcnZpY2VzPGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gU2Vhc29uYWwgZW1wbG95bWVudDxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IE1lbiwgV29tZW4sIFlvdXRoICgxMiAtIDI0KTxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwJlZGQCDw8PFgIfAgU+PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5NZW4sIHdvbWVuIGFuZCB5b3V0aCAoMTUrKS48YnIgLz5kZAIRDw8WAh8CZWRkAhMPDxYCHwIF2g08Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBEZXBhcnRtZW50IG9mIFJlY3JlYXRpb24sIEFxdWF0aWNzIFRlYW0sIGluIE1vbnRnb21lcnkgQ291bnR5IE1ELCBzZWVrcyBwb29sIGF0dGVuZGFudHMgYW5kIGxpZmVndWFyZHMuIEFwcGxpY2FudHMgc2hvdWxkIGJlIGF0IGxlYXN0IDE1IHlycyBvbGQgKG9yIG9sZGVyKS4gVG8gYXBwbHksIGFwcGxpY2F0aW9ucyBhcmUgYXZhaWxhYmxlIG9ubGluZSBhdDogd3d3Lm1vbnRnb21lcnljb3VudHltZC5nb3Ygb3IgdmlzaXQ6IERlcGFydG1lbnQgb2YgUmVjcmVhdGlvbiwgQXF1YXRpY3MgVGVhbSwgNDAxMCBSYW5kb2xwaCBSb2FkLCBTUywgTUQgMjA5MDIuDQo8YnIgLz4NCjxiciAvPg0KVGhlIHBvc2l0aW9ucyB0aGF0IHRoZSBEZXBhcnRtZW50IG9mIFJlY3JlYXRpb24sIEFxdWF0aWNzIFRlYW0gaXMgY3VycmVudGx5IGhpcmluZyBmb3IgYXJlIGRldGFpbGVkIGJlbG93Og0KPGJyIC8+DQo8YnIgLz4NClBvb2wgQXR0ZW5kYW50IOKAkyBQZXJmb3JtcyByb3V0aW5lIHRhc2tzIGFzc29jaWF0ZWQgd2l0aCB2YXJpb3VzIGFjdGl2aXRpZXMgYXQgYSBwb29sIGZhY2lsaXR5IGluY2x1ZGluZyBjbGVhbmluZyBhbmQgbWFpbnRlbmFuY2UuIE1heSBhc3Npc3QgZ3VhcmQgc3RhZmYgaW4gdGhlIHBvb2wgYXJlYSB3aXRoIGNyb3dkIGNvbnRyb2wuIFNvY2lhbCBzZWN1cml0eSBjYXJkIGFuZCB3b3JrIHBlcm1pdCBpcyByZXF1aXJlZC4gU3dpbW1pbmcgc2tpbGxzIGFyZSByZXF1aXJlZC4gQXBwbGljYW50cyBtdXN0IGJlIHdpbGxpbmcgdG8gdGFrZSBMaWZlZ3VhcmQgVHJhaW5pbmcuDQpTYWxhcnkgcmFuZ2UgJDguODQgdG8gJDkuODIgcGVyIGhvdXINCjxiciAvPg0KPGJyIC8+DQpMaWZlZ3VhcmQgLSBNdXN0IGhvbGQgY3VycmVudCBsaWZlZ3VhcmQgY2VydGlmaWNhdGlvbiwgQ1BSL0FFRCBhbmQgRmlyc3QgQWlkIGZyb20gdGhlIEFtZXJpY2FuIFJlZCBDcm9zcywgWU1DQSwgb3Igb3RoZXIgYWdlbmN5IGFwcHJvdmVkIGJ5IHRoZSBNb250Z29tZXJ5IENvdW50eSBIZWFsdGggRGVwYXJ0bWVudC4gU3VwZXJ2aXNlcyBwYXRyb25zIGR1cmluZyBwdWJsaWMgc3dpbSBzZXNzaW9ucy4gRW5mb3JjZXMgaGVhbHRoIGFuZCBzYWZldHkgcnVsZXMgYW5kIHJlZ3VsYXRpb25zLCBlbnN1cmVzIHBhdHJvbiBzYWZldHkgYW5kIGFkbWluaXN0ZXJzIGFwcHJvcHJpYXRlIGFzc2lzdGFuY2UuIFBlcmZvcm1zIG1haW50ZW5hbmNlIGFuZCBjbGVhbmluZyBkdXRpZXMuIFNhbGFyeSByYW5nZSAkOS44MiB0byAkMTEuMTQgcGVyIGhvdXIuDQo8YnIgLz4NCjxiciAvPg0KTk9URTogQW55IGFwcGxpY2FudCBzZWVraW5nIGVtcGxveW1lbnQgd2l0aCBpbmRlcGVuZGVudCBhbmQgcHJpdmF0ZSBwb29scyBzaG91bGQgYXBwbHkgdGhyb3VnaDogDQo8YnIgLz4NCjxiciAvPg0KLVVTIEFxdWF0aWNzIChWaXJnaW5pYSBhbmQgTWFyeWxhbmQpIHd3dy51c2FxdWF0aWNzLm5ldCANCi1VUyBBcXVhdGljcyBpcyBhIGxpZmUgZ3VhcmQgcmVjcnVpdG1lbnQgYWdlbmN5IHRoYXQgcmVjcnVpdHMgbGlmZSBndWFyZCBhbmQgc3dpbW1pbmcgcG9vbCBzdGFmZiBmb3IgcHJpdmF0ZSBwb29scy4gDQo8YnIgLz4NCjxiciAvPg0KVVMgQXF1YXRpY3Mgd2lsbCBwYXkgZm9yIHJlcXVpcmVkIFJlZCBDcm9zcyBGaXJzdCBBaWQgY2VydGlmaWNhdGlvbiBhbmQgdGhlcmUgaXMgYSBtaW5pbXVtIHBoeXNpY2FsIHJlcXVpcmVtZW50IGZvciBVUyBBcXVhdGljcyBFbXBsb3ltZW50LjxiciAvPmRkAgIPDxYCHwFoZGQCDw8PZA8QFgFmFgEWBB4MRGVmYXVsdFZhbHVlBQIxOR4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZLcHz2YMTy3Go8et9xHtMZjRZIvk" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLNm93bDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASUzhZjDHsWmlcAwpg2rksTvCsBB" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="4010 Randolph Road Silver Spring MD 20902" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Department of Recreation, Aquatics Team" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">4010 Randolph Road Silver Spring, MD 20902</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><b>Contact Person:</b>Pamela Ambrose<br /><b>Phone No:</b>(240) 777-8071<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.montgomerycountymd.gov<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Employment &amp; Vocational Training<br \><b>Services : </b> Employment services<br \><b>Program : </b> Seasonal employment<br \><b>Population : </b> Men, Women, Youth (12 - 24)<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Men, women and youth (15+).<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Department of Recreation, Aquatics Team, in Montgomery County MD, seeks pool attendants and lifeguards. Applicants should be at least 15 yrs old (or older). To apply, applications are available online at: www.montgomerycountymd.gov or visit: Department of Recreation, Aquatics Team, 4010 Randolph Road, SS, MD 20902.
+<br />
+<br />
+The positions that the Department of Recreation, Aquatics Team is currently hiring for are detailed below:
+<br />
+<br />
+Pool Attendant – Performs routine tasks associated with various activities at a pool facility including cleaning and maintenance. May assist guard staff in the pool area with crowd control. Social security card and work permit is required. Swimming skills are required. Applicants must be willing to take Lifeguard Training.
+Salary range $8.84 to $9.82 per hour
+<br />
+<br />
+Lifeguard - Must hold current lifeguard certification, CPR/AED and First Aid from the American Red Cross, YMCA, or other agency approved by the Montgomery County Health Department. Supervises patrons during public swim sessions. Enforces health and safety rules and regulations, ensures patron safety and administers appropriate assistance. Performs maintenance and cleaning duties. Salary range $9.82 to $11.14 per hour.
+<br />
+<br />
+NOTE: Any applicant seeking employment with independent and private pools should apply through: 
+<br />
+<br />
+-US Aquatics (Virginia and Maryland) www.usaquatics.net 
+-US Aquatics is a life guard recruitment agency that recruits life guard and swimming pool staff for private pools. 
+<br />
+<br />
+US Aquatics will pay for required Red Cross First Aid certification and there is a minimum physical requirement for US Aquatics Employment.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BTI1MDMgUm9jayBDcmVlayBDaHVyY2ggUm9hZCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBTM1MDMgUm9jayBDcmVlayBDaHVyY2ggUm9hZCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBU88YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgODgyLTk2NDk8YnIgLz48Yj5QaG9uZSBObzI6PC9iPigyMDIpIDgyOS03NjI1PGJyIC8+ZGQCBQ8PFgIfAgU4PGI+V2Vic2l0ZTogPC9iPnd3dy5kY2NhdGhvbGljd29ya2VyLndvcmRwcmVzcy5jb208YnIgLz5kZAIHDw8WAh8CBaYCPGI+Q2F0ZWdvcnkgOiA8L2I+IEVtZXJnZW5jeSBGb29kLCBIb3VzaW5nLCBTb2NpYWwgU2VydmljZXM8YnIgXD48Yj5TZXJ2aWNlcyA6IDwvYj4gTWF0ZXJpYWwgbmVlZHMsIE51dHJpdGlvbmFsIHNlcnZpY2VzLCBTaGVsdGVycywgVHJhbnNpdGlvbmFsIGhvdXNpbmcvU2luZ2xlIFJvb20gT2NjdXBhbmN5PGJyIFw+PGI+UHJvZ3JhbSA6IDwvYj4gQ2xvdGhpbmcsIEVtZXJnZW5jeSBmb29kL2dyb2NlcmllczxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBXb21lbiB3aXRoIGNoaWxkcmVuPGJyIFw+ZGQCCQ8PFgIfAgUuPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+U3BhbmlzaDxiciAvPmRkAgsPDxYCHwIFKDxiPldoZWVsIENoYWlyIEFjY2Vzc2libGU8L2I+IDpZZXM8YnIgLz5kZAINDw8WAh8CBXM8Yj4gSG91cnMgT2YgU2VydmljZXM6IDwvYj5XZWRuZXNkYXlzIGZyb20gOTowMCBhbSB0byAxMTozMCBhbSAoZm9vZCBkaXN0cmlidXRpb24gYW5kIGNsb3RoaW5nIGZvciBob21lbGVzcykuPGJyIC8+ZGQCDw8PFgIfAgVxPGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Ib21lbGVzcyBtb3RoZXJzICh3LyB1cCB0byAzIGNoaWxkcmVuKS4gQWxsIGFyZSB3ZWxjb21lIGZvciBmb29kIGFuZCBjbG90aGluZy48YnIgLz5kZAIRDw8WAh8CBTI8Yj5Eb2N1bWVudGF0aW9uIE5lZWRlZDogPC9iPk5vIElEIHJlcXVpcmVkLjxiciAvPmRkAhMPDxYCHwIF6Ag8Yj5EZXNjcmlwdGlvbjogPC9iPlRoZSBEb3JvdGh5IERheSBDYXRob2xpYyBXb3JrZXIgQ29tbXVuaXR5IEhvdXNlIHNlcnZlcyBhcyBhIGZvb2QgZGlzdHJpYnV0aW9uIGFuZCBjbG90aGluZyBzZXJ2aWNlIGxvY2F0aW9uLCBvbiBXZWRuZXNkYXlzIGZyb20gOTowMCBhbSB0byAxMTozMCBhbSwgdG8gdGhlIGhvbWVsZXNzLiBUaHJvdWdoIHRoZSBob3VzaW5nIHByb2dyYW0sIHRyYW5zaXRpb25hbCBob3VzaW5nIGZvciB3b21lbiB3aXRoIGNoaWxkcmVuIGlzIGF2YWlsYWJsZSB3aXRoIHNlcnZpY2VzIG9mIGNhc2UgbWFuYWdlciAoaS5lLiByZWZlcnJhbHMgZm9yIG90aGVyIGFnZW5jeSBwcm9ncmFtcyBhbmQvb3IgZGF5IGNhcmUpLiBQb3RlbnRpYWwgcmVzaWRlbnRzIG1heSBzdGF5IGF0IGxlYXN0IDEgeWVhciBpbiB0aGUgZmFjaWxpdHkuIEFsbCByZXNpZGVudHMgbXVzdCBlaXRoZXIgYmUgaW4gc2Nob29sIG9yIHdvcmtpbmcgMjAgaG91cnMgYSB3ZWVrIChzYXZpbmcgMzAlIG9mIGFsbCBpbmNvbWUgZWFybmVkKS4gDQo8YnIgLz4NCjxiciAvPg0KSG9tZWxlc3MgZmFtaWxpZXMgKHdpdGggdXAgdG8gMyBjaGlsZHJlbikgYXJlIHRoZSB0YXJnZXRlZCBkZW1vZ3JhcGhpYy4gQWRtaXNzaW9uIGFuZCBob3VzZSBvcGVyYXRpb24gaXMgZ292ZXJuZWQgYnkgdGhlIGNvbnNlbnN1cyBvZiB0aGUgY3VycmVudCByZXNpZGVudHMuIFRoZSBob3VzZSBjYW4gYWNjb21tb2RhdGUgdXAgdG8gNSBmYW1pbGllcy4gTWVhbnMgYXJlIHByb3ZpZGVkIHdoZW4gZG9uYXRlZCwgZm9vZCBpcyBhdmFpbGFibGU7IGxhdW5kcnkgbWFjaGluZXMgYXZhaWxhYmxlOyBhbmQgdGhlcmUgYXJlIG5vIFRWJ3MgKG5vciBtYXkgYW55IHBvdGVudGlhbCByZXNpZGVudCBicmluZyBUVidzKSBhbmQgbm8gc3BhbmtpbmcgY2hpbGRyZW4uIA0KPGJyIC8+DQo8YnIgLz4NClRoZSBuZWFyZXN0IE1ldHJvIHN0YXRpb24gdG8gdGhlIGZhY2lsaXR5IGlzIEdlb3JnaWEgQXZlbnVlL1BldHdvcnRoOyBvciBNZXRybyBidXM6IDcwLzc5LCA2Mi82MywgYW5kIEg4Lg0KDQpOT1RFOiBBdCA5OjAwIGFtIHRoZSB3YWl0LWxpc3Qgb3BlbnMgdXAgYW5kIG5hbWVzIGFyZSBwbGFjZWQgb24gdGhlIHdhaXQtbGlzdC48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMTQ0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkig45KZgIoks+qgsffWim48+sfaE=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLB0KChDAKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qAcEHy+5qK2jeyHadIQOBZqxIeFH9" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="503 Rock Creek Church Road, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Dorothy Day Catholic Worker Community House" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">503 Rock Creek Church Road, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 882-9649<br /><b>Phone No2:</b>(202) 829-7625<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.dccatholicworker.wordpress.com<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Emergency Food, Housing, Social Services<br \><b>Services : </b> Material needs, Nutritional services, Shelters, Transitional housing/Single Room Occupancy<br \><b>Program : </b> Clothing, Emergency food/groceries<br \><b>Population : </b> Families, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Wednesdays from 9:00 am to 11:30 am (food distribution and clothing for homeless).<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Homeless mothers (w/ up to 3 children). All are welcome for food and clothing.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"><b>Documentation Needed: </b>No ID required.<br /></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The Dorothy Day Catholic Worker Community House serves as a food distribution and clothing service location, on Wednesdays from 9:00 am to 11:30 am, to the homeless. Through the housing program, transitional housing for women with children is available with services of case manager (i.e. referrals for other agency programs and/or day care). Potential residents may stay at least 1 year in the facility. All residents must either be in school or working 20 hours a week (saving 30% of all income earned). 
+<br />
+<br />
+Homeless families (with up to 3 children) are the targeted demographic. Admission and house operation is governed by the consensus of the current residents. The house can accommodate up to 5 families. Means are provided when donated, food is available; laundry machines available; and there are no TV's (nor may any potential resident bring TV's) and no spanking children. 
+<br />
+<br />
+The nearest Metro station to the facility is Georgia Avenue/Petworth; or Metro bus: 70/79, 62/63, and H8.
+
+NOTE: At 9:00 am the wait-list opens up and names are placed on the wait-list.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

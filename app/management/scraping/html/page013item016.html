@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSYxNDQ4IFBhcmsgUm9hZCwgTlcgV2FzaGluZ3RvbiBEQyAyMDAxMGRkAg0PPCsACgEADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkFgJmD2QWBmYPDxYCHwFoZGQCAQ9kFgJmD2QWFAIBDw8WAh8CBScxNDQ4IFBhcmsgUm9hZCwgTlcgV2FzaGluZ3RvbiwgREMgMjAwMTBkZAIDDw8WAh8CBUw8YnIgLz48Yj5QaG9uZSBObzo8L2I+KDIwMikgMzMyLTE1MDU8YnIgLz48Yj5GYXggTm86PC9iPigyMDIpIDMzMi01Nzg3PGJyIC8+ZGQCBQ8PFgIfAgVgPGI+V2Vic2l0ZTogPC9iPnd3dy5uY2NmLWNhcmVzLm9yZy9mYW1pbHktc2VydmljZXMvbmV3LWJlZ2lubmluZy10ZW1wb3JhcnktZmFtaWx5LXNoZWx0ZXIvPGJyIC8+ZGQCBw8PFgIfAgWbATxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nPGJyIFw+PGI+U2VydmljZXMgOiA8L2I+IFRyYW5zaXRpb25hbCBob3VzaW5nL1NpbmdsZSBSb29tIE9jY3VwYW5jeTxiciBcPjxiPlBvcHVsYXRpb24gOiA8L2I+IEZhbWlsaWVzLCBXb21lbiB3aXRoIGNoaWxkcmVuPGJyIFw+ZGQCCQ8PFgIfAgVcPGI+U3BlY2lhbCBMYW5ndWFnZSBTZXJ2aWNlczo8L2I+QVNMIG9yIG90aGVyIGFzc2lzdGFuY2UgZm9yIGhlYXJpbmcgaW1wYWlyZWQsIFNwYW5pc2g8YnIgLz5kZAILDw8WAh8CBSg8Yj5XaGVlbCBDaGFpciBBY2Nlc3NpYmxlPC9iPiA6WWVzPGJyIC8+ZGQCDQ8PFgIfAmVkZAIPDw8WAh8CBXo8Yj5FbGlnaWJpbGl0eSBDcml0ZXJpYTogPC9iPkZhbWlsaWVzIGFuZCB3b21lbiB3aXRoIGNoaWxkcmVuLiBSZWZlcnJhbHMgdGhyb3VnaCBWaXJnaW5pYSBXaWxsaWFtcyBSZXNvdXJjZSBDZW50ZXIuIDxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWyBzxiPkRlc2NyaXB0aW9uOiA8L2I+VGhlIE5ldyBCZWdpbm5pbmcgVGVtcG9yYXJ5IEZhbWlseSBTaGVsdGVyIGhlbHBzIGhvbWVsZXNzIGZhbWlsaWVzIGluIHRoZSBEaXN0cmljdCBvZiBDb2x1bWJpYSB0cmFuc2l0aW9uIHRvIHBlcm1hbmVudCBob3VzaW5nIGJ5IHByb3ZpZGluZyB0aGVtIHdpdGggZW1lcmdlbmN5IHNoZWx0ZXIgYW5kIHRoZSBzdXBwb3J0aXZlIHNlcnZpY2VzIG5lY2Vzc2FyeSB0byByZWJ1aWxkIHRoZWlyIGxpdmVzLiBXaXRoIHRoZSBjb21taXRtZW50IGFuZCBkZWRpY2F0aW9uIG9mIE5ldyBCZWdpbm5pbmcgc3RhZmYgYW5kIHZvbHVudGVlcnMsIGFuZCBsb25nLXRlcm0gcGFydG5lcnNoaXBzIHdpdGggb3RoZXIgc2VydmljZSBwcm92aWRlcnMgaW4gdGhlIGNvbW11bml0eSwgZmFtaWxpZXMgcmVjZWl2ZSBzdXBwb3J0aXZlIHNlcnZpY2VzIHRoYXQgcHJvbW90ZSByZXNpZGVudGlhbCBzdGFiaWxpdHksIGluY3JlYXNlZCBza2lsbCBsZXZlbCBhbmQvb3IgaW5jb21lLCBhbmQgZ3JlYXRlciBzZWxmLWRldGVybWluYXRpb24uDQo8YnIgLz4NCjxiciAvPg0KU3VwcG9ydGl2ZSBTZXJ2aWNlcyBJbmNsdWRlOg0KPGJyIC8+DQo8YnIgLz4NClNoZWx0ZXIsIEZvb2QsIGFuZCBDbG90aGluZyA8YnIgLz4NCkluZGl2aWR1YWwsIEdyb3VwLCBhbmQgRmFtaWx5IENvdW5zZWxpbmcgPGJyIC8+DQpJbnRlbnNpdmUgQ2FzZSBNYW5hZ2VtZW50IDxiciAvPg0KUGFyZW50IEVkdWNhdGlvbiA8YnIgLz4NCkxpZmUgU2tpbGxzIFRyYWluaW5nIDxiciAvPg0KQUJFL0dFRCBJbnN0cnVjdGlvbiAoQWR1bHQgQmFzaWMgRWR1Y2F0aW9uL0dlbmVyYWwgRWR1Y2F0aW9uIERpcGxvbWEpPGJyIC8+DQpTZXJ2aWNlIFJlZmVycmFscw0KPGJyIC8+DQo8YnIgLz4NCkZvciBtb3JlIGluZm9ybWF0aW9uLCBwbGVhc2UgY29udGFjdCAoMjAyKSAzMzItMTUwNS48YnIgLz5kZAICDw8WAh8BaGRkAg8PD2QPEBYBZhYBFgQeDERlZmF1bHRWYWx1ZQUDMjM0Hg5QYXJhbWV0ZXJWYWx1ZWQWAQIDZGQYAQUJRm9ybVZpZXcyDxQrAAdkZGRkZBYAAgFkLfLnzQ6vNd8Hw26rPl73ua5Udhc=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKBnL3mAwKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qARZSPG/CBVVQo8mAnZmrHWWcuyiU" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1448 Park Road, NW Washington DC 20010" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="New Beginning (National Center for Children and Families)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1448 Park Road, NW Washington, DC 20010</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 332-1505<br /><b>Fax No:</b>(202) 332-5787<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.nccf-cares.org/family-services/new-beginning-temporary-family-shelter/<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing<br \><b>Services : </b> Transitional housing/Single Room Occupancy<br \><b>Population : </b> Families, Women with children<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Families and women with children. Referrals through Virginia Williams Resource Center. <br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>The New Beginning Temporary Family Shelter helps homeless families in the District of Columbia transition to permanent housing by providing them with emergency shelter and the supportive services necessary to rebuild their lives. With the commitment and dedication of New Beginning staff and volunteers, and long-term partnerships with other service providers in the community, families receive supportive services that promote residential stability, increased skill level and/or income, and greater self-determination.
+<br />
+<br />
+Supportive Services Include:
+<br />
+<br />
+Shelter, Food, and Clothing <br />
+Individual, Group, and Family Counseling <br />
+Intensive Case Management <br />
+Parent Education <br />
+Life Skills Training <br />
+ABE/GED Instruction (Adult Basic Education/General Education Diploma)<br />
+Service Referrals
+<br />
+<br />
+For more information, please contact (202) 332-1505.<br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>

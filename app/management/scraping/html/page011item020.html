@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Resource Locator
+</title><link href="Script_Style/CJCC.css" rel="stylesheet" type="text/css" />
+<style type="text/css"> 
+body 
+{ 
+ margin: 0; 
+ padding: 0; 
+ padding-top: 10px;
+ text-align: center; 
+ background-color:White;
+} 
+#centered
+{ 
+ width: 800px; /* set to desired width in px or percent */
+ text-align: left; /* optionally you could use "justified" */
+ border: 0px; /* Changing this value will add lines around the centered area */
+ padding: 0;  
+ margin: 0 auto; 
+} 
+</style>
+    
+
+ 
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE5mrTcM0pChibn0nj2E9rc6_bC7NMWvQ&sensor=false">
+    </script>
+ 
+ 
+<script language="javascript" type="text/javascript">
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map
+    
+    function InitializeMap() {
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'Gmap': map });//
+        var latlng = new google.maps.LatLng(17.425503, 78.47497);
+        var myOptions =
+        {
+            zoom: 23,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         map = new google.maps.Map(document.getElementById("Gmap"), myOptions);
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+       var control = document.getElementById('control');
+       control.style.display = 'block';
+
+
+    }
+
+    function calcRoute() {
+       var tt= setTimeout(calcRoute, 100);
+        if (directionsDisplay != null) {
+            
+    
+            var start = document.getElementById('SearchAddressTextBox').value;
+            var end = document.getElementById('FacilityAddressTextBox').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+            clearTimeout(tt);
+        }
+       
+    }
+
+    
+    </script> 
+    
+</head>
+<body onload="InitializeMap()" >
+    <form name="form1" method="post" action="DetailPrint.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwMjcxMTMxOTMPZBYCAgMPZBYKAgMPDxYCHgdFbmFibGVkZ2RkAgUPDxYCHgdWaXNpYmxlZ2RkAgcPDxYCHgRUZXh0BSUxMzMzIE4gU3RyZWV0LCBOVyBXYXNoaW5ndG9uIERDIDIwMDA1ZGQCDQ88KwAKAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnQCAWQWAmYPZBYGZg8PFgIfAWhkZAIBD2QWAmYPZBYUAgEPDxYCHwIFJjEzMzMgTiBTdHJlZXQsIE5XIFdhc2hpbmd0b24sIERDIDIwMDA1ZGQCAw8PFgIfAgVPPGJyIC8+PGI+UGhvbmUgTm86PC9iPigyMDIpIDM4Ny01NDY0PGJyIC8+PGI+UGhvbmUgTm8yOjwvYj4oMjAyKSAzMTktMTUwODxiciAvPmRkAgUPDxYCHwIFLDxiPldlYnNpdGU6IDwvYj53d3cubnN0cmVldHZpbGxhZ2Uub3JnPGJyIC8+ZGQCBw8PFgIfAgWUAjxiPkNhdGVnb3J5IDogPC9iPiBIb3VzaW5nLCBWb2x1bnRlZXIgT3Bwb3J0dW5pdGllczxiciBcPjxiPlNlcnZpY2VzIDogPC9iPiBUcmFuc2l0aW9uYWwgaG91c2luZy9TaW5nbGUgUm9vbSBPY2N1cGFuY3ksIFZvbHVudGVlciBvcHBvcnR1bml0aWVzPGJyIFw+PGI+UG9wdWxhdGlvbiA6IDwvYj4gUGVyc29ucyBpbiByZWNvdmVyeSwgUGVyc29ucyB3aXRoIGNvLW9jY3VycmluZyBtZW50YWwgaWxsbmVzcyAmYW1wOyBzdWJzdGFuY2UgYWJ1c2UgZGlzb3JkZXJzLCBXb21lbjxiciBcPmRkAgkPDxYCHwIFXDxiPlNwZWNpYWwgTGFuZ3VhZ2UgU2VydmljZXM6PC9iPkFTTCBvciBvdGhlciBhc3Npc3RhbmNlIGZvciBoZWFyaW5nIGltcGFpcmVkLCBTcGFuaXNoPGJyIC8+ZGQCCw8PFgIfAgUoPGI+V2hlZWwgQ2hhaXIgQWNjZXNzaWJsZTwvYj4gOlllczxiciAvPmRkAg0PDxYCHwIFaDxiPiBIb3VycyBPZiBTZXJ2aWNlczogPC9iPk1vbmRheSAtIEZyaWRheSA0OjAwIHBtIC0gNzozMCBhbTsgU2F0dXJkYXkgJiBTdW5kYXkgNDowMCBwbSAtIDk6MDAgYW0uPGJyIC8+ZGQCDw8PFgIfAgV8PGI+RWxpZ2liaWxpdHkgQ3JpdGVyaWE6IDwvYj5Xb21lbjsgTXVzdCBiZSByZWZlcnJlZCB0aHJvdWdoIGNhc2UgbWFuYWdlbWVudCBhdCBCZXRoYW55IFdvbWVuJ3MgQ2VudGVyICgyMDIpIDkzOS0yMDQyLjxiciAvPmRkAhEPDxYCHwJlZGQCEw8PFgIfAgWqBDxiPkRlc2NyaXB0aW9uOiA8L2I+THV0aGVyIFBsYWNlIE5pZ2h0IFNoZWx0ZXIgaXMgYSB0cmFuc2l0aW9uYWwgc2hlbHRlciBmb3IgdW5hdHRhY2hlZCBob21lbGVzcyB3b21lbiBwYXJ0aWNpcGF0aW5nIGluIGNhc2UgbWFuYWdlbWVudC4gV29tZW4gYXJlIHByb3ZpZGVkIHdpdGggc3Vic3RhbmNlIGFidXNlIGNvdW5zZWxpbmcgYW5kIGluZGl2aWR1YWwvZ3JvdXAvcGVlciBjb3Vuc2VsaW5nLiBUaGUgc2hlbHRlciBwcm92aWRlcyBkaW5uZXIsIHNob3dlcnMsIGFuZCBsYXVuZHJ5IHNlcnZpY2VzLiBQYXJ0aWNpcGFudHMgd2lsbCBoYXZlIGFjY2VzcyB0byBzb2NpYWwgc2VydmljZSByZWZlcnJhbHMuIFRoZSBhdmVyYWdlIHN0YXkgZm9yIGFueSBvY2N1cGFudCBtYXkgYmUgNiB0byAxMiBtb250aHMuIFdvbWVuIHdobyBoYXZlIGJlZW4gZG91YmxlIGRpYWdub3NlZCBhcmUgYWNjZXB0ZWQuIA0KPGJyIC8+DQo8YnIgLz4NClZPTFVOVEVFUiBPUFBPUlRVTklUSUVTIA0KPGJyIC8+DQpWb2x1bnRlZXJzIGFyZSBuZWVkZWQgdG8gaGVscCBzZXJ2ZSBtZWFscy4gPGJyIC8+ZGQCAg8PFgIfAWhkZAIPDw9kDxAWAWYWARYEHgxEZWZhdWx0VmFsdWUFAzIyNx4OUGFyYW1ldGVyVmFsdWVkFgECA2RkGAEFCUZvcm1WaWV3Mg8UKwAHZGRkZGQWAAIBZCrXpNu0hVh+iNkRM3ULT4J4PyDK" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKl2tvpBgKXxb7hCQLT8LGoCgLi7JPfBQLD2/nSCQKagq/qASxAXjjxVKWBvfjUk4pxcKVtUf6c" />
+    
+    
+    
+    <div id="centered">
+    Use your browser’s “back button” to return to your search results<br />
+        <span id="MessageLabel"><br />Type a starting location in the “Your Address” field in order to view a map and directions to this service provider <br /></span>
+         <b>Your Address:</b> 
+         <input name="SearchAddressTextBox" type="text" id="SearchAddressTextBox" />
+        <input type="submit" name="AddressButton" value="Get Directions" id="AddressButton" />
+     <b>Facility Address:</b> 
+         <input name="FacilityAddressTextBox" type="text" value="1333 N Street, NW Washington DC 20005" id="FacilityAddressTextBox" disabled="disabled" />
+    <input type="button" name="PrintButton" value="Print" onclick="javascript:self.print();return false;__doPostBack('PrintButton','')" id="PrintButton" />
+    <br />
+    
+   
+ <table id ="control">
+
+<tr>
+<td valign ="top" >
+<div id ="directionpanel"  style="height: 490px;overflow: auto" ></div> 
+</td>
+<td valign ="top">
+<div id ="Gmap" style="height: 490px; width: 360px"></div>
+</td>
+</tr>
+</table>
+    <br />
+<b>Facility Name: </b>
+        <input name="FacilityNameTextBox" type="text" value="Luther Place Night Shelter (N Street Village)" id="FacilityNameTextBox" border="0" />
+        <table cellspacing="0" border="0" id="FormView2">
+	<tr>
+		<td colspan="2">
+
+                 <b>Address:</b>
+                <span id="FormView2_AddressLabel">1333 N Street, NW Washington, DC 20005</span>
+                <br />
+                <span id="FormView2_Resource_PhoneNoLabel"><br /><b>Phone No:</b>(202) 387-5464<br /><b>Phone No2:</b>(202) 319-1508<br /></span>
+                    
+                      
+                     <span id="FormView2_Resource_WebsiteLabel"><b>Website: </b>www.nstreetvillage.org<br /></span>
+                    
+                
+                <span id="FormView2_HTML_CodeLabel"><b>Category : </b> Housing, Volunteer Opportunities<br \><b>Services : </b> Transitional housing/Single Room Occupancy, Volunteer opportunities<br \><b>Population : </b> Persons in recovery, Persons with co-occurring mental illness &amp; substance abuse disorders, Women<br \></span>
+                     
+                    <span id="FormView2_Special_Lng_ServiceLabel"><b>Special Language Services:</b>ASL or other assistance for hearing impaired, Spanish<br /></span>          
+                    
+                <span id="FormView2_Wheel_Chair_AccessibleLabel"><b>Wheel Chair Accessible</b> :Yes<br /></span>
+               
+                
+                <span id="FormView2_Hours_Of_ServicesLabel"><b> Hours Of Services: </b>Monday - Friday 4:00 pm - 7:30 am; Saturday & Sunday 4:00 pm - 9:00 am.<br /></span>
+               
+                
+                <span id="FormView2_Eligibility_CriteriaLabel"><b>Eligibility Criteria: </b>Women; Must be referred through case management at Bethany Women's Center (202) 939-2042.<br /></span>
+                
+                
+                <span id="FormView2_Documentation_NeededLabel"></span>
+                
+                
+                <span id="FormView2_Resource_DescriptionLabel"><b>Description: </b>Luther Place Night Shelter is a transitional shelter for unattached homeless women participating in case management. Women are provided with substance abuse counseling and individual/group/peer counseling. The shelter provides dinner, showers, and laundry services. Participants will have access to social service referrals. The average stay for any occupant may be 6 to 12 months. Women who have been double diagnosed are accepted. 
+<br />
+<br />
+VOLUNTEER OPPORTUNITIES 
+<br />
+Volunteers are needed to help serve meals. <br /></span>
+                <br />
+            </td>
+	</tr>
+</table>
+         
+    </div>
+     
+    
+<script>calcRoute()</script></form>
+</body>
+</html>
