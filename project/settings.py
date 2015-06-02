@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os, environ
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# ENVIRONMENT = environ.get('ENVIRONMENT', 'dev')
+ENVIRONMENT = os.environ.get('ENVIRONMENT', 'dev')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -59,17 +59,17 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-#
-# DATABASES = {
-#     'default':  {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'returning_citizen',
-#         'USER': 'amillspaugh',
-#         'PASSWORD': 'knew1for!',
-#         'HOST': 'returning-citizen.c0yzerzzjkbe.us-west-2.rds.amazonaws.com',
-#         'PORT': 3306,
-#     }
-# }
+
+DATABASES = {
+    'default':  {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'returning_citizen',
+        'USER': 'amillspaugh',
+        'PASSWORD': 'knew1for!',
+        'HOST': 'returning-citizen.c0yzerzzjkbe.us-west-2.rds.amazonaws.com',
+        'PORT': 3306,
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -102,7 +102,7 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-# if 'live' in ENVIRONMENT:
-#     DEBUG = False
-#     TEMPLATE_DEBUG = DEBUG
+if 'live' in ENVIRONMENT:
+    DEBUG = False
+    TEMPLATE_DEBUG = DEBUG
 
