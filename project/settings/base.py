@@ -25,7 +25,6 @@ DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
-# ALLOWED_HOSTS = ['.elasticbeanstalk.com']
 ALLOWED_HOSTS = ['*']
 
 # Application definition
