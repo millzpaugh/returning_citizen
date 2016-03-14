@@ -8,11 +8,10 @@ bin/
 app/static/.sass-cache/*
 .DS_Store
 .ipynb_checkpoints/
-.elasticbeanstalk/
 .settings/
 *.zip
 Archive/
-local_static/
+staticfiles/
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
