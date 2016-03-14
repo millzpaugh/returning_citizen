@@ -4,11 +4,9 @@ This is an open resource directory for returning citizens in the DC metro area, 
 
 <strong>The Process</strong><br>
 
-First, Aaron Schumacher and Elaine Ayo scraped data from the <a href="http://cjcc.dc.gov/">CJCC Directories</a>. You can view this code in the Django management commands <a href="https://github.com/millzpaugh/returning_citizen/tree/master/app/management/scraping">here</a>.
+First, Aaron Schumacher and Elaine Ayo scraped data from the <a href="http://cjcc.dc.gov/">CJCC Directories</a>. You can view this code in the Django management commands <a href="https://github.com/millzpaugh/returning_citizen/tree/master/app/management/scraping">here</a>. We then converted addresses to coordinates using the Geopy library and mapped the locations of provider organizations on google maps. 
 
-Then, we converted addresses to coordinates to map locations on google maps. 
-
-This project is modeled after the <a href="www.buscandomaryland.com">Buscando project</a>, an open directory to assist Latin American children seeking refuge. 
+This project is modeled after the <a href="www.buscandomaryland.com">Buscando project</a>, an open resource directory to assist Latin American children seeking refuge. 
 
 
 
