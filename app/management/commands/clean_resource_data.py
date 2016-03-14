@@ -18,9 +18,6 @@ def clean_provider_data(provider):
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        # Location.objects.destroy_all()
-        # Provider.objects.destroy_all()
-        # Resource.objects.destroy_all()
 
         providers = Provider.objects.all()
         for p in providers:

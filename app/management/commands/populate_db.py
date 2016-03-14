@@ -5,9 +5,6 @@ from app.models import Provider, Resource, Location
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        # Location.objects.destroy_all()
-        # Provider.objects.destroy_all()
-        # Resource.objects.destroy_all()
 
         all_orgs = reader_all()
         for org in all_orgs:
@@ -38,9 +35,6 @@ class Command(BaseCommand):
                     language_services=language,
                     services=services)
 
-                # clean_provider_data(provider)
-
-
                 if provider[1] == True:
                     address=value['Address']
                     phone=value.get('Phone', 'No Phone Number Provided.'),
@@ -56,7 +50,6 @@ class Command(BaseCommand):
                         population=population
                     )
                     location.save()
-                    # clean_location_data(location)
 
                     try:
                         for resource in resources:
