@@ -51,7 +51,7 @@ class Command(BaseCommand):
                     language_services=language,
                     services=services)
 
-                clean_provider_data(provider)
+                # clean_provider_data(provider)
 
 
                 if provider[1] == True:
@@ -69,7 +69,7 @@ class Command(BaseCommand):
                         population=population
                     )
                     location.save()
-                    clean_location_data(location)
+                    # clean_location_data(location)
 
                     try:
                         for resource in resources:
